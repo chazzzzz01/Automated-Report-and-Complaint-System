@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAD Office</title>
+    <style>
+        #reports-table, #complaints-table {
+            display: none; /* Initially hidden */
+        }
+        #reports-table.visible, #complaints-table.visible {
+            display: block; /* Show when the 'visible' class is added */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .status {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>GAD Office</h1>
+
+    <p id="status-link" onclick="showButtons()">Status</p>
+
+    <!-- Buttons for Reports and Complaints -->
+    <div id="buttons-container">
+        <button onclick="showReports()">Reports</button>
+        <button onclick="showComplaints()">Complaints</button>
+    </div>
+
+    <!-- Table for Reports -->
+    <div id="reports-table">
+        <h2>Reports</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Office</th>
+                    <th>Type</th>
+                    <th>Description (PDF)</th>
+                    <th>Status</th>
+                    <th>Issue Date</th>
+                    <th>Update Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for report in reports %}
+                <tr data-id="{{ report.id }}" {% if report.is_sent %}style="background-color: #d4edda;"{% endif %}>
+                    <td>{{ report.office }}</td>
+                    <td>{{ report.type }}</td>
+                    <td>
+                        {% if report.pdf_file %}
+                            <a href="{{ report.pdf_file.url }}" target="_blank">Download PDF</a>
+                        {% else %}
+                            No PDF available
+                        {% endif %}
+                    </td>
+                    <td class="status">{{ report.status }}</td>
+                    <td>{{ report.issue_date|date:"F j, Y" }}</td>
+                    <td>
+                        <form action="{% url 'update_status' report.id %}" method="post">
+                            {% csrf_token %}
+                            <select name="status">
+                                <option value="Pending" {% if report.status == "Pending" %}selected{% endif %}>Pending</option>
+                                <option value="In Progress" {% if report.status == "In Progress" %}selected{% endif %}>In Progress</option>
+                                <option value="Resolved" {% if report.status == "Resolved" %}selected{% endif %}>Resolved</option>
+                            </select>
+                            <button type="submit">Update</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Table for Complaints -->
+    <div id="complaints-table">
+        <h2>Complaints</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Office</th>
+                    <th>Type</th>
+                    <th>Description (PDF)</th>
+                    <th>Status</th>
+                    <th>Issue Date</th>
+                    <th>Update Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for complaint in complaints %}
+                <tr data-id="{{ complaint.id }}" {% if complaint.is_sent %}style="background-color: #d4edda;"{% endif %}>
+                    <td>{{ complaint.office }}</td>
+                    <td>{{ complaint.type }}</td>
+                    <td>
+                        {% if complaint.pdf_file %}
+                            <a href="{{ complaint.pdf_file.url }}" target="_blank">Download PDF</a>
+                        {% else %}
+                            No PDF available
+                        {% endif %}
+                    </td>
+                    <td class="status">{{ complaint.status }}</td>
+                    <td>{{ complaint.issue_date|date:"F j, Y" }}</td>
+                    <td>
+                        <form action="{% url 'update_status' complaint.id %}" method="post">
+                            {% csrf_token %}
+                            <select name="status">
+                                <option value="Pending" {% if complaint.status == "Pending" %}selected{% endif %}>Pending</option>
+                                <option value="In Progress" {% if complaint.status == "In Progress" %}selected{% endif %}>In Progress</option>
+                                <option value="Resolved" {% if complaint.status == "Resolved" %}selected{% endif %}>Resolved</option>
+                            </select>
+                            <button type="submit">Update</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function showButtons() {
+            document.getElementById('buttons-container').style.display = 'block';
+        }
+
+        function showReports() {
+            document.getElementById('reports-table').classList.add('visible');
+            document.getElementById('complaints-table').classList.remove('visible');
+        }
+
+        function showComplaints() {
+            document.getElementById('complaints-table').classList.add('visible');
+            document.getElementById('reports-table').classList.remove('visible');
+        }
+
+        function updateStatus(event, form) {
+            event.preventDefault(); // Prevent the default form submission
+
+            let formData = new FormData(form);
+            let url = form.action;
+
+            fetch(url, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': formData.get('csrfmiddlewaretoken')
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Update the status cell with the new status
+                let row = form.closest('tr');
+                let statusCell = row.querySelector('.status');
+                statusCell.textContent = data.new_status; // Update status in the table
+                
+                // Optionally highlight updated row
+                row.style.backgroundColor = '#d4edda'; // Example highlighting
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>
+
+
+

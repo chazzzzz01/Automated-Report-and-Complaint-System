@@ -1,0 +1,15 @@
+<!-- complaints/templates/submit_complaint.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Submit Complaint or Report</title>
+</head>
+<body>
+    <h1>Submit a Complaint or Report</h1>
+    <form method="POST" action="{% url 'submit_complaint' %}">
+        {% csrf_token %}
+        <textarea name="description" rows="4" cols="50" placeholder="Enter complaint or report description here..."></textarea><br>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
