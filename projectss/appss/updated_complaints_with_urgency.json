@@ -1,0 +1,1420 @@
+{
+    "GAD Office": [
+        {
+            "description": "need diversity program",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "inclusion disabled student campus activity",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "need better support international student",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "campus need genderneutral restroom",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "program promote gender equality campus",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "better accommodation student disability",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "support lgbtq student",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "campus need genderneutral housing option",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "campus need safe space student",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The catcalling issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the catcalling facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The wolf whistling issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the wolf whistling facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The sexual issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the sexual facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The gender jokes issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the gender jokes facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The sexual names issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the sexual names facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The unwanted invitation issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the unwanted invitation facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The discrimination issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the discrimination facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The gender-neutral issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the gender-neutral facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The disabled issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the disabled facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The diversity issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the diversity facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The inclusion issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the inclusion facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The sexual harassment issue needs attention.",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Report about the sexual harassment facilities.",
+            "type": "report",
+            "urgency": "high"
+        },
+        {
+            "description": "The unwanted request issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the unwanted request facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The personal details issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the personal details facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The misogynistic issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the misogynistic facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The transphobic issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the transphobic facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The homophobic issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the homophobic facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The sexist slurs issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the sexist slurs facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The uninvited comments issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the uninvited comments facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The sexual comments issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the sexual comments facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The cursing issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the cursing facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The taunting issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the taunting facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The gossiping lies issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the gossiping lies facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The gender-based issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the gender-based facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The bullying issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the bullying facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The verbal harrassment issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the verbal harrassment facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The non-verbal harrasment issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the non-verbal harrasment facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The intrusive gazing issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the intrusive gazing facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The offensive body gestures issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the offensive body gestures facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The sexual messaging issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the sexual messaging facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The sexual overtone issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the sexual overtone facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The green jokes issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the green jokes facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The stalking issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the stalking facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The sexually suggestive visuals issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the sexually suggestive visuals facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The nudes issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the nudes facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The sex for grades issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the sex for grades facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The sex issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the sex facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The leering issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the leering facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The sexual action issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the sexual action facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The smacking lips issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the smacking lips facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The underwear issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the underwear facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The slapping butt issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the slapping butt facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The leaking images issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the leaking images facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The public masturbations issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the public masturbations facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The masturbate issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the masturbate facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The unwanted touch issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the unwanted touch facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The exposing pictures issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the exposing pictures facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The physical harrassment issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the physical harrassment facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The aggression issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the aggression facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The abuse issue needs attention.",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Report about the abuse facilities.",
+            "type": "report",
+            "urgency": "high"
+        },
+        {
+            "description": "The abusive issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the abusive facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The abused issue needs attention.",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Report about the abused facilities.",
+            "type": "report",
+            "urgency": "high"
+        },
+        {
+            "description": "The sexual favor issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the sexual favor facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The grooping issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the grooping facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The grabbing issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the grabbing facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The breast issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the breast facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The intentionally issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the intentionally facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The private part issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the private part facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The unwanted hugging issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the unwanted hugging facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The consistent messaging issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the consistent messaging facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The private part issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the private part facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The buttocks issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the buttocks facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The genital issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the genital facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The online sexual harrasment issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the online sexual harrasment facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The blackmailing issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the blackmailing facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The emotional threats issue needs attention.",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Report about the emotional threats facilities.",
+            "type": "report",
+            "urgency": "high"
+        },
+        {
+            "description": "The cyber stalking issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the cyber stalking facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The incessant messaging issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the incessant messaging facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The incessant message issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the incessant message facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The unauthorized recording issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the unauthorized recording facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The impersonating issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the impersonating facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The negative issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the negative facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The manipulating issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the manipulating facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The sexual posting issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the sexual posting facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The rape issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the rape facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The sexual abuse issue needs attention.",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Report about the sexual abuse facilities.",
+            "type": "report",
+            "urgency": "high"
+        },
+        {
+            "description": "The grooming issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the grooming facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The voyeurism issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the voyeurism facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The sexual assault issue needs attention.",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Report about the sexual assault facilities.",
+            "type": "report",
+            "urgency": "high"
+        },
+        {
+            "description": "The malicious issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the malicious facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The touching issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the touching facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The touched issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the touched facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The touch issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the touch facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The threat issue needs attention.",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Report about the threat facilities.",
+            "type": "report",
+            "urgency": "high"
+        },
+        {
+            "description": "The threating issue needs attention.",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Report about the threating facilities.",
+            "type": "report",
+            "urgency": "high"
+        },
+        {
+            "description": "The threatened issue needs attention.",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Report about the threatened facilities.",
+            "type": "report",
+            "urgency": "high"
+        },
+        {
+            "description": "The harrasing issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the harrasing facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The harrased issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the harrased facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The pinching issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the pinching facilities.",
+            "type": "report",
+            "urgency": "low"
+        }
+    ],
+    "VP Academic Affairs": [
+        {
+            "description": "library need resource",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "professor following syllabus",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "library extend hour exam period",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "academic advisor helpful",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "library need resource",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "problem registration system",
+            "type": "complaint",
+            "urgency": "medium"
+        },
+        {
+            "description": "faculty need training new technology",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "instructor grading assignment time",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "library acquire digital resource",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "academic calendar confusing need clearer",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "library need quiet study area",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "registration process complicated need simplified",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "The library issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the library facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The SIAS issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the SIAS facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The faculty issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the faculty facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The academic issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the academic facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The instructor issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the instructor facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The registration issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the registration facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The calendar issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the calendar facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The graduation issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the graduation facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The lowest grade issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the lowest grade facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The advisors issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the advisors facilities.",
+            "type": "report",
+            "urgency": "low"
+        }
+    ],
+    "VP Administration and Finance": [
+        {
+            "description": "wifi working properly",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "security issue parking lot",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "financial aid option available",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "campus need better security event",
+            "type": "report",
+            "urgency": "high"
+        },
+        {
+            "description": "billing office made error tuition statement",
+            "type": "complaint",
+            "urgency": "medium"
+        },
+        {
+            "description": "campus wifi unreliable",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "wifi coverage poor certain area campus",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "billing process clear",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "wifi speed slow dormitory",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "tuition fee high",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "parking lot need better lighting",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "student access financial aid information",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "campus security personnel nighttime",
+            "type": "report",
+            "urgency": "high"
+        },
+        {
+            "description": "billing office need provide detailed breakdown fee",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "campus wifi connection unstable",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "wifi signal weak study area",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "process resolving billing dispute slow",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "dormitory need better wifi coverage",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "tuition billing process confusing need streamlined",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "wifi speed library slow",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "The tuition issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the tuition facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The fee issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the fee facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The billing issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the billing facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The financial aid issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the financial aid facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The parking issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the parking facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The security issue needs attention.",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Report about the security facilities.",
+            "type": "report",
+            "urgency": "high"
+        },
+        {
+            "description": "The wifi issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the wifi facilities.",
+            "type": "report",
+            "urgency": "low"
+        }
+    ],
+    "VP Students and External Affairs": [
+        {
+            "description": "dormitory need better maintenance",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "food cafeteria subpar",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "career service office responsive",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "sport facility wellmaintained",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "cafeteria offer vegetarian option",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "maintenance team slow respond request",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "sport equipment outdated",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "cafeteria price high",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "dormitory overcrowded",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "cafeteria need improve hygiene standard",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "career service offer job placement assistance",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "sport facility need modern equipment",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "cafeteria provide healthy food option",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "dormitory heating system working properly",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "sport team need better support administration",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "cafeteria offer international cuisine option",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "cafeteria offer affordable meal option",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "The dormitories issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the dormitories facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The food issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the food facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The cafeteria issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the cafeteria facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The sports issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the sports facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The career services issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the career services facilities.",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The maintenance issue needs attention.",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Report about the maintenance facilities.",
+            "type": "report",
+            "urgency": "low"
+        }
+    ]
+}

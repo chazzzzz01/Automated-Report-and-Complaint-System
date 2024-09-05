@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Informant</title>
     <style>
         #complaints-table {
             display: none; /* Initially hidden */
@@ -29,11 +29,33 @@
             background-color: #f2f2f2;
         }
         .delete-btn {
-            color: red;
             cursor: pointer;
             text-decoration: underline;
             background: none;
             border: none;
+        }
+        /* Status cell colors */
+        .status-pending {
+            background-color: red; /* Red */
+            color: white;
+        }
+        .status-in-progress {
+            background-color: yellow; /* Yellow */
+            color: black;
+        }
+        .status-solved {
+            background-color: green; /* Green */
+            color: white;
+        }
+        /* Urgency cell colors */
+        .urgency-high {
+            color: green;
+        }
+        .urgency-medium {
+            color: yellow;
+        }
+        .urgency-low {
+            color: red;
         }
     </style>
     <!-- Include jQuery -->
@@ -54,13 +76,14 @@
                         <th>Type</th>
                         <th>Description (PDF)</th>
                         <th>Status</th>
+                        <th>Urgency</th> <!-- New column for urgency -->
                         <th>Issue Date</th>
-                        <th>Action</th> <!-- New column for action -->
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for complaint in complaints %}
-                    <tr id="complaint-{{ complaint.id }}" {% if complaint.is_sent %}style="background-color: #d4edda;"{% endif %}>
+                    <tr id="complaint-{{ complaint.id }}">
                         <td>{{ complaint.office }}</td>
                         <td>{{ complaint.type }}</td>
                         <td>
@@ -70,11 +93,24 @@
                                 No PDF available
                             {% endif %}
                         </td>
-                        <td>{{ complaint.status }}</td>
+                        <td class="
+                            {% if complaint.status == 'Pending' %}
+                                status-pending
+                            {% elif complaint.status == 'In Progress' %}
+                                status-in-progress
+                            {% elif complaint.status == 'Solved' %}
+                                status-solved
+                            {% endif %}
+                        ">
+                            {{ complaint.status }}
+                        </td>
+                        <td class="urgency-{% if complaint.urgency == 'High' %}high{% elif complaint.urgency == 'Medium' %}medium{% elif complaint.urgency == 'Low' %}low{% endif %}">
+                            {{ complaint.urgency }}
+                        </td>
                         <td>{{ complaint.issue_date|date:"F j, Y" }}</td>
                         <td>
                             <button class="delete-btn" onclick="deleteComplaint('{{ complaint.id }}')">Delete</button>
-                        </td> <!-- Updated delete button -->
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>

@@ -2,292 +2,211 @@
     {
         "description": "The wifi is not working properly.",
         "category": "VP Administration and Finance",
-        "type": "complaint"
+        "type": "complaint",
+        "urgency": "low"
     },
     {
         "description": "The library needs more resources.",
         "category": "VP Academic Affairs",
-        "type": "complaint"
+        "type": "complaint",
+        "urgency": "low"
     },
     {
         "description": "There is a security issue in the parking lot.",
         "category": "VP Administration and Finance",
-        "type": "complaint"
+        "type": "complaint",
+        "urgency": "high"
     },
     {
         "description": "More financial aid options should be available.",
         "category": "VP Administration and Finance",
-        "type": "report"
+        "type": "report",
+        "urgency": "low"
     },
     {
         "description": "The professors are not following the syllabus.",
         "category": "VP Academic Affairs",
-        "type": "complaint"
+        "type": "complaint",
+        "urgency": "low"
     },
     {
         "description": "The campus needs better security during events.",
         "category": "VP Administration and Finance",
-        "type": "report"
+        "type": "report",
+        "urgency": "high"
     },
     {
         "description": "The dormitories need better maintenance.",
         "category": "VP Students and External Affairs",
-        "type": "complaint"
+        "type": "complaint",
+        "urgency": "low"
     },
     {
         "description": "There is a need for more diversity programs.",
         "category": "GAD Office",
-        "type": "report"
+        "type": "complaint",
+        "urgency": "low"
     },
     {
         "description": "The food in the cafeteria is subpar.",
         "category": "VP Students and External Affairs",
-        "type": "complaint"
+        "type": "complaint",
+        "urgency": "low"
     },
     {
         "description": "The library should extend its hours during exam periods.",
         "category": "VP Academic Affairs",
-        "type": "report"
+        "type": "report",
+        "urgency": "low"
     },
     {
         "description": "The career services office is not responsive.",
         "category": "VP Students and External Affairs",
-        "type": "complaint"
+        "type": "complaint",
+        "urgency": "low"
     },
     {
         "description": "There should be more inclusion of disabled students in campus activities.",
         "category": "GAD Office",
-        "type": "report"
+        "type": "report",
+        "urgency": "low"
     },
     {
         "description": "The academic advisors are not helpful.",
         "category": "VP Academic Affairs",
-        "type": "complaint"
+        "type": "complaint",
+        "urgency": "low"
     },
     {
         "description": "The billing office made an error in my tuition statement.",
         "category": "VP Administration and Finance",
-        "type": "complaint"
+        "type": "complaint",
+        "urgency": "high"
     },
     {
         "description": "The campus wifi is unreliable.",
         "category": "VP Administration and Finance",
-        "type": "report"
+        "type": "report",
+        "urgency": "low"
     },
     {
         "description": "The sports facilities are not well-maintained.",
         "category": "VP Students and External Affairs",
-        "type": "report"
+        "type": "report",
+        "urgency": "low"
     },
     {
         "description": "The cafeteria should offer more vegetarian options.",
         "category": "VP Students and External Affairs",
-        "type": "report"
+        "type": "report",
+        "urgency": "low"
     },
     {
         "description": "The library needs more resources.",
         "category": "VP Academic Affairs",
-        "type": "report"
+        "type": "report",
+        "urgency": "low"
     },
     {
         "description": "There is a problem with the registration system.",
         "category": "VP Academic Affairs",
-        "type": "complaint"
+        "type": "complaint",
+        "urgency": "high"
     },
     {
         "description": "The maintenance team is slow to respond to requests.",
         "category": "VP Students and External Affairs",
-        "type": "complaint"
+        "type": "complaint",
+        "urgency": "low"
     },
     {
         "description": "The sports equipment is outdated.",
         "category": "VP Students and External Affairs",
-        "type": "complaint"
+        "type": "complaint",
+        "urgency": "low"
     },
     {
         "description": "There is a need for better support for international students.",
         "category": "GAD Office",
-        "type": "report"
+        "type": "report",
+        "urgency": "low"
     },
     {
         "description": "The wifi coverage is poor in certain areas of the campus.",
         "category": "VP Administration and Finance",
-        "type": "complaint"
+        "type": "complaint",
+        "urgency": "low"
     },
     {
         "description": "The billing process is not clear.",
         "category": "VP Administration and Finance",
-        "type": "complaint"
+        "type": "complaint",
+        "urgency": "low"
     },
     {
         "description": "The campus needs more gender-neutral restrooms.",
         "category": "GAD Office",
-        "type": "report"
+        "type": "report",
+        "urgency": "low"
     },
     {
         "description": "The cafeteria prices are too high.",
         "category": "VP Students and External Affairs",
-        "type": "complaint"
+        "type": "complaint",
+        "urgency": "low"
     },
     {
         "description": "The wifi speed is too slow in the dormitories.",
         "category": "VP Administration and Finance",
-        "type": "complaint"
+        "type": "complaint",
+        "urgency": "low"
     },
     {
         "description": "The tuition fees are too high.",
         "category": "VP Administration and Finance",
-        "type": "complaint"
+        "type": "complaint",
+        "urgency": "low"
     },
     {
         "description": "The faculty needs more training on new technologies.",
         "category": "VP Academic Affairs",
-        "type": "report"
+        "type": "report",
+        "urgency": "low"
     },
     {
         "description": "The parking lot needs better lighting.",
         "category": "VP Administration and Finance",
-        "type": "complaint"
+        "type": "complaint",
+        "urgency": "low"
     },
     {
         "description": "Students should have more access to financial aid information.",
         "category": "VP Administration and Finance",
-        "type": "report"
+        "type": "report",
+        "urgency": "low"
     },
     {
         "description": "Instructors are not grading assignments on time.",
         "category": "VP Academic Affairs",
-        "type": "complaint"
+        "type": "complaint",
+        "urgency": "low"
     },
     {
         "description": "The campus should have more security personnel during nighttime.",
         "category": "VP Administration and Finance",
-        "type": "report"
+        "type": "report",
+        "urgency": "high"
     },
     {
         "description": "The dormitories are overcrowded.",
         "category": "VP Students and External Affairs",
-        "type": "complaint"
+        "type": "complaint",
+        "urgency": "low"
     },
     {
         "description": "There should be more programs to promote gender equality on campus.",
         "category": "GAD Office",
-        "type": "report"
-    },
-    {
-        "description": "The cafeteria needs to improve its hygiene standards.",
-        "category": "VP Students and External Affairs",
-        "type": "complaint"
-    },
-    {
-        "description": "The library should acquire more digital resources.",
-        "category": "VP Academic Affairs",
-        "type": "report"
-    },
-    {
-        "description": "The career services should offer more job placement assistance.",
-        "category": "VP Students and External Affairs",
-        "type": "complaint"
-    },
-    {
-        "description": "There should be better accommodation for students with disabilities.",
-        "category": "GAD Office",
-        "type": "report"
-    },
-    {
-        "description": "The academic calendar is confusing and needs to be clearer.",
-        "category": "VP Academic Affairs",
-        "type": "complaint"
-    },
-    {
-        "description": "The billing office needs to provide more detailed breakdowns of fees.",
-        "category": "VP Administration and Finance",
-        "type": "complaint"
-    },
-    {
-        "description": "The campus wifi connection is unstable.",
-        "category": "VP Administration and Finance",
-        "type": "report"
-    },
-    {
-        "description": "The sports facilities need more modern equipment.",
-        "category": "VP Students and External Affairs",
-        "type": "report"
-    },
-    {
-        "description": "The cafeteria should provide more healthy food options.",
-        "category": "VP Students and External Affairs",
-        "type": "report"
-    },
-    {
-        "description": "The library needs more quiet study areas.",
-        "category": "VP Academic Affairs",
-        "type": "report"
-    },
-    {
-        "description": "The registration process is too complicated and needs to be simplified.",
-        "category": "VP Academic Affairs",
-        "type": "complaint"
-    },
-    {
-        "description": "The dormitory heating system is not working properly.",
-        "category": "VP Students and External Affairs",
-        "type": "complaint"
-    },
-    {
-        "description": "The sports teams need better support from the administration.",
-        "category": "VP Students and External Affairs",
-        "type": "complaint"
-    },
-    {
-        "description": "There should be more support for LGBTQ+ students.",
-        "category": "GAD Office",
-        "type": "report"
-    },
-    {
-        "description": "The wifi signal is weak in the study areas.",
-        "category": "VP Administration and Finance",
-        "type": "complaint"
-    },
-    {
-        "description": "The process for resolving billing disputes is too slow.",
-        "category": "VP Administration and Finance",
-        "type": "complaint"
-    },
-    {
-        "description": "The campus needs more gender-neutral housing options.",
-        "category": "GAD Office",
-        "type": "report"
-    },
-    {
-        "description": "The cafeteria should offer more international cuisine options.",
-        "category": "VP Students and External Affairs",
-        "type": "complaint"
-    },
-    {
-        "description": "The dormitories need better wifi coverage.",
-        "category": "VP Administration and Finance",
-        "type": "complaint"
-    },
-    {
-        "description": "The tuition billing process is confusing and needs to be streamlined.",
-        "category": "VP Administration and Finance",
-        "type": "complaint"
-    },
-    {
-        "description": "The campus needs more safe spaces for students.",
-        "category": "GAD Office",
-        "type": "report"
-    },
-    {
-        "description": "The cafeteria should offer more affordable meal options.",
-        "category": "VP Students and External Affairs",
-        "type": "complaint"
-    },
-    {
-        "description": "The wifi speed in the library is too slow.",
-        "category": "VP Administration and Finance",
-        "type": "complaint"
+        "type": "report",
+        "urgency": "low"
     }
 ]
-

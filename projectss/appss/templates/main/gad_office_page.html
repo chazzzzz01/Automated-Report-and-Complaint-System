@@ -11,6 +11,12 @@
         #reports-table.visible, #complaints-table.visible {
             display: block; /* Show when the 'visible' class is added */
         }
+        #status-link, #history-link {
+            color: blue;
+            cursor: pointer;
+            text-decoration: underline;
+            margin-right: 10px;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -25,6 +31,19 @@
         }
         .status {
             font-weight: bold;
+            /* Conditional styling based on status */
+        }
+        .status-pending {
+            background-color: red; /* Red for pending */
+            color: white;
+        }
+        .status-in-progress {
+            background-color: yellow; /* Yellow for in progress */
+            color: black;
+        }
+        .status-resolved {
+            background-color: green; /* Green for resolved */
+            color: white;
         }
     </style>
 </head>
@@ -34,7 +53,7 @@
     <p id="status-link" onclick="showButtons()">Status</p>
 
     <!-- Buttons for Reports and Complaints -->
-    <div id="buttons-container">
+    <div id="buttons-container" style="display: none;">
         <button onclick="showReports()">Reports</button>
         <button onclick="showComplaints()">Complaints</button>
     </div>
@@ -53,9 +72,9 @@
                     <th>Update Status</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="reports-body">
                 {% for report in reports %}
-                <tr data-id="{{ report.id }}" {% if report.is_sent %}style="background-color: #d4edda;"{% endif %}>
+                <tr data-id="{{ report.id }}">
                     <td>{{ report.office }}</td>
                     <td>{{ report.type }}</td>
                     <td>
@@ -65,7 +84,9 @@
                             No PDF available
                         {% endif %}
                     </td>
-                    <td class="status">{{ report.status }}</td>
+                    <td class="status {% if report.status == 'Pending' %}status-pending{% elif report.status == 'In Progress' %}status-in-progress{% elif report.status == 'Resolved' %}status-resolved{% endif %}">
+                        {{ report.status }}
+                    </td>
                     <td>{{ report.issue_date|date:"F j, Y" }}</td>
                     <td>
                         <form action="{% url 'update_status' report.id %}" method="post">
@@ -75,6 +96,7 @@
                                 <option value="In Progress" {% if report.status == "In Progress" %}selected{% endif %}>In Progress</option>
                                 <option value="Resolved" {% if report.status == "Resolved" %}selected{% endif %}>Resolved</option>
                             </select>
+                            <input type="hidden" name="redirect_url" value="{% url 'gad_office_page' %}">
                             <button type="submit">Update</button>
                         </form>
                     </td>
@@ -98,9 +120,9 @@
                     <th>Update Status</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="complaints-body">
                 {% for complaint in complaints %}
-                <tr data-id="{{ complaint.id }}" {% if complaint.is_sent %}style="background-color: #d4edda;"{% endif %}>
+                <tr data-id="{{ complaint.id }}">
                     <td>{{ complaint.office }}</td>
                     <td>{{ complaint.type }}</td>
                     <td>
@@ -110,7 +132,9 @@
                             No PDF available
                         {% endif %}
                     </td>
-                    <td class="status">{{ complaint.status }}</td>
+                    <td class="status {% if complaint.status == 'Pending' %}status-pending{% elif complaint.status == 'In Progress' %}status-in-progress{% elif complaint.status == 'Resolved' %}status-resolved{% endif %}">
+                        {{ complaint.status }}
+                    </td>
                     <td>{{ complaint.issue_date|date:"F j, Y" }}</td>
                     <td>
                         <form action="{% url 'update_status' complaint.id %}" method="post">
@@ -120,6 +144,7 @@
                                 <option value="In Progress" {% if complaint.status == "In Progress" %}selected{% endif %}>In Progress</option>
                                 <option value="Resolved" {% if complaint.status == "Resolved" %}selected{% endif %}>Resolved</option>
                             </select>
+                            <input type="hidden" name="redirect_url" value="{% url 'gad_office_page' %}">
                             <button type="submit">Update</button>
                         </form>
                     </td>
@@ -143,37 +168,6 @@
             document.getElementById('complaints-table').classList.add('visible');
             document.getElementById('reports-table').classList.remove('visible');
         }
-
-        function updateStatus(event, form) {
-            event.preventDefault(); // Prevent the default form submission
-
-            let formData = new FormData(form);
-            let url = form.action;
-
-            fetch(url, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-CSRFToken': formData.get('csrfmiddlewaretoken')
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Update the status cell with the new status
-                let row = form.closest('tr');
-                let statusCell = row.querySelector('.status');
-                statusCell.textContent = data.new_status; // Update status in the table
-                
-                // Optionally highlight updated row
-                row.style.backgroundColor = '#d4edda'; // Example highlighting
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        }
     </script>
 </body>
 </html>
-
-
-

@@ -4,7 +4,9 @@ from . import views
 urlpatterns = [
     path('', views.home, name='home'),
     path('submit/', views.submit_complaint, name='submit_complaint'),
+    path('informant/', views.informant_page, name='informant_page'),
     path('legal-office/', views.legal_office_page, name='legal_office_page'),
+    
     # path('update-office/<int:complaint_id>/', views.update_office, name='update_office'),
     path('update-status/<int:complaint_id>/', views.update_status, name='update_status'),
     path('send/<int:complaint_id>/', views.send_complaint, name='send_complaint'),
