@@ -13,6 +13,11 @@
             cursor: pointer;
             text-decoration: underline;
         }
+        #history-link {
+            color: blue;
+            cursor: pointer;
+            text-decoration: underline;
+        }
         #complaints-table.visible {
             display: block; /* Show when the 'visible' class is added */
         }
@@ -66,6 +71,7 @@
     <p><a href="{% url 'submit_complaint' %}">Lodge Report or Complaint</a></p>
 
     <p id="status-link" onclick="toggleTable()">Status</p>
+    <p id="history-link" onclick="toggleTable()">History</p>
 
     <div id="complaints-table" class="{% if complaints.exists %}visible{% endif %}">
         {% if complaints.exists %}
@@ -130,29 +136,30 @@
             }
         }
 
-        function deleteComplaint(complaintId) {
-            if (confirm('Are you sure you want to delete this?')) {
-                $.ajax({
-                    url: "{% url 'delete_complaint' 0 %}".replace(0, complaintId),
-                    type: 'POST',
-                    data: {
-                        'csrfmiddlewaretoken': '{{ csrf_token }}'
-                    },
-                    success: function(response) {
-                        // Remove the deleted complaint row from the table
-                        $('#complaint-' + complaintId).remove();
+       function deleteComplaint(complaintId) {
+    if (confirm('Are you sure you want to delete this?')) {
+        $.ajax({
+            url: "{% url 'delete_complaint' 0 %}".replace(0, complaintId),
+            type: 'POST',
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function(response) {
+                // Remove the deleted complaint row from the table
+                $('#complaint-' + complaintId).remove();
 
-                        // Optionally, check if there are no complaints left and display a message
-                        if ($('#complaints-table tbody tr').length === 0) {
-                            $('#complaints-table').html('<p>No complaints available.</p>');
-                        }
-                    },
-                    error: function(response) {
-                        alert('Failed to delete the complaint. Please try again.');
-                    }
-                });
+                // Optionally, check if there are no complaints left and display a message
+                if ($('#complaints-table tbody tr').length === 0) {
+                    $('#complaints-table').html('<p>No complaints available.</p>');
+                }
+            },
+            error: function(response) {
+                alert('Failed to delete the complaint. Please try again.');
             }
-        }
+        });
+    }
+}
+
     </script>
 </body>
 </html>
