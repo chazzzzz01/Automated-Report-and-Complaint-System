@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GAD Office</title>
     <style>
-        #reports-table, #complaints-table {
+        #reports-table, #complaints-table, #buttons-container {
             display: none; /* Initially hidden */
         }
-        #reports-table.visible, #complaints-table.visible {
+        #reports-table.visible, #complaints-table.visible, #buttons-container.visible {
             display: block; /* Show when the 'visible' class is added */
         }
-        #status-link, #history-link {
+        #status-link {
             color: blue;
             cursor: pointer;
             text-decoration: underline;
@@ -50,10 +50,10 @@
 <body>
     <h1>GAD Office</h1>
 
-    <p id="status-link" onclick="showButtons()">Status</p>
+    <p id="status-link" onclick="toggleVisibility()">Status</p>
 
     <!-- Buttons for Reports and Complaints -->
-    <div id="buttons-container" style="display: none;">
+    <div id="buttons-container">
         <button onclick="showReports()">Reports</button>
         <button onclick="showComplaints()">Complaints</button>
     </div>
@@ -155,19 +155,30 @@
     </div>
 
     <script>
-        function showButtons() {
-            document.getElementById('buttons-container').style.display = 'block';
+        let isVisible = false;
+
+        function toggleVisibility() {
+            isVisible = !isVisible;
+            document.getElementById('buttons-container').style.display = isVisible ? 'block' : 'none';
+            document.getElementById('reports-table').style.display = 'none';
+            document.getElementById('complaints-table').style.display = 'none';
         }
 
         function showReports() {
-            document.getElementById('reports-table').classList.add('visible');
-            document.getElementById('complaints-table').classList.remove('visible');
+            document.getElementById('reports-table').style.display = 'block';
+            document.getElementById('complaints-table').style.display = 'none';
         }
 
         function showComplaints() {
-            document.getElementById('complaints-table').classList.add('visible');
-            document.getElementById('reports-table').classList.remove('visible');
+            document.getElementById('complaints-table').style.display = 'block';
+            document.getElementById('reports-table').style.display = 'none';
         }
+
+        function updateURL() {
+           window.location.href = '/complaints/gad-office/status/';
+        }
+    
+ 
     </script>
 </body>
 </html>

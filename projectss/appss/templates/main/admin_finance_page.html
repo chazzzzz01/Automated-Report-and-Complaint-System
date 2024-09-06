@@ -3,20 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Finance</title>
+    <title>Administration and Finance</title>
     <style>
-        #reports-table, #complaints-table {
+        #reports-table, #complaints-table, #buttons-container {
             display: none; /* Initially hidden */
         }
-        #reports-table.visible, #complaints-table.visible {
+        #reports-table.visible, #complaints-table.visible, #buttons-container.visible {
             display: block; /* Show when the 'visible' class is added */
+        }
+        #status-link {
+            color: blue;
+            cursor: pointer;
+            text-decoration: underline;
+            margin-right: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .status {
+            font-weight: bold;
+            /* Conditional styling based on status */
+        }
+        .status-pending {
+            background-color: red; /* Red for pending */
+            color: white;
+        }
+        .status-in-progress {
+            background-color: yellow; /* Yellow for in progress */
+            color: black;
+        }
+        .status-resolved {
+            background-color: green; /* Green for resolved */
+            color: white;
         }
     </style>
 </head>
 <body>
-    <h1>Admin Finance</h1>
+    <h1>Administration and Finance</h1>
 
-    <p id="status-link" onclick="showButtons()">Status</p>
+    <p id="status-link" onclick="toggleVisibility()">Status</p>
 
     <!-- Buttons for Reports and Complaints -->
     <div id="buttons-container">
@@ -27,7 +61,7 @@
     <!-- Table for Reports -->
     <div id="reports-table">
         <h2>Reports</h2>
-        <table border="1">
+        <table>
             <thead>
                 <tr>
                     <th>Office</th>
@@ -36,12 +70,11 @@
                     <th>Status</th>
                     <th>Issue Date</th>
                     <th>Update Status</th>
-                    <th>Actions</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="reports-body">
                 {% for report in reports %}
-                <tr {% if report.is_sent %}style="background-color: #d4edda;"{% endif %}>
+                <tr data-id="{{ report.id }}">
                     <td>{{ report.office }}</td>
                     <td>{{ report.type }}</td>
                     <td>
@@ -51,28 +84,20 @@
                             No PDF available
                         {% endif %}
                     </td>
-                    <td>{{ report.status }}</td>
+                    <td class="status {% if report.status == 'Pending' %}status-pending{% elif report.status == 'In Progress' %}status-in-progress{% elif report.status == 'Resolved' %}status-resolved{% endif %}">
+                        {{ report.status }}
+                    </td>
                     <td>{{ report.issue_date|date:"F j, Y" }}</td>
                     <td>
-                        <form action="{% url 'update_status' report.id %}" method="post" onsubmit="keepTableVisible(event)">
+                        <form action="{% url 'update_status' report.id %}" method="post">
                             {% csrf_token %}
                             <select name="status">
                                 <option value="Pending" {% if report.status == "Pending" %}selected{% endif %}>Pending</option>
                                 <option value="In Progress" {% if report.status == "In Progress" %}selected{% endif %}>In Progress</option>
                                 <option value="Resolved" {% if report.status == "Resolved" %}selected{% endif %}>Resolved</option>
                             </select>
+                            <input type="hidden" name="redirect_url" value="{% url 'gad_office_page' %}">
                             <button type="submit">Update</button>
-                        </form>
-                    </td>
-                    <td>
-                        <form action="{% url 'send_complaint' report.id %}" method="post" onsubmit="keepTableVisible(event)" style="display:inline;">
-                            {% csrf_token %}
-                            <button type="submit" {% if report.is_sent %}disabled{% endif %}>Send</button>
-                        </form>
-
-                        <form action="{% url 'delete_complaint' report.id %}" method="post" onsubmit="keepTableVisible(event)" style="display:inline;">
-                            {% csrf_token %}
-                            <button type="submit" onclick="return confirm('Are you sure you want to delete this report?');">Delete</button>
                         </form>
                     </td>
                 </tr>
@@ -84,7 +109,7 @@
     <!-- Table for Complaints -->
     <div id="complaints-table">
         <h2>Complaints</h2>
-        <table border="1">
+        <table>
             <thead>
                 <tr>
                     <th>Office</th>
@@ -93,12 +118,11 @@
                     <th>Status</th>
                     <th>Issue Date</th>
                     <th>Update Status</th>
-                    <th>Actions</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="complaints-body">
                 {% for complaint in complaints %}
-                <tr {% if complaint.is_sent %}style="background-color: #d4edda;"{% endif %}>
+                <tr data-id="{{ complaint.id }}">
                     <td>{{ complaint.office }}</td>
                     <td>{{ complaint.type }}</td>
                     <td>
@@ -108,28 +132,20 @@
                             No PDF available
                         {% endif %}
                     </td>
-                    <td>{{ complaint.status }}</td>
+                    <td class="status {% if complaint.status == 'Pending' %}status-pending{% elif complaint.status == 'In Progress' %}status-in-progress{% elif complaint.status == 'Resolved' %}status-resolved{% endif %}">
+                        {{ complaint.status }}
+                    </td>
                     <td>{{ complaint.issue_date|date:"F j, Y" }}</td>
                     <td>
-                        <form action="{% url 'update_status' complaint.id %}" method="post" onsubmit="keepTableVisible(event)">
+                        <form action="{% url 'update_status' complaint.id %}" method="post">
                             {% csrf_token %}
                             <select name="status">
                                 <option value="Pending" {% if complaint.status == "Pending" %}selected{% endif %}>Pending</option>
                                 <option value="In Progress" {% if complaint.status == "In Progress" %}selected{% endif %}>In Progress</option>
                                 <option value="Resolved" {% if complaint.status == "Resolved" %}selected{% endif %}>Resolved</option>
                             </select>
+                            <input type="hidden" name="redirect_url" value="{% url 'gad_office_page' %}">
                             <button type="submit">Update</button>
-                        </form>
-                    </td>
-                    <td>
-                        <form action="{% url 'send_complaint' complaint.id %}" method="post" onsubmit="keepTableVisible(event)" style="display:inline;">
-                            {% csrf_token %}
-                            <button type="submit" {% if complaint.is_sent %}disabled{% endif %}>Send</button>
-                        </form>
-
-                        <form action="{% url 'delete_complaint' complaint.id %}" method="post" onsubmit="keepTableVisible(event)" style="display:inline;">
-                            {% csrf_token %}
-                            <button type="submit" onclick="return confirm('Are you sure you want to delete this complaint?');">Delete</button>
                         </form>
                     </td>
                 </tr>
@@ -139,26 +155,30 @@
     </div>
 
     <script>
+        let isVisible = false;
+
+        function toggleVisibility() {
+            isVisible = !isVisible;
+            document.getElementById('buttons-container').style.display = isVisible ? 'block' : 'none';
+            document.getElementById('reports-table').style.display = 'none';
+            document.getElementById('complaints-table').style.display = 'none';
+        }
+
         function showReports() {
-            document.getElementById('reports-table').classList.add('visible');
-            document.getElementById('complaints-table').classList.remove('visible');
+            document.getElementById('reports-table').style.display = 'block';
+            document.getElementById('complaints-table').style.display = 'none';
         }
 
         function showComplaints() {
-            document.getElementById('complaints-table').classList.add('visible');
-            document.getElementById('reports-table').classList.remove('visible');
+            document.getElementById('complaints-table').style.display = 'block';
+            document.getElementById('reports-table').style.display = 'none';
         }
 
-        function showButtons() {
-            document.getElementById('buttons-container').style.display = 'block';
+        function updateURL() {
+           window.location.href = '/complaints/gad-office/status/';
         }
-
-        function keepTableVisible(event) {
-            event.preventDefault();
-            event.target.closest('form').submit();
-            document.getElementById('reports-table').classList.add('visible');
-            document.getElementById('complaints-table').classList.add('visible');
-        }
+    
+ 
     </script>
 </body>
 </html>

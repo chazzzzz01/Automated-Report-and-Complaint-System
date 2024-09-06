@@ -15,5 +15,7 @@ urlpatterns = [
     path('academic-affairs/', views.academic_affairs_page, name='academic_affairs_page'),
     path('students-affairs/', views.students_affairs_page, name='students_affairs_page'),
     path('gad-office/', views.gad_office_page, name='gad_office_page'),
+
+    
     
 ]

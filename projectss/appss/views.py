@@ -45,10 +45,6 @@ def legal_office_page(request):
     return render(request, 'main/legal_office_page.html', {'complaints': complaints})
 
 
-
-
-
-
 def update_status(request, complaint_id):
     complaint = get_object_or_404(Complaint, id=complaint_id)
 
@@ -152,3 +148,19 @@ def gad_office_page(request):
     reports = Complaint.objects.filter(office="GAD Office", type="report")
     complaints = Complaint.objects.filter(office="GAD Office", type="complaint")
     return render(request, 'main/gad_office_page.html', {'reports': reports, 'complaints': complaints})
+
+def gad_office_status(request):
+    # Logic for status page
+    return render(request, 'main/gad_office_status.html')
+
+
+
+
+
+
+
+
+
+
+
+
