@@ -42,8 +42,8 @@
             background-color: yellow; /* Yellow for in progress */
             color: black;
         }
-        .status-resolved {
-            background-color: green; /* Green for resolved */
+        .status-solved {
+            background-color: green; /* Green for solved */
             color: white;
         }
     </style>
@@ -62,8 +62,8 @@
 
     <!-- History Buttons for Reports and Complaints -->
     <div id="history-buttons-container">
-        <button onclick="showHistoryReports()">Resolved Reports</button>
-        <button onclick="showHistoryComplaints()">Resolved Complaints</button>
+        <button onclick="showHistoryReports()">Solved Reports</button>
+        <button onclick="showHistoryComplaints()">Solved Complaints</button>
     </div>
 
     <!-- Table for Reports -->
@@ -78,11 +78,12 @@
                     <th>Status</th>
                     <th>Issue Date</th>
                     <th>Update Status</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody id="reports-body">
                 {% for report in reports %}
-                {% if report.status != "Resolved" %}
+                {% if report.status != "Solved" %}
                 <tr data-id="{{ report.id }}">
                     <td>{{ report.office }}</td>
                     <td>{{ report.type }}</td>
@@ -93,7 +94,7 @@
                             No PDF available
                         {% endif %}
                     </td>
-                    <td class="status {% if report.status == 'Pending' %}status-pending{% elif report.status == 'In Progress' %}status-in-progress{% elif report.status == 'Resolved' %}status-resolved{% endif %}">
+                    <td class="status {% if report.status == 'Pending' %}status-pending{% elif report.status == 'In Progress' %}status-in-progress{% elif report.status == 'Solved' %}status-solved{% endif %}">
                         {{ report.status }}
                     </td>
                     <td>{{ report.issue_date|date:"F j, Y" }}</td>
@@ -103,7 +104,7 @@
                             <select name="status">
                                 <option value="Pending" {% if report.status == "Pending" %}selected{% endif %}>Pending</option>
                                 <option value="In Progress" {% if report.status == "In Progress" %}selected{% endif %}>In Progress</option>
-                                <option value="Resolved" {% if report.status == "Resolved" %}selected{% endif %}>Resolved</option>
+                                <option value="Solved" {% if report.status == "Solved" %}selected{% endif %}>Solved</option>
                             </select>
                             <input type="hidden" name="redirect_url" value="{% url 'gad_office_page' %}">
                             <button type="submit">Update</button>
@@ -128,11 +129,12 @@
                     <th>Status</th>
                     <th>Issue Date</th>
                     <th>Update Status</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody id="complaints-body">
                 {% for complaint in complaints %}
-                {% if complaint.status != "Resolved" %}
+                {% if complaint.status != "Solved" %}
                 <tr data-id="{{ complaint.id }}">
                     <td>{{ complaint.office }}</td>
                     <td>{{ complaint.type }}</td>
@@ -143,7 +145,7 @@
                             No PDF available
                         {% endif %}
                     </td>
-                    <td class="status {% if complaint.status == 'Pending' %}status-pending{% elif complaint.status == 'In Progress' %}status-in-progress{% elif complaint.status == 'Resolved' %}status-resolved{% endif %}">
+                    <td class="status {% if complaint.status == 'Pending' %}status-pending{% elif complaint.status == 'In Progress' %}status-in-progress{% elif complaint.status == 'Solved' %}status-solved{% endif %}">
                         {{ complaint.status }}
                     </td>
                     <td>{{ complaint.issue_date|date:"F j, Y" }}</td>
@@ -153,7 +155,7 @@
                             <select name="status">
                                 <option value="Pending" {% if complaint.status == "Pending" %}selected{% endif %}>Pending</option>
                                 <option value="In Progress" {% if complaint.status == "In Progress" %}selected{% endif %}>In Progress</option>
-                                <option value="Resolved" {% if complaint.status == "Resolved" %}selected{% endif %}>Resolved</option>
+                                <option value="Solved" {% if complaint.status == "Solved" %}selected{% endif %}>Solved</option>
                             </select>
                             <input type="hidden" name="redirect_url" value="{% url 'gad_office_page' %}">
                             <button type="submit">Update</button>
@@ -168,7 +170,7 @@
 
     <!-- History Tables -->
     <div id="history-reports-table">
-        <h2>Resolved Reports</h2>
+        <h2>Solved Reports</h2>
         <table>
             <thead>
                 <tr>
@@ -177,11 +179,12 @@
                     <th>Description (PDF)</th>
                     <th>Status</th>
                     <th>Issue Date</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody id="history-reports-body">
                 {% for report in reports %}
-                {% if report.status == "Resolved" %}
+                {% if report.status == "Solved" %}
                 <tr data-id="{{ report.id }}">
                     <td>{{ report.office }}</td>
                     <td>{{ report.type }}</td>
@@ -192,7 +195,7 @@
                             No PDF available
                         {% endif %}
                     </td>
-                    <td class="status status-resolved">{{ report.status }}</td>
+                    <td class="status status-solved">{{ report.status }}</td>
                     <td>{{ report.issue_date|date:"F j, Y" }}</td>
                 </tr>
                 {% endif %}
@@ -202,7 +205,7 @@
     </div>
 
     <div id="history-complaints-table">
-        <h2>Resolved Complaints</h2>
+        <h2>Solved Complaints</h2>
         <table>
             <thead>
                 <tr>
@@ -211,11 +214,12 @@
                     <th>Description (PDF)</th>
                     <th>Status</th>
                     <th>Issue Date</th>
+                    
                 </tr>
             </thead>
             <tbody id="history-complaints-body">
                 {% for complaint in complaints %}
-                {% if complaint.status == "Resolved" %}
+                {% if complaint.status == "Solved" %}
                 <tr data-id="{{ complaint.id }}">
                     <td>{{ complaint.office }}</td>
                     <td>{{ complaint.type }}</td>
@@ -226,7 +230,7 @@
                             No PDF available
                         {% endif %}
                     </td>
-                    <td class="status status-resolved">{{ complaint.status }}</td>
+                    <td class="status status-solved">{{ complaint.status }}</td>
                     <td>{{ complaint.issue_date|date:"F j, Y" }}</td>
                 </tr>
                 {% endif %}

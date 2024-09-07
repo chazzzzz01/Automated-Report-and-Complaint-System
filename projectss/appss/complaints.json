@@ -1,212 +1,3171 @@
 [
-    {
-        "description": "The wifi is not working properly.",
-        "category": "VP Administration and Finance",
-        "type": "complaint",
-        "urgency": "low"
-    },
-    {
-        "description": "The library needs more resources.",
-        "category": "VP Academic Affairs",
-        "type": "complaint",
-        "urgency": "low"
-    },
-    {
-        "description": "There is a security issue in the parking lot.",
-        "category": "VP Administration and Finance",
-        "type": "complaint",
-        "urgency": "high"
-    },
-    {
-        "description": "More financial aid options should be available.",
-        "category": "VP Administration and Finance",
-        "type": "report",
-        "urgency": "low"
-    },
-    {
-        "description": "The professors are not following the syllabus.",
-        "category": "VP Academic Affairs",
-        "type": "complaint",
-        "urgency": "low"
-    },
-    {
-        "description": "The campus needs better security during events.",
-        "category": "VP Administration and Finance",
-        "type": "report",
-        "urgency": "high"
-    },
-    {
-        "description": "The dormitories need better maintenance.",
-        "category": "VP Students and External Affairs",
-        "type": "complaint",
-        "urgency": "low"
-    },
-    {
-        "description": "There is a need for more diversity programs.",
-        "category": "GAD Office",
-        "type": "complaint",
-        "urgency": "low"
-    },
-    {
-        "description": "The food in the cafeteria is subpar.",
-        "category": "VP Students and External Affairs",
-        "type": "complaint",
-        "urgency": "low"
-    },
-    {
-        "description": "The library should extend its hours during exam periods.",
-        "category": "VP Academic Affairs",
-        "type": "report",
-        "urgency": "low"
-    },
-    {
-        "description": "The career services office is not responsive.",
-        "category": "VP Students and External Affairs",
-        "type": "complaint",
-        "urgency": "low"
-    },
-    {
-        "description": "There should be more inclusion of disabled students in campus activities.",
-        "category": "GAD Office",
-        "type": "report",
-        "urgency": "low"
-    },
-    {
-        "description": "The academic advisors are not helpful.",
-        "category": "VP Academic Affairs",
-        "type": "complaint",
-        "urgency": "low"
-    },
-    {
-        "description": "The billing office made an error in my tuition statement.",
-        "category": "VP Administration and Finance",
-        "type": "complaint",
-        "urgency": "high"
-    },
-    {
-        "description": "The campus wifi is unreliable.",
-        "category": "VP Administration and Finance",
-        "type": "report",
-        "urgency": "low"
-    },
-    {
-        "description": "The sports facilities are not well-maintained.",
-        "category": "VP Students and External Affairs",
-        "type": "report",
-        "urgency": "low"
-    },
-    {
-        "description": "The cafeteria should offer more vegetarian options.",
-        "category": "VP Students and External Affairs",
-        "type": "report",
-        "urgency": "low"
-    },
-    {
-        "description": "The library needs more resources.",
-        "category": "VP Academic Affairs",
-        "type": "report",
-        "urgency": "low"
-    },
-    {
-        "description": "There is a problem with the registration system.",
-        "category": "VP Academic Affairs",
-        "type": "complaint",
-        "urgency": "high"
-    },
-    {
-        "description": "The maintenance team is slow to respond to requests.",
-        "category": "VP Students and External Affairs",
-        "type": "complaint",
-        "urgency": "low"
-    },
-    {
-        "description": "The sports equipment is outdated.",
-        "category": "VP Students and External Affairs",
-        "type": "complaint",
-        "urgency": "low"
-    },
-    {
-        "description": "There is a need for better support for international students.",
-        "category": "GAD Office",
-        "type": "report",
-        "urgency": "low"
-    },
-    {
-        "description": "The wifi coverage is poor in certain areas of the campus.",
-        "category": "VP Administration and Finance",
-        "type": "complaint",
-        "urgency": "low"
-    },
-    {
-        "description": "The billing process is not clear.",
-        "category": "VP Administration and Finance",
-        "type": "complaint",
-        "urgency": "low"
-    },
-    {
-        "description": "The campus needs more gender-neutral restrooms.",
-        "category": "GAD Office",
-        "type": "report",
-        "urgency": "low"
-    },
-    {
-        "description": "The cafeteria prices are too high.",
-        "category": "VP Students and External Affairs",
-        "type": "complaint",
-        "urgency": "low"
-    },
-    {
-        "description": "The wifi speed is too slow in the dormitories.",
-        "category": "VP Administration and Finance",
-        "type": "complaint",
-        "urgency": "low"
-    },
-    {
-        "description": "The tuition fees are too high.",
-        "category": "VP Administration and Finance",
-        "type": "complaint",
-        "urgency": "low"
-    },
-    {
-        "description": "The faculty needs more training on new technologies.",
-        "category": "VP Academic Affairs",
-        "type": "report",
-        "urgency": "low"
-    },
-    {
-        "description": "The parking lot needs better lighting.",
-        "category": "VP Administration and Finance",
-        "type": "complaint",
-        "urgency": "low"
-    },
-    {
-        "description": "Students should have more access to financial aid information.",
-        "category": "VP Administration and Finance",
-        "type": "report",
-        "urgency": "low"
-    },
-    {
-        "description": "Instructors are not grading assignments on time.",
-        "category": "VP Academic Affairs",
-        "type": "complaint",
-        "urgency": "low"
-    },
-    {
-        "description": "The campus should have more security personnel during nighttime.",
-        "category": "VP Administration and Finance",
-        "type": "report",
-        "urgency": "high"
-    },
-    {
-        "description": "The dormitories are overcrowded.",
-        "category": "VP Students and External Affairs",
-        "type": "complaint",
-        "urgency": "low"
-    },
-    {
-        "description": "There should be more programs to promote gender equality on campus.",
-        "category": "GAD Office",
-        "type": "report",
-        "urgency": "low"
-    }
+        {
+            "description": "There have been multiple reports of sexual harassment and unwanted touch in campus facilities.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Instances of misogynistic comments and discriminatory behavior have been reported in student groups.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "The campus needs stronger policies against verbal and physical harassment, including sexual favors and groping.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "high"
+        },
+        {
+            "description": "There have been cases of cyber stalking and online sexual harassment reported by students.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "The university should improve measures against leering and unwanted sexual comments.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "high"
+        },
+        {
+            "description": "Students are facing issues with aggressive and abusive behavior, including cursing and taunting.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "There are reports of inappropriate sexual messages and lewd gestures on campus.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "The campus should address incidents of unwanted physical contact and harassment more effectively.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Improved policies are needed to handle issues related to unauthorized recording and personal details misuse.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "There should be better support for students experiencing intrusive gazing and unwanted requests.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Instances of cyber harassment and blackmailing need to be addressed more effectively by the university.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "There is a need for more training on handling cases of stalking and manipulation.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Complaints have been made about offensive body gestures and sexually suggestive visuals.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "The campus needs to improve its response to issues of unwanted touching and sexual overtone.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "There have been incidents of catcalling and unwanted sexual comments on campus.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Students have reported instances of wolf whistling and verbal harassment in the dormitories.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "There is a problem with sexist slurs and gender jokes being used during campus events.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Students are experiencing unwanted invitations and sexual overtone comments from peers.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "There is a need for better diversity and inclusion practices, especially regarding gender-neutral facilities.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "high"
+        },
+        {
+            "description": "The university should address discrimination and verbal harassment more effectively.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "high"
+        },
+        {
+            "description": "There should be improved policies against sexual harassment and unwanted touch on campus.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "high"
+        },
+        {
+            "description": "The campus needs better support for students facing bullying and physical harassment.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "high"
+        },
+        {
+            "description": "There have been complaints about unwanted sexual messaging and intrusive gazing.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Students have reported instances of non-verbal harassment and offensive body gestures.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "There is a need to address gender-based harassment and abusive behavior on campus.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Campus resources should be improved to handle issues related to stalking and cyber harassment.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The university needs to provide better support for victims of groping and unwanted touch.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "There should be more training for staff on handling cases of sexual abuse and harassment.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Inappropriate sexual comments and touching have been reported in academic settings.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+
+        {
+            "description": "There have been reports of sexual assault and groping that need immediate attention.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Multiple instances of sexual harassment, including unwanted touching and sexual comments, have been reported.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "The university needs to implement stricter measures against sexual abuse and rape on campus.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "high"
+        },
+        {
+            "description": "There are significant concerns regarding physical harassment, including slapping and unwanted physical contact.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Addressing incidents of stalking and incessant messaging should be a priority for campus security.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "high"
+        },
+        {
+            "description": "There have been low-level complaints of sexist slurs and gender-based taunting in student interactions.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Reports of offensive jokes and non-verbal harassment, such as smacking lips and intrusive gazing, are increasing.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "The university needs to provide more resources for dealing with emotional threats and manipulation.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "There are complaints about negative gossip and verbal harassment impacting students’ well-being.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "The campus should enhance support systems for victims of cyber stalking and online harassment.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Students have reported incidents of unwanted requests and intrusive behavior in academic settings.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "More training is needed for staff to handle cases of unauthorized recording and blackmailing effectively.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "There should be policies in place to address issues of sexual messaging and exposing pictures on campus.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Complaints have been made about unwanted hugging and inappropriate physical contact.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "The campus needs better mechanisms for reporting and addressing issues of verbal harassment and gender-based discrimination.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "low"
+        },
+
+
+
+
+
+        {
+            "description": "There have been multiple reports of sexual abuse and inappropriate touching.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Students are facing issues with non-verbal harassment, including offensive body gestures.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "The campus needs immediate action against unwanted sexual comments and harassment.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Reports of gender-based bullying and verbal harassment are increasing.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "There are concerns about the university’s response to incidents of stalking and cyber harassment.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "high"
+        },
+        {
+            "description": "Complaints have been made about inappropriate cursing and taunting in social settings.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "There is an urgent need for better policies on handling cases of sexual assault and groping.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "high"
+        },
+        {
+            "description": "There are issues with gossiping lies and gender jokes affecting student interactions.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate measures are needed to address unwanted touch and aggressive behavior.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Students have reported problems with sexist slurs and misogynistic comments.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "The university should enhance support for victims of sexual harassment and verbal abuse.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "high"
+        },
+        {
+            "description": "There are complaints about public masturbations and inappropriate sexual actions on campus.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Reports of unwanted invitations and intrusive behavior in academic settings need attention.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "The campus needs policies to handle issues of stalking and online sexual harassment.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "high"
+        },
+        {
+            "description": "Students have reported issues with aggressive touching and offensive sexual comments.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "There is a need for better campus facilities to support gender-neutral needs and diversity.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The university needs to improve its response to incidents of verbal harassment and abuse.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "high"
+        },
+        {
+            "description": "Students have reported issues with unwanted sexual messaging and invasive comments.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate attention is required for cases of sexual assault and inappropriate physical contact.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "There are concerns about unauthorized recording and blackmailing of students.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "The university should address incidents of physical harassment and abusive behavior promptly.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Complaints about intrusive gazing and unwanted physical touch need to be addressed.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "There is an urgent need for policies addressing sexual harassment and online threats.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "high"
+        },
+        {
+            "description": "Students have reported issues with abusive and manipulative behavior in academic settings.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "The campus should improve its support for victims of unwanted touching and sexual favor requests.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "There are cases of gender-based bullying and unwanted sexual advances that need immediate action.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Reports of inappropriate sexual visuals and unwanted comments need to be addressed.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "The university should implement measures to handle issues of sexual harassment and verbal abuse.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "high"
+        },
+        {
+            "description": "There are reports of unwanted requests and abusive behavior that need to be investigated.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate attention is required for incidents of groping and aggressive sexual behavior.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "The campus needs better policies to address issues of cyber stalking and online harassment.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "There is an urgent need to address incidents of sexual assault and inappropriate physical interactions.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Students have reported issues with negative gossip and emotional threats.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "The university should improve support systems for dealing with verbal harassment and abusive behavior.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "high"
+        },
+        {
+            "description": "There are complaints about unwanted physical touch and verbal abuse in student activities.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action is needed for cases of sexual harassment, including sexual messaging and groping.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "The campus needs policies to handle issues related to unauthorized recording and blackmailing.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "There are urgent concerns about sexual assault and unwanted physical contact that need addressing.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Complaints about inappropriate sexual gestures and offensive body language need attention.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "The university should enhance measures against stalking and cyber harassment.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "high"
+        },
+        {
+            "description": "Students have reported issues with sexual harassment and abusive behavior in academic settings.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "There is a need for better support for victims of verbal abuse and physical harassment.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "high"
+        },
+        {
+            "description": "Reports of unwanted sexual requests and intrusive behavior need to be addressed.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate attention is required for cases of sexual harassment, including unwanted touching and groping.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "The university needs better policies to handle issues of gender-based harassment and bullying.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "There are complaints about inappropriate sexual actions and offensive gestures on campus.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "The campus needs improved measures for addressing issues of cyber stalking and emotional manipulation.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "high"
+        },
+        {
+            "description": "Reports of unwanted sexual comments and groping incidents need immediate attention.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "There are low-priority complaints about intrusive behavior and inappropriate comments.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action is needed for incidents of unwanted sexual advances and physical harassment.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "The university should enhance policies to handle issues of online harassment and unauthorized recording.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Students have reported issues with unwanted physical contact and sexual comments.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "The campus needs immediate measures to address incidents of sexual harassment and unwanted touching.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Complaints about negative gossip and inappropriate jokes need to be addressed.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "The university should improve its response to cases of sexual harassment and verbal abuse.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "high"
+        },
+        {
+            "description": "There are concerns about unwanted touch and invasive behavior in student activities.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action is required for cases of unwanted sexual gestures and aggressive behavior.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "The university needs better policies to handle issues related to cyber stalking and online threats.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Students have reported issues with inappropriate physical contact and verbal harassment.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "There is an urgent need for policies addressing sexual harassment and verbal abuse on campus.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "high"
+        },
+        {
+            "description": "Complaints about aggressive touching and unwanted sexual advances need to be investigated.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate attention is required for cases of sexual assault and groping incidents.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "The campus should enhance support for victims of cyber stalking and unauthorized recording.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "There are concerns about verbal harassment and gender-based bullying that need addressing.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate measures are needed to address sexual harassment, including unwanted messaging and aggressive behavior.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "The university should improve policies to handle issues of negative gossip and verbal abuse.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Students have reported problems with intrusive behavior and inappropriate comments.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "There is an urgent need for policies addressing sexual harassment and physical aggression on campus.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "high"
+        },
+        {
+            "description": "Complaints about unwanted physical contact and verbal harassment should be addressed immediately.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action is needed for cases of sexual abuse, including inappropriate physical interactions.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "The campus needs better support systems for dealing with cyber stalking and online harassment.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "There are reports of unwanted sexual comments and invasive behavior that need to be addressed.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate attention is required for issues related to sexual harassment and aggressive behavior.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "The university should enhance its response to cases of verbal abuse and unwanted physical contact.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "There are low-priority concerns about inappropriate sexual gestures and verbal harassment on campus.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate measures are needed to handle cases of sexual harassment and physical aggression.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "The campus needs better policies to address issues related to stalking and unauthorized recording.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Students have reported issues with aggressive touching and inappropriate comments.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "There is an urgent need to address incidents of sexual harassment, including unwanted touching and groping.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "The university should improve its support for victims of verbal harassment and cyber stalking.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "There are concerns about unwanted physical contact and verbal abuse that need immediate action.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "The campus needs better mechanisms for handling issues of sexual harassment and online threats.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Students have reported issues with intrusive behavior and inappropriate gestures.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate attention is required for cases of unwanted sexual actions and verbal harassment.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "The university should enhance policies to handle issues of cyber stalking and online sexual harassment.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "There are reports of unwanted touching and sexual comments that need addressing.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action is needed for incidents of sexual harassment and physical aggression on campus.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "The campus needs improved support for handling issues of cyber stalking and abusive behavior.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Complaints about verbal abuse and unwanted physical contact need to be investigated.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "There is an urgent need to address issues related to sexual harassment and aggressive behavior.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "high"
+        },
+        {
+            "description": "Immediate attention is required for cases of unwanted touch and verbal harassment.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "The university should enhance measures for dealing with issues of sexual harassment and verbal abuse.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "There are complaints about inappropriate gestures and unwanted comments that need immediate action.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action is needed for cases of sexual harassment, including unwanted touching and groping.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "The campus needs better policies to handle issues of cyber stalking and online harassment.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Students have reported problems with aggressive touching and inappropriate comments.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "There is an urgent need to address issues of sexual harassment and physical aggression on campus.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "high"
+        },
+        {
+            "description": "Complaints about unwanted physical contact and verbal harassment should be addressed immediately.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate measures are needed to handle cases of sexual harassment and physical aggression.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "The campus needs better policies to address issues related to stalking and unauthorized recording.",
+            "category": "GAD Office",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Students have reported issues with aggressive touching and inappropriate comments.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate attention is required for incidents of sexual harassment and unwanted touching.",
+            "category": "GAD Office",
+            "type": "complaint",
+            "urgency": "high"
+        },
+
+
+
+
+
+
+
+
+        {
+            "description": "Immediate review needed for discrepancies in tuition billing and financial aid records.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about budget planning and expense reporting for the current fiscal year.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Issues with parking fees and their impact on overall campus expenses.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Urgent review required for discrepancies in payroll and employee benefits.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Audit reports reveal issues with asset management and financial controls.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "high"
+        },
+        {
+            "description": "Review needed for the impact of security expenses on the overall budget.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns raised about financial aid distribution and scholarship allocations.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Analysis required on the effectiveness of current financial planning and risk management strategies.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action needed for discrepancies in accounting and revenue streams.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about financial systems and their ability to handle current cash flow.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Audit trails show issues with expense tracking and budget allocation.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "high"
+        },
+        {
+            "description": "Review of cost efficiency and cost control measures for upcoming budget cycles.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about compliance with financial policies and audit requirements.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Issues with procurement processes and contract management need addressing.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Review of financial forecasting and its impact on long-term financial stability.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for discrepancies in account statements and reconciliation processes.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about capital budgeting and its alignment with financial strategy.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Audit reports indicate issues with financial compliance and risk management.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "high"
+        },
+        {
+            "description": "Review needed for current spending analysis and financial performance metrics.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate attention required for discrepancies in financial records and budget adjustments.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns raised about the effectiveness of current financial oversight and governance.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Issues with financial aid distribution and the impact on student tuition.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Review of the investment portfolio and its performance relative to financial goals.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action required for discrepancies in funding and expense reporting.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about financial planning and its alignment with strategic objectives.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Review needed for the impact of salary and benefits on the overall budget.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review of financial policies and their effectiveness in managing risk.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns raised about financial oversight and the accuracy of financial reports.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Review needed for the impact of debt management on the university's financial stability.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate attention required for discrepancies in asset management and capital budgeting.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about the adequacy of current financial controls and expense tracking.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Review of financial performance metrics and their impact on budget adjustments.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for discrepancies in account receivable and payable processes.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns raised about the effectiveness of current financial strategy and oversight.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Issues with financial planning and its impact on long-term investment strategy.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action needed for discrepancies in financial forecasts and budget allocations.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Review of procurement processes and their alignment with budget planning.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about the effectiveness of financial controls and expense reporting.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for discrepancies in financial aid and tuition records.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Review needed for the impact of financial aid and scholarships on the university's budget.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about the management of investments and their impact on financial stability.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action needed for discrepancies in payroll management and employee benefits.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Review of budget planning processes and their impact on financial performance.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about financial compliance and the adequacy of current risk management strategies.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for discrepancies in account statements and financial audits.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about the effectiveness of financial planning and budget allocation strategies.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate attention required for issues related to financial forecasting and cash flow management.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Review needed for the management of procurement and contract management processes.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns raised about the adequacy of current financial policies and budget adjustments.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action needed for discrepancies in financial reports and expense tracking.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about financial risk management and its impact on budget planning.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Review of capital budgeting processes and their alignment with financial strategy.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for discrepancies in funding allocation and expense reporting.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about the effectiveness of current financial oversight and cost management.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action needed for issues related to asset management and financial compliance.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Review needed for the impact of financial systems on overall cash flow and budgeting.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about financial strategy and its impact on long-term fiscal management.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for discrepancies in payroll management and budgeting.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about the effectiveness of current financial controls and cost management.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action needed for issues related to financial reporting and expense analysis.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Review needed for the adequacy of financial planning and risk management processes.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about financial stability and the effectiveness of current budget adjustments.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate attention required for discrepancies in financial forecasting and cash flow.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Review needed for the impact of procurement processes on overall budget management.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns raised about financial compliance and its impact on overall fiscal management.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for discrepancies in financial audits and asset management.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about financial risk management and its impact on budget planning.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action needed for discrepancies in financial records and expense reporting.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Review of the effectiveness of current financial strategy and budget allocation processes.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about the management of financial aid and its impact on student tuition.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate attention required for issues related to payroll management and employee benefits.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Review needed for the adequacy of current financial controls and risk management strategies.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns raised about financial compliance and its impact on overall fiscal stability.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for discrepancies in budget planning and expense reporting.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about the effectiveness of current financial strategy and oversight mechanisms.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action needed for discrepancies in investment analysis and financial forecasting.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Review of the impact of financial aid and scholarships on budget allocations and expenses.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about the adequacy of current financial oversight and risk management strategies.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for discrepancies in account receivable and payable processes.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about the effectiveness of current financial systems and expense tracking mechanisms.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action needed for issues related to financial performance and budget adjustments.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Review needed for the impact of procurement processes on overall financial stability.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns raised about financial controls and their impact on budget management.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for discrepancies in asset management and capital budgeting.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about financial stability and the effectiveness of current budget adjustments.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action needed for issues related to financial compliance and risk management.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Review needed for the effectiveness of financial policies and their impact on budgeting.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about financial performance and its impact on overall fiscal management.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for discrepancies in financial records and budget allocation.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about the management of financial aid and its impact on the university's budget.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate attention required for issues related to payroll management and budgeting.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Review of financial strategy and its impact on long-term fiscal management.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about financial compliance and the adequacy of current risk management strategies.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for discrepancies in financial forecasting and expense reporting.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about financial stability and the effectiveness of budget adjustments.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action needed for issues related to asset management and financial compliance.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Review needed for the effectiveness of financial controls and expense tracking.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns raised about financial oversight and the impact on budget management.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for discrepancies in financial performance and budget allocations.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about the effectiveness of financial systems and their impact on cash flow.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action needed for issues related to financial reporting and budget planning.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Review needed for the impact of financial policies on overall fiscal management.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about the effectiveness of current financial controls and expense management.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for discrepancies in budget planning and financial reporting.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns raised about financial strategy and its impact on long-term financial stability.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate attention required for issues related to asset management and financial compliance.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Review needed for the adequacy of financial planning and risk management strategies.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about financial stability and the effectiveness of current budget adjustments.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for discrepancies in financial forecasting and budget allocations.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns raised about financial oversight and its impact on budget management.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action needed for discrepancies in asset management and capital budgeting.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Review of the impact of financial aid and scholarships on budget management.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about financial strategy and its impact on overall fiscal stability.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for discrepancies in financial reporting and expense tracking.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns raised about the effectiveness of current financial policies and oversight mechanisms.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action needed for issues related to financial forecasting and budget planning.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Review needed for the impact of procurement processes on financial stability.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about financial compliance and the effectiveness of current risk management strategies.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for discrepancies in financial records and budget allocations.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about financial stability and the effectiveness of current budget adjustments.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action needed for issues related to asset management and capital budgeting.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Review needed for the impact of financial aid and scholarships on overall budgeting.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns raised about the effectiveness of current financial controls and expense management.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for discrepancies in financial forecasting and expense reporting.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about the effectiveness of financial strategy and its impact on fiscal stability.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action needed for issues related to payroll management and budgeting.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Review needed for the adequacy of financial planning and risk management processes.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about financial stability and the effectiveness of current budget adjustments.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for discrepancies in financial reporting and budget allocations.",
+            "category": "VP Administration and Finance",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns raised about financial oversight and its impact on budget management.",
+            "category": "VP Administration and Finance",
+            "type": "report",
+            "urgency": "low"
+        },
+
+
+
+
+
+
+
+
+
+        {
+            "description": "Issues with scheduling for upcoming academic workshops.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about faculty performance during academic seminars.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback on the effectiveness of the academic advising system.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review needed for issues with student registration and course schedules.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns regarding the accuracy of academic transcripts.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback required on faculty development programs and their impact on teaching.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Issues with the course materials provided for recent seminars.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Review of academic standards in relation to student performance.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate attention needed for discrepancies in faculty reviews and academic performance.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about the effectiveness of current academic counseling services.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for issues related to curriculum development and course requirements.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback on the quality of research grants and their allocation.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about academic integrity during recent research activities.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Review needed for the effectiveness of academic support services.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action required for issues with faculty recruitment and academic planning.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback required on the quality of academic resources available for faculty and students.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about the scheduling and effectiveness of academic workshops.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review needed for inconsistencies in course catalogs and academic advising.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Review of the impact of faculty training on academic performance and student engagement.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns regarding the effectiveness of academic publications and their accessibility.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate attention needed for issues related to classroom management and faculty performance.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback on the effectiveness of academic support services and their impact on student progress.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about academic planning and the adequacy of academic resources.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for discrepancies in student records and academic performance.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about the effectiveness of faculty committees and their impact on academic outcomes.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action needed for issues with academic standards and course evaluations.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback on the effectiveness of academic counseling and student assessment.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns regarding the scheduling of academic conferences and workshops.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for issues related to faculty development and academic standards.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about the adequacy of academic resources and support for faculty development.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action needed for discrepancies in academic progress and student feedback.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback on the impact of faculty performance on student achievement and academic support.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about the effectiveness of academic advising and its impact on student outcomes.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review needed for issues with faculty recruitment and academic planning.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns regarding the scheduling and effectiveness of academic workshops and seminars.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action required for discrepancies in academic resources and course materials.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback required on the effectiveness of academic policies and their impact on student performance.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about faculty performance during recent academic lectures and seminars.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Immediate review required for issues related to research grants and academic publications.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback on the effectiveness of academic workshops and their impact on faculty development.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns regarding the adequacy of academic support services and their impact on student progress.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action needed for discrepancies in faculty roles and academic standards.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about the effectiveness of current academic counseling services.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for issues related to course development and academic policies.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback on the impact of academic support services on student outcomes and faculty performance.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about the effectiveness of academic advising and student engagement.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action required for inconsistencies in faculty recruitment and academic planning.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns regarding the scheduling of academic conferences and their impact on faculty development.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review needed for issues related to academic progress and student feedback.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback required on the effectiveness of academic resources and faculty training programs.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about the adequacy of academic resources and their impact on student progress.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action needed for issues with academic scheduling and faculty performance.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about the effectiveness of faculty committees and their impact on academic outcomes.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for inconsistencies in student records and academic performance.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback on the impact of faculty development programs on academic standards and student outcomes.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about the effectiveness of academic policies and their impact on student performance.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action needed for issues with academic planning and faculty development.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about the scheduling of academic workshops and their impact on faculty development.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for discrepancies in faculty roles and academic standards.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback on the quality of research grants and their allocation for academic purposes.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about academic integrity during recent research activities and faculty performance.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Immediate action needed for inconsistencies in academic resources and faculty training programs.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback required on the effectiveness of academic counseling and student assessment.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns regarding the scheduling and effectiveness of academic workshops and seminars.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for discrepancies in academic standards and faculty development.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback on the impact of academic support services on student outcomes and faculty performance.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about the effectiveness of current academic advising and student engagement.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action required for issues related to faculty recruitment and academic planning.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns regarding the scheduling of academic conferences and their impact on faculty development.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review needed for issues related to academic progress and student feedback.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback required on the effectiveness of academic resources and faculty training programs.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about the adequacy of academic resources and their impact on student progress.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action needed for issues with academic scheduling and faculty performance.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about the effectiveness of faculty committees and their impact on academic outcomes.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for inconsistencies in student records and academic performance.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback on the impact of faculty development programs on academic standards and student outcomes.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about the effectiveness of academic policies and their impact on student performance.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action needed for issues with academic planning and faculty development.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about the scheduling of academic workshops and their impact on faculty development.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for discrepancies in faculty roles and academic standards.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback on the quality of research grants and their allocation for academic purposes.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about academic integrity during recent research activities and faculty performance.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Immediate action needed for inconsistencies in academic resources and faculty training programs.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback required on the effectiveness of academic counseling and student assessment.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns regarding the scheduling and effectiveness of academic workshops and seminars.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for discrepancies in academic standards and faculty development.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback on the impact of academic support services on student outcomes and faculty performance.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about the effectiveness of current academic advising and student engagement.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action required for issues related to faculty recruitment and academic planning.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns regarding the scheduling of academic conferences and their impact on faculty development.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review needed for issues related to academic progress and student feedback.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback required on the effectiveness of academic resources and faculty training programs.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about the adequacy of academic resources and their impact on student progress.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action needed for issues with academic scheduling and faculty performance.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about the effectiveness of faculty committees and their impact on academic outcomes.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for inconsistencies in student records and academic performance.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback on the impact of faculty development programs on academic standards and student outcomes.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about the effectiveness of academic policies and their impact on student performance.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action needed for issues with academic planning and faculty development.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about the scheduling of academic workshops and their impact on faculty development.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for discrepancies in faculty roles and academic standards.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback on the quality of research grants and their allocation for academic purposes.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about academic integrity during recent research activities and faculty performance.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Immediate action needed for inconsistencies in academic resources and faculty training programs.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback required on the effectiveness of academic counseling and student assessment.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns regarding the scheduling and effectiveness of academic workshops and seminars.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for discrepancies in academic standards and faculty development.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback on the impact of academic support services on student outcomes and faculty performance.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about the effectiveness of current academic advising and student engagement.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action required for issues related to faculty recruitment and academic planning.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns regarding the scheduling of academic conferences and their impact on faculty development.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review needed for issues related to academic progress and student feedback.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback required on the effectiveness of academic resources and faculty training programs.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about the adequacy of academic resources and their impact on student progress.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action needed for issues with academic scheduling and faculty performance.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about the effectiveness of faculty committees and their impact on academic outcomes.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for inconsistencies in student records and academic performance.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback on the impact of faculty development programs on academic standards and student outcomes.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about the effectiveness of academic policies and their impact on student performance.",
+            "category": "VP Academic Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action needed for issues with academic planning and faculty development.",
+            "category": "VP Academic Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+
+
+
+
+
+
+
+        {
+            "description": "Concerns about the effectiveness of career counseling and job placement services.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Feedback needed on the quality of dormitory management and student housing policies.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "high"
+        },
+        {
+            "description": "Immediate action required for issues with student wellness programs and campus life activities.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about the adequacy of campus facilities for student activities and community service.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review needed for issues related to student events and external relations.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback required on the effectiveness of student support services and academic events.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns regarding the planning and execution of extracurricular activities and community engagement.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action needed for inconsistencies in student housing and maintenance.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about the scheduling and effectiveness of student engagement activities and campus events.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for issues with student feedback and student satisfaction.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback needed on the impact of student wellness programs on student success and engagement.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about the effectiveness of community outreach programs and student advocacy.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action required for issues with dormitory conditions and student support services.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about the coordination of student activities and external communications.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review needed for issues with student health and campus safety.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback required on the effectiveness of career development services and job placement.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about the adequacy of student resources and student advocacy programs.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action needed for inconsistencies in student housing and event planning.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about the effectiveness of student success programs and campus resource management.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for issues related to student feedback systems and campus activities.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback needed on the quality of community service programs and student programs.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns regarding the planning and coordination of student engagement and community outreach.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action required for issues with dormitory maintenance and student activities funding.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about the effectiveness of student leadership programs and campus life.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review needed for issues with student engagement and external partnerships.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback required on the adequacy of student housing policies and campus facilities.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about the scheduling and execution of student wellness and community outreach programs.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action needed for inconsistencies in student success programs and academic support services.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about the effectiveness of student feedback and community involvement.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for issues related to campus safety and student satisfaction.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback needed on the quality of student services and external communications.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns regarding the planning and effectiveness of student activities and career fairs.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action required for issues with student advocacy and external collaborations.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about the effectiveness of campus events coordination and student mentoring.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review needed for issues with student retention and service learning programs.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback required on the impact of career development services on student success.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about the effectiveness of student housing and external relations.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action needed for inconsistencies in campus activities and student programs.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about the scheduling and coordination of student engagement and career services.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for issues with student advocacy programs and community outreach.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback needed on the quality of student wellness programs and campus resource management.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns regarding the planning and execution of student events and community service programs.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action required for inconsistencies in student support services and campus facilities.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about the effectiveness of external partnerships and student networking opportunities.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review needed for issues with student feedback systems and career guidance.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback required on the adequacy of dormitory management and student housing policies.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about the effectiveness of student advocacy and campus life.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action needed for inconsistencies in student engagement and external communications.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns regarding the planning and coordination of student activities and community outreach.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for issues with student satisfaction and community service programs.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback needed on the effectiveness of student resources and career counseling services.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about the adequacy of dormitories and student housing management.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action required for inconsistencies in student programs and community outreach efforts.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about the effectiveness of campus events and student support services.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review needed for issues with student feedback and campus life activities.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback required on the quality of student activities funding and career development services.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns regarding the planning and execution of student events and career fairs.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action needed for inconsistencies in student housing policies and community outreach programs.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about the effectiveness of student wellness programs and external communications.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for issues with campus events coordination and student support.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback needed on the impact of career services on student success and job placement.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about the adequacy of student resources and community service programs.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action needed for issues with student support and dormitory maintenance.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about the effectiveness of campus life activities and student leadership programs.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for inconsistencies in student feedback and community outreach programs.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback needed on the adequacy of student wellness programs and campus resource management.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns regarding the planning and execution of student events and career development services.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action needed for inconsistencies in student programs and community service activities.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about the effectiveness of student activities funding and campus events coordination.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for issues with student satisfaction and career counseling.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback needed on the quality of student support services and career guidance.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about the effectiveness of external partnerships and student programs.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action required for inconsistencies in student engagement and community outreach.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about the effectiveness of student wellness programs and campus facilities.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review needed for issues with student feedback systems and career services.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback required on the adequacy of student housing and event planning.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns regarding the effectiveness of student support services and career counseling.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action required for issues with campus events coordination and student satisfaction.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about the effectiveness of student resources and community service programs.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review needed for issues with student support services and campus life activities.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback required on the impact of student success programs and career development services.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about the scheduling and effectiveness of student events and campus facilities.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action needed for inconsistencies in student wellness and career counseling.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns regarding the effectiveness of student housing and external partnerships.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for issues with student programs and community outreach efforts.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback needed on the adequacy of student support services and campus events.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about the effectiveness of student feedback systems and career services.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action required for inconsistencies in campus facilities and student programs.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns regarding the scheduling and coordination of student events and community involvement.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review needed for issues with student engagement and external collaborations.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback required on the effectiveness of student support services and campus events coordination.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about the adequacy of student wellness programs and campus facilities.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action needed for inconsistencies in student support and career guidance.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about the effectiveness of student activities funding and external communications.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for issues with student feedback systems and community service.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback needed on the quality of campus events and student success programs.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about the effectiveness of student resources and career development services.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action required for issues with student support services and community outreach.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns regarding the scheduling and effectiveness of student programs and campus facilities.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review needed for inconsistencies in student satisfaction and career services.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback required on the impact of career development services on student engagement.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about the effectiveness of student wellness programs and campus events.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action needed for inconsistencies in student advocacy and community service programs.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns regarding the planning and execution of student activities and external partnerships.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for issues with student feedback systems and career guidance.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback needed on the effectiveness of student support services and community outreach.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about the adequacy of campus facilities and student programs.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action required for inconsistencies in student engagement and career services.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns regarding the effectiveness of student wellness programs and campus events.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review needed for issues with student support services and career counseling.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback required on the quality of student resources and community service programs.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about the effectiveness of student engagement activities and campus events.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action needed for inconsistencies in student programs and career guidance.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns about the planning and execution of student activities and external collaborations.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for issues with campus events and student support services.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback needed on the effectiveness of student wellness programs and career development services.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about the adequacy of student resources and campus life activities.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action required for issues with student advocacy and community service.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns regarding the effectiveness of student engagement and external partnerships.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review needed for inconsistencies in student satisfaction and campus activities.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback required on the quality of student wellness programs and external communications.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Concerns about the effectiveness of student housing and campus facilities.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate action needed for inconsistencies in student programs and community outreach.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Concerns regarding the scheduling and effectiveness of student activities and career services.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        },
+        {
+            "description": "Immediate review required for issues with student satisfaction and community service programs.",
+            "category": "VP Students and External Affairs",
+            "type": "complaint",
+            "urgency": "high"
+        },
+        {
+            "description": "Feedback needed on the impact of student wellness programs on student success and engagement.",
+            "category": "VP Students and External Affairs",
+            "type": "report",
+            "urgency": "low"
+        }
+
+
+
+
+
+
+   
 ]

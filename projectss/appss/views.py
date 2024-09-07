@@ -6,6 +6,11 @@ from .model_utils import load_models
 def home(request):
     return render(request,'main/home.html')
 
+
+
+
+
+
 def informant_page(request):
     complaints = Complaint.objects.all()
     return render(request, 'main/informant_page.html', {'complaints': complaints})

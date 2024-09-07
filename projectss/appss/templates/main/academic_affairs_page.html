@@ -5,13 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Academic Affairs</title>
     <style>
-        #reports-table, #complaints-table, #buttons-container {
+        #reports-table, #complaints-table, #buttons-container, 
+        #history-buttons-container, #history-reports-table, #history-complaints-table {
             display: none; /* Initially hidden */
         }
-        #reports-table.visible, #complaints-table.visible, #buttons-container.visible {
+        #reports-table.visible, #complaints-table.visible, #buttons-container.visible,
+        #history-buttons-container.visible, #history-reports-table.visible, #history-complaints-table.visible {
             display: block; /* Show when the 'visible' class is added */
         }
-        #status-link {
+        #status-link, #history-link {
             color: blue;
             cursor: pointer;
             text-decoration: underline;
@@ -31,7 +33,6 @@
         }
         .status {
             font-weight: bold;
-            /* Conditional styling based on status */
         }
         .status-pending {
             background-color: red; /* Red for pending */
@@ -41,8 +42,8 @@
             background-color: yellow; /* Yellow for in progress */
             color: black;
         }
-        .status-resolved {
-            background-color: green; /* Green for resolved */
+        .status-solved {
+            background-color: green; /* Green for solved */
             color: white;
         }
     </style>
@@ -50,12 +51,19 @@
 <body>
     <h1>Academic Affairs</h1>
 
-    <p id="status-link" onclick="toggleVisibility()">Status</p>
+    <p id="status-link" onclick="toggleStatusVisibility()">Status</p>
+    <p id="history-link" onclick="toggleHistoryVisibility()">History</p>
 
     <!-- Buttons for Reports and Complaints -->
     <div id="buttons-container">
         <button onclick="showReports()">Reports</button>
         <button onclick="showComplaints()">Complaints</button>
+    </div>
+
+    <!-- History Buttons for Reports and Complaints -->
+    <div id="history-buttons-container">
+        <button onclick="showHistoryReports()">Solved Reports</button>
+        <button onclick="showHistoryComplaints()">Solved Complaints</button>
     </div>
 
     <!-- Table for Reports -->
@@ -70,10 +78,12 @@
                     <th>Status</th>
                     <th>Issue Date</th>
                     <th>Update Status</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody id="reports-body">
                 {% for report in reports %}
+                {% if report.status != "Solved" %}
                 <tr data-id="{{ report.id }}">
                     <td>{{ report.office }}</td>
                     <td>{{ report.type }}</td>
@@ -84,7 +94,7 @@
                             No PDF available
                         {% endif %}
                     </td>
-                    <td class="status {% if report.status == 'Pending' %}status-pending{% elif report.status == 'In Progress' %}status-in-progress{% elif report.status == 'Resolved' %}status-resolved{% endif %}">
+                    <td class="status {% if report.status == 'Pending' %}status-pending{% elif report.status == 'In Progress' %}status-in-progress{% elif report.status == 'Solved' %}status-solved{% endif %}">
                         {{ report.status }}
                     </td>
                     <td>{{ report.issue_date|date:"F j, Y" }}</td>
@@ -94,13 +104,14 @@
                             <select name="status">
                                 <option value="Pending" {% if report.status == "Pending" %}selected{% endif %}>Pending</option>
                                 <option value="In Progress" {% if report.status == "In Progress" %}selected{% endif %}>In Progress</option>
-                                <option value="Resolved" {% if report.status == "Resolved" %}selected{% endif %}>Resolved</option>
+                                <option value="Solved" {% if report.status == "Solved" %}selected{% endif %}>Solved</option>
                             </select>
-                            <input type="hidden" name="redirect_url" value="{% url 'gad_office_page' %}">
+                            <input type="hidden" name="redirect_url" value="{% url 'academic_affairs_page' %}">
                             <button type="submit">Update</button>
                         </form>
                     </td>
                 </tr>
+                {% endif %}
                 {% endfor %}
             </tbody>
         </table>
@@ -118,10 +129,12 @@
                     <th>Status</th>
                     <th>Issue Date</th>
                     <th>Update Status</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody id="complaints-body">
                 {% for complaint in complaints %}
+                {% if complaint.status != "Solved" %}
                 <tr data-id="{{ complaint.id }}">
                     <td>{{ complaint.office }}</td>
                     <td>{{ complaint.type }}</td>
@@ -132,7 +145,7 @@
                             No PDF available
                         {% endif %}
                     </td>
-                    <td class="status {% if complaint.status == 'Pending' %}status-pending{% elif complaint.status == 'In Progress' %}status-in-progress{% elif complaint.status == 'Resolved' %}status-resolved{% endif %}">
+                    <td class="status {% if complaint.status == 'Pending' %}status-pending{% elif complaint.status == 'In Progress' %}status-in-progress{% elif complaint.status == 'Solved' %}status-solved{% endif %}">
                         {{ complaint.status }}
                     </td>
                     <td>{{ complaint.issue_date|date:"F j, Y" }}</td>
@@ -142,26 +155,106 @@
                             <select name="status">
                                 <option value="Pending" {% if complaint.status == "Pending" %}selected{% endif %}>Pending</option>
                                 <option value="In Progress" {% if complaint.status == "In Progress" %}selected{% endif %}>In Progress</option>
-                                <option value="Resolved" {% if complaint.status == "Resolved" %}selected{% endif %}>Resolved</option>
+                                <option value="Solved" {% if complaint.status == "Solved" %}selected{% endif %}>Solved</option>
                             </select>
-                            <input type="hidden" name="redirect_url" value="{% url 'gad_office_page' %}">
+                            <input type="hidden" name="redirect_url" value="{% url 'academic_affairs_page' %}">
                             <button type="submit">Update</button>
                         </form>
                     </td>
                 </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- History Tables -->
+    <div id="history-reports-table">
+        <h2>Solved Reports</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Office</th>
+                    <th>Type</th>
+                    <th>Description (PDF)</th>
+                    <th>Status</th>
+                    <th>Issue Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="history-reports-body">
+                {% for report in reports %}
+                {% if report.status == "Solved" %}
+                <tr data-id="{{ report.id }}">
+                    <td>{{ report.office }}</td>
+                    <td>{{ report.type }}</td>
+                    <td>
+                        {% if report.pdf_file %}
+                            <a href="{{ report.pdf_file.url }}" target="_blank">Download PDF</a>
+                        {% else %}
+                            No PDF available
+                        {% endif %}
+                    </td>
+                    <td class="status status-solved">{{ report.status }}</td>
+                    <td>{{ report.issue_date|date:"F j, Y" }}</td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div id="history-complaints-table">
+        <h2>Solved Complaints</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Office</th>
+                    <th>Type</th>
+                    <th>Description (PDF)</th>
+                    <th>Status</th>
+                    <th>Issue Date</th>
+                    
+                </tr>
+            </thead>
+            <tbody id="history-complaints-body">
+                {% for complaint in complaints %}
+                {% if complaint.status == "Solved" %}
+                <tr data-id="{{ complaint.id }}">
+                    <td>{{ complaint.office }}</td>
+                    <td>{{ complaint.type }}</td>
+                    <td>
+                        {% if complaint.pdf_file %}
+                            <a href="{{ complaint.pdf_file.url }}" target="_blank">Download PDF</a>
+                        {% else %}
+                            No PDF available
+                        {% endif %}
+                    </td>
+                    <td class="status status-solved">{{ complaint.status }}</td>
+                    <td>{{ complaint.issue_date|date:"F j, Y" }}</td>
+                </tr>
+                {% endif %}
                 {% endfor %}
             </tbody>
         </table>
     </div>
 
     <script>
-        let isVisible = false;
+        let isStatusVisible = false;
+        let isHistoryVisible = false;
 
-        function toggleVisibility() {
-            isVisible = !isVisible;
-            document.getElementById('buttons-container').style.display = isVisible ? 'block' : 'none';
+        function toggleStatusVisibility() {
+            isStatusVisible = !isStatusVisible;
+            document.getElementById('buttons-container').style.display = isStatusVisible ? 'block' : 'none';
             document.getElementById('reports-table').style.display = 'none';
             document.getElementById('complaints-table').style.display = 'none';
+        }
+
+        function toggleHistoryVisibility() {
+            isHistoryVisible = !isHistoryVisible;
+            document.getElementById('history-buttons-container').style.display = isHistoryVisible ? 'block' : 'none';
+            document.getElementById('history-reports-table').style.display = 'none';
+            document.getElementById('history-complaints-table').style.display = 'none';
         }
 
         function showReports() {
@@ -174,11 +267,15 @@
             document.getElementById('reports-table').style.display = 'none';
         }
 
-        function updateURL() {
-           window.location.href = '/complaints/gad-office/status/';
+        function showHistoryReports() {
+            document.getElementById('history-reports-table').style.display = 'block';
+            document.getElementById('history-complaints-table').style.display = 'none';
         }
-    
- 
+
+        function showHistoryComplaints() {
+            document.getElementById('history-complaints-table').style.display = 'block';
+            document.getElementById('history-reports-table').style.display = 'none';
+        }
     </script>
 </body>
 </html>
