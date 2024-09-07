@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Informant</title>
     <style>
-        #complaints-table, #history-table {
+        #complaints-table, #history-table, #messages-section, #conversation-section {
             display: none; /* Initially hidden */
         }
-        #status-link, #history-link {
+        #status-link, #history-link, #messages-link {
             color: blue;
             cursor: pointer;
             text-decoration: underline;
         }
-        #complaints-table.visible, #history-table.visible {
+        #complaints-table.visible, #history-table.visible, #messages-section.visible, #conversation-section.visible {
             display: block; /* Show when the 'visible' class is added */
         }
         table {
@@ -42,6 +42,40 @@
         .urgency-high { color: green; }
         .urgency-medium { color: yellow; }
         .urgency-low { color: red; }
+
+        /* Styles for the messages section */
+        #messages-section {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            width: 300px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            z-index: 1000;
+        }
+        .message {
+            margin-bottom: 10px;
+            padding: 5px;
+            border-radius: 5px;
+            background: #f1f1f1;
+        }
+        .message.sent {
+            background: #d0f0c0;
+            text-align: right;
+        }
+        .message.received {
+            background: #e0e0e0;
+        }
+        #message-input {
+            width: calc(100% - 80px);
+            margin-right: 10px;
+        }
+        button {
+            width: 60px;
+        }
     </style>
     <!-- Include jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -52,6 +86,7 @@
 
     <p id="status-link" onclick="toggleTable('status')">Status</p>
     <p id="history-link" onclick="toggleTable('history')">History</p>
+    <p id="messages-link" onclick="toggleTable('messages')">Messages</p>
 
     <!-- Complaints Table for Unresolved Complaints -->
     <div id="complaints-table">
@@ -155,17 +190,90 @@
         {% endif %}
     </div>
 
+    <!-- Messages Section -->
+    <div id="messages-section">
+        <h2>Messages</h2>
+        <ul>
+            <li><a href="#" onclick="showConversation('gad')">GAD Office</a></li>
+            <li><a href="#" onclick="showConversation('academic')">Academic Affairs</a></li>
+            <li><a href="#" onclick="showConversation('admin_finance')">Administration and Finance</a></li>
+            <li><a href="#" onclick="showConversation('student_affairs')">Student and External Affairs</a></li>
+        </ul>
+    </div>
+
+    <!-- Conversation Section -->
+    <div id="conversation-section">
+        <h2 id="office-name">Office Conversation</h2>
+        <div id="conversation-content">
+            <!-- Dynamic content loaded via JavaScript for each office -->
+            <div id="conversation-messages"></div>
+            <textarea id="message-input" rows="4" cols="50" placeholder="Type your message here..."></textarea>
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
     <script>
         function toggleTable(type) {
             var complaintsTable = document.getElementById('complaints-table');
             var historyTable = document.getElementById('history-table');
+            var messagesSection = document.getElementById('messages-section');
+            var conversationSection = document.getElementById('conversation-section');
 
             if (type === 'status') {
                 complaintsTable.classList.add('visible');
                 historyTable.classList.remove('visible');
+                messagesSection.classList.remove('visible');
+                conversationSection.classList.remove('visible');
             } else if (type === 'history') {
                 historyTable.classList.add('visible');
                 complaintsTable.classList.remove('visible');
+                messagesSection.classList.remove('visible');
+                conversationSection.classList.remove('visible');
+            } else if (type === 'messages') {
+                messagesSection.classList.add('visible');
+                complaintsTable.classList.remove('visible');
+                historyTable.classList.remove('visible');
+                conversationSection.classList.remove('visible');
+            }
+        }
+
+        function showConversation(office) {
+            var officeName = '';
+            switch (office) {
+                case 'gad':
+                    officeName = 'GAD Office';
+                    break;
+                case 'academic':
+                    officeName = 'Academic Affairs';
+                    break;
+                case 'admin_finance':
+                    officeName = 'Administration and Finance';
+                    break;
+                case 'student_affairs':
+                    officeName = 'Student and External Affairs';
+                    break;
+            }
+
+            document.getElementById('office-name').textContent = officeName;
+            document.getElementById('messages-section').classList.remove('visible');
+            document.getElementById('conversation-section').classList.add('visible');
+        }
+
+        function sendMessage() {
+            var messageInput = document.getElementById('message-input').value;
+            if (messageInput) {
+                var conversationMessages = document.getElementById('conversation-messages');
+                var newMessage = document.createElement('div');
+                newMessage.classList.add('message', 'sent');
+                newMessage.textContent = messageInput;
+                conversationMessages.appendChild(newMessage);
+                conversationMessages.scrollTop = conversationMessages.scrollHeight; // Scroll to the bottom
+                document.getElementById('message-input').value = ''; // Clear input
+
+                // Simulate sending message to the backend (you need to implement this)
+                alert('Message sent: ' + messageInput);
+            } else {
+                alert('Please enter a message.');
             }
         }
 

@@ -6,14 +6,16 @@
     <title>GAD Office</title>
     <style>
         #reports-table, #complaints-table, #buttons-container, 
-        #history-buttons-container, #history-reports-table, #history-complaints-table {
+        #history-buttons-container, #history-reports-table, #history-complaints-table,
+        #messages-container {
             display: none; /* Initially hidden */
         }
         #reports-table.visible, #complaints-table.visible, #buttons-container.visible,
-        #history-buttons-container.visible, #history-reports-table.visible, #history-complaints-table.visible {
+        #history-buttons-container.visible, #history-reports-table.visible, #history-complaints-table.visible,
+        #messages-container.visible {
             display: block; /* Show when the 'visible' class is added */
         }
-        #status-link, #history-link {
+        #status-link, #history-link, #messages-link {
             color: blue;
             cursor: pointer;
             text-decoration: underline;
@@ -53,6 +55,7 @@
 
     <p id="status-link" onclick="toggleStatusVisibility()">Status</p>
     <p id="history-link" onclick="toggleHistoryVisibility()">History</p>
+    <p id="messages-link" onclick="toggleMessagesVisibility()">Messages</p>
 
     <!-- Buttons for Reports and Complaints -->
     <div id="buttons-container">
@@ -214,7 +217,6 @@
                     <th>Description (PDF)</th>
                     <th>Status</th>
                     <th>Issue Date</th>
-                    
                 </tr>
             </thead>
             <tbody id="history-complaints-body">
@@ -239,9 +241,18 @@
         </table>
     </div>
 
+    <!-- Messages Section -->
+    <div id="messages-container">
+        <h2>Messages</h2>
+        <ul id="messages-list">
+            <!-- Messages will be dynamically inserted here -->
+        </ul>
+    </div>
+
     <script>
         let isStatusVisible = false;
         let isHistoryVisible = false;
+        let isMessagesVisible = false;
 
         function toggleStatusVisibility() {
             isStatusVisible = !isStatusVisible;
@@ -255,6 +266,14 @@
             document.getElementById('history-buttons-container').style.display = isHistoryVisible ? 'block' : 'none';
             document.getElementById('history-reports-table').style.display = 'none';
             document.getElementById('history-complaints-table').style.display = 'none';
+        }
+
+        function toggleMessagesVisibility() {
+            isMessagesVisible = !isMessagesVisible;
+            document.getElementById('messages-container').style.display = isMessagesVisible ? 'block' : 'none';
+            if (isMessagesVisible) {
+                fetchMessages();
+            }
         }
 
         function showReports() {
@@ -276,6 +295,27 @@
             document.getElementById('history-complaints-table').style.display = 'block';
             document.getElementById('history-reports-table').style.display = 'none';
         }
+
+        function fetchMessages() {
+            fetch('/api/messages')  // Replace with your endpoint
+                .then(response => response.json())
+                .then(data => {
+                    const messagesList = document.getElementById('messages-list');
+                    messagesList.innerHTML = ''; // Clear existing messages
+                    data.messages.forEach(message => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = message.text;  // Adjust according to your message structure
+                        messagesList.appendChild(listItem);
+                    });
+                })
+                .catch(error => console.error('Error fetching messages:', error));
+        }
+
+        // Optionally, add sample messages or remove the sample addition if not needed
+        // addMessage('Welcome to the GAD Office.');
+        // addMessage('Your recent complaint has been received.');
     </script>
 </body>
 </html>
+
+

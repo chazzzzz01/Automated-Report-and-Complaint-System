@@ -1,892 +1,544 @@
 [
-        {
-            "description": "There have been multiple reports of sexual harassment and unwanted touch in campus facilities.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "high"
-        },
-        {
-            "description": "Instances of misogynistic comments and discriminatory behavior have been reported in student groups.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "high"
-        },
-        {
-            "description": "The campus needs stronger policies against verbal and physical harassment, including sexual favors and groping.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "high"
-        },
-        {
-            "description": "There have been cases of cyber stalking and online sexual harassment reported by students.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "high"
-        },
-        {
-            "description": "The university should improve measures against leering and unwanted sexual comments.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "high"
-        },
-        {
-            "description": "Students are facing issues with aggressive and abusive behavior, including cursing and taunting.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "There are reports of inappropriate sexual messages and lewd gestures on campus.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "The campus should address incidents of unwanted physical contact and harassment more effectively.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "low"
-        },
-        {
-            "description": "Improved policies are needed to handle issues related to unauthorized recording and personal details misuse.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "low"
-        },
-        {
-            "description": "There should be better support for students experiencing intrusive gazing and unwanted requests.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "low"
-        },
-        {
-            "description": "Instances of cyber harassment and blackmailing need to be addressed more effectively by the university.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "low"
-        },
-        {
-            "description": "There is a need for more training on handling cases of stalking and manipulation.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "low"
-        },
-        {
-            "description": "Complaints have been made about offensive body gestures and sexually suggestive visuals.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "The campus needs to improve its response to issues of unwanted touching and sexual overtone.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "low"
-        },
-        {
-            "description": "There have been incidents of catcalling and unwanted sexual comments on campus.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "high"
-        },
-        {
-            "description": "Students have reported instances of wolf whistling and verbal harassment in the dormitories.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "high"
-        },
-        {
-            "description": "There is a problem with sexist slurs and gender jokes being used during campus events.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "high"
-        },
-        {
-            "description": "Students are experiencing unwanted invitations and sexual overtone comments from peers.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "high"
-        },
-        {
-            "description": "There is a need for better diversity and inclusion practices, especially regarding gender-neutral facilities.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "high"
-        },
-        {
-            "description": "The university should address discrimination and verbal harassment more effectively.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "high"
-        },
-        {
-            "description": "There should be improved policies against sexual harassment and unwanted touch on campus.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "high"
-        },
-        {
-            "description": "The campus needs better support for students facing bullying and physical harassment.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "high"
-        },
-        {
-            "description": "There have been complaints about unwanted sexual messaging and intrusive gazing.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "Students have reported instances of non-verbal harassment and offensive body gestures.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "There is a need to address gender-based harassment and abusive behavior on campus.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "Campus resources should be improved to handle issues related to stalking and cyber harassment.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "low"
-        },
-        {
-            "description": "The university needs to provide better support for victims of groping and unwanted touch.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "low"
-        },
-        {
-            "description": "There should be more training for staff on handling cases of sexual abuse and harassment.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "low"
-        },
-        {
-            "description": "Inappropriate sexual comments and touching have been reported in academic settings.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
+    {
+        "description": "Urgent report needed on harassment complaints related to catcalling incidents.",
+        "category": "GAD Office",
+        "type": "report",
+        "urgency": "high"
+    },
+    {
+        "description": "Concerns about gender-neutral practices and inclusion in workplace policies.",
+        "category": "GAD Office",
+        "type": "report",
+        "urgency": "low"
+    },
+    {
+        "description": "Unwanted invitation complaints from employees regarding inappropriate requests.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "high"
+    },
+    {
+        "description": "Discrimination complaints related to transgender employees and inclusive policies.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "low"
+    },
+    {
+        "description": "Review of misogynistic jokes affecting employee morale is urgently needed.",
+        "category": "GAD Office",
+        "type": "report",
+        "urgency": "high"
+    },
+    {
+        "description": "Concerns about gender-based bullying and verbal harassment within the office.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "low"
+    },
+    {
+        "description": "Urgent investigation needed for a complaint about sexual harassment in online communications.",
+        "category": "GAD Office",
+        "type": "report",
+        "urgency": "high"
+    },
+    {
+        "description": "Complaints about unwanted comments and inappropriate body gestures in team meetings.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "low"
+    },
+    {
+        "description": "A report on unauthorized recording and cyberstalking incidents is required.",
+        "category": "GAD Office",
+        "type": "report",
+        "urgency": "high"
+    },
+    {
+        "description": "Concerns raised about the handling of confidential victim support data in harassment cases.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "low"
+    },
+    {
+        "description": "Report needed on complaints related to aggressive taunting and gossiping in workplace.",
+        "category": "GAD Office",
+        "type": "report",
+        "urgency": "high"
+    },
+    {
+        "description": "Complaints about offensive sexual jokes shared during work meetings.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "low"
+    },
+    {
+        "description": "Urgent review required for unwanted touching incidents and physical harassment reports.",
+        "category": "GAD Office",
+        "type": "report",
+        "urgency": "high"
+    },
+    {
+        "description": "Concerns about inclusion policies and diversity representation at the workplace.",
+        "category": "GAD Office",
+        "type": "report",
+        "urgency": "low"
+    },
+    {
+        "description": "Urgent investigation into sexual harassment involving unwanted hugging and grabbing.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "high"
+    },
+    {
+        "description": "Complaints regarding gender-based discrimination in workplace promotions.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "low"
+    },
+    {
+        "description": "Urgent review of a cyber-stalking complaint involving incessant messaging after hours.",
+        "category": "GAD Office",
+        "type": "report",
+        "urgency": "high"
+    },
+    {
+        "description": "Concerns about verbal harassment and sexist slurs impacting team collaboration.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "low"
+    },
+    {
+        "description": "Urgent investigation required into complaints of physical harassment during work events.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "high"
+    },
+    {
+        "description": "Concerns raised about non-verbal harassment incidents in the office environment.",
+        "category": "GAD Office",
+        "type": "report",
+        "urgency": "low"
+    },
+    {
+        "description": "Urgent review of workplace bullying cases related to gender-based insults.",
+        "category": "GAD Office",
+        "type": "report",
+        "urgency": "high"
+    },
+    {
+        "description": "Complaints about gossiping lies and its impact on workplace harmony.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "low"
+    },
+    {
+        "description": "Urgent investigation needed into complaints about sexual messaging and leering.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "high"
+    },
+    {
+        "description": "Concerns raised about uninvited sexual comments made during office parties.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "low"
+    },
+    {
+        "description": "Immediate action required for incidents involving voyeurism in shared workspaces.",
+        "category": "GAD Office",
+        "type": "report",
+        "urgency": "high"
+    },
+    {
+        "description": "Concerns about stalking incidents during office hours raised by employees.",
+        "category": "GAD Office",
+        "type": "report",
+        "urgency": "low"
+    },
+    {
+        "description": "Urgent investigation of public masturbation incidents reported by employees.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "high"
+    },
+    {
+        "description": "Complaints about inappropriate smacking of lips directed at coworkers.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "low"
+    },
+    {
+        "description": "Urgent review of misconduct involving sexual overtone in workplace communication.",
+        "category": "GAD Office",
+        "type": "report",
+        "urgency": "high"
+    },
+    {
+        "description": "Concerns raised about persistent unwanted requests for sexual favors.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "low"
+    },
+    {
+        "description": "Urgent action required for sexual harassment reports involving physical groping.",
+        "category": "GAD Office",
+        "type": "report",
+        "urgency": "high"
+    },
+    {
+        "description": "Complaints about discriminatory gender jokes in team meetings need attention.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "low"
+    },
+    {
+        "description": "Urgent investigation into reports of sexually suggestive visuals shared via email.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "high"
+    },
+    {
+        "description": "Concerns raised about abusive language and emotional threats in workplace interactions.",
+        "category": "GAD Office",
+        "type": "report",
+        "urgency": "low"
+    },
+    {
+        "description": "Urgent review needed for unauthorized recording of private conversations between employees.",
+        "category": "GAD Office",
+        "type": "report",
+        "urgency": "high"
+    },
+    {
+        "description": "Complaints raised about inappropriate pinching incidents during team activities.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "low"
+    },
+    {
+        "description": "Urgent action required for harassment reports involving unsolicited sexual images.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "high"
+    },
+    {
+        "description": "Concerns about safety measures for employees facing repeated stalking incidents.",
+        "category": "GAD Office",
+        "type": "report",
+        "urgency": "low"
+    },
+    {
+        "description": "Urgent investigation into complaints of sexual assault during office-sponsored events.",
+        "category": "GAD Office",
+        "type": "report",
+        "urgency": "high"
+    },
+    {
+        "description": "Complaints regarding voyeurism and unauthorized image recording raised by staff members.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "low"
+    },
+    {
+        "description": "Urgent review needed on harassment reporting mechanisms and victim advocacy services.",
+        "category": "GAD Office",
+        "type": "report",
+        "urgency": "high"
+    },
+    {
+        "description": "Concerns about legal protections for employees facing consistent messaging harassment.",
+        "category": "GAD Office",
+        "type": "report",
+        "urgency": "low"
+    },
+    {
+        "description": "Urgent investigation required for retaliation claims after harassment reporting.",
+        "category": "GAD Office",
+        "type": "report",
+        "urgency": "high"
+    },
+    {
+        "description": "Complaints about gender-based discrimination in hiring practices need review.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "low"
+    }, 
 
-        {
-            "description": "There have been reports of sexual assault and groping that need immediate attention.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "high"
-        },
-        {
-            "description": "Multiple instances of sexual harassment, including unwanted touching and sexual comments, have been reported.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "high"
-        },
-        {
-            "description": "The university needs to implement stricter measures against sexual abuse and rape on campus.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "high"
-        },
-        {
-            "description": "There are significant concerns regarding physical harassment, including slapping and unwanted physical contact.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "high"
-        },
-        {
-            "description": "Addressing incidents of stalking and incessant messaging should be a priority for campus security.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "high"
-        },
-        {
-            "description": "There have been low-level complaints of sexist slurs and gender-based taunting in student interactions.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "Reports of offensive jokes and non-verbal harassment, such as smacking lips and intrusive gazing, are increasing.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "The university needs to provide more resources for dealing with emotional threats and manipulation.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "low"
-        },
-        {
-            "description": "There are complaints about negative gossip and verbal harassment impacting students’ well-being.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "The campus should enhance support systems for victims of cyber stalking and online harassment.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "low"
-        },
-        {
-            "description": "Students have reported incidents of unwanted requests and intrusive behavior in academic settings.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "More training is needed for staff to handle cases of unauthorized recording and blackmailing effectively.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "low"
-        },
-        {
-            "description": "There should be policies in place to address issues of sexual messaging and exposing pictures on campus.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "low"
-        },
-        {
-            "description": "Complaints have been made about unwanted hugging and inappropriate physical contact.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "The campus needs better mechanisms for reporting and addressing issues of verbal harassment and gender-based discrimination.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "low"
-        },
-
-
-
-
-
-        {
-            "description": "There have been multiple reports of sexual abuse and inappropriate touching.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "high"
-        },
-        {
-            "description": "Students are facing issues with non-verbal harassment, including offensive body gestures.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "The campus needs immediate action against unwanted sexual comments and harassment.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "high"
-        },
-        {
-            "description": "Reports of gender-based bullying and verbal harassment are increasing.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "There are concerns about the university’s response to incidents of stalking and cyber harassment.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "high"
-        },
-        {
-            "description": "Complaints have been made about inappropriate cursing and taunting in social settings.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "There is an urgent need for better policies on handling cases of sexual assault and groping.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "high"
-        },
-        {
-            "description": "There are issues with gossiping lies and gender jokes affecting student interactions.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "Immediate measures are needed to address unwanted touch and aggressive behavior.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "high"
-        },
-        {
-            "description": "Students have reported problems with sexist slurs and misogynistic comments.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "The university should enhance support for victims of sexual harassment and verbal abuse.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "high"
-        },
-        {
-            "description": "There are complaints about public masturbations and inappropriate sexual actions on campus.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "high"
-        },
-        {
-            "description": "Reports of unwanted invitations and intrusive behavior in academic settings need attention.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "The campus needs policies to handle issues of stalking and online sexual harassment.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "high"
-        },
-        {
-            "description": "Students have reported issues with aggressive touching and offensive sexual comments.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "There is a need for better campus facilities to support gender-neutral needs and diversity.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "low"
-        },
-        {
-            "description": "The university needs to improve its response to incidents of verbal harassment and abuse.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "high"
-        },
-        {
-            "description": "Students have reported issues with unwanted sexual messaging and invasive comments.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "Immediate attention is required for cases of sexual assault and inappropriate physical contact.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "high"
-        },
-        {
-            "description": "There are concerns about unauthorized recording and blackmailing of students.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "low"
-        },
-        {
-            "description": "The university should address incidents of physical harassment and abusive behavior promptly.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "high"
-        },
-        {
-            "description": "Complaints about intrusive gazing and unwanted physical touch need to be addressed.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "There is an urgent need for policies addressing sexual harassment and online threats.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "high"
-        },
-        {
-            "description": "Students have reported issues with abusive and manipulative behavior in academic settings.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "The campus should improve its support for victims of unwanted touching and sexual favor requests.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "low"
-        },
-        {
-            "description": "There are cases of gender-based bullying and unwanted sexual advances that need immediate action.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "high"
-        },
-        {
-            "description": "Reports of inappropriate sexual visuals and unwanted comments need to be addressed.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "The university should implement measures to handle issues of sexual harassment and verbal abuse.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "high"
-        },
-        {
-            "description": "There are reports of unwanted requests and abusive behavior that need to be investigated.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "Immediate attention is required for incidents of groping and aggressive sexual behavior.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "high"
-        },
-        {
-            "description": "The campus needs better policies to address issues of cyber stalking and online harassment.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "low"
-        },
-        {
-            "description": "There is an urgent need to address incidents of sexual assault and inappropriate physical interactions.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "high"
-        },
-        {
-            "description": "Students have reported issues with negative gossip and emotional threats.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "The university should improve support systems for dealing with verbal harassment and abusive behavior.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "high"
-        },
-        {
-            "description": "There are complaints about unwanted physical touch and verbal abuse in student activities.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "Immediate action is needed for cases of sexual harassment, including sexual messaging and groping.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "high"
-        },
-        {
-            "description": "The campus needs policies to handle issues related to unauthorized recording and blackmailing.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "low"
-        },
-        {
-            "description": "There are urgent concerns about sexual assault and unwanted physical contact that need addressing.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "high"
-        },
-        {
-            "description": "Complaints about inappropriate sexual gestures and offensive body language need attention.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "The university should enhance measures against stalking and cyber harassment.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "high"
-        },
-        {
-            "description": "Students have reported issues with sexual harassment and abusive behavior in academic settings.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "There is a need for better support for victims of verbal abuse and physical harassment.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "high"
-        },
-        {
-            "description": "Reports of unwanted sexual requests and intrusive behavior need to be addressed.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "Immediate attention is required for cases of sexual harassment, including unwanted touching and groping.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "high"
-        },
-        {
-            "description": "The university needs better policies to handle issues of gender-based harassment and bullying.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "low"
-        },
-        {
-            "description": "There are complaints about inappropriate sexual actions and offensive gestures on campus.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "The campus needs improved measures for addressing issues of cyber stalking and emotional manipulation.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "high"
-        },
-        {
-            "description": "Reports of unwanted sexual comments and groping incidents need immediate attention.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "high"
-        },
-        {
-            "description": "There are low-priority complaints about intrusive behavior and inappropriate comments.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "Immediate action is needed for incidents of unwanted sexual advances and physical harassment.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "high"
-        },
-        {
-            "description": "The university should enhance policies to handle issues of online harassment and unauthorized recording.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "low"
-        },
-        {
-            "description": "Students have reported issues with unwanted physical contact and sexual comments.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "The campus needs immediate measures to address incidents of sexual harassment and unwanted touching.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "high"
-        },
-        {
-            "description": "Complaints about negative gossip and inappropriate jokes need to be addressed.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "The university should improve its response to cases of sexual harassment and verbal abuse.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "high"
-        },
-        {
-            "description": "There are concerns about unwanted touch and invasive behavior in student activities.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "Immediate action is required for cases of unwanted sexual gestures and aggressive behavior.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "high"
-        },
-        {
-            "description": "The university needs better policies to handle issues related to cyber stalking and online threats.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "low"
-        },
-        {
-            "description": "Students have reported issues with inappropriate physical contact and verbal harassment.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "There is an urgent need for policies addressing sexual harassment and verbal abuse on campus.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "high"
-        },
-        {
-            "description": "Complaints about aggressive touching and unwanted sexual advances need to be investigated.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "Immediate attention is required for cases of sexual assault and groping incidents.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "high"
-        },
-        {
-            "description": "The campus should enhance support for victims of cyber stalking and unauthorized recording.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "low"
-        },
-        {
-            "description": "There are concerns about verbal harassment and gender-based bullying that need addressing.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "Immediate measures are needed to address sexual harassment, including unwanted messaging and aggressive behavior.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "high"
-        },
-        {
-            "description": "The university should improve policies to handle issues of negative gossip and verbal abuse.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "low"
-        },
-        {
-            "description": "Students have reported problems with intrusive behavior and inappropriate comments.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "There is an urgent need for policies addressing sexual harassment and physical aggression on campus.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "high"
-        },
-        {
-            "description": "Complaints about unwanted physical contact and verbal harassment should be addressed immediately.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "Immediate action is needed for cases of sexual abuse, including inappropriate physical interactions.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "high"
-        },
-        {
-            "description": "The campus needs better support systems for dealing with cyber stalking and online harassment.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "low"
-        },
-        {
-            "description": "There are reports of unwanted sexual comments and invasive behavior that need to be addressed.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "Immediate attention is required for issues related to sexual harassment and aggressive behavior.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "high"
-        },
-        {
-            "description": "The university should enhance its response to cases of verbal abuse and unwanted physical contact.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "low"
-        },
-        {
-            "description": "There are low-priority concerns about inappropriate sexual gestures and verbal harassment on campus.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "Immediate measures are needed to handle cases of sexual harassment and physical aggression.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "high"
-        },
-        {
-            "description": "The campus needs better policies to address issues related to stalking and unauthorized recording.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "low"
-        },
-        {
-            "description": "Students have reported issues with aggressive touching and inappropriate comments.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "There is an urgent need to address incidents of sexual harassment, including unwanted touching and groping.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "high"
-        },
-        {
-            "description": "The university should improve its support for victims of verbal harassment and cyber stalking.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "low"
-        },
-        {
-            "description": "There are concerns about unwanted physical contact and verbal abuse that need immediate action.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "high"
-        },
-        {
-            "description": "The campus needs better mechanisms for handling issues of sexual harassment and online threats.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "low"
-        },
-        {
-            "description": "Students have reported issues with intrusive behavior and inappropriate gestures.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "Immediate attention is required for cases of unwanted sexual actions and verbal harassment.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "high"
-        },
-        {
-            "description": "The university should enhance policies to handle issues of cyber stalking and online sexual harassment.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "low"
-        },
-        {
-            "description": "There are reports of unwanted touching and sexual comments that need addressing.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "Immediate action is needed for incidents of sexual harassment and physical aggression on campus.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "high"
-        },
-        {
-            "description": "The campus needs improved support for handling issues of cyber stalking and abusive behavior.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "low"
-        },
-        {
-            "description": "Complaints about verbal abuse and unwanted physical contact need to be investigated.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "There is an urgent need to address issues related to sexual harassment and aggressive behavior.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "high"
-        },
-        {
-            "description": "Immediate attention is required for cases of unwanted touch and verbal harassment.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "high"
-        },
-        {
-            "description": "The university should enhance measures for dealing with issues of sexual harassment and verbal abuse.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "low"
-        },
-        {
-            "description": "There are complaints about inappropriate gestures and unwanted comments that need immediate action.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "Immediate action is needed for cases of sexual harassment, including unwanted touching and groping.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "high"
-        },
-        {
-            "description": "The campus needs better policies to handle issues of cyber stalking and online harassment.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "low"
-        },
-        {
-            "description": "Students have reported problems with aggressive touching and inappropriate comments.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "There is an urgent need to address issues of sexual harassment and physical aggression on campus.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "high"
-        },
-        {
-            "description": "Complaints about unwanted physical contact and verbal harassment should be addressed immediately.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "Immediate measures are needed to handle cases of sexual harassment and physical aggression.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "high"
-        },
-        {
-            "description": "The campus needs better policies to address issues related to stalking and unauthorized recording.",
-            "category": "GAD Office",
-            "type": "report",
-            "urgency": "low"
-        },
-        {
-            "description": "Students have reported issues with aggressive touching and inappropriate comments.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "low"
-        },
-        {
-            "description": "Immediate attention is required for incidents of sexual harassment and unwanted touching.",
-            "category": "GAD Office",
-            "type": "complaint",
-            "urgency": "high"
-        },
+    {
+        "description": "Urgent report on discrimination complaints involving gender-neutral language.",
+        "category": "GAD Office",
+        "type": "report",
+        "urgency": "high"
+    },
+    {
+        "description": "Concerns about inappropriate wolf whistling during office hours raised by employees.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "low"
+    },
+    {
+        "description": "Immediate investigation required for sexual harassment involving smacking lips and leering.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "high"
+    },
+    {
+        "description": "Concerns about taunting and malicious gossiping affecting team morale.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "low"
+    },
+    {
+        "description": "Urgent review of unauthorized recording and threats to employee confidentiality.",
+        "category": "GAD Office",
+        "type": "report",
+        "urgency": "high"
+    },
+    {
+        "description": "Complaints about the lack of inclusion in diversity initiatives need review.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "low"
+    },
+    {
+        "description": "Urgent report required on inappropriate sexual comments made during training sessions.",
+        "category": "GAD Office",
+        "type": "report",
+        "urgency": "high"
+    },
+    {
+        "description": "Concerns raised about inappropriate cursing and verbal harassment in the office.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "low"
+    },
+    {
+        "description": "Urgent review of complaints involving gender-based jokes and offensive body gestures.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "high"
+    },
+    {
+        "description": "Concerns about sexual overtones and green jokes during workplace discussions.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "low"
+    },
+    {
+        "description": "Urgent investigation into stalking complaints involving unsolicited visits to employee homes.",
+        "category": "GAD Office",
+        "type": "report",
+        "urgency": "high"
+    },
+    {
+        "description": "Concerns raised about transphobic behavior and non-inclusive practices in the workplace.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "low"
+    },
+    {
+        "description": "Urgent action needed on groping and grabbing incidents during office social events.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "high"
+    },
+    {
+        "description": "Complaints about unwanted sexual advances and inappropriate touching at work.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "low"
+    },
+    {
+        "description": "Immediate investigation into sexual favor requests made by senior staff members.",
+        "category": "GAD Office",
+        "type": "report",
+        "urgency": "high"
+    },
+    {
+        "description": "Concerns about sexist slurs and discriminatory language in team emails.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "low"
+    },
+    {
+        "description": "Urgent investigation required for complaints involving uninvited comments about personal appearance.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "high"
+    },
+    {
+        "description": "Concerns raised about inappropriate sharing of nudes among coworkers.",
+        "category": "GAD Office",
+        "type": "report",
+        "urgency": "low"
+    },
+    {
+        "description": "Urgent action needed on emotional threats and blackmailing complaints in the office.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "high"
+    },
+    {
+        "description": "Concerns about unauthorized sharing of exposing pictures among employees.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "low"
+    },
+    {
+        "description": "Immediate investigation needed into public masturbation complaints on office grounds.",
+        "category": "GAD Office",
+        "type": "report",
+        "urgency": "high"
+    },
+    {
+        "description": "Complaints about sexist jokes and inappropriate humor during team meetings.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "low"
+    },
+    {
+        "description": "Urgent investigation into physical harassment incidents involving slapping and pinching.",
+        "category": "GAD Office",
+        "type": "report",
+        "urgency": "high"
+    },
+    {
+        "description": "Concerns raised about persistent emotional manipulation by coworkers.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "low"
+    },
+    {
+        "description": "Urgent review needed for unauthorized recording and threatening behavior by staff members.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "high"
+    },
+    {
+        "description": "Concerns about negative comments and online harassment targeting employees.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "low"
+    },
+    {
+        "description": "Urgent investigation into voyeurism complaints raised during company events.",
+        "category": "GAD Office",
+        "type": "report",
+        "urgency": "high"
+    },
+    {
+        "description": "Complaints about the mishandling of confidential harassment reporting mechanisms.",
+        "category": "GAD Office",
+        "type": "report",
+        "urgency": "low"
+    },
+    {
+        "description": "Urgent investigation needed into incidents of verbal harassment involving sexist remarks.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "high"
+    },
+    {
+        "description": "Concerns raised about physical harassment involving unwanted hugs and inappropriate gestures.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "low"
+    },
+    {
+        "description": "Urgent review of safety measures for staff facing threats and harassment from coworkers.",
+        "category": "GAD Office",
+        "type": "report",
+        "urgency": "high"
+    },
+    {
+        "description": "Complaints about coercion and sexual exploitation during work-related travel.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "low"
+    },
+    {
+        "description": "Urgent action required on persistent bullying and malicious gossip affecting office harmony.",
+        "category": "GAD Office",
+        "type": "report",
+        "urgency": "high"
+    },
+    {
+        "description": "Concerns raised about gender-based harassment and exclusion in project teams.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "low"
+    },
+    {
+        "description": "Immediate action needed for complaints involving sexual abuse during company retreats.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "high"
+    },
+    {
+        "description": "Concerns about inappropriate behavior involving sexual messaging during work hours.",
+        "category": "GAD Office",
+        "type": "report",
+        "urgency": "low"
+    },
+    {
+        "description": "Urgent investigation into incidents of cyber-stalking and incessant messaging after work hours.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "high"
+    },
+    {
+        "description": "Concerns about discriminatory practices against disabled employees in team assignments.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "low"
+    },
+    {
+        "description": "Urgent review of victim support services for employees reporting harassment cases.",
+        "category": "GAD Office",
+        "type": "report",
+        "urgency": "high"
+    },
+    {
+        "description": "Complaints about inadequate sensitivity training related to inclusion and diversity.",
+        "category": "GAD Office",
+        "type": "report",
+        "urgency": "low"
+    },
+    {
+        "description": "Urgent investigation into manipulation tactics used by senior staff to pressure employees.",
+        "category": "GAD Office",
+        "type": "report",
+        "urgency": "high"
+    },
+    {
+        "description": "Concerns raised about the enforcement of harassment policies in remote work settings.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "low"
+    },
+    {
+        "description": "Urgent review needed for grooming complaints involving new interns and junior employees.",
+        "category": "GAD Office",
+        "type": "report",
+        "urgency": "high"
+    },
+    {
+        "description": "Concerns about inclusion in decision-making processes raised by minority employees.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "low"
+    },
+    {
+        "description": "Immediate investigation required for rape allegations involving senior staff.",
+        "category": "GAD Office",
+        "type": "report",
+        "urgency": "high"
+    },
 
 
 
 
-
-
+    
 
 
         {

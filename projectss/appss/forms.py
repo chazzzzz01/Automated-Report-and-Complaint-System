@@ -1,7 +1,14 @@
 from django import forms
-from .models import ComplaintReport
+from .models import Complaint, Message
 
 class ComplaintReportForm(forms.ModelForm):
     class Meta:
-        model = ComplaintReport
+        model = Complaint
         fields = ['description', 'type', 'office']
+
+
+
+class MessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ['content']

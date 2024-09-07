@@ -11,6 +11,13 @@ def home(request):
 
 
 
+
+
+
+
+
+
+
 def informant_page(request):
     complaints = Complaint.objects.all()
     return render(request, 'main/informant_page.html', {'complaints': complaints})
@@ -169,3 +176,26 @@ def gad_office_status(request):
 
 
 
+from django.shortcuts import render, redirect
+from django.http import JsonResponse
+from .models import Complaint, Message
+from .forms import MessageForm
+
+def send_message(request):
+    if request.method == 'POST':
+        form = MessageForm(request.POST)
+        if form.is_valid():
+            message = form.save(commit=False)
+            message.office = request.POST.get('office')  # Office is specified in the form
+            message.save()
+            return JsonResponse({'status': 'success', 'message': message.content})
+    return JsonResponse({'status': 'error', 'message': 'Message not sent'})
+
+
+from django.http import JsonResponse
+from .models import Message
+
+def get_messages(request):
+    office = request.GET.get('office')
+    messages = Message.objects.filter(office=office).values('content', 'sent')
+    return JsonResponse({'messages': list(messages)})
