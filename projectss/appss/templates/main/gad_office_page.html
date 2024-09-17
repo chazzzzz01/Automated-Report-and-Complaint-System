@@ -5,17 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GAD Office</title>
     <style>
+        /* Existing styles */
         #reports-table, #complaints-table, #buttons-container, 
         #history-buttons-container, #history-reports-table, #history-complaints-table,
-        #messages-container {
+        #messages-container, #dashboard-container {
             display: none; /* Initially hidden */
         }
         #reports-table.visible, #complaints-table.visible, #buttons-container.visible,
         #history-buttons-container.visible, #history-reports-table.visible, #history-complaints-table.visible,
-        #messages-container.visible {
+        #messages-container.visible, #dashboard-container.visible {
             display: block; /* Show when the 'visible' class is added */
         }
-        #status-link, #history-link, #messages-link {
+        #status-link, #history-link, #messages-link, #dashboard-link {
             color: blue;
             cursor: pointer;
             text-decoration: underline;
@@ -48,25 +49,39 @@
             background-color: green; /* Green for solved */
             color: white;
         }
+        /* Added styles for dashboard */
+        .dashboard-box {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border: 1px solid #ccc;
+            margin-top: 20px;
+            width: 300px;
+        }
+        .dashboard-box h2 {
+            margin-top: 0;
+        }
     </style>
 </head>
 <body>
     <h1>GAD Office</h1>
 
-    <p id="status-link" onclick="toggleStatusVisibility()">Status</p>
-    <p id="history-link" onclick="toggleHistoryVisibility()">History</p>
+   <a href="{% url 'dashboard_page' %}">Dashboard</a>
+    <p id="status-link" onclick="toggleVisibility('buttons-container', 'reports-table', 'complaints-table', 'dashboard-container', 'history-buttons-container', 'messages-container')">Status</p>
+    <p id="history-link" onclick="toggleVisibility('history-buttons-container', 'history-reports-table', 'history-complaints-table', 'dashboard-container', 'buttons-container', 'messages-container')">History</p>
     <p id="messages-link" onclick="toggleMessagesVisibility()">Messages</p>
+
+   
 
     <!-- Buttons for Reports and Complaints -->
     <div id="buttons-container">
-        <button onclick="showReports()">Reports</button>
-        <button onclick="showComplaints()">Complaints</button>
+        <button onclick="showSection('reports-table', 'complaints-table')">Reports</button>
+        <button onclick="showSection('complaints-table', 'reports-table')">Complaints</button>
     </div>
 
     <!-- History Buttons for Reports and Complaints -->
     <div id="history-buttons-container">
-        <button onclick="showHistoryReports()">Solved Reports</button>
-        <button onclick="showHistoryComplaints()">Solved Complaints</button>
+        <button onclick="showSection('history-reports-table', 'history-complaints-table')">Solved Reports</button>
+        <button onclick="showSection('history-complaints-table', 'history-reports-table')">Solved Complaints</button>
     </div>
 
     <!-- Table for Reports -->
@@ -101,6 +116,7 @@
                         {{ report.status }}
                     </td>
                     <td>{{ report.issue_date|date:"F j, Y" }}</td>
+
                     <td>
                         <form action="{% url 'update_status' report.id %}" method="post">
                             {% csrf_token %}
@@ -113,6 +129,11 @@
                             <button type="submit">Update</button>
                         </form>
                     </td>
+                    
+                    <td>
+                        <button class="delete-btn" onclick="deleteComplaint('{{ complaint.id }}')">Delete</button>
+                    </td>
+
                 </tr>
                 {% endif %}
                 {% endfor %}
@@ -164,6 +185,7 @@
                             <button type="submit">Update</button>
                         </form>
                     </td>
+                    <td><!-- Action buttons or links can go here --></td>
                 </tr>
                 {% endif %}
                 {% endfor %}
@@ -217,6 +239,7 @@
                     <th>Description (PDF)</th>
                     <th>Status</th>
                     <th>Issue Date</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody id="history-complaints-body">
@@ -247,75 +270,201 @@
         <ul id="messages-list">
             <!-- Messages will be dynamically inserted here -->
         </ul>
+        <form id="message-form" onsubmit="sendMessage(event)">
+            <textarea id="message-text" name="message" rows="4" cols="50" placeholder="Type your message here..."></textarea>
+            <input type="hidden" id="recipient-id" name="recipient_id" value="">
+            <button type="submit">Send</button>
+        </form>
     </div>
 
-    <script>
-        let isStatusVisible = false;
-        let isHistoryVisible = false;
-        let isMessagesVisible = false;
 
-        function toggleStatusVisibility() {
-            isStatusVisible = !isStatusVisible;
-            document.getElementById('buttons-container').style.display = isStatusVisible ? 'block' : 'none';
+
+
+
+
+   <!-- Existing Dashboard Container -->
+<div id="dashboard-container" class="dashboard-box">
+    <h2>Total Report and Complaint</h2>
+    <p>Reports Received: <span id="total-reports">0</span></p>
+    <p>Complaints Received: <span id="total-complaints">0</span></p>
+</div>
+
+<!-- New Container for Solved Reports and Complaints -->
+<div id="solved-container" class="dashboard-box" style="display: none;">
+    <h2>Solved Reports and Complaints</h2>
+    <p>Reports Solved: <span id="solved-reports">0</span></p>
+    <p>Complaints Solved: <span id="solved-complaints">0</span></p>
+</div>
+    
+    
+    
+    
+    
+    
+    
+    <script>
+        function toggleVisibility(containerId, ...otherIds) {
+    const container = document.getElementById(containerId);
+    container.style.display = container.style.display === 'none' ? 'block' : 'none';
+
+    otherIds.forEach(id => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.style.display = 'none';
+        }
+    });
+}
+
+function toggleDashboardVisibility() {
+    const dashboardContainer = document.getElementById('dashboard-container');
+    const solvedContainer = document.getElementById('solved-container');
+
+    const isDashboardVisible = dashboardContainer.style.display === 'block';
+
+    dashboardContainer.style.display = isDashboardVisible ? 'none' : 'block';
+    solvedContainer.style.display = isDashboardVisible ? 'none' : 'block';
+
+    // Hide other sections
+    document.getElementById('buttons-container').style.display = 'none';
+    document.getElementById('reports-table').style.display = 'none';
+    document.getElementById('complaints-table').style.display = 'none';
+    document.getElementById('history-buttons-container').style.display = 'none';
+    document.getElementById('history-reports-table').style.display = 'none';
+    document.getElementById('history-complaints-table').style.display = 'none';
+    document.getElementById('messages-container').style.display = 'none';
+
+    if (!isDashboardVisible) {
+        fetchTotals();
+    }
+}
+
+function fetchTotals() {
+    // Use template variables rendered by the server-side template engine.
+    const totalReports = Number('{{ reports|length }}'); 
+    const totalComplaints = Number('{{ complaints|length }}');
+    const solvedReports = Number('{{ solved_reports|length }}');
+    const solvedComplaints = Number('{{ solved_complaints|length }}');
+
+    // Ensure these variables are correctly rendered as numbers
+    if (!isNaN(totalReports) && !isNaN(totalComplaints) && !isNaN(solvedReports) && !isNaN(solvedComplaints)) {
+        document.getElementById('total-reports').textContent = totalReports;
+        document.getElementById('total-complaints').textContent = totalComplaints;
+        document.getElementById('solved-reports').textContent = solvedReports;
+        document.getElementById('solved-complaints').textContent = solvedComplaints;
+    } else {
+        console.error('Failed to fetch totals.');
+    }
+}
+
+function showSection(visibleId, hiddenId) {
+    document.getElementById(visibleId).style.display = 'block';
+    document.getElementById(hiddenId).style.display = 'none';
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+        function toggleMessagesVisibility() {
+            const messagesContainer = document.getElementById('messages-container');
+            messagesContainer.style.display = messagesContainer.style.display === 'none' ? 'block' : 'none';
+    
+            // Hide other sections
+            document.getElementById('dashboard-container').style.display = 'none';
+            document.getElementById('buttons-container').style.display = 'none';
             document.getElementById('reports-table').style.display = 'none';
             document.getElementById('complaints-table').style.display = 'none';
-        }
-
-        function toggleHistoryVisibility() {
-            isHistoryVisible = !isHistoryVisible;
-            document.getElementById('history-buttons-container').style.display = isHistoryVisible ? 'block' : 'none';
+            document.getElementById('history-buttons-container').style.display = 'none';
             document.getElementById('history-reports-table').style.display = 'none';
             document.getElementById('history-complaints-table').style.display = 'none';
-        }
-
-        function toggleMessagesVisibility() {
-            isMessagesVisible = !isMessagesVisible;
-            document.getElementById('messages-container').style.display = isMessagesVisible ? 'block' : 'none';
-            if (isMessagesVisible) {
+    
+            if (messagesContainer.style.display === 'block') {
                 fetchMessages();
             }
         }
 
-        function showReports() {
-            document.getElementById('reports-table').style.display = 'block';
-            document.getElementById('complaints-table').style.display = 'none';
-        }
 
-        function showComplaints() {
-            document.getElementById('complaints-table').style.display = 'block';
-            document.getElementById('reports-table').style.display = 'none';
-        }
 
-        function showHistoryReports() {
-            document.getElementById('history-reports-table').style.display = 'block';
-            document.getElementById('history-complaints-table').style.display = 'none';
-        }
+    function toggleMessagesVisibility() {
+        const messagesContainer = document.getElementById('messages-container');
+        messagesContainer.style.display = messagesContainer.style.display === 'none' ? 'block' : 'none';
 
-        function showHistoryComplaints() {
-            document.getElementById('history-complaints-table').style.display = 'block';
-            document.getElementById('history-reports-table').style.display = 'none';
-        }
+        // Hide other sections
+        document.getElementById('dashboard-container').style.display = 'none';
+        document.getElementById('solved-container').style.display = 'none';
+        document.getElementById('buttons-container').style.display = 'none';
+        document.getElementById('reports-table').style.display = 'none';
+        document.getElementById('complaints-table').style.display = 'none';
+        document.getElementById('history-buttons-container').style.display = 'none';
+        document.getElementById('history-reports-table').style.display = 'none';
+        document.getElementById('history-complaints-table').style.display = 'none';
 
-        function fetchMessages() {
-            fetch('/api/messages')  // Replace with your endpoint
-                .then(response => response.json())
-                .then(data => {
-                    const messagesList = document.getElementById('messages-list');
-                    messagesList.innerHTML = ''; // Clear existing messages
-                    data.messages.forEach(message => {
-                        const listItem = document.createElement('li');
-                        listItem.textContent = message.text;  // Adjust according to your message structure
-                        messagesList.appendChild(listItem);
-                    });
-                })
-                .catch(error => console.error('Error fetching messages:', error));
+        if (messagesContainer.style.display === 'block') {
+            fetchMessages();
         }
+    }
 
-        // Optionally, add sample messages or remove the sample addition if not needed
-        // addMessage('Welcome to the GAD Office.');
-        // addMessage('Your recent complaint has been received.');
-    </script>
+
+
+    function fetchMessages() {
+        fetch('/api/messages')  // Replace with your endpoint
+            .then(response => response.json())
+            .then(data => {
+                const messagesList = document.getElementById('messages-list');
+                messagesList.innerHTML = ''; // Clear existing messages
+                data.messages.forEach(message => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = message.text;  // Adjust according to your message structure
+                    listItem.dataset.id = message.id; // Store message ID for replying
+                    listItem.onclick = function() {
+                        document.getElementById('recipient-id').value = message.id; // Set recipient ID
+                    };
+                    messagesList.appendChild(listItem);
+                });
+            })
+            .catch(error => console.error('Error fetching messages:', error));
+    }
+
+    function sendMessage(event) {
+        event.preventDefault();
+        const messageText = document.getElementById('message-text').value;
+        const recipientId = document.getElementById('recipient-id').value;
+
+        fetch('/api/send_message', { // Replace with your endpoint
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}' // Ensure this token is correctly rendered
+            },
+            body: JSON.stringify({ message: messageText, recipient_id: recipientId })
+        })
+        .then(response => {
+            if (response.ok) {
+                document.getElementById('message-text').value = ''; // Clear the textarea
+                document.getElementById('recipient-id').value = ''; // Clear recipient ID
+                fetchMessages(); // Refresh messages
+            } else {
+                console.error('Error sending message');
+            }
+        })
+        .catch(error => console.error('Error sending message:', error));
+    }
+
+    
+    
+</script>
+
 </body>
 </html>
-
-

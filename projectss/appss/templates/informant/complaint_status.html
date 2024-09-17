@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+<div id="complaints-table">
+    {% if complaints.exists %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Office</th>
+                    <th>Type</th>
+                    <th>Description (PDF)</th>
+                    <th>Status</th>
+                    <th>Urgency</th>
+                    <th>Issue Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for complaint in complaints %}
+                {% if complaint.status != 'Solved' %} 
+                <tr id="complaint-{{ complaint.id }}">
+                    <td>{{ complaint.office }}</td>
+                    <td>{{ complaint.type }}</td>
+                    <td>
+                        {% if complaint.pdf_file %}
+                            <a href="{{ complaint.pdf_file.url }}" target="_blank">Download PDF</a>
+                        {% else %}
+                            No PDF available
+                        {% endif %}
+                    </td>
+                    <td class="
+                        {% if complaint.status == 'Pending' %}
+                            status-pending
+                        {% elif complaint.status == 'In Progress' %}
+                            status-in-progress
+                        {% elif complaint.status == 'Solved' %}
+                            status-solved
+                        {% endif %}
+                    ">
+                        {{ complaint.status }}
+                    </td>
+                    <td class="urgency-{% if complaint.urgency == 'High' %}high{% elif complaint.urgency == 'Medium' %}medium{% elif complaint.urgency == 'Low' %}low{% endif %}">
+                        {{ complaint.urgency }}
+                    </td>
+                    <td>{{ complaint.issue_date|date:"F j, Y" }}</td>
+                    <td>
+                        <button class="delete-btn" onclick="deleteComplaint('{{ complaint.id }}')">Delete</button>
+                    </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No complaints available.</p>
+    {% endif %}
+</div>
+
+
+</body>
+</html>

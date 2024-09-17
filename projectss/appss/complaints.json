@@ -1,5 +1,11 @@
 [
     {
+        "description": "Sexual harrassment happened in the classroom.",
+        "category": "GAD Office",
+        "type": "complaint",
+        "urgency": "high"
+    },
+    {
         "description": "Urgent report needed on harassment complaints related to catcalling incidents.",
         "category": "GAD Office",
         "type": "report",

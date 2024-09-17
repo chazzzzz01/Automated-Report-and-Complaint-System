@@ -1,0 +1,22 @@
+
+    <!-- Messages Section -->
+    <div id="messages-section">
+        <h2>Messages</h2>
+        <ul>
+            <li><a href="#" onclick="showConversation('gad')">GAD Office</a></li>
+            <li><a href="#" onclick="showConversation('academic')">Academic Affairs</a></li>
+            <li><a href="#" onclick="showConversation('admin_finance')">Administration and Finance</a></li>
+            <li><a href="#" onclick="showConversation('student_affairs')">Student and External Affairs</a></li>
+        </ul>
+    </div>
+
+    <!-- Conversation Section -->
+    <div id="conversation-section">
+        <h2 id="office-name">Office Conversation</h2>
+        <div id="conversation-content">
+            <!-- Dynamic content loaded via JavaScript for each office -->
+            <div id="conversation-messages"></div>
+            <textarea id="message-input" rows="4" cols="50" placeholder="Type your message here..."></textarea>
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>

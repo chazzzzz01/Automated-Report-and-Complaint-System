@@ -1,0 +1,40 @@
+
+    <div id="total-reports-container" class="dashboard-box">
+        <h2>Total Reports and Complaints</h2>
+        <p>Reports Received: <span id="total-reports">{{ total_reports }}</span></p>
+        <p>Complaints Received: <span id="total-complaints">{{ total_complaints }}</span></p>
+    </div>
+
+    <!-- Solved Reports and Complaints Container -->
+    <div id="solved-reports-container" class="dashboard-box">
+        <h2>Solved Cases</h2>
+        <p>Solved Reports: <span id="solved-reports">{{ solved_reports }}</span></p>
+        <p>Solved Complaints: <span id="solved-complaints">{{ solved_complaints }}</span></p>
+    </div>
+</div>
+
+<div id="pending-container" class="dashboard-box">
+    <h2>Pending Cases</h2>
+    <p>Pending Reports: <span id="pending-reports">{{ pending_reports }}</span></p>
+    <p>Pending Complaints: <span id="pending-complaints">{{ pending_complaints }}</span></p>
+</div>
+
+<div id="inprogress-container" class="dashboard-box"></div>
+    <h2>In Progress Cases</h2>
+    <p>In Progress Reports: <span id="inprogress-reports">{{ inprogress_reports }}</span></p>
+    <p>Pending Complaints: <span id="inprogress-complaints">{{ inprogress_complaints }}</span></p>
+
+</div>
+<style>.dashboard-box {
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+#total-reports-container h2,
+#solved-reports-container h2 {
+    margin-top: 0;
+}
+</style>

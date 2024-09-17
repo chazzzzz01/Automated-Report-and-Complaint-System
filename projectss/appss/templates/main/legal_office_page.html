@@ -5,47 +5,138 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Legal Office Page</title>
     <style>
-        .hidden {
-            display: none; /* Initially hidden */
+        /* Keeping the header fixed at the top */
+        h1 {
+            margin: 0;
+            width: 100%;
+            padding: 20px;
+            color: #fff;
+            background: linear-gradient(180deg, #160575, #0c68b3);
+            text-align: center;
+            position: fixed; /* Fixes the header */
+            top: 0;
+            left: 0;
+            z-index: 1000; /* Ensures the header stays on top */
         }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            padding-top: 80px; /* Prevent content from hiding behind the header */
+        }
+
+        /* Sidebar styling */
+        #sidebar1 {
+            width: 250px;
+            height: 100vh; 
+            position: fixed;
+            top: 80px; 
+            left: 0;
+            padding-top: 20px;
+            color: white;
+            z-index: 999;
+            background: linear-gradient(180deg, #160575, #0c68b3);
+        }
+
+        #sidebar1 p {
+            margin: 20px 0;
+            font-size: 18px;
+            text-transform: uppercase;
+            text-align: center;
+           
+        }
+
+        #sidebar1 a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            display: block;
+            text-align: center;
+            padding: 10px;
+           
+        }
+
+        #sidebar1 a:hover {
+           
+            transition: background-color 0.3s;
+            width: 100px;
+        }
+
+        /* Main content area styling */
+        #content1 {
+            margin-left: 270px; /* Leaves space for the sidebar */
+            padding: 20px;
+            font: bold;
+           
+        }
+
+        /* Buttons container and hidden sections */
         #status-link, #history-link {
-            color: blue;
             cursor: pointer;
-            text-decoration: underline;
-            margin-right: 10px;
+            display: block;
+            padding: 10px;
+            margin: 10px 0;
+            color: white;
+            text-align: center;
+            border-radius: 5px;
         }
+
+        #status-link:hover, #history-link:hover {
+            background-color: #2378b6;
+            transition: background-color 0.3s;
+           
+        }
+
+        .hidden {
+            display: none;
+        }
+
         .visible {
             display: block; /* Show when the 'visible' class is added */
         }
+        
+        /* Status colors */
         .status-pending {
             background-color: red;
             color: white;
         }
+
         .status-in-progress {
             background-color: yellow;
             color: black;
         }
+
         .status-solved {
             background-color: green;
             color: white;
         }
+
         .urgency-high {
             color: green;
         }
+
         .urgency-medium {
             color: yellow;
         }
+
         .urgency-low {
             color: red;
         }
     </style>
 </head>
 <body>
-    <h1>Legal Office Complaints</h1>
 
+<h1>SpeakUpNow</h1>
+
+<!-- Sidebar with Status and History links -->
+<div id="sidebar1">
+    <p>Welcome!</p>
     <p id="status-link" onclick="showButtons()">Status</p>
     <p id="history-link" onclick="showHistory()">History</p>
+</div>
 
+<!-- Main content section -->
+<div id="content1">
     <!-- Buttons to toggle between Reports and Complaints -->
     <div id="buttons-container" class="hidden">
         <button onclick="showTable('reports')">Reports</button>
@@ -58,334 +149,45 @@
         <button onclick="showSolvedTable('complaints')">Solved Complaints</button>
     </div>
 
-    <!-- Reports Table -->
-    <div id="reports-table" class="hidden">
-        <h2>Reports</h2>
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>Office</th>
-                    <th>Type</th>
-                    <th>Description (PDF)</th>
-                    <th>Status</th>
-                    <th>Urgency</th>
-                    <th>Issue Date</th>
-                    <th>Update Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for complaint in complaints %}
-                {% if complaint.type == "report" and complaint.status != "Solved" %}
-                <tr>
-                    <td>{{ complaint.office }}</td>
-                    <td>{{ complaint.type }}</td>
-                    <td>
-                        {% if complaint.pdf_file %}
-                            <a href="{{ complaint.pdf_file.url }}" target="_blank">Download PDF</a>
-                        {% else %}
-                            No PDF available
-                        {% endif %}
-                    </td>
-                    <td class="{% if complaint.status == 'Pending' %}status-pending{% elif complaint.status == 'In Progress' %}status-in-progress{% elif complaint.status == 'Solved' %}status-solved{% endif %}">
-                        {{ complaint.status }}
-                    </td>
-                    <td class="urgency-{% if complaint.urgency == 'High' %}high{% elif complaint.urgency == 'Medium' %}medium{% elif complaint.urgency == 'Low' %}low{% endif %}">
-                        {{ complaint.urgency }}
-                    </td>
-                    <td>{{ complaint.issue_date|date:"F j, Y" }}</td>
-                    <td>
-                        <form action="{% url 'update_status' complaint.id %}" method="post">
-                            {% csrf_token %}
-                            <select name="status" onchange="this.form.submit()">
-                                <option value="Pending" {% if complaint.status == "Pending" %}selected{% endif %}>Pending</option>
-                                <option value="In Progress" {% if complaint.status == "In Progress" %}selected{% endif %}>In Progress</option>
-                                <option value="Solved" {% if complaint.status == "Solved" %}selected{% endif %}>Solved</option>
-                            </select>
-                            <input type="hidden" name="redirect_url" value="{% url 'legal_office_page' %}">
-                        </form>
-                    </td>
-                    <td>
-                        <form action="{% url 'send_complaint' complaint.id %}" method="post" style="display:inline;">
-                            {% csrf_token %}
-                            <button type="submit" {% if complaint.is_sent %}disabled{% endif %}>Send</button>
-                        </form>
-                        <form action="{% url 'delete_complaint' complaint.id %}" method="post" style="display:inline;">
-                            {% csrf_token %}
-                            <button type="submit" onclick="return confirm('Are you sure you want to delete this complaint?');">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-                {% endif %}
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+    {% include 'legal/legal_status.html' %}
+    {% include 'legal/legal_history.html' %}
+</div>
 
-    <!-- Complaints Table -->
-    <div id="complaints-table" class="hidden">
-        <h2>Complaints</h2>
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>Office</th>
-                    <th>Type</th>
-                    <th>Description (PDF)</th>
-                    <th>Status</th>
-                    <th>Urgency</th>
-                    <th>Issue Date</th>
-                    <th>Update Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for complaint in complaints %}
-                {% if complaint.type == "complaint" and complaint.status != "Solved" %}
-                <tr>
-                    <td>{{ complaint.office }}</td>
-                    <td>{{ complaint.type }}</td>
-                    <td>
-                        {% if complaint.pdf_file %}
-                            <a href="{{ complaint.pdf_file.url }}" target="_blank">Download PDF</a>
-                        {% else %}
-                            No PDF available
-                        {% endif %}
-                    </td>
-                    <td class="{% if complaint.status == 'Pending' %}status-pending{% elif complaint.status == 'In Progress' %}status-in-progress{% elif complaint.status == 'Solved' %}status-solved{% endif %}">
-                        {{ complaint.status }}
-                    </td>
-                    <td class="urgency-{% if complaint.urgency == 'High' %}high{% elif complaint.urgency == 'Medium' %}medium{% elif complaint.urgency == 'Low' %}low{% endif %}">
-                        {{ complaint.urgency }}
-                    </td>
-                    <td>{{ complaint.issue_date|date:"F j, Y" }}</td>
-                    <td>
-                        <form action="{% url 'update_status' complaint.id %}" method="post">
-                            {% csrf_token %}
-                            <select name="status" onchange="this.form.submit()">
-                                <option value="Pending" {% if complaint.status == "Pending" %}selected{% endif %}>Pending</option>
-                                <option value="In Progress" {% if complaint.status == "In Progress" %}selected{% endif %}>In Progress</option>
-                                <option value="Solved" {% if complaint.status == "Solved" %}selected{% endif %}>Solved</option>
-                            </select>
-                            <input type="hidden" name="redirect_url" value="{% url 'legal_office_page' %}">
-                        </form>
-                    </td>
-                    <td>
-                        <form action="{% url 'send_complaint' complaint.id %}" method="post" style="display:inline;">
-                            {% csrf_token %}
-                            <button type="submit" {% if complaint.is_sent %}disabled{% endif %}>Send</button>
-                        </form>
-                        <form action="{% url 'delete_complaint' complaint.id %}" method="post" style="display:inline;">
-                            {% csrf_token %}
-                            <button type="submit" onclick="return confirm('Are you sure you want to delete this complaint?');">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-                {% endif %}
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-
-    <!-- Solved Reports Table -->
-    <div id="solved-reports-table" class="hidden">
-        <h2>Solved Reports History</h2>
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>Office</th>
-                    <th>Type</th>
-                    <th>Description (PDF)</th>
-                    <th>Status</th>
-                    <th>Urgency</th>
-                    <th>Issue Date</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for complaint in complaints %}
-                {% if complaint.type == "report" and complaint.status == "Solved" %}
-                <tr>
-                    <td>{{ complaint.office }}</td>
-                    <td>{{ complaint.type }}</td>
-                    <td>
-                        {% if complaint.pdf_file %}
-                            <a href="{{ complaint.pdf_file.url }}" target="_blank">Download PDF</a>
-                        {% else %}
-                            No PDF available
-                        {% endif %}
-                    </td>
-                    <td class="status-solved">
-                        {{ complaint.status }}
-                    </td>
-                    <td class="urgency-{% if complaint.urgency == 'High' %}high{% elif complaint.urgency == 'Medium' %}medium{% elif complaint.urgency == 'Low' %}low{% endif %}">
-                        {{ complaint.urgency }}
-                    </td>
-                    <td>{{ complaint.issue_date|date:"F j, Y" }}</td>
-                    <td>
-                        <form action="{% url 'delete_complaint' complaint.id %}" method="post" style="display:inline;">
-                            {% csrf_token %}
-                            <button type="submit" onclick="return confirm('Are you sure you want to delete this complaint?');">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-                {% endif %}
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-
-    <!-- Solved Complaints Table -->
-    <div id="solved-complaints-table" class="hidden">
-        <h2>Solved Complaints History</h2>
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>Office</th>
-                    <th>Type</th>
-                    <th>Description (PDF)</th>
-                    <th>Status</th>
-                    <th>Urgency</th>
-                    <th>Issue Date</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for complaint in complaints %}
-                {% if complaint.type == "complaint" and complaint.status == "Solved" %}
-                <tr>
-                    <td>{{ complaint.office }}</td>
-                    <td>{{ complaint.type }}</td>
-                    <td>
-                        {% if complaint.pdf_file %}
-                            <a href="{{ complaint.pdf_file.url }}" target="_blank">Download PDF</a>
-                        {% else %}
-                            No PDF available
-                        {% endif %}
-                    </td>
-                    <td class="status-solved">
-                        {{ complaint.status }}
-                    </td>
-                    <td class="urgency-{% if complaint.urgency == 'High' %}high{% elif complaint.urgency == 'Medium' %}medium{% elif complaint.urgency == 'Low' %}low{% endif %}">
-                        {{ complaint.urgency }}
-                    </td>
-                    <td>{{ complaint.issue_date|date:"F j, Y" }}</td>
-                    <td>
-                        <form action="{% url 'delete_complaint' complaint.id %}" method="post" style="display:inline;">
-                            {% csrf_token %}
-                            <button type="submit" onclick="return confirm('Are you sure you want to delete this complaint?');">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-                {% endif %}
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-
-    <script>
-        function showButtons() {
-            document.getElementById('buttons-container').classList.remove('hidden');
-            document.getElementById('history-buttons-container').classList.add('hidden');
-            hideTables();
-        }
-
-        function showTable(type) {
-            hideTables();
-            if (type === 'reports') {
-                document.getElementById('reports-table').classList.add('visible');
-            } else if (type === 'complaints') {
-                document.getElementById('complaints-table').classList.add('visible');
-            }
-        }
-
-        function showHistory() {
-            document.getElementById('history-buttons-container').classList.remove('hidden');
-            document.getElementById('buttons-container').classList.add('hidden');
-            document.getElementById('reports-table').classList.remove('visible');
-            document.getElementById('complaints-table').classList.remove('visible');
-            document.getElementById('solved-reports-table').classList.add('hidden');
-            document.getElementById('solved-complaints-table').classList.add('hidden');
-        }
-
-        function showSolvedTable(type) {
-    document.getElementById('reports-table').classList.remove('visible');
-    document.getElementById('complaints-table').classList.remove('visible');
-    document.getElementById('solved-reports-table').classList.remove('visible');
-    document.getElementById('solved-complaints-table').classList.remove('visible');
-
-    if (type === 'reports') {
-        document.getElementById('solved-reports-table').classList.add('visible');
-    } else if (type === 'complaints') {
-        document.getElementById('solved-complaints-table').classList.add('visible');
+<script>
+    function showButtons() {
+        document.getElementById('buttons-container').classList.toggle('hidden');
     }
-}
 
-        function hideTables() {
-            document.getElementById('reports-table').classList.remove('visible');
-            document.getElementById('complaints-table').classList.remove('visible');
-            document.getElementById('solved-reports-table').classList.remove('visible');
-            docu
-            function sendMessage() {
-        var messageInput = document.getElementById('message-input').value;
-        var office = document.getElementById('office-name').textContent;
-        if (messageInput) {
-            $.ajax({
-                url: "{% url 'send_message' %}",
-                type: 'POST',
-                data: {
-                    'csrfmiddlewaretoken': '{{ csrf_token }}',
-                    'content': messageInput,
-                    'office': office
-                },
-                success: function(response) {
-                    if (response.status === 'success') {
-                        var conversationMessages = document.getElementById('conversation-messages');
-                        var newMessage = document.createElement('div');
-                        newMessage.classList.add('message', 'sent');
-                        newMessage.textContent = response.message;
-                        conversationMessages.appendChild(newMessage);
-                        conversationMessages.scrollTop = conversationMessages.scrollHeight; // Scroll to the bottom
-                        document.getElementById('message-input').value = ''; // Clear input
-                    } else {
-                        alert('Failed to send the message. Please try again.');
-                    }
-                },
-                error: function(response) {
-                    alert('Error occurred while sending the message.');
-                }
-            });
-        } else {
-            alert('Please enter a message.');
+    function showHistory() {
+        document.getElementById('history-buttons-container').classList.toggle('hidden');
+    }
+
+    function showTable(type) {
+        // Hide all tables first
+        document.getElementById('reports-table').classList.add('hidden');
+        document.getElementById('complaints-table').classList.add('hidden');
+
+        // Show the selected table
+        if (type === 'reports') {
+            document.getElementById('reports-table').classList.remove('hidden');
+        } else if (type === 'complaints') {
+            document.getElementById('complaints-table').classList.remove('hidden');
         }
     }
 
-    function showConversation(office) {
-        document.getElementById('office-name').textContent = office;
-        document.getElementById('messages-section').classList.remove('visible');
-        document.getElementById('conversation-section').classList.add('visible');
-        
-        // Load messages for the selected office
-        $.ajax({
-            url: "{% url 'get_messages' %}",
-            type: 'GET',
-            data: {'office': office},
-            success: function(response) {
-                var conversationMessages = document.getElementById('conversation-messages');
-                conversationMessages.innerHTML = ''; // Clear previous messages
-                response.messages.forEach(function(message) {
-                    var messageDiv = document.createElement('div');
-                    messageDiv.classList.add('message', message.sent ? 'sent' : 'received');
-                    messageDiv.textContent = message.content;
-                    conversationMessages.appendChild(messageDiv);
-                });
-                conversationMessages.scrollTop = conversationMessages.scrollHeight; // Scroll to the bottom
-            },
-            error: function(response) {
-                alert('Error loading messages.');
-            }
-        });
-    }ment.getElementById('solved-complaints-table').classList.remove('visible');
+    function showSolvedTable(type) {
+        // Hide all solved history tables first
+        document.getElementById('solved-reports-table').classList.add('hidden');
+        document.getElementById('solved-complaints-table').classList.add('hidden');
+
+        // Show the selected solved table
+        if (type === 'reports') {
+            document.getElementById('solved-reports-table').classList.remove('hidden');
+        } else if (type === 'complaints') {
+            document.getElementById('solved-complaints-table').classList.remove('hidden');
         }
-    </script>
+    }
+</script>
+
 </body>
 </html>

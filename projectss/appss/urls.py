@@ -15,7 +15,12 @@ urlpatterns = [
     path('update-status/<int:complaint_id>/', views.update_status, name='update_status'),
     path('send-complaint/<int:complaint_id>/', views.send_complaint, name='send_complaint'),
     path('send-message/', views.send_message, name='send_message'),
-      path('get-messages/', views.get_messages, name='get_messages'),  # New URL pattern
-
+    path('get-messages/', views.get_messages, name='get_messages'),  # New URL pattern
+    path('dashboard/', views.dashboard_page, name='dashboard_page'),
+    # path('informant-registration/', views.informant_registration_view, name='informant_registration'),
+    path('admin-page/', views.admin_page, name='admin_page'),
+    path('status/', views.complaint_status, name='complaint_status'),
+    path('history/', views.complaint_history, name='complaint_history'),
+    path('messages/', views.complaint_messages, name='complaint_messages'),
+   
 ]
-

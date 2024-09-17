@@ -2,13 +2,43 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import Complaint
 from .model_utils import load_models
+from .forms import ComplaintReportForm, MessageForm
+from django.contrib.auth.models import User
 
 def home(request):
     return render(request,'main/home.html')
 
 
 
+# def informant_registration_view(request):
+#     if request.method == 'POST':
+#         form = InformantRegistrationForm(request.POST)
+#         if form.is_valid():
+#             # Save user data after processing
+#             user_type = form.cleaned_data['user_type']
+#             username = form.cleaned_data['username']
+#             first_name = form.cleaned_data['first_name']
+#             last_name = form.cleaned_data['last_name']
+#             middle_name = form.cleaned_data['middle_name']
+            
+#             # Create the user
+#             user = User.objects.create_user(
+#                 username=username,
+#                 first_name=first_name,
+#                 last_name=last_name,
+#                 # Use `middle_name` in the profile model if required
+#             )
+            
+#             # Save additional user information in InformantProfile
+#             user.informant_profile.user_type = user_type
+#             user.informant_profile.middle_name = middle_name
+#             user.informant_profile.save()
+            
+#             return redirect('success_page')  # Replace 'success_page' with your success URL
+#     else:
+#         form = InformantRegistrationForm()
 
+#     return render(request, 'main/informant_registration.html', {'form': form})
 
 
 
@@ -20,7 +50,15 @@ def home(request):
 
 def informant_page(request):
     complaints = Complaint.objects.all()
+
     return render(request, 'main/informant_page.html', {'complaints': complaints})
+
+
+def admin_page(request):
+    complaints = Complaint.objects.all()
+
+    return render(request, 'main/admin_page.html', {'complaints': complaints})
+
 
 def submit_complaint(request):
     if request.method == 'POST':
@@ -57,6 +95,26 @@ def legal_office_page(request):
     return render(request, 'main/legal_office_page.html', {'complaints': complaints})
 
 
+
+
+def complaint_status(request):
+    # Retrieve unresolved complaints
+    complaints = Complaint.objects.filter(status='Solved')
+    return render(request, 'informant/complaint_status.html', {'complaints': complaints})
+
+def complaint_history(request):
+    # Retrieve solved complaints
+    complaints = Complaint.objects.filter(status='Solved')
+    return render(request, 'informant/complaint_history.html', {'complaints': complaints})
+
+def complaint_messages(request):
+    # This view might be used to handle messages or chats if necessary
+    # For now, it just renders the messages page
+    return render(request, 'informant/complaint_message.html')
+
+
+
+
 def update_status(request, complaint_id):
     complaint = get_object_or_404(Complaint, id=complaint_id)
 
@@ -73,46 +131,8 @@ def update_status(request, complaint_id):
 
 
 
-# # def update_office(request, complaint_id):
-# #     complaint = get_object_or_404(Complaint, id=complaint_id)
-
-# #     if request.method == 'POST':
-# #         new_office = request.POST.get('office')
-# #         if new_office in dict(Complaint.OFFICE_CHOICES):
-# #             complaint.office = new_office
-# #             complaint.save()
-
-# #     return redirect('legal_office_page')
-
-# #  <td> THIS IS FOR LEGAL_OFFICE_PAGE.HTML TEMAPLATE FOR UPDATE OFFICE
-# #                     <form action="{% url 'update_office' complaint.id %}" method="post">
-# #                         {% csrf_token %}
-# #                         <select name="office">
-# #                             <option value="Admin and Finance" {% if complaint.office == "Admin and Finance" %}selected{% endif %}>Admin and Finance</option>
-# #                             <option value="VP Academic Affairs" {% if complaint.office == "VP Academic Affairs" %}selected{% endif %}>VP Academic Affairs</option>
-# #                             <option value="VP Students and External Affairs" {% if complaint.office == "VP Students and External Affairs" %}selected{% endif %}>VP Students and External Affairs</option>
-# #                             <option value="GAD Office" {% if complaint.office == "GAD Office" %}selected{% endif %}>GAD Office</option>
-# #                         </select>
-# #                         <button type="submit">Update</button>
-# #                     </form>
-# #                 </td>
-
-
 def delete_complaint(request, complaint_id):
-    # complaint = get_object_or_404(Complaint, id=complaint_id)
-    # office = complaint.office  # Capture the office from the complaint
-    # complaint.delete()
-
-    # office_redirect_map = {
-    #     'VP Administration and Finance': 'admin_finance_page',
-    #     'VP Academic Affairs': 'academic_affairs_page',
-    #     'VP Students and External Affairs': 'students_affairs_page',
-    #     'GAD Office': 'gad_office_page',
-    #     'Legal Office': 'legal_office_page',
-    # }
-
-    # office_page = office_redirect_map.get(office, 'legal_office_page')
-    # return redirect(office_page)
+    
     complaint = get_object_or_404(Complaint, id=complaint_id)
     complaint.delete()
     return redirect('legal_office_page')
@@ -169,6 +189,39 @@ def gad_office_status(request):
 
 
 
+def dashboard_page(request):
+    reports = Complaint.objects.filter(type="report")
+    complaints = Complaint.objects.filter(type="complaint")
+    solved_reports = reports.filter(status="Solved")
+    solved_complaints = complaints.filter(status="Solved")
+    pending_reports = reports.filter(status="Pending")
+    pending_complaints = complaints.filter(status="Pending")
+    inprogress_reports = reports.filter(status="In Progress")
+    inprogress_complaints = complaints.filter(status="In Progress")
+
+    return render(request, 'main/dashboard_page.html', {
+        'total_reports': reports.count(),
+        'total_complaints': complaints.count(),
+        'solved_reports': solved_reports.count(),
+        'solved_complaints': solved_complaints.count(),
+        'pending_reports': pending_reports.count(),
+        'pending_complaints': pending_complaints.count(),
+        'inprogress_reports': inprogress_reports.count(),
+        'inprogress_complaints': inprogress_complaints.count(),
+    
+        
+    }
+    )
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -192,6 +245,7 @@ def send_message(request):
     return JsonResponse({'status': 'error', 'message': 'Message not sent'})
 
 
+
 from django.http import JsonResponse
 from .models import Message
 
@@ -199,3 +253,7 @@ def get_messages(request):
     office = request.GET.get('office')
     messages = Message.objects.filter(office=office).values('content', 'sent')
     return JsonResponse({'messages': list(messages)})
+
+
+
+    
