@@ -1,40 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Dashboard</title>
+    <style>
+        /* Flexbox container for horizontal layout */
+        #dashboard-container {
+            display: flex;
+            flex-wrap: wrap; /* Allows boxes to wrap on smaller screens */
+            gap: 20px; /* Adds space between the boxes */
+        }
 
-    <div id="total-reports-container" class="dashboard-box">
-        <h2>Total Reports and Complaints</h2>
-        <p>Reports Received: <span id="total-reports">{{ total_reports }}</span></p>
-        <p>Complaints Received: <span id="total-complaints">{{ total_complaints }}</span></p>
+        /* Style for the dashboard boxes */
+        .dashboard-box {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            flex: 1; /* Makes all boxes take equal space */
+            min-width: 200px; /* Ensures boxes don't get too narrow */
+            box-sizing: border-box;
+        }
+
+        #total-reports-container h2,
+        #solved-reports-container h2,
+        #pending-container h2,
+        #inprogress-container h2 {
+            margin-top: 0;
+        }
+
+        /* Media query for screens smaller than 768px (tablets and below) */
+        @media (max-width: 768px) {
+            #dashboard-container {
+                flex-direction: column; /* Stack boxes vertically */
+            }
+        }
+
+        /* Media query for very small screens (phones) */
+        @media (max-width: 480px) {
+            .dashboard-box {
+                padding: 10px; /* Reduce padding for small screens */
+                min-width: 100%; /* Boxes take full width on small screens */
+            }
+        }
+
+        /* Media query for larger screens (desktops) */
+        @media (min-width: 1024px) {
+            #dashboard-container {
+                justify-content: space-between; /* Spread boxes across larger screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="dashboard-container">
+        <div id="total-reports-container" class="dashboard-box">
+            <h2>Total Cases</h2>
+            <p>Reports Received: <span id="total-reports">{{ total_reports }}</span></p>
+            <p>Complaints Received: <span id="total-complaints">{{ total_complaints }}</span></p>
+        </div>
+    
+        <!-- Solved Reports and Complaints Container -->
+        <div id="solved-reports-container" class="dashboard-box">
+            <h2>Solved Cases</h2>
+            <p>Solved Reports: <span id="solved-reports">{{ solved_reports }}</span></p>
+            <p>Solved Complaints: <span id="solved-complaints">{{ solved_complaints }}</span></p>
+        </div>
+    
+        <!-- Pending Cases Container -->
+        <div id="pending-container" class="dashboard-box">
+            <h2>Pending Cases</h2>
+            <p>Pending Reports: <span id="pending-reports">{{ pending_reports }}</span></p>
+            <p>Pending Complaints: <span id="pending-complaints">{{ pending_complaints }}</span></p>
+        </div>
+    
+        <!-- In Progress Cases Container -->
+        <div id="inprogress-container" class="dashboard-box">
+            <h2>In Progress Cases</h2>
+            <p>In Progress Reports: <span id="inprogress-reports">{{ inprogress_reports }}</span></p>
+            <p>In Progress Complaints: <span id="inprogress-complaints">{{ inprogress_complaints }}</span></p>
+        </div>
     </div>
 
-    <!-- Solved Reports and Complaints Container -->
-    <div id="solved-reports-container" class="dashboard-box">
-        <h2>Solved Cases</h2>
-        <p>Solved Reports: <span id="solved-reports">{{ solved_reports }}</span></p>
-        <p>Solved Complaints: <span id="solved-complaints">{{ solved_complaints }}</span></p>
-    </div>
-</div>
-
-<div id="pending-container" class="dashboard-box">
-    <h2>Pending Cases</h2>
-    <p>Pending Reports: <span id="pending-reports">{{ pending_reports }}</span></p>
-    <p>Pending Complaints: <span id="pending-complaints">{{ pending_complaints }}</span></p>
-</div>
-
-<div id="inprogress-container" class="dashboard-box"></div>
-    <h2>In Progress Cases</h2>
-    <p>In Progress Reports: <span id="inprogress-reports">{{ inprogress_reports }}</span></p>
-    <p>Pending Complaints: <span id="inprogress-complaints">{{ inprogress_complaints }}</span></p>
-
-</div>
-<style>.dashboard-box {
-    border: 1px solid #ddd;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-}
-
-#total-reports-container h2,
-#solved-reports-container h2 {
-    margin-top: 0;
-}
-</style>
+    
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+
+    
+    <!-- Messages Section -->
+    <div id="messages-container">
+        <h2>Messages</h2>
+        <ul id="messages-list">
+            <!-- Messages will be dynamically inserted here -->
+        </ul>
+        <form id="message-form" onsubmit="sendMessage(event)">
+            <textarea id="message-text" name="message" rows="4" cols="50" placeholder="Type your message here..."></textarea>
+            <input type="hidden" id="recipient-id" name="recipient_id" value="">
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    
+</body>
+</html>

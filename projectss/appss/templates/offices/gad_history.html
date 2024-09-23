@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+
+    
+    <!-- History Tables -->
+    <div id="history-reports-table">
+        <h2>Solved Reports</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Office</th>
+                    <th>Type</th>
+                    <th>Description (PDF)</th>
+                    <th>Status</th>
+                    <th>Issue Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="history-reports-body">
+                {% for report in reports %}
+                {% if report.status == "Solved" %}
+                <tr data-id="{{ report.id }}">
+                    <td>{{ report.office }}</td>
+                    <td>{{ report.type }}</td>
+                    <td>
+                        {% if report.pdf_file %}
+                            <a href="{{ report.pdf_file.url }}" target="_blank">Download PDF</a>
+                        {% else %}
+                            No PDF available
+                        {% endif %}
+                    </td>
+                    <td class="status status-solved">{{ report.status }}</td>
+                    <td>{{ report.issue_date|date:"F j, Y" }}</td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div id="history-complaints-table">
+        <h2>Solved Complaints</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Office</th>
+                    <th>Type</th>
+                    <th>Description (PDF)</th>
+                    <th>Status</th>
+                    <th>Issue Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="history-complaints-body">
+                {% for complaint in complaints %}
+                {% if complaint.status == "Solved" %}
+                <tr data-id="{{ complaint.id }}">
+                    <td>{{ complaint.office }}</td>
+                    <td>{{ complaint.type }}</td>
+                    <td>
+                        {% if complaint.pdf_file %}
+                            <a href="{{ complaint.pdf_file.url }}" target="_blank">Download PDF</a>
+                        {% else %}
+                            No PDF available
+                        {% endif %}
+                    </td>
+                    <td class="status status-solved">{{ complaint.status }}</td>
+                    <td>{{ complaint.issue_date|date:"F j, Y" }}</td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

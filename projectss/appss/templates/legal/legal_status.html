@@ -4,9 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        /* Style for disabled button */
+        button:disabled {
+            background-color: gray;
+            color: white;
+            cursor: not-allowed;
+        }
+    </style>
 </head>
 <body>
-    
+
     <!-- Reports Table -->
     <div id="reports-table" class="hidden">
         <h2>Reports</h2>
@@ -57,7 +65,7 @@
                     <td>
                         <form action="{% url 'send_complaint' complaint.id %}" method="post" style="display:inline;">
                             {% csrf_token %}
-                            <button type="submit" {% if complaint.is_sent %}disabled{% endif %}>Send</button>
+                            <button type="submit" class="send-btn" {% if complaint.is_sent %}disabled{% endif %}>Send</button>
                         </form>
                         <form action="{% url 'delete_complaint' complaint.id %}" method="post" style="display:inline;">
                             {% csrf_token %}
@@ -121,7 +129,7 @@
                     <td>
                         <form action="{% url 'send_complaint' complaint.id %}" method="post" style="display:inline;">
                             {% csrf_token %}
-                            <button type="submit" {% if complaint.is_sent %}disabled{% endif %}>Send</button>
+                            <button type="submit" class="send-btn" {% if complaint.is_sent %}disabled{% endif %}>Send</button>
                         </form>
                         <form action="{% url 'delete_complaint' complaint.id %}" method="post" style="display:inline;">
                             {% csrf_token %}
@@ -134,5 +142,17 @@
             </tbody>
         </table>
     </div>
+
+    <script>
+        // Disable the send button once clicked to prevent multiple submissions
+        document.querySelectorAll('.send-btn').forEach(function(button) {
+            button.addEventListener('click', function() {
+                if (!button.disabled) {
+                    button.disabled = true;
+                    button.textContent = 'Sent'; // Optionally change text
+                }
+            });
+        });
+    </script>
 </body>
 </html>

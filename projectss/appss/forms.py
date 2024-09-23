@@ -1,6 +1,7 @@
 from django import forms
 # from django.contrib.auth.models import User  # Import User model for registration
 from .models import Complaint, Message
+from .models import Informant
 
 # class InformantRegistrationForm(forms.ModelForm):
 #     USER_TYPE_CHOICES = [
@@ -29,3 +30,17 @@ class MessageForm(forms.ModelForm):
         model = Message
         fields = ['content']
 
+
+
+class InformantRegistrationForm(forms.ModelForm):
+    ROLE_CHOICES = [
+        ('student', 'Student'),
+        ('employee', 'Employee'),
+        ('faculty', 'Faculty'),
+    ]
+    
+    role = forms.ChoiceField(choices=ROLE_CHOICES, widget=forms.RadioSelect)
+
+    class Meta:
+        model = Informant
+        fields = ['role', 'username', 'first_name', 'last_name', 'middle_name', 'email', 'contact_number']

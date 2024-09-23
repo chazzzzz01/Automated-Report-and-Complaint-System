@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Legal Office Page</title>
     <style>
-        /* Keeping the header fixed at the top */
+        /* Fixed header styling */
         h1 {
             margin: 0;
             width: 100%;
@@ -13,29 +13,30 @@
             color: #fff;
             background: linear-gradient(180deg, #160575, #0c68b3);
             text-align: center;
-            position: fixed; /* Fixes the header */
+            position: fixed;
             top: 0;
             left: 0;
-            z-index: 1000; /* Ensures the header stays on top */
+            z-index: 1000;
+            font-size: 24px;
         }
 
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            padding-top: 80px; /* Prevent content from hiding behind the header */
+            padding-top: 80px;
         }
 
         /* Sidebar styling */
         #sidebar1 {
             width: 250px;
-            height: 100vh; 
+            height: 100vh;
             position: fixed;
-            top: 80px; 
+            top: 50px;
             left: 0;
             padding-top: 20px;
             color: white;
-            z-index: 999;
             background: linear-gradient(180deg, #160575, #0c68b3);
+            transition: width 0.3s ease;
         }
 
         #sidebar1 p {
@@ -43,7 +44,6 @@
             font-size: 18px;
             text-transform: uppercase;
             text-align: center;
-           
         }
 
         #sidebar1 a {
@@ -51,76 +51,144 @@
             color: white;
             font-weight: bold;
             display: block;
-            text-align: center;
             padding: 10px;
-           
         }
 
         #sidebar1 a:hover {
-           
-            transition: background-color 0.3s;
-            width: 100px;
-        }
-
-        /* Main content area styling */
-        #content1 {
-            margin-left: 270px; /* Leaves space for the sidebar */
-            padding: 20px;
-            font: bold;
-           
-        }
-
-        /* Buttons container and hidden sections */
-        #status-link, #history-link {
-            cursor: pointer;
-            display: block;
-            padding: 10px;
-            margin: 10px 0;
-            color: white;
-            text-align: center;
-            border-radius: 5px;
-        }
-
-        #status-link:hover, #history-link:hover {
             background-color: #2378b6;
             transition: background-color 0.3s;
-           
         }
 
+        /* Content area */
+        #content1 {
+            margin-left: 270px;
+            padding: 20px;
+        }
+
+        /* Button styling */
+        button {
+            padding: 10px;
+            margin: 10px 0;
+            cursor: pointer;
+            border: none;
+            background-color: #0c68b3;
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2378b6;
+        }
+
+        .status-pending { background-color: red; color: white; }
+        .status-in-progress { background-color: yellow; color: black; }
+        .status-solved { background-color: green; color: white; }
+    
+        /* Hidden/visible sections */
         .hidden {
             display: none;
         }
 
         .visible {
-            display: block; /* Show when the 'visible' class is added */
+            display: block;
         }
-        
-        /* Status colors */
-        .status-pending {
-            background-color: red;
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            #sidebar1 {
+                width: 80px;
+            }
+
+            #content1 {
+                margin-left: 100px;
+            }
+
+            h1 {
+                font-size: 18px;
+                padding: 15px;
+            }
+
+            #sidebar1 p {
+                font-size: 14px;
+            }
+
+            #sidebar1 a {
+                font-size: 12px;
+                padding: 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #sidebar1 {
+                width: 100%;
+                height: auto;
+                position: relative;
+                top: 0;
+            }
+
+            #content1 {
+                margin-left: 0;
+                padding: 10px;
+            }
+
+            button {
+                width: 100%;
+                padding: 15px;
+            }
+        }
+
+        /* Responsive table styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #0c68b3;
             color: white;
         }
 
-        .status-in-progress {
-            background-color: yellow;
-            color: black;
+        td {
+            background-color: #f2f2f2;
         }
 
-        .status-solved {
-            background-color: green;
-            color: white;
+        @media (max-width: 768px) {
+            th, td {
+                padding: 8px;
+            }
         }
 
-        .urgency-high {
-            color: green;
-        }
+        @media (max-width: 480px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
 
-        .urgency-medium {
-            color: yellow;
-        }
+            th, td {
+                padding: 10px;
+                border: none;
+            }
 
-        .urgency-low {
-            color: red;
+            td {
+                position: relative;
+                padding-left: 50%;
+            }
+
+            td:before {
+                content: attr(data-label);
+                position: absolute;
+                left: 0;
+                width: 50%;
+                padding-left: 10px;
+                font-weight: bold;
+            }
         }
     </style>
 </head>
@@ -130,7 +198,8 @@
 
 <!-- Sidebar with Status and History links -->
 <div id="sidebar1">
-    <p>Welcome!</p>
+    <p>Welcome Admin!</p>
+    <a href="#" id="dashboard-link" onclick="loadDashboard()">Dashboard</a>
     <p id="status-link" onclick="showButtons()">Status</p>
     <p id="history-link" onclick="showHistory()">History</p>
 </div>
@@ -149,11 +218,30 @@
         <button onclick="showSolvedTable('complaints')">Solved Complaints</button>
     </div>
 
+    <div id="content2">
+        <!-- Dashboard content will load here -->
+        <div id="dashboard-content"></div>
+
     {% include 'legal/legal_status.html' %}
     {% include 'legal/legal_history.html' %}
 </div>
 
 <script>
+      function loadDashboard() {
+            const dashboardContent = document.getElementById('dashboard-content');
+            fetch("{% url 'dashboard_page' %}") // Assuming 'dashboard_page' is the name of the dashboard URL
+                .then(response => response.text())
+                .then(html => {
+                    dashboardContent.innerHTML = html;
+                    dashboardContent.style.display = 'block';
+                    hideOtherSections();
+                })
+                .catch(error => console.error('Error loading dashboard:', error));
+        }
+
+     
+        
+
     function showButtons() {
         document.getElementById('buttons-container').classList.toggle('hidden');
     }
@@ -163,11 +251,9 @@
     }
 
     function showTable(type) {
-        // Hide all tables first
         document.getElementById('reports-table').classList.add('hidden');
         document.getElementById('complaints-table').classList.add('hidden');
 
-        // Show the selected table
         if (type === 'reports') {
             document.getElementById('reports-table').classList.remove('hidden');
         } else if (type === 'complaints') {
@@ -176,16 +262,20 @@
     }
 
     function showSolvedTable(type) {
-        // Hide all solved history tables first
         document.getElementById('solved-reports-table').classList.add('hidden');
         document.getElementById('solved-complaints-table').classList.add('hidden');
 
-        // Show the selected solved table
         if (type === 'reports') {
             document.getElementById('solved-reports-table').classList.remove('hidden');
         } else if (type === 'complaints') {
             document.getElementById('solved-complaints-table').classList.remove('hidden');
         }
+    }
+    function disableButton(button) {
+        // Disable the button after it is clicked
+        button.disabled = true;
+        // Optionally change the button text to indicate it's disabled
+        button.innerText = 'Sent';
     }
 </script>
 

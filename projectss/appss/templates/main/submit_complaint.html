@@ -1,15 +1,74 @@
-<!-- complaints/templates/submit_complaint.html -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submit Complaint or Report</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        /* Loading spinner styles */
+        #loading-spinner {
+            display: none;
+            width: 50px;
+            height: 50px;
+            border: 8px solid #f3f3f3; /* Light grey */
+            border-top: 8px solid #3498db; /* Blue */
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
 </head>
 <body>
     <h1>Submit a Complaint or Report</h1>
-    <form method="POST" action="{% url 'submit_complaint' %}">
-        {% csrf_token %}
-        <textarea name="description" rows="4" cols="50" placeholder="Enter complaint or report description here..."></textarea><br>
+    <form id="complaintForm" method="POST">
+        <textarea name="description" id="description" rows="4" cols="50" placeholder="Enter complaint or report description here..."></textarea><br>
         <button type="submit">Submit</button>
     </form>
+
+    <!-- Loading Spinner -->
+    <div id="loading-spinner"></div>
+
+    <div id="responseMessage"></div>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#complaintForm').on('submit', function(e) {
+                e.preventDefault();  // Prevent the form from submitting normally
+
+                // Show the loading spinner
+                $('#loading-spinner').show();
+
+                $.ajax({
+                    url: "{% url 'submit_complaint' %}",
+                    type: "POST",
+                    data: {
+                        'description': $('#description').val(),
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'  // Include CSRF token
+                    },
+                    success: function(response) {
+                        $('#loading-spinner').hide();  // Hide the spinner after success
+                        $('#responseMessage').html('<p style="color:green;">' + response.message + '</p>');
+                        $('#complaintForm')[0].reset();  // Reset the form after success
+                    },
+                    error: function(xhr, status, error) {
+                        $('#loading-spinner').hide();  // Hide the spinner after error
+                        let errorMessage = xhr.responseJSON ? xhr.responseJSON.error : "An error occurred.";
+                        $('#responseMessage').html('<p style="color:red;">' + errorMessage + '</p>');
+                    }
+                });
+            });
+        });
+    </script>
+
 </body>
 </html>

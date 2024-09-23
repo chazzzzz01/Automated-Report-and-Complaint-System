@@ -11,6 +11,7 @@ urlpatterns = [
     path('students-affairs/', views.students_affairs_page, name='students_affairs_page'),
     path('gad-office/', views.gad_office_page, name='gad_office_page'),
     path('gad-office-status/', views.gad_office_status, name='gad_office_status'),
+    # path('delete-complaint/<int:complaint_id>/', views.delete_complaint, name='delete_complaint'),
     path('delete-complaint/<int:complaint_id>/', views.delete_complaint, name='delete_complaint'),
     path('update-status/<int:complaint_id>/', views.update_status, name='update_status'),
     path('send-complaint/<int:complaint_id>/', views.send_complaint, name='send_complaint'),
@@ -22,5 +23,7 @@ urlpatterns = [
     path('status/', views.complaint_status, name='complaint_status'),
     path('history/', views.complaint_history, name='complaint_history'),
     path('messages/', views.complaint_messages, name='complaint_messages'),
+    
+    path('register/', views.registration_page, name='registration_page'),
    
 ]

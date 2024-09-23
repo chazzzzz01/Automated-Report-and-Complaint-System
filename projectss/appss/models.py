@@ -7,6 +7,46 @@ from django.utils import timezone
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 
 
+
+
+class Informant(models.Model):
+    ROLE_CHOICES = [
+        ('student', 'Student'),
+        ('employee', 'Employee'),
+        ('faculty', 'Faculty'),
+    ]
+
+    DEPARTMENT_CHOICES = [
+        ('STCS', 'School of Technology and Computer Science'),
+        ('SCJE', 'School of Criminal Justice and Education'),
+        ('SAS', 'School of Arts and Sciences'),
+        ('SME', 'School of Management and Entrepreneurship'),
+        ('SOE', 'School of Engineering'),
+        ('SNHS', 'School of Nursing and Health Sciences'),
+        ('LHS', 'Liberal Arts and Humanities'),
+        ('STED', 'School of Teacher Education'),
+    ]
+    
+    role = models.CharField(max_length=10, choices=ROLE_CHOICES)
+    username = models.CharField(max_length=50)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    middle_name = models.CharField(max_length=50, blank=True, null=True)
+    email = models.EmailField()
+    contact_number = models.CharField(max_length=15)
+    
+    # Additional fields for verification
+    department = models.CharField(max_length=4, choices=DEPARTMENT_CHOICES, blank=True, null=True)
+    student_id_file = models.FileField(upload_to='student_ids/', null=True, blank=True)
+    employee_id_file = models.FileField(upload_to='employee_ids/', null=True, blank=True)
+    study_load_file = models.FileField(upload_to='study_loads/', null=True, blank=True)
+    document_file = models.FileField(upload_to='documents/', null=True, blank=True)
+    password = models.CharField(max_length=128)
+    confirm_password = models.CharField(max_length=128)
+
+    def __str__(self):
+        return f"{self.username} ({self.role})"
+
 # Complaint Model
 class Complaint(models.Model):
     OFFICE_CHOICES = [
@@ -24,6 +64,7 @@ class Complaint(models.Model):
     pdf_file = models.FileField(upload_to='complaint_pdfs/', null=True, blank=True)
     issue_date = models.DateTimeField(default=timezone.now)
     is_sent = models.BooleanField(default=False)
+    
 
     def save(self, *args, **kwargs):
         if not self.pdf_file:
@@ -100,3 +141,6 @@ class Message(models.Model):
 
     def __str__(self):
         return f'{self.office}: {self.content}'
+    
+
+

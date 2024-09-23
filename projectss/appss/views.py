@@ -4,48 +4,24 @@ from .models import Complaint
 from .model_utils import load_models
 from .forms import ComplaintReportForm, MessageForm
 from django.contrib.auth.models import User
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from .forms import InformantRegistrationForm
+from .models import Informant
 
 def home(request):
     return render(request,'main/home.html')
 
 
-
-# def informant_registration_view(request):
-#     if request.method == 'POST':
-#         form = InformantRegistrationForm(request.POST)
-#         if form.is_valid():
-#             # Save user data after processing
-#             user_type = form.cleaned_data['user_type']
-#             username = form.cleaned_data['username']
-#             first_name = form.cleaned_data['first_name']
-#             last_name = form.cleaned_data['last_name']
-#             middle_name = form.cleaned_data['middle_name']
-            
-#             # Create the user
-#             user = User.objects.create_user(
-#                 username=username,
-#                 first_name=first_name,
-#                 last_name=last_name,
-#                 # Use `middle_name` in the profile model if required
-#             )
-            
-#             # Save additional user information in InformantProfile
-#             user.informant_profile.user_type = user_type
-#             user.informant_profile.middle_name = middle_name
-#             user.informant_profile.save()
-            
-#             return redirect('success_page')  # Replace 'success_page' with your success URL
-#     else:
-#         form = InformantRegistrationForm()
-
-#     return render(request, 'main/informant_registration.html', {'form': form})
-
-
-
-
-
-
-
+def registration_page(request):
+    if request.method == 'POST':
+        form = InformantRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()  # Save the form data to the database
+            return redirect('home')  # Redirect to home page or another after successful registration
+    else:
+        form = InformantRegistrationForm()
+    return render(request, 'main/registration.html', {'form': form})
 
 
 def informant_page(request):
@@ -60,33 +36,72 @@ def admin_page(request):
     return render(request, 'main/admin_page.html', {'complaints': complaints})
 
 
+# def submit_complaint(request):
+#     if request.method == 'POST':
+#         description = request.POST.get('description')
+
+#         try:
+#             category_model, type_model, vectorizer = load_models()
+#             description_vec = vectorizer.transform([description])
+#             predicted_category = category_model.predict(description_vec)[0]
+#             predicted_type = type_model.predict(description_vec)[0]
+
+#             complaint = Complaint(
+#                 description=description,
+#                 office=predicted_category,
+#                 type=predicted_type,
+#                 status='Pending'
+#             )
+#             complaint.save()
+
+#             return redirect('legal_office_page')
+
+#         except FileNotFoundError as e:
+#             return HttpResponse(f"Error: {e}", status=500)
+
+#         except Exception as e:
+#             return HttpResponse(f"An unexpected error occurred: {e}", status=500)
+
+#     return render(request, 'main/submit_complaint.html')
+
+
+
+@csrf_exempt
 def submit_complaint(request):
     if request.method == 'POST':
         description = request.POST.get('description')
 
         try:
+            # Load the models
             category_model, type_model, vectorizer = load_models()
+            
+            # Vectorize the description
             description_vec = vectorizer.transform([description])
+            
+            # Predict category and type
             predicted_category = category_model.predict(description_vec)[0]
             predicted_type = type_model.predict(description_vec)[0]
 
+            # Save the complaint as pending in the legal office
             complaint = Complaint(
                 description=description,
-                office=predicted_category,
+                office= predicted_category, 
                 type=predicted_type,
                 status='Pending'
             )
             complaint.save()
 
-            return redirect('legal_office_page')
+            # Return a success message to the AJAX call
+            return JsonResponse({'message': 'Complaint submitted to the legal office successfully!'}, status=200)
 
         except FileNotFoundError as e:
-            return HttpResponse(f"Error: {e}", status=500)
+            return JsonResponse({'error': f"Error: {e}"}, status=500)
 
         except Exception as e:
-            return HttpResponse(f"An unexpected error occurred: {e}", status=500)
+            return JsonResponse({'error': f"An unexpected error occurred: {e}"}, status=500)
 
-    return render(request, 'main/submit_complaint.html')
+    return JsonResponse({'error': 'Invalid request method.'}, status=400)
+
 
 def legal_office_page(request):
     
@@ -131,11 +146,21 @@ def update_status(request, complaint_id):
 
 
 
-def delete_complaint(request, complaint_id):
+# def delete_complaint(request, complaint_id):
     
+#     complaint = get_object_or_404(Complaint, id=complaint_id)
+#     complaint.delete()
+#     return redirect('legal_office_page')
+
+
+from django.shortcuts import get_object_or_404, redirect
+
+def delete_complaint(request, complaint_id):
     complaint = get_object_or_404(Complaint, id=complaint_id)
     complaint.delete()
-    return redirect('legal_office_page')
+    # Redirect back to the referring page
+    return redirect(request.META.get('HTTP_REFERER', 'legal_office_page'))
+
 
 def send_complaint(request, complaint_id):
     complaint = get_object_or_404(Complaint, id=complaint_id)
@@ -212,6 +237,8 @@ def dashboard_page(request):
         
     }
     )
+
+    
 
 
 
