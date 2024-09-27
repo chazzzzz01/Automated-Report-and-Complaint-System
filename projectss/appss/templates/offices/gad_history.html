@@ -1,84 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Reports and Complaints Graphs (Counts)</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
-    
+    <h2>Solved Reports </h2>
+    <canvas id="solvedReportsChart" width="400" height="200"></canvas>
+
+    <h2>Solved Complaints </h2>
+    <canvas id="solvedComplaintsChart" width="400" height="200"></canvas>
+
+    <script>
+ // Data for solved reports
+const reports = [];
+{% for report in reports %}
+    {% if report.status == "Solved" %}
+        reports.push({
+            office: "{{ report.office|escapejs }}",
+            issueDate: "{{ report.issue_date|date:'Y-m-d' }}",
+            type: "{{ report.type|escapejs }}"
+        });
+    {% endif %}
+{% endfor %}
+
+// Data for solved complaints
+const complaints = [];
+{% for complaint in complaints %}
+    {% if complaint.status == "Solved" %}
+        complaints.push({
+            office: "{{ complaint.office|escapejs }}",
+            issueDate: "{{ complaint.issue_date|date:'Y-m-d' }}",
+            type: "{{ complaint.type|escapejs }}"
+        });
+    {% endif %}
+{% endfor %}
 
 
-    
-    <!-- History Tables -->
-    <div id="history-reports-table">
-        <h2>Solved Reports</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Office</th>
-                    <th>Type</th>
-                    <th>Description (PDF)</th>
-                    <th>Status</th>
-                    <th>Issue Date</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody id="history-reports-body">
-                {% for report in reports %}
-                {% if report.status == "Solved" %}
-                <tr data-id="{{ report.id }}">
-                    <td>{{ report.office }}</td>
-                    <td>{{ report.type }}</td>
-                    <td>
-                        {% if report.pdf_file %}
-                            <a href="{{ report.pdf_file.url }}" target="_blank">Download PDF</a>
-                        {% else %}
-                            No PDF available
-                        {% endif %}
-                    </td>
-                    <td class="status status-solved">{{ report.status }}</td>
-                    <td>{{ report.issue_date|date:"F j, Y" }}</td>
-                </tr>
-                {% endif %}
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+        // Function to count occurrences for chart data
+        function getCountData(data, labelKey) {
+            const labels = [...new Set(data.map(item => item[labelKey]))]; // Get unique labels (like office names)
+            const dataset = labels.map(label => data.filter(item => item[labelKey] === label).length); // Count occurrences for each office
 
-    <div id="history-complaints-table">
-        <h2>Solved Complaints</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Office</th>
-                    <th>Type</th>
-                    <th>Description (PDF)</th>
-                    <th>Status</th>
-                    <th>Issue Date</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody id="history-complaints-body">
-                {% for complaint in complaints %}
-                {% if complaint.status == "Solved" %}
-                <tr data-id="{{ complaint.id }}">
-                    <td>{{ complaint.office }}</td>
-                    <td>{{ complaint.type }}</td>
-                    <td>
-                        {% if complaint.pdf_file %}
-                            <a href="{{ complaint.pdf_file.url }}" target="_blank">Download PDF</a>
-                        {% else %}
-                            No PDF available
-                        {% endif %}
-                    </td>
-                    <td class="status status-solved">{{ complaint.status }}</td>
-                    <td>{{ complaint.issue_date|date:"F j, Y" }}</td>
-                </tr>
-                {% endif %}
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+            return { labels, dataset };
+        }
+
+        // Chart for solved reports (Counts by Office)
+        const reportData = getCountData(reports, 'office');
+        const solvedReportsCtx = document.getElementById('solvedReportsChart').getContext('2d');
+        new Chart(solvedReportsCtx, {
+            type: 'bar',
+            data: {
+                labels: reportData.labels,
+                datasets: [{
+                    label: '# of Solved Reports',
+                    data: reportData.dataset,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0 // Ensure whole number counts on the y-axis
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return 'Solved Reports: ' + tooltipItem.raw; // Show count in tooltip
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Chart for solved complaints (Counts by Office)
+        const complaintData = getCountData(complaints, 'office');
+        const solvedComplaintsCtx = document.getElementById('solvedComplaintsChart').getContext('2d');
+        new Chart(solvedComplaintsCtx, {
+            type: 'bar',
+            data: {
+                labels: complaintData.labels,
+                datasets: [{
+                    label: '# of Solved Complaints',
+                    data: complaintData.dataset,
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0 // Ensure whole number counts on the y-axis
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return 'Solved Complaints: ' + tooltipItem.raw; // Show count in tooltip
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
 </body>
+
 </html>

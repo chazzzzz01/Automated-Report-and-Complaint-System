@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informant Chat</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .chat-container {
+            width: 100%;
+            max-width: 900px;
+            margin: 50px auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background-color: #2d3e50;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .chat-box {
+            height: 400px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            background-color: #fff;
+            overflow-y: auto;
+        }
+
+        .chat-message {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .chat-input {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .send-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .send-btn:hover {
+            background-color: #45a049;
+        }
+
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+    </style>
+</head>
+<body>
+<div class="chat-container">
+    <div class="chat-header">
+        <h2>Informant - GAD Office Chat</h2>
+    </div>
+
+    <div class="chat-box" id="informant-chat-box"></div>
+
+    <input type="text" id="informant-message" class="chat-input" placeholder="Type your message...">
+    <button class="send-btn" onclick="sendMessage('informant')">Send</button>
+</div>
+
+<script>
+    let chatSocket = new WebSocket('ws://' + window.location.host + '/ws/chat/gad/');
+
+    chatSocket.onmessage = function(e) {
+        let data = JSON.parse(e.data);
+        let message = data['message'];
+
+        let chatBox = document.getElementById('informant-chat-box');
+        let newMessage = document.createElement('div');
+        newMessage.classList.add('chat-message');
+        newMessage.innerText = message;
+        chatBox.appendChild(newMessage);
+    };
+
+    function sendMessage() {
+        let messageInput = document.getElementById('informant-message');
+        let message = messageInput.value;
+        chatSocket.send(JSON.stringify({
+            'message': message
+        }));
+        messageInput.value = '';
+    }
+</script>
+</body>
+</html>

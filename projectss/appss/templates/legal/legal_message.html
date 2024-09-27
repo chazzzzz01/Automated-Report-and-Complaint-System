@@ -19,6 +19,7 @@
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             overflow: hidden;
+            margin-top: 15%;
         }
 
         .office-list {
@@ -73,21 +74,16 @@
             color: #333;
         }
 
-        .chat-box {
+        .blank-space {
             height: 250px;
             border: 1px solid #ddd;
             background-color: #fff;
             border-radius: 5px;
-            padding: 15px;
-            overflow-y: scroll;
-        }
-
-        .chat-message {
-            margin: 10px 0;
-            padding: 5px 10px;
-            border-radius: 10px;
-            background-color: #f1f1f1;
-            display: inline-block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #aaa;
+            font-size: 16px;
         }
 
         .chat-input {
@@ -133,39 +129,40 @@
         <div class="office-item"><a href="#" data-office="academic">Academic Affairs</a></div>
     </div>
 
-    <!-- Chat Area -->
+    <!-- GAD Chatbox -->
     <div class="chat-area" id="gad">
         <h2>GAD Office</h2>
-        <div class="chat-box" id="gad-chat-box"></div>
-        <input type="text" class="chat-input" id="gad-message" placeholder="Type your message here...">
-        <button class="send-btn" onclick="sendMessage('gad')">Send</button>
+        <div class="blank-space">Start chatting with GAD Office...</div>
+        <input type="text" class="chat-input" placeholder="Type your message here...">
+        <button class="send-btn">Send</button>
     </div>
 
+    <!-- Admin and Finance Chatbox -->
     <div class="chat-area" id="admin">
         <h2>Admin and Finance</h2>
-        <div class="chat-box" id="admin-chat-box"></div>
-        <input type="text" class="chat-input" id="admin-message" placeholder="Type your message here...">
-        <button class="send-btn" onclick="sendMessage('admin')">Send</button>
+        <div class="blank-space">Start chatting with Admin and Finance...</div>
+        <input type="text" class="chat-input" placeholder="Type your message here...">
+        <button class="send-btn">Send</button>
     </div>
 
+    <!-- Student Affairs Chatbox -->
     <div class="chat-area" id="student">
         <h2>Student Affairs</h2>
-        <div class="chat-box" id="student-chat-box"></div>
-        <input type="text" class="chat-input" id="student-message" placeholder="Type your message here...">
-        <button class="send-btn" onclick="sendMessage('student')">Send</button>
+        <div class="blank-space">Start chatting with Student Affairs...</div>
+        <input type="text" class="chat-input" placeholder="Type your message here...">
+        <button class="send-btn">Send</button>
     </div>
 
+    <!-- Academic Affairs Chatbox -->
     <div class="chat-area" id="academic">
         <h2>Academic Affairs</h2>
-        <div class="chat-box" id="academic-chat-box"></div>
-        <input type="text" class="chat-input" id="academic-message" placeholder="Type your message here...">
-        <button class="send-btn" onclick="sendMessage('academic')">Send</button>
+        <div class="blank-space">Start chatting with Academic Affairs...</div>
+        <input type="text" class="chat-input" placeholder="Type your message here...">
+        <button class="send-btn">Send</button>
     </div>
 </div>
 
 <script>
-    let chatSockets = {};
-
     document.querySelectorAll('.office-item a').forEach(link => {
         link.addEventListener('click', function(event) {
             event.preventDefault();
@@ -178,34 +175,8 @@
             // Show the selected chat area
             const office = this.getAttribute('data-office');
             document.getElementById(office).classList.add('active');
-
-            if (!chatSockets[office]) {
-                let socket = new WebSocket('ws://' + window.location.host + '/ws/chat/' + office + '/');
-
-                socket.onmessage = function(e) {
-                    let data = JSON.parse(e.data);
-                    let message = data['message'];
-
-                    let chatBox = document.getElementById(office + '-chat-box');
-                    let newMessage = document.createElement('div');
-                    newMessage.classList.add('chat-message');
-                    newMessage.innerText = message;
-                    chatBox.appendChild(newMessage);
-                };
-
-                chatSockets[office] = socket;
-            }
         });
     });
-
-    function sendMessage(office) {
-        let messageInput = document.getElementById(office + '-message');
-        let message = messageInput.value;
-        chatSockets[office].send(JSON.stringify({
-            'message': message
-        }));
-        messageInput.value = '';
-    }
 </script>
 
 </body>

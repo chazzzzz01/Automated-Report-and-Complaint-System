@@ -1,32 +1,38 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Informant Registration</title>
     <style>
+        /* Your CSS styling */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .container {
             width: 90%;
             max-width: 800px;
-            margin: 50px auto;
             background-color: white;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
             position: relative;
             overflow: hidden;
-            display: flex;
-            transition: transform 0.5s ease;
         }
         .form-section {
-            min-width: 100%;
-            transition: transform 0.5s ease;
+            display: none;
+            transition: opacity 0.5s ease;
+        }
+        .form-section.active {
+            display: block;
+            opacity: 1;
         }
         h2 {
             text-align: center;
@@ -62,48 +68,26 @@
         .button:hover {
             background-color: #0056b3;
         }
-        .arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 32px;
-            cursor: pointer;
-            color: #007bff;
-            user-select: none;
-            transition: color 0.3s ease;
-        }
-        .arrow:hover {
-            color: #0056b3;
-        }
-        .arrow.left {
-            left: 10px;
-        }
-        .arrow.right {
-            right: 10px;
-        }
-        .hidden {
+        .upload-section {
             display: none;
         }
-        /* Responsive Design */
         @media (max-width: 768px) {
             .container {
                 width: 100%;
                 margin: 20px 0;
             }
-            .arrow {
-                font-size: 24px;
-            }
         }
     </style>
 </head>
 <body>
-    <div class="container" id="registrationContainer">
-        <div class="form-section" id="basicInfoSection">
+    <div class="container">
+        <!-- First Section -->
+        <div class="form-section active" id="basicInfoSection">
             <h2>Informant Registration - Basic Info</h2>
             <form id="registrationForm" method="POST" novalidate>
                 {% csrf_token %}
                 <label for="role">Role:</label>
-                <select id="role" name="role" required onchange="showAdditionalFields()">
+                <select id="role" name="role" required onchange="handleRoleChange(this.value)">
                     <option value="" disabled selected>Select your role</option>
                     <option value="student">Student</option>
                     <option value="employee">Employee</option>
@@ -128,29 +112,86 @@
                 <label for="contact_number">Contact Number:</label>
                 <input type="text" id="contact_number" name="contact_number" required>
 
-                <button type="button" class="button" onclick="slideRight()">Next</button>
+                <button type="button" class="button" onclick="showNextSection()">Next</button>
             </form>
         </div>
 
-      
+        <!-- Second Section -->
+        <div class="form-section" id="additionalInfoSection">
+            <h2>Informant Registration - Additional Info</h2>
+            <form id="additionalForm" method="POST" enctype="multipart/form-data" novalidate>
+                {% csrf_token %}
+                <label for="department">Department:</label>
+                <select id="department" name="department" required>
+                    <option value="" disabled selected>Select your department</option>
+                    <option value="STCS">School of Technology and Computer Science</option>
+                    <option value="SCJE">School of Criminal Justice and Education</option>
+                    <option value="SAS">School of Arts and Sciences</option>
+                    <option value="SME">School of Management and Entrepreneurship</option>
+                    <option value="SOE">School of Engineering</option>
+                    <option value="SNHS">School of Nursing and Health Sciences</option>
+                    <option value="STED">School of Teacher Education</option>
+                </select>
+
+                <div id="studentSection" class="upload-section">
+                    <label for="student_id">Upload Student ID:</label>
+                    <input type="file" id="student_id" name="student_id">
+
+                    <label for="study_load">Upload Study Load:</label>
+                    <input type="file" id="study_load" name="study_load">
+                </div>
+
+                <div id="employeeFacultySection" class="upload-section">
+                    <label for="employee_faculty_id">Upload Employee/Faculty ID:</label>
+                    <input type="file" id="employee_faculty_id" name="employee_faculty_id">
+
+                    <label for="verification_doc">Upload Verification Document:</label>
+                    <input type="file" id="verification_doc" name="verification_doc">
+                </div>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+
+                <label for="confirm_password">Confirm Password:</label>
+                <input type="password" id="confirm_password" name="confirm_password" required>
+
+                <button type="button" class="button" onclick="showPreviousSection()">Previous</button>
+                <button type="submit" class="button" onclick="redirectToInformantPage()">Register</button>
+            </form>
+        </div>
+    </div>
 
     <script>
-        function showAdditionalFields() {
-            const role = document.getElementById('role').value;
-            if (role) {
-                document.getElementById('additionalFieldsSection').classList.remove('hidden');
+        function showNextSection() {
+            document.getElementById('basicInfoSection').classList.remove('active');
+            document.getElementById('additionalInfoSection').classList.add('active');
+        }
+
+        function showPreviousSection() {
+            document.getElementById('additionalInfoSection').classList.remove('active');
+            document.getElementById('basicInfoSection').classList.add('active');
+        }
+
+        function handleRoleChange(role) {
+            const studentSection = document.getElementById('studentSection');
+            const employeeFacultySection = document.getElementById('employeeFacultySection');
+
+            if (role === 'student') {
+                studentSection.style.display = 'block';
+                employeeFacultySection.style.display = 'none';
+            } else if (role === 'employee' || role === 'faculty') {
+                studentSection.style.display = 'none';
+                employeeFacultySection.style.display = 'block';
+            } else {
+                studentSection.style.display = 'none';
+                employeeFacultySection.style.display = 'none';
             }
         }
 
-        function slideRight() {
-            document.getElementById('registrationContainer').style.transform = 'translateX(-100%)';
-        }
-
-        function slideLeft() {
-            document.getElementById('registrationContainer').style.transform = 'translateX(0)';
+        function redirectToInformantPage() {
+            // Replace this with the actual informant page URL
+            window.location.href = "informant_page.html";
         }
     </script>
 </body>
 </html>
-
-

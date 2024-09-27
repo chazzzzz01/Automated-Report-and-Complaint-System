@@ -3,26 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>GAD Office Chat</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .chat-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 50px auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .chat-area {
+            padding: 20px;
+        }
+
+        .chat-box {
+            height: 300px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 15px;
+            overflow-y: scroll;
+            margin-bottom: 10px;
+        }
+
+        .chat-message {
+            margin: 10px 0;
+            padding: 5px 10px;
+            border-radius: 10px;
+            background-color: #f1f1f1;
+            display: inline-block;
+            max-width: 80%;
+        }
+
+        .chat-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .send-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        .send-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-    
 
-
-    
-    <!-- Messages Section -->
-    <div id="messages-container">
-        <h2>Messages</h2>
-        <ul id="messages-list">
-            <!-- Messages will be dynamically inserted here -->
-        </ul>
-        <form id="message-form" onsubmit="sendMessage(event)">
-            <textarea id="message-text" name="message" rows="4" cols="50" placeholder="Type your message here..."></textarea>
-            <input type="hidden" id="recipient-id" name="recipient_id" value="">
-            <button type="submit">Send</button>
-        </form>
+<div class="chat-container">
+    <div class="chat-area">
+        <h2>GAD Office Chat</h2>
+        <div class="chat-box" id="gad-chat-box"></div>
+        <input type="text" class="chat-input" id="gad-message" placeholder="Type your message here...">
+        <button class="send-btn" onclick="sendMessage()">Send</button>
     </div>
+</div>
 
-    
+<script>
+    // Initialize WebSocket connection
+    const socket = new WebSocket('ws://' + window.location.host + '/ws/chat/gad/');
+
+    socket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        const message = data['message'];
+
+        const chatBox = document.getElementById('gad-chat-box');
+        const newMessage = document.createElement('div');
+        newMessage.classList.add('chat-message');
+        newMessage.innerText = message;
+        chatBox.appendChild(newMessage);
+        chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom
+    };
+
+    function sendMessage() {
+        const messageInput = document.getElementById('gad-message');
+        const message = messageInput.value;
+
+        if (message.trim() !== '') {
+            socket.send(JSON.stringify({
+                'message': message
+            }));
+            messageInput.value = ''; // Clear input
+        }
+    }
+</script>
+
 </body>
 </html>

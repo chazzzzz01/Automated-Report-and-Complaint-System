@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'appss',
+    'channels',
+   
 ]
 
 
@@ -53,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'projectss.urls'
@@ -78,6 +81,18 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'projectss.wsgi.application'
+
+ASGI_APPLICATION = 'projectss.asgi.application'
+
+# Redis as the backend for channels
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],  # Replace with your Redis host if different
+        },
+    },
+}
 
 
 # Database
@@ -136,6 +151,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

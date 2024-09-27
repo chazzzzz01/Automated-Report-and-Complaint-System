@@ -26,13 +26,15 @@
         /* Sidebar Styles */
         #sidebar2 {
             width: 200px;
-            background: linear-gradient(180deg, #6f0575, #0c68b3);
+            background: linear-gradient(180deg, #e4e4e4, #abd1ef);
             padding: 20px;
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
             position: fixed;
             height: 100vh;
+            transition: width 0.3s;
+            overflow-y: auto; /* Allow scrolling if needed */
         }
-        #sidebar2 a, #sidebar2 p {
+        #sidebar2 a, #sidebar2 p, #sidebar2 button {
             display: block;
             padding: 10px;
             font-size: 1.2em;
@@ -41,15 +43,18 @@
             margin-bottom: 15px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            border: none;
+            background: none;
         }
-        #sidebar2 a:hover, #sidebar2 p:hover {
+        #sidebar2 a:hover, #sidebar2 p:hover, #sidebar2 button:hover {
             background-color: #f0f2f5;
         }
 
         /* Main Content Area */
         #content2 {
-            margin-left: 270px;
+            margin-left: 220px; /* Adjusted to accommodate sidebar */
             padding: 20px;
+            transition: margin-left 0.3s;
         }
 
         /* Button Container */
@@ -69,7 +74,7 @@
             background-color: #094a87;
         }
 
-        /* Table Styling */
+        /* Table Styles */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -87,7 +92,7 @@
             color: #333;
         }
 
-        /* Status Badge Styling */
+        /* Status Indicators */
         .status {
             font-weight: bold;
             padding: 5px 10px;
@@ -107,7 +112,7 @@
             color: white;
         }
 
-        /* Dashboard Box Styling */
+        /* Dashboard Box Styles */
         .dashboard-box {
             background-color: #fff;
             padding: 20px;
@@ -123,38 +128,45 @@
             margin-bottom: 10px;
         }
 
-        /* Responsive Design */
+        /* Responsive Breakpoints */
         @media (max-width: 768px) {
             #sidebar2 {
                 width: 100%;
                 height: auto;
                 position: relative;
+                box-shadow: none;
+                padding: 10px;
             }
             #content2 {
                 margin-left: 0;
+                padding: 10px;
             }
-            table {
-                font-size: 0.9em;
+            #sidebar2 a, #sidebar2 p, #sidebar2 button {
+                font-size: 1em;
+                padding: 8px;
             }
             h1 {
                 font-size: 1.5em;
+            }
+            table {
+                font-size: 0.9em;
             }
         }
         
         /* Table visibility toggle */
         #reports-table, #complaints-table, #buttons-container, 
         #history-buttons-container, #history-reports-table, #history-complaints-table,
-        #messages-container, #dashboard-container {
-            display: none; /* Initially hidden */
+        #messages-container, #dashboard-container, #gad-history {
+            display: none; 
         }
         #reports-table.visible, #complaints-table.visible, #buttons-container.visible,
         #history-buttons-container.visible, #history-reports-table.visible, #history-complaints-table.visible,
-        #messages-container.visible, #dashboard-container.visible {
-            display: block; /* Show when 'visible' class is added */
+        #messages-container.visible, #dashboard-container.visible, #gad-history.visible {
+            display: block; 
         }
 
-        /* Link Styling */
-        #status-link, #history-link, #messages-link, #dashboard-link {
+        /* Links styles */
+        #dashboard-link, #history-link, #messages-link {
             color: #0c68b3;
             cursor: pointer;
             text-decoration: underline;
@@ -165,47 +177,37 @@
 </head>
 <body>
 
-    <h1>SpeakUpNow</h1>
+    <h1>Bipsumbungan</h1>
 
     <div id="sidebar2">
-        
-    <h2>Welcome to GAD Office</h2>
+        <h2>Welcome to GAD Office</h2>
         <a href="#" id="dashboard-link" onclick="loadDashboard()">Dashboard</a>
-        <p id="status-link" onclick="toggleVisibility('buttons-container', 'reports-table', 'complaints-table', 'dashboard-container', 'history-buttons-container', 'messages-container')">Status</p>
-        <p id="history-link" onclick="toggleVisibility('history-buttons-container', 'history-reports-table', 'history-complaints-table', 'dashboard-container', 'buttons-container', 'messages-container')">History</p>
+        <button onclick="showSection('reports-table', 'complaints-table')">Report</button>
+        <button onclick="showSection('complaints-table', 'reports-table')">Complaint</button>
+        <p id="history-link" onclick="toggleHistory()">Statistics</p>
         <p id="messages-link" onclick="toggleMessagesVisibility()">Messages</p>
     </div>
 
     <div id="content2">
-        <!-- Buttons for Reports and Complaints -->
-        <div id="buttons-container">
-            <button onclick="showSection('reports-table', 'complaints-table')">Reports</button>
-            <button onclick="showSection('complaints-table', 'reports-table')">Complaints</button>
-        </div>
-
         <!-- History Buttons for Reports and Complaints -->
         <div id="history-buttons-container">
             <button onclick="showSection('history-reports-table', 'history-complaints-table')">Solved Reports</button>
             <button onclick="showSection('history-complaints-table', 'history-reports-table')">Solved Complaints</button>
         </div>
 
+        <div id="dashboard-content"></div>
+        <div id="gad-history">
+            {% include 'offices/gad_history.html' %}
+        </div>
 
-        <div id="content2">
-            <!-- Dashboard content will load here -->
-            <div id="dashboard-content"></div>
-
-        
         {% include 'offices/gad_status.html' %}
-        {% include 'offices/gad_history.html' %}
         {% include 'offices/gad_message.html' %}
-       
     </div>
 
     <script>
-       
         function loadDashboard() {
             const dashboardContent = document.getElementById('dashboard-content');
-            fetch("{% url 'dashboard_page' %}") // Assuming 'dashboard_page' is the name of the dashboard URL
+            fetch("{% url 'dashboard_page' %}") 
                 .then(response => response.text())
                 .then(html => {
                     dashboardContent.innerHTML = html;
@@ -216,15 +218,14 @@
         }
 
         function hideOtherSections() {
-            document.getElementById('buttons-container').style.display = 'none';
             document.getElementById('reports-table').style.display = 'none';
             document.getElementById('complaints-table').style.display = 'none';
             document.getElementById('history-buttons-container').style.display = 'none';
             document.getElementById('history-reports-table').style.display = 'none';
             document.getElementById('history-complaints-table').style.display = 'none';
             document.getElementById('messages-container').style.display = 'none';
+            document.getElementById('gad-history').style.display = 'none';
         }
-        
 
         function toggleVisibility(containerId, ...otherIds) {
             const container = document.getElementById(containerId);
@@ -249,37 +250,27 @@
 
             // Hide other sections
             document.getElementById('dashboard-container').style.display = 'none';
-            document.getElementById('buttons-container').style.display = 'none';
             document.getElementById('reports-table').style.display = 'none';
             document.getElementById('complaints-table').style.display = 'none';
             document.getElementById('history-buttons-container').style.display = 'none';
             document.getElementById('history-reports-table').style.display = 'none';
             document.getElementById('history-complaints-table').style.display = 'none';
-
-            if (messagesContainer.style.display === 'block') {
-                fetchMessages();
-            }
+            document.getElementById('gad-history').style.display = 'none';
         }
 
-        function fetchMessages() {
-            fetch('/api/messages')
-                .then(response => response.json())
-                .then(data => {
-                    const messagesList = document.getElementById('messages-list');
-                    messagesList.innerHTML = '';
-                    data.messages.forEach(message => {
-                        const listItem = document.createElement('li');
-                        listItem.textContent = message.text;
-                        listItem.dataset.id = message.id;
-                        listItem.onclick = function() {
-                            document.getElementById('recipient-id').value = message.id;
-                        };
-                        messagesList.appendChild(listItem);
-                    });
-                })
-                .catch(error => console.error('Error fetching messages:', error));
+        function toggleHistory() {
+            const historyContainer = document.getElementById('gad-history');
+            historyContainer.style.display = historyContainer.style.display === 'none' ? 'block' : 'none';
+
+            // Hide other sections
+            document.getElementById('dashboard-container').style.display = 'none';
+            document.getElementById('reports-table').style.display = 'none';
+            document.getElementById('complaints-table').style.display = 'none';
+            document.getElementById('history-buttons-container').style.display = 'none';
+            document.getElementById('history-reports-table').style.display = 'none';
+            document.getElementById('history-complaints-table').style.display = 'none';
+            document.getElementById('messages-container').style.display = 'none';
         }
     </script>
-
 </body>
 </html>

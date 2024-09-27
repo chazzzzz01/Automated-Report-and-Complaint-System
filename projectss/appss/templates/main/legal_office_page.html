@@ -5,144 +5,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Legal Office Page</title>
     <style>
-        /* Fixed header styling */
-        h1 {
+        /* General Reset */
+        * {
             margin: 0;
-            width: 100%;
-            padding: 20px;
-            color: #fff;
-            background: linear-gradient(180deg, #160575, #0c68b3);
-            text-align: center;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 1000;
-            font-size: 24px;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            padding-top: 80px;
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            padding-top: 80px; /* Space for fixed header */
         }
 
-        /* Sidebar styling */
+        h1 {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(180deg, #160575, #0c68b3);
+            color: #fff;
+            font-size: 24px;
+            text-align: center;
+            z-index: 1000;
+        }
+
+        /* Sidebar Styling */
         #sidebar1 {
             width: 250px;
             height: 100vh;
             position: fixed;
-            top: 50px;
+            top: 80px;
             left: 0;
-            padding-top: 20px;
-            color: white;
+            padding: 20px 10px;
             background: linear-gradient(180deg, #160575, #0c68b3);
-            transition: width 0.3s ease;
+            color: white;
+            transition: all 0.3s ease;
+            z-index: 100;
         }
 
         #sidebar1 p {
-            margin: 20px 0;
             font-size: 18px;
-            text-transform: uppercase;
+            text-transform: uppercase; /* This is for the welcome message */
             text-align: center;
+            margin-bottom: 20px;
         }
 
         #sidebar1 a {
-            text-decoration: none;
             color: white;
-            font-weight: bold;
-            display: block;
+            text-decoration: none;
             padding: 10px;
+            display: block;
+            text-align: center;
+            font-weight: bold;
         }
 
         #sidebar1 a:hover {
             background-color: #2378b6;
-            transition: background-color 0.3s;
-        }
-
-        /* Content area */
-        #content1 {
-            margin-left: 270px;
-            padding: 20px;
-        }
-
-        /* Button styling */
-        button {
-            padding: 10px;
-            margin: 10px 0;
             cursor: pointer;
-            border: none;
-            background-color: #0c68b3;
-            color: white;
-            font-weight: bold;
-            border-radius: 5px;
             transition: background-color 0.3s ease;
         }
 
-        button:hover {
-            background-color: #2378b6;
+        /* Main Content */
+        #content1 {
+            margin-left: 270px;
+            padding: 20px;
+            transition: margin-left 0.3s ease;
         }
 
-        .status-pending { background-color: red; color: white; }
-        .status-in-progress { background-color: yellow; color: black; }
-        .status-solved { background-color: green; color: white; }
-    
-        /* Hidden/visible sections */
-        .hidden {
-            display: none;
-        }
-
-        .visible {
-            display: block;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            #sidebar1 {
-                width: 80px;
-            }
-
-            #content1 {
-                margin-left: 100px;
-            }
-
-            h1 {
-                font-size: 18px;
-                padding: 15px;
-            }
-
-            #sidebar1 p {
-                font-size: 14px;
-            }
-
-            #sidebar1 a {
-                font-size: 12px;
-                padding: 8px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            #sidebar1 {
-                width: 100%;
-                height: auto;
-                position: relative;
-                top: 0;
-            }
-
-            #content1 {
-                margin-left: 0;
-                padding: 10px;
-            }
-
-            button {
-                width: 100%;
-                padding: 15px;
-            }
-        }
-
-        /* Responsive table styling */
+        /* Table Styling */
         table {
             width: 100%;
             border-collapse: collapse;
+            margin-top: 20px;
         }
 
         th, td {
@@ -160,20 +96,37 @@
             background-color: #f2f2f2;
         }
 
+        /* Responsive Breakpoints */
         @media (max-width: 768px) {
-            th, td {
+            #sidebar1 {
+                width: 200px;
+            }
+
+            #content1 {
+                margin-left: 220px;
+            }
+
+            #sidebar1 a {
+                font-size: 14px;
                 padding: 8px;
             }
         }
 
         @media (max-width: 480px) {
-            table, thead, tbody, th, td, tr {
-                display: block;
+            #sidebar1 {
+                width: 100%;
+                height: auto;
+                position: relative;
+                top: 0;
+                padding-bottom: 10px;
             }
 
-            th, td {
-                padding: 10px;
-                border: none;
+            #content1 {
+                margin-left: 0;
+            }
+
+            table, thead, tbody, th, td, tr {
+                display: block;
             }
 
             td {
@@ -184,73 +137,92 @@
             td:before {
                 content: attr(data-label);
                 position: absolute;
-                left: 0;
-                width: 50%;
-                padding-left: 10px;
+                left: 10px;
                 font-weight: bold;
             }
+        }
+
+        /* Status Indicators */
+        .status-pending { background-color: red; color: white; }
+        .status-in-progress { background-color: yellow; color: black; }
+        .status-solved { background-color: green; color: white; }
+
+        /* Hidden elements */
+        .hidden {
+            display: none;
+        }
+
+        .visible {
+            display: block;
         }
     </style>
 </head>
 <body>
 
-<h1>SpeakUpNow</h1>
+<h1>Bipsumbungan</h1>
 
-<!-- Sidebar with Status and History links -->
+<!-- Sidebar -->
 <div id="sidebar1">
     <p>Welcome Admin!</p>
     <a href="#" id="dashboard-link" onclick="loadDashboard()">Dashboard</a>
-    <p id="status-link" onclick="showButtons()">Status</p>
-    <p id="history-link" onclick="showHistory()">History</p>
-</div>
-
-<!-- Main content section -->
-<div id="content1">
-    <!-- Buttons to toggle between Reports and Complaints -->
-    <div id="buttons-container" class="hidden">
-        <button onclick="showTable('reports')">Reports</button>
-        <button onclick="showTable('complaints')">Complaints</button>
+    
+    <!-- Links for Reports and Complaints -->
+    <div class="sidebar-buttons">
+        <a href="#" onclick="showTable('reports')">Reports</a>
+        <a href="#" onclick="showTable('complaints')">Complaints</a>
+        <a href="#" id="history-link" onclick="toggleHistoryButtons()">History</a>
+        <a href="#" id="messages-link" onclick="toggleMessagesVisibility()">Messages</a> <!-- New Messages Link -->
     </div>
-
-    <!-- Solved History Buttons for Report and Complaint -->
-    <div id="history-buttons-container" class="hidden">
+    
+    <!-- History Buttons -->
+    <div id="history-buttons" class="sidebar-buttons hidden">
         <button onclick="showSolvedTable('reports')">Solved Reports</button>
         <button onclick="showSolvedTable('complaints')">Solved Complaints</button>
     </div>
+</div>
 
+<!-- Main Content -->
+<div id="content1">
     <div id="content2">
-        <!-- Dashboard content will load here -->
         <div id="dashboard-content"></div>
-
-    {% include 'legal/legal_status.html' %}
-    {% include 'legal/legal_history.html' %}
+        {% include 'legal/legal_status.html' %}
+        {% include 'legal/legal_history.html' %}
+        <div id="messages-section" class="hidden"> <!-- Messages Section -->
+            {% include 'legal/legal_message.html' %}
+        </div>
+    </div>
 </div>
 
 <script>
-      function loadDashboard() {
-            const dashboardContent = document.getElementById('dashboard-content');
-            fetch("{% url 'dashboard_page' %}") // Assuming 'dashboard_page' is the name of the dashboard URL
-                .then(response => response.text())
-                .then(html => {
-                    dashboardContent.innerHTML = html;
-                    dashboardContent.style.display = 'block';
-                    hideOtherSections();
-                })
-                .catch(error => console.error('Error loading dashboard:', error));
-        }
-
-     
-        
-
-    function showButtons() {
-        document.getElementById('buttons-container').classList.toggle('hidden');
+    function loadDashboard() {
+        const dashboardContent = document.getElementById('dashboard-content');
+        dashboardContent.style.display = 'block'; // Ensure the dashboard is visible
+        fetch("{% url 'dashboard_page' %}")
+            .then(response => response.text())
+            .then(html => {
+                dashboardContent.innerHTML = html;
+                hideOtherSections();
+            })
+            .catch(error => console.error('Error loading dashboard:', error));
     }
 
-    function showHistory() {
-        document.getElementById('history-buttons-container').classList.toggle('hidden');
+    function toggleHistoryButtons() {
+        document.getElementById('history-buttons').classList.toggle('hidden');
+    }
+
+    function toggleMessagesVisibility() {
+        const messagesSection = document.getElementById('messages-section');
+        if (messagesSection.classList.contains('hidden')) {
+            messagesSection.classList.remove('hidden');
+        } else {
+            messagesSection.classList.add('hidden');
+        }
     }
 
     function showTable(type) {
+        const dashboardContent = document.getElementById('dashboard-content');
+        dashboardContent.style.display = 'none'; // Hide the dashboard content when switching to another section
+
         document.getElementById('reports-table').classList.add('hidden');
         document.getElementById('complaints-table').classList.add('hidden');
 
@@ -271,11 +243,13 @@
             document.getElementById('solved-complaints-table').classList.remove('hidden');
         }
     }
-    function disableButton(button) {
-        // Disable the button after it is clicked
-        button.disabled = true;
-        // Optionally change the button text to indicate it's disabled
-        button.innerText = 'Sent';
+
+    function hideOtherSections() {
+        document.getElementById('reports-table').classList.add('hidden');
+        document.getElementById('complaints-table').classList.add('hidden');
+        document.getElementById('solved-reports-table').classList.add('hidden');
+        document.getElementById('solved-complaints-table').classList.add('hidden');
+        document.getElementById('messages-section').classList.add('hidden'); // Hide messages by default
     }
 </script>
 
