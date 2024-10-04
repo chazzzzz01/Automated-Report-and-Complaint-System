@@ -46,6 +46,7 @@
                         <form action="{% url 'update_urgency' complaint.id %}" method="post">
                             {% csrf_token %}
                             <select name="urgency" class="border p-2 rounded" onchange="this.form.submit()">
+                                <option value="" disabled selected>Select urgency level</option>
                                 <option value="High" {% if complaint.urgency == "High" %}selected{% endif %}>High</option>
                                 <option value="Low" {% if complaint.urgency == "Low" %}selected{% endif %}>Low</option>
                             </select>
@@ -63,9 +64,10 @@
                         </form>
                     </td>
                     <td class="p-3">
-                        <form action="{% url 'send_complaint' complaint.id %}" method="post" class="inline-block">
+                        <form action="{% url 'send_complaint' complaint.id %}" method="post" class="inline-block send-form">
                             {% csrf_token %}
-                            <button type="submit" class="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600" {% if complaint.is_sent %}disabled{% endif %}>Send</button>
+                            <!-- Add the 'send-btn' class here for easy selection in JavaScript -->
+                            <button type="submit" class="send-btn bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed" {% if complaint.is_sent %}disabled{% endif %}>Send</button>
                         </form>
                         <form action="{% url 'delete_complaint' complaint.id %}" method="post" class="inline-block">
                             {% csrf_token %}
@@ -114,14 +116,15 @@
                         </span>
                     </td>
                     <td class="p-3">
-                        <form action="{% url 'update_urgency' complaint.id %}" method="post">
-                            {% csrf_token %}
-                            <select name="urgency" class="border p-2 rounded" onchange="this.form.submit()">
-                                <option value="High" {% if complaint.urgency == "High" %}selected{% endif %}>High</option>
-                                <option value="Low" {% if complaint.urgency == "Low" %}selected{% endif %}>Low</option>
-                            </select>
-                        </form>
-                    </td>
+    <form action="{% url 'update_urgency' complaint.id %}" method="post">
+        {% csrf_token %}
+        <select name="urgency" class="border p-2 rounded" onchange="this.form.submit()">
+            <option value="" disabled selected>Select urgency level</option>
+            <option value="High" {% if complaint.urgency == "High" %}selected{% endif %}>High</option>
+            <option value="Low" {% if complaint.urgency == "Low" %}selected{% endif %}>Low</option>
+        </select>
+    </form>
+</td>
                     <td class="p-3">{{ complaint.issue_date|date:"F j, Y" }}</td>
                     <td class="p-3">
                         <form action="{% url 'update_status' complaint.id %}" method="post">
@@ -134,9 +137,9 @@
                         </form>
                     </td>
                     <td class="p-3">
-                        <form action="{% url 'send_complaint' complaint.id %}" method="post" class="inline-block">
+                        <form action="{% url 'send_complaint' complaint.id %}" method="post" class="inline-block send-form">
                             {% csrf_token %}
-                            <button type="submit" class="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600" {% if complaint.is_sent %}disabled{% endif %}>Send</button>
+                            <button type="submit" class="send-btn bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed" {% if complaint.is_sent %}disabled{% endif %}>Send</button>
                         </form>
                         <form action="{% url 'delete_complaint' complaint.id %}" method="post" class="inline-block">
                             {% csrf_token %}
@@ -151,12 +154,45 @@
     </div>
 
     <script>
-        // Disable the send button once clicked to prevent multiple submissions
-        document.querySelectorAll('.send-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                this.disabled = true;
+        document.querySelectorAll('.send-form').forEach(form => {
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent page reload
+
+                const button = form.querySelector('.send-btn');
+                const formData = new FormData(form);
+
+                // Disable the button and change color to gray
+                button.disabled = true;
+                button.classList.add('bg-gray-400');
+                button.classList.remove('bg-blue-500', 'hover:bg-blue-600');
+
+                // Send the form data using AJAX
+                fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                    },
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        // Re-enable button if error occurs
+                        button.disabled = false;
+                        button.classList.remove('bg-gray-400');
+                        button.classList.add('bg-blue-500', 'hover:bg-blue-600');
+                    }
+                })
+                .catch(error => {
+                    // Handle network errors
+                    console.error('Error:', error);
+                    button.disabled = false;
+                    button.classList.remove('bg-gray-400');
+                    button.classList.add('bg-blue-500', 'hover:bg-blue-600');
+                });
             });
         });
     </script>
+
 </body>
 </html>
+

@@ -4,136 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Responsive Dashboard with Notifications</title>
-    <style>
-        /* General Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f9;
-            padding-top: 80px; /* Space for fixed header */
-        }
-
-        h1 {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 20px;
-            background-color: rgb(132, 3, 3) ; /* Updated to red and white */
-            color: #fff;
-            font-size: 24px;
-            text-align: center;
-            z-index: 1000;
-        }
-
-        /* Flexbox container for horizontal layout */
-        #dashboard-container {
-            display: flex;
-            flex-wrap: wrap; /* Allows boxes to wrap on smaller screens */
-            gap: 20px; /* Adds space between the boxes */
-            margin-top: 80px; /* Space below the header */
-            padding: 20px; /* Adds padding around the dashboard */
-        }
-
-        /* Style for the dashboard boxes */
-        .dashboard-box {
-            border: 1px solid #ddd;
-            padding: 20px;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-            flex: 1; /* Makes all boxes take equal space */
-            min-width: 200px; /* Ensures boxes don't get too narrow */
-            box-sizing: border-box;
-        }
-
-        #total-reports-container h2,
-        #solved-reports-container h2,
-        #pending-container h2,
-        #inprogress-container h2 {
-            margin-top: 0;
-        }
-
-        /* Notification container */
-        #notification-box {
-            margin-top: 20px;
-            padding: 15px;
-            border: 1px solid #007bff;
-            background-color: #e7f1ff;
-            border-radius: 5px;
-            display: none; /* Hidden by default */
-        }
-
-        #notification-box p {
-            margin: 0;
-            font-size: 16px;
-            color: #007bff;
-        }
-
-        /* Media query for screens smaller than 768px (tablets and below) */
-        @media (max-width: 768px) {
-            #dashboard-container {
-                flex-direction: column; /* Stack boxes vertically */
-            }
-        }
-
-        /* Media query for very small screens (phones) */
-        @media (max-width: 480px) {
-            .dashboard-box {
-                padding: 10px; /* Reduce padding for small screens */
-                min-width: 100%; /* Boxes take full width on small screens */
-            }
-        }
-
-        /* Media query for larger screens (desktops) */
-        @media (min-width: 1024px) {
-            #dashboard-container {
-                justify-content: space-between; /* Spread boxes across larger screens */
-            }
-        }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <h1>Bipsumbungan</h1> <!-- Fixed header -->
+<body class="bg-gray-100 pt-20">
 
-    <div id="dashboard-container">
-        <div id="total-reports-container" class="dashboard-box">
-            <h2>Total Reports and Complaints</h2>
+    <!-- Dashboard Container -->
+    <div id="dashboard-container" class="flex flex-wrap lg:flex-nowrap gap-6 justify-center lg:justify-between px-4 py-6">
+        <!-- Total Reports and Complaints Container -->
+        <div id="total-reports-container" class="dashboard-box bg-white shadow-md p-6 rounded-lg flex-1 min-w-[200px]">
+            <h2 class="text-xl font-bold mb-4">Total Reports and Complaints</h2>
             <p>Reports Received: <span id="total-reports">{{ total_reports }}</span></p>
             <p>Complaints Received: <span id="total-complaints">{{ total_complaints }}</span></p>
         </div>
-    
+
         <!-- Solved Reports and Complaints Container -->
-        <div id="solved-reports-container" class="dashboard-box">
-            <h2>Solved Reports and Complaints</h2>
+        <div id="solved-reports-container" class="dashboard-box bg-white shadow-md p-6 rounded-lg flex-1 min-w-[200px]">
+            <h2 class="text-xl font-bold mb-4">Solved Reports and Complaints</h2>
             <p>Solved Reports: <span id="solved-reports">{{ solved_reports }}</span></p>
             <p>Solved Complaints: <span id="solved-complaints">{{ solved_complaints }}</span></p>
         </div>
-    
-        <!-- Pending Cases Container -->
-        <div id="pending-container" class="dashboard-box">
-            <h2>Pending Reports and Complaints</h2>
+
+        <!-- Pending Reports and Complaints Container -->
+        <div id="pending-container" class="dashboard-box bg-white shadow-md p-6 rounded-lg flex-1 min-w-[200px]">
+            <h2 class="text-xl font-bold mb-4">Pending Reports and Complaints</h2>
             <p>Pending Reports: <span id="pending-reports">{{ pending_reports }}</span></p>
             <p>Pending Complaints: <span id="pending-complaints">{{ pending_complaints }}</span></p>
         </div>
-    
-        <!-- In Progress Cases Container -->
-        <div id="inprogress-container" class="dashboard-box">
-            <h2>In Progress Reports and Complaints</h2>
+
+        <!-- In Progress Reports and Complaints Container -->
+        <div id="inprogress-container" class="dashboard-box bg-white shadow-md p-6 rounded-lg flex-1 min-w-[200px]">
+            <h2 class="text-xl font-bold mb-4">In Progress Reports and Complaints</h2>
             <p>In Progress Reports: <span id="inprogress-reports">{{ inprogress_reports }}</span></p>
             <p>In Progress Complaints: <span id="inprogress-complaints">{{ inprogress_complaints }}</span></p>
         </div>
     </div>
 
-    <!-- Notification Feature -->
-    <div id="notification-box">
+    <!-- Notification Box -->
+    <div id="notification-box" class="hidden bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mx-4 rounded-md mt-4">
         <p>You have received a new report or complaint!</p>
     </div>
 
+    <!-- WebSocket Script for Notifications -->
     <script>
         // WebSocket connection to handle real-time notifications
         const notificationBox = document.getElementById('notification-box');
@@ -142,13 +53,13 @@
         // When a message is received via WebSocket, display the notification
         socket.onmessage = function(event) {
             const data = JSON.parse(event.data);
-            notificationBox.style.display = 'block';
+            notificationBox.classList.remove('hidden');
             notificationBox.querySelector('p').textContent = data.message;
         };
 
         // Optionally, hide the notification after a delay
         setTimeout(function() {
-            notificationBox.style.display = 'none';
+            notificationBox.classList.add('hidden');
         }, 5000); // Hides after 5 seconds
     </script>
 </body>

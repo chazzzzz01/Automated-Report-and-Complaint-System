@@ -140,7 +140,7 @@ class Complaint(models.Model):
     issue_date = models.DateTimeField(default=timezone.now)
     is_sent = models.BooleanField(default=False)
     receiving_office = models.CharField(max_length=50, choices=OFFICE_CHOICES)
-
+    
     def save(self, *args, **kwargs):
         if not self.pdf_file:
             self.pdf_file = self.generate_pdf()

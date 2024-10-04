@@ -3,273 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Academin Affirs</title>
-    <style>
-        /* General Styles */
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f0f2f5;
-            margin: 0;
-            padding: 0;
-        }
-        h1 {
-            margin: 0;
-            padding: 20px;
-            color: #fff;
-            background: linear-gradient(180deg, #160575, #0c68b3);
-            text-align: center;
-            font-size: 2em;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        
-        /* Sidebar Styles */
-        #sidebar2 {
-            width: 200px;
-            background: linear-gradient(180deg, #e4e4e4, #abd1ef);
-            padding: 20px;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            height: 100vh;
-            transition: width 0.3s;
-            overflow-y: auto; /* Allow scrolling if needed */
-        }
-        #sidebar2 a, #sidebar2 p, #sidebar2 button {
-            display: block;
-            padding: 10px;
-            font-size: 1.2em;
-            color: #333;
-            text-decoration: none;
-            margin-bottom: 15px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            border: none;
-            background: none;
-        }
-        #sidebar2 a:hover, #sidebar2 p:hover, #sidebar2 button:hover {
-            background-color: #f0f2f5;
-        }
-
-        /* Main Content Area */
-        #content2 {
-            margin-left: 220px; /* Adjusted to accommodate sidebar */
-            padding: 20px;
-            transition: margin-left 0.3s;
-        }
-
-        /* Button Container */
-        #buttons-container button, 
-        #history-buttons-container button {
-            padding: 10px 20px;
-            font-size: 1em;
-            margin-right: 10px;
-            border: none;
-            background-color: #0c68b3;
-            color: white;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        #buttons-container button:hover, 
-        #history-buttons-container button:hover {
-            background-color: #094a87;
-        }
-
-        /* Table Styles */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            font-size: 1em;
-            color: #333;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-            color: #333;
-        }
-
-        /* Status Indicators */
-        .status {
-            font-weight: bold;
-            padding: 5px 10px;
-            border-radius: 5px;
-            text-align: center;
-        }
-        .status-pending {
-            background-color: red;
-            color: white;
-        }
-        .status-in-progress {
-            background-color: yellow;
-            color: black;
-        }
-        .status-solved {
-            background-color: green;
-            color: white;
-        }
-
-        /* Dashboard Box Styles */
-        .dashboard-box {
-            background-color: #fff;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
-            width: 100%;
-            max-width: 350px;
-        }
-        .dashboard-box h2 {
-            font-size: 1.5em;
-            margin-bottom: 10px;
-        }
-
-        /* Responsive Breakpoints */
-        @media (max-width: 768px) {
-            #sidebar2 {
-                width: 100%;
-                height: auto;
-                position: relative;
-                box-shadow: none;
-                padding: 10px;
-            }
-            #content2 {
-                margin-left: 0;
-                padding: 10px;
-            }
-            #sidebar2 a, #sidebar2 p, #sidebar2 button {
-                font-size: 1em;
-                padding: 8px;
-            }
-            h1 {
-                font-size: 1.5em;
-            }
-            table {
-                font-size: 0.9em;
-            }
-        }
-        
-        /* Table visibility toggle */
-        #reports-table, #complaints-table, #buttons-container, 
-        #history-buttons-container, #history-reports-table, #history-complaints-table,
-        #messages-container, #dashboard-container, #gad-history {
-            display: none; 
-        }
-        #reports-table.visible, #complaints-table.visible, #buttons-container.visible,
-        #history-buttons-container.visible, #history-reports-table.visible, #history-complaints-table.visible,
-        #messages-container.visible, #dashboard-container.visible, #gad-history.visible {
-            display: block; 
-        }
-
-        /* Links styles */
-        #dashboard-link, #history-link, #messages-link {
-            color: #0c68b3;
-            cursor: pointer;
-            text-decoration: underline;
-            margin-right: 10px;
-            font-size: 1.2em;
-        }
-    </style>
+    <title>Academic Affairs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-100">
 
-    <h1>Bipsumbungan</h1>
-
-    <div id="sidebar2">
-        <h2>Welcome to GAD Office</h2>
-        <a href="#" id="dashboard-link" onclick="loadDashboard()">Dashboard</a>
-        <button onclick="showSection('reports-table', 'complaints-table')">Report</button>
-        <button onclick="showSection('complaints-table', 'reports-table')">Complaint</button>
-        <p id="history-link" onclick="toggleHistory()">Statistics</p>
-        <p id="messages-link" onclick="toggleMessagesVisibility()">Messages</p>
-    </div>
-
-    <div id="content2">
-        <!-- History Buttons for Reports and Complaints -->
-        <div id="history-buttons-container">
-            <button onclick="showSection('history-reports-table', 'history-complaints-table')">Solved Reports</button>
-            <button onclick="showSection('history-complaints-table', 'history-reports-table')">Solved Complaints</button>
+    <!-- Header with Hamburger Menu -->
+    <header class="fixed top-0 left-0 right-0 bg-red-800 text-white p-4 shadow-md flex items-center justify-between z-50">
+        <h1 class="text-2xl font-bold mx-auto">BiPSUmbongan</h1> <!-- Center the header text -->
+        <!-- Container for the menu -->
+        <div class="relative">
+            <!-- Hamburger Icon for Mobile -->
+            <button id="menu-toggle" class="lg:hidden text-white focus:outline-none w-10 h-10">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
         </div>
+    </header>
 
-        <div id="dashboard-content"></div>
-        <div id="gad-history">
-            {% include 'offices/gad_history.html' %}
+    <!-- Sidebar and Content Layout -->
+    <div class="flex pt-16">
+        <!-- Sidebar (always visible on large screens) -->
+        <nav id="sidebar2" class="bg-red-600 text-white w-64 p-4 fixed lg:block hidden h-screen">
+            <h2 class="text-xl font-bold mb-4">Welcome to Academic Affairs</h2>
+            <a href="#" id="dashboard-link" onclick="toggleDashboard()" class="block text-lg mb-4 hover:bg-red-700 p-2 rounded">Dashboard</a>
+            <button onclick="toggleSection('reports-table')" class="w-full text-left text-lg mb-4 hover:bg-red-700 p-2 rounded">Report</button>
+            <button onclick="toggleSection('complaints-table')" class="w-full text-left text-lg mb-4 hover:bg-red-700 p-2 rounded">Complaint</button>
+            <p id="history-link" onclick="toggleHistory()" class="block text-lg mb-4 hover:bg-red-700 p-2 rounded">Statistics</p>
+            <p id="messages-link" onclick="toggleMessagesVisibility()" class="block text-lg hover:bg-red-700 p-2 rounded">Messages</p>
+        </nav>
+
+        <!-- Sidebar for Mobile (visible on small screens) -->
+        <nav id="mobile-sidebar" class="bg-red-600 text-white w-64 p-4 fixed top-16 left-0 h-screen z-50 transform -translate-x-full transition-transform lg:hidden">
+            <h2 class="text-xl font-bold mb-4">Welcome to GAD Office</h2>
+            <a href="#" id="dashboard-link-mobile" onclick="toggleDashboard()" class="block text-lg mb-4 hover:bg-red-700 p-2 rounded">Dashboard</a>
+            <button onclick="toggleSection('reports-table')" class="w-full text-left text-lg mb-4 hover:bg-red-700 p-2 rounded">Report</button>
+            <button onclick="toggleSection('complaints-table')" class="w-full text-left text-lg mb-4 hover:bg-red-700 p-2 rounded">Complaint</button>
+            <p id="history-link-mobile" onclick="toggleHistory()" class="block text-lg mb-4 hover:bg-red-700 p-2 rounded">Statistics</p>
+            <p id="messages-link-mobile" onclick="toggleMessagesVisibility()" class="block text-lg hover:bg-red-700 p-2 rounded">Messages</p>
+        </nav>
+
+        <!-- Main Content Area -->
+        <div id="content2" class="flex-1 ml-0 lg:ml-64 p-6">
+            <!-- History Buttons for Reports and Complaints -->
+            <div id="history-buttons-container" class="hidden">
+                <button onclick="toggleSection('history-reports-table')" class="bg-red-500 text-white p-2 rounded mr-2 hover:bg-red-700">Solved Reports</button>
+                <button onclick="toggleSection('history-complaints-table')" class="bg-red-500 text-white p-2 rounded hover:bg-red-700">Solved Complaints</button>
+            </div>
+
+            <!-- Dashboard content is shown by default -->
+            <div id="dashboard-content" style="display: block;"></div>
+            <div id="gad-history" class="hidden">
+                {% include 'offices/gad_history.html' %}
+            </div>
+            {% include 'offices/gad_status.html' %}
+            <div id="messages-container" class="hidden">
+                {% include 'offices/gad_message.html' %}
+            </div>
         </div>
-
-        {% include 'offices/gad_status.html' %}
-        {% include 'offices/gad_message.html' %}
     </div>
 
     <script>
-        function loadDashboard() {
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileSidebar = document.getElementById('mobile-sidebar');
+
+        // Toggle mobile sidebar visibility
+        menuToggle.addEventListener('click', () => {
+            mobileSidebar.classList.toggle('-translate-x-full');
+        });
+
+        // Show dashboard content by default on page load
+        window.onload = function() {
+            toggleDashboard(); // Load dashboard content by default
+        };
+
+        function toggleDashboard() {
             const dashboardContent = document.getElementById('dashboard-content');
+            dashboardContent.style.display = 'block';
+            // Fetch the dashboard content without affecting the header
             fetch("{% url 'dashboard_page' %}") 
                 .then(response => response.text())
                 .then(html => {
                     dashboardContent.innerHTML = html;
-                    dashboardContent.style.display = 'block';
-                    hideOtherSections();
                 })
                 .catch(error => console.error('Error loading dashboard:', error));
+
+            hideOtherContentSectionsExcept('dashboard-content');
         }
 
-        function hideOtherSections() {
-            document.getElementById('reports-table').style.display = 'none';
-            document.getElementById('complaints-table').style.display = 'none';
-            document.getElementById('history-buttons-container').style.display = 'none';
-            document.getElementById('history-reports-table').style.display = 'none';
-            document.getElementById('history-complaints-table').style.display = 'none';
-            document.getElementById('messages-container').style.display = 'none';
-            document.getElementById('gad-history').style.display = 'none';
-        }
-
-        function toggleVisibility(containerId, ...otherIds) {
-            const container = document.getElementById(containerId);
-            container.style.display = container.style.display === 'none' ? 'block' : 'none';
-
-            otherIds.forEach(id => {
-                const element = document.getElementById(id);
-                if (element) {
-                    element.style.display = 'none';
+        function hideOtherContentSectionsExcept(visibleId) {
+            const sections = [
+                'reports-table', 'complaints-table', 
+                'history-buttons-container', 'history-reports-table', 
+                'history-complaints-table', 'messages-container', 
+                'gad-history'
+            ];
+            sections.forEach(id => {
+                const section = document.getElementById(id);
+                const dashboardContent = document.getElementById('dashboard-content');
+                if (id !== visibleId) {
+                    if (section) section.style.display = 'none';
+                    if (visibleId !== 'dashboard-content') {
+                        dashboardContent.style.display = 'none'; // Hide dashboard when other sections are shown
+                    }
                 }
             });
         }
 
-        function showSection(visibleId, hiddenId) {
-            document.getElementById(visibleId).style.display = 'block';
-            document.getElementById(hiddenId).style.display = 'none';
+        function toggleSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            section.style.display = section.style.display === 'block' ? 'none' : 'block';
+            hideOtherContentSectionsExcept(sectionId);
         }
 
         function toggleMessagesVisibility() {
             const messagesContainer = document.getElementById('messages-container');
             messagesContainer.style.display = messagesContainer.style.display === 'none' ? 'block' : 'none';
-
-            // Hide other sections
-            document.getElementById('dashboard-container').style.display = 'none';
-            document.getElementById('reports-table').style.display = 'none';
-            document.getElementById('complaints-table').style.display = 'none';
-            document.getElementById('history-buttons-container').style.display = 'none';
-            document.getElementById('history-reports-table').style.display = 'none';
-            document.getElementById('history-complaints-table').style.display = 'none';
-            document.getElementById('gad-history').style.display = 'none';
+            hideOtherContentSectionsExcept('messages-container');
         }
 
         function toggleHistory() {
             const historyContainer = document.getElementById('gad-history');
             historyContainer.style.display = historyContainer.style.display === 'none' ? 'block' : 'none';
-
-            // Hide other sections
-            document.getElementById('dashboard-container').style.display = 'none';
-            document.getElementById('reports-table').style.display = 'none';
-            document.getElementById('complaints-table').style.display = 'none';
-            document.getElementById('history-buttons-container').style.display = 'none';
-            document.getElementById('history-reports-table').style.display = 'none';
-            document.getElementById('history-complaints-table').style.display = 'none';
-            document.getElementById('messages-container').style.display = 'none';
+            hideOtherContentSectionsExcept('gad-history');
         }
     </script>
 </body>

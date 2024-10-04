@@ -162,7 +162,8 @@ def submit_complaint(request):
                 description=description,
                 office= predicted_category, 
                 type=predicted_type,
-                status='Pending'
+                status='Pending',
+                is_sent=False
             )
             complaint.save()
 
@@ -176,6 +177,9 @@ def submit_complaint(request):
             return JsonResponse({'error': f"An unexpected error occurred: {e}"}, status=500)
 
     return JsonResponse({'error': 'Invalid request method.'}, status=400)
+
+
+
 
 #legal Office
 def legal_office_page(request):
@@ -262,31 +266,61 @@ def send_complaint(request, complaint_id):
 
     except Exception as e:
         return HttpResponse(f"An error occurred while sending the complaint: {e}", status=500)
+    
 
 # Administration and Finance Office
 def admin_finance_page(request):
-    reports = Complaint.objects.filter(office="VP Administration and Finance", type="report")
-    complaints = Complaint.objects.filter(office="VP Administration and Finance", type="complaint")
+    reports = Complaint.objects.filter(office="VP Administration and Finance", type="report", is_sent=True)
+    complaints = Complaint.objects.filter(office="VP Administration and Finance", type="complaint", is_sent=True)
     return render(request, 'main/admin_finance_page.html', {'reports': reports, 'complaints': complaints})
 
 # Academic Affairs Office
 def academic_affairs_page(request):
-    reports = Complaint.objects.filter(office="VP Academic Affairs", type="report")
-    complaints = Complaint.objects.filter(office="VP Academic Affairs", type="complaint")
+    reports = Complaint.objects.filter(office="VP Academic Affairs", type="report", is_sent=True)
+    complaints = Complaint.objects.filter(office="VP Academic Affairs", type="complaint", is_sent=True)
     return render(request, 'main/academic_affairs_page.html', {'reports': reports, 'complaints': complaints})
 
 # Students Affairs Office
 def students_affairs_page(request):
-    reports = Complaint.objects.filter(office="VP Students and External Affairs", type="report")
-    complaints = Complaint.objects.filter(office="VP Students and External Affairs", type="complaint")
+    reports = Complaint.objects.filter(office="VP Students and External Affairs", type="report", is_sent=True)
+    complaints = Complaint.objects.filter(office="VP Students and External Affairs", type="complaint", is_sent=True)
     return render(request, 'main/students_affairs_page.html', {'reports': reports, 'complaints': complaints})
 
 # Gad Office
 def gad_office_page(request):
-    reports = Complaint.objects.filter(office="GAD Office", type="report")
-    complaints = Complaint.objects.filter(office="GAD Office", type="complaint")
+    reports = Complaint.objects.filter(office="GAD Office", type="report", is_sent=True)
+    complaints = Complaint.objects.filter(office="GAD Office", type="complaint", is_sent=True)
     return render(request, 'main/gad_office_page.html', {'reports': reports, 'complaints': complaints})
 
+
+
+# Dashboard
+def dashboard_page(request):
+    reports = Complaint.objects.filter(type="report")
+    complaints = Complaint.objects.filter(type="complaint")
+    solved_reports = reports.filter(status="Solved")
+    solved_complaints = complaints.filter(status="Solved")
+    pending_reports = reports.filter(status="Pending")
+    pending_complaints = complaints.filter(status="Pending")
+    inprogress_reports = reports.filter(status="In Progress")
+    inprogress_complaints = complaints.filter(status="In Progress")
+    
+
+    return render(request, 'main/dashboard_page.html', {
+        'total_reports': reports.count(),
+        'total_complaints': complaints.count(),
+        'solved_reports': solved_reports.count(),
+        'solved_complaints': solved_complaints.count(),
+        'pending_reports': pending_reports.count(),
+        'pending_complaints': pending_complaints.count(),
+        'inprogress_reports': inprogress_reports.count(),
+        'inprogress_complaints': inprogress_complaints.count(),
+    
+        
+    }
+    )
+
+    
 
 # def gad_office_status(request):
 #     # Logic for status page
@@ -321,36 +355,6 @@ def update_urgency(request, complaint_id):
 
 
 
-
-
-
-# Dashboard
-def dashboard_page(request):
-    reports = Complaint.objects.filter(type="report")
-    complaints = Complaint.objects.filter(type="complaint")
-    solved_reports = reports.filter(status="Solved")
-    solved_complaints = complaints.filter(status="Solved")
-    pending_reports = reports.filter(status="Pending")
-    pending_complaints = complaints.filter(status="Pending")
-    inprogress_reports = reports.filter(status="In Progress")
-    inprogress_complaints = complaints.filter(status="In Progress")
-    
-
-    return render(request, 'main/dashboard_page.html', {
-        'total_reports': reports.count(),
-        'total_complaints': complaints.count(),
-        'solved_reports': solved_reports.count(),
-        'solved_complaints': solved_complaints.count(),
-        'pending_reports': pending_reports.count(),
-        'pending_complaints': pending_complaints.count(),
-        'inprogress_reports': inprogress_reports.count(),
-        'inprogress_complaints': inprogress_complaints.count(),
-    
-        
-    }
-    )
-
-    
 
 
 

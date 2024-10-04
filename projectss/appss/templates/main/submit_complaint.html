@@ -1,29 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submit Complaint or Report</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="https://cdn.tailwindcss.com"></script> <!-- Import Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body class="bg-gray-100 flex items-center justify-center min-h-screen px-4">
-
-    <div class="max-w-3xl w-full bg-white rounded-lg shadow-md p-10 sm:p-12 lg:p-16"> <!-- Increased max-width and padding -->
-        <h1 class="text-center text-4xl font-bold text-gray-800 mb-8">Submit a Complaint or Report</h1> <!-- Increased font size -->
+    <div class="max-w-3xl w-full bg-white rounded-lg shadow-md p-10 sm:p-12 lg:p-16">
+        <h1 class="text-center text-4xl font-bold text-gray-800 mb-8">Submit a Complaint or Report</h1>
         <form id="complaintForm" method="POST">
             <textarea name="description" id="description" rows="8" placeholder="Enter complaint or report description here..." 
-                class="w-full p-6 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 resize-none"></textarea> <!-- Increased rows and padding -->
-            <button type="submit"
-                class="mt-8 w-full bg-red-800 text-white py-4 rounded-lg text-lg hover:bg-red-700 transition duration-200"> <!-- Increased button padding -->
+                class="w-full p-6 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 resize-none"></textarea>
+            <button id="submitButton" type="submit"
+                class="mt-8 w-full bg-red-800 text-white py-4 rounded-lg text-lg hover:bg-red-700 transition duration-200">
                 Submit
             </button>
         </form>
 
-        <div id="responseMessage" class="mt-6 text-center"></div> <!-- Increased margin-top -->
+        <div id="responseMessage" class="mt-6 text-center"></div>
     </div>
 
     <script type="text/javascript">
@@ -31,26 +29,33 @@
             $('#complaintForm').on('submit', function (e) {
                 e.preventDefault();  // Prevent the form from submitting normally
 
+                // Disable the button after the first click to prevent multiple submissions
+                $('#submitButton').attr('disabled', true).removeClass('bg-red-800 hover:bg-red-700').addClass('bg-gray-500');
+
                 $.ajax({
                     url: "{% url 'submit_complaint' %}",
                     type: "POST",
                     data: {
                         'description': $('#description').val(),
-                        'csrfmiddlewaretoken': '{{ csrf_token }}'  // Include CSRF token
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
                     },
                     success: function (response) {
                         $('#responseMessage').html('<p class="text-green-600">' + response.message + '</p>');
-                        $('#complaintForm')[0].reset();  // Reset the form after success
+                        $('#complaintForm')[0].reset();
+                        
+                        // Change button color to indicate success
+                        $('#submitButton').removeClass('bg-gray-500').addClass('bg-green-600');
                     },
                     error: function (xhr, status, error) {
                         let errorMessage = xhr.responseJSON ? xhr.responseJSON.error : "An error occurred.";
                         $('#responseMessage').html('<p class="text-red-600">' + errorMessage + '</p>');
+
+                        // Re-enable the button in case of error
+                        $('#submitButton').attr('disabled', false).removeClass('bg-gray-500').addClass('bg-red-800 hover:bg-red-700');
                     }
                 });
             });
         });
     </script>
 </body>
-
 </html>
-

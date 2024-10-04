@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Informant</title>
     <script src="https://cdn.tailwindcss.com"></script> <!-- Import Tailwind CSS -->
+    <style>
+        /* Custom Styles */
+        .center-container {
+            max-width: 800px; /* Large container */
+            margin: 0 auto;   /* Center horizontally */
+        }
+    </style>
 </head>
 <body class="bg-white font-sans">
 
@@ -24,37 +31,47 @@
 
     <!-- Sidebar (fixed on large screens) -->
     <aside id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-red-800 text-white transform -translate-x-full lg:translate-x-0 lg:fixed lg:left-0 lg:top-0 lg:h-full transition-transform duration-300 z-40">
-        <!-- Adjusted content with padding-top to move below header -->
-        <div class="pt-20"> <!-- Add padding-top of 20 to move below the header -->
-            <h2 class="text-3xl p-6 text-white font-bold text-center">Welcome, {{ request.user.username }}!</h2>
-            
-            <!-- Add margin-top to move the links down a little below the Welcome message -->
-            <nav class="mt-6 space-y-9 px-6 text-center"> <!-- Center the links -->
-                <a href="{% url 'profile' %}" class="font-bold text-white block py-2 px-4 rounded hover:bg-red-700">Profile</a>
-                <a href="#" onclick="toggleSection('complaints-section')" class="font-bold text-white block py-2 px-4 rounded hover:bg-red-700">Lodge Report or Complaint</a>
-                <a href="#" onclick="toggleSection('status-section')" class="font-bold text-white block py-2 px-4 rounded hover:bg-red-700">Status</a>
-                <a href="#" onclick="toggleSection('history-section')" class="font-bold text-white block py-2 px-4 rounded hover:bg-red-700">History</a>
-                <a href="#" onclick="toggleSection('messages-section')" class="font-bold text-white block py-2 px-4 rounded hover:bg-red-700">Messages</a>
+        <div class="pt-20">
+            <h2 class="text-2xl lg:text-3xl px-4 lg:px-6 text-white font-bold text-center">Welcome, {{ request.user.username }}!</h2>
+            <nav class="mt-6 space-y-4 sm:space-y-6 px-4 lg:px-6 text-center">
+                <a href="#" onclick="toggleProfile()" class="text-sm lg:text-base font-bold text-white block py-2 px-2 lg:px-4 rounded hover:bg-red-700">Profile</a>
+                <a href="#" onclick="toggleSection('complaints-section')" class="text-sm lg:text-base font-bold text-white block py-2 px-2 lg:px-4 rounded hover:bg-red-700">Lodge Report or Complaint</a>
+                <a href="#" onclick="toggleSection('status-section')" class="text-sm lg:text-base font-bold text-white block py-2 px-2 lg:px-4 rounded hover:bg-red-700">Status</a>
+                <a href="#" onclick="toggleSection('history-section')" class="text-sm lg:text-base font-bold text-white block py-2 px-2 lg:px-4 rounded hover:bg-red-700">History</a>
+                <a href="#" onclick="toggleSection('messages-section')" class="text-sm lg:text-base font-bold text-white block py-2 px-2 lg:px-4 rounded hover:bg-red-700">Messages</a>
             </nav>
         </div>
     </aside>
 
     <!-- Main Content Area -->
-    <main class="pt-20 lg:ml-64 p-4">
-        <div id="complaints-section" class="section visible">
-            {% include 'main/submit_complaint.html' %}
-        </div>
-        <div id="status-section" class="section hidden">
-            <h2 class="text-2xl font-bold mb-4">Status</h2>
-            {% include 'informant/complaint_status.html' %}
-        </div>
-        <div id="history-section" class="section hidden">
-            <h2 class="text-2xl font-bold mb-4">History</h2>
-            {% include 'informant/complaint_history.html' %}
-        </div>
-        <div id="messages-section" class="section hidden">
-            <h2 class="text-2xl font-bold mb-4">Messages</h2>
-            {% include 'informant/complaint_message.html' %}
+    <main class="pt-20 lg:ml-64 p-4 flex justify-center">
+        <!-- Centered Container for all sections -->
+        <div id="content-area" class="center-container w-full">
+            <!-- Profile Section (visible by default) -->
+            <div id="profile-section" class="section">
+                <h2 class="text-3xl font-bold mb-4 text-center">Profile</h2>
+                <div class="bg-gray-100 p-6 rounded-lg shadow-lg">
+                    <!-- Profile Content -->
+                    {% include 'informant/profile.html' %}
+                </div>
+            </div>
+
+            <!-- Other Sections (hidden by default) -->
+            <div id="complaints-section" class="section hidden">
+                {% include 'main/submit_complaint.html' %}
+            </div>
+            <div id="status-section" class="section hidden">
+                <h2 class="text-2xl font-bold mb-4">Status</h2>
+                {% include 'informant/complaint_status.html' %}
+            </div>
+            <div id="history-section" class="section hidden">
+                <h2 class="text-2xl font-bold mb-4">History</h2>
+                {% include 'informant/complaint_history.html' %}
+            </div>
+            <div id="messages-section" class="section hidden">
+                <h2 class="text-2xl font-bold mb-4">Messages</h2>
+                {% include 'informant/complaint_message.html' %}
+            </div>
         </div>
     </main>
 
@@ -65,7 +82,7 @@
             sidebar.classList.toggle('-translate-x-full');
         });
 
-        // Toggle Section visibility
+        // Toggle Section visibility and hide Profile
         function toggleSection(sectionId) {
             // Hide all sections
             const sections = document.querySelectorAll('.section');
@@ -73,6 +90,30 @@
 
             // Show selected section
             document.getElementById(sectionId).classList.remove('hidden');
+
+            // Hide the profile when any other section is clicked
+            document.getElementById('profile-section').classList.add('hidden');
+        }
+
+        // Toggle Profile visibility
+        let profileVisible = true; // Track profile visibility state
+
+        function toggleProfile() {
+            const profileSection = document.getElementById('profile-section');
+            const sections = document.querySelectorAll('.section');
+
+            // Toggle profile visibility
+            if (profileVisible) {
+                profileSection.classList.add('hidden');
+                profileVisible = false;
+            } else {
+                // Hide all other sections
+                sections.forEach(section => section.classList.add('hidden'));
+
+                // Show the profile
+                profileSection.classList.remove('hidden');
+                profileVisible = true;
+            }
         }
     </script>
 </body>

@@ -5,198 +5,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solved Complaints</title>
-    <style>
-        /* Global Styles */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            padding: 20px;
-        }
-
-        #history-table {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 0 20px;
-        }
-
-        /* Table Styling */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: #fff;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            overflow: hidden;
-            margin-top: 0;
-        }
-
-        thead {
-            background-color: #343a40;
-            color: white;
-        }
-
-        th,
-        td {
-            padding: 12px 15px;
-            text-align: left;
-        }
-
-        th {
-            font-size: 1rem;
-        }
-
-        td {
-            font-size: 0.95rem;
-            border-bottom: 1px solid #ddd;
-        }
-
-        /* Links Styling */
-        a {
-            color: #007bff;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        /* Button Styling */
-        .delete-btn {
-            background-color: #930a0a;
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .delete-btn:hover {
-            background-color: #750808;
-        }
-
-        /* Status and Urgency Colors */
-        .status-solved {
-            color: green;
-            font-weight: bold;
-        }
-
-        .urgency-low {
-            color: green;
-        }
-
-        .urgency-medium {
-            color: orange;
-        }
-
-        .urgency-high {
-            color: red;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 1200px) {
-            #history-table {
-                max-width: 100%;
-                padding: 0 10px;
-            }
-
-            th,
-            td {
-                font-size: 0.9rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            th,
-            td {
-                font-size: 0.9rem;
-            }
-
-            .delete-btn {
-                padding: 6px 10px;
-                font-size: 0.9rem;
-            }
-        }
-
-        @media (max-width: 600px) {
-            table {
-                display: block;
-                overflow-x: auto;
-                white-space: nowrap;
-            }
-
-            th,
-            td {
-                padding: 8px;
-                font-size: 0.85rem;
-            }
-
-            th,
-            td:nth-child(2),
-            td:nth-child(4),
-            td:nth-child(5) {
-                white-space: nowrap;
-            }
-
-            .delete-btn {
-                padding: 5px 8px;
-                font-size: 0.8rem;
-            }
-        }
-
-        /* Empty State */
-        p {
-            text-align: center;
-            font-size: 1.2rem;
-            color: #555;
-            margin-top: 20px;
-        }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
+<body class="bg-gray-100 p-5">
 
     <!-- History Table for Solved Complaints -->
-    <div id="history-table">
+    <div id="history-table" class="max-w-6xl mx-auto px-4">
         {% if complaints.exists %}
-        <table>
-            <thead>
+        <table class="w-full border-collapse bg-white shadow-lg rounded-lg overflow-hidden">
+            <thead class="bg-gray-800 text-white">
                 <tr>
-                    <th>Office</th>
-                    <th>Type</th>
-                    <th>Description (PDF)</th>
-                    <th>Status</th>
-                    <th>Urgency</th>
-                    <th>Issue Date</th>
-                    <th>Action</th>
+                    <th class="px-4 py-3 text-left">Office</th>
+                    <th class="px-4 py-3 text-left">Type</th>
+                    <th class="px-4 py-3 text-left">Description (PDF)</th>
+                    <th class="px-4 py-3 text-left">Status</th>
+                    <th class="px-4 py-3 text-left">Urgency</th>
+                    <th class="px-4 py-3 text-left">Issue Date</th>
+                    <th class="px-4 py-3 text-left">Action</th>
                 </tr>
             </thead>
             <tbody>
                 {% for complaint in complaints %}
-                {% if complaint.status == 'Solved' %} <!-- Filter solved complaints -->
-                <tr id="complaint-{{ complaint.id }}">
-                    <td>{{ complaint.office }}</td>
-                    <td>{{ complaint.type }}</td>
-                    <td>
+                {% if complaint.status == 'Solved' %}
+                <tr id="complaint-{{ complaint.id }}" class="border-b border-gray-200">
+                    <td class="px-4 py-3">{{ complaint.office }}</td>
+                    <td class="px-4 py-3">{{ complaint.type }}</td>
+                    <td class="px-4 py-3">
                         {% if complaint.pdf_file %}
-                        <a href="{{ complaint.pdf_file.url }}" target="_blank">Download PDF</a>
+                        <a href="{{ complaint.pdf_file.url }}" target="_blank" class="text-blue-500 hover:underline">Download PDF</a>
                         {% else %}
-                        No PDF available
+                        <span class="text-gray-500">No PDF available</span>
                         {% endif %}
                     </td>
-                    <td class="status-solved">{{ complaint.status }}</td>
-                    <td class="urgency-{% if complaint.urgency == 'High' %}high{% elif complaint.urgency == 'Medium' %}medium{% elif complaint.urgency == 'Low' %}low{% endif %}">
-                        {{ complaint.urgency }}
+                    <td class="px-4 py-3 text-green-600 font-bold">{{ complaint.status }}</td>
+                    <td class="px-4 py-3">
+                        <span class="{% if complaint.urgency == 'High' %}text-red-600{% elif complaint.urgency == 'Medium' %}text-orange-500{% elif complaint.urgency == 'Low' %}text-green-600{% endif %}">{{ complaint.urgency }}</span>
                     </td>
-                    <td>{{ complaint.issue_date|date:"F j, Y" }}</td>
-                    <td>
-                        <button class="delete-btn" onclick="deleteComplaint('{{ complaint.id }}')">Delete</button>
+                    <td class="px-4 py-3">{{ complaint.issue_date|date:"F j, Y" }}</td>
+                    <td class="px-4 py-3">
+                        <form action="{% url 'delete_complaint' complaint.id %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                        <button class="bg-red-600 text-white px-3 py-2 rounded-lg hover:bg-red-700 transition" onclick="deleteComplaint('{{ complaint.id }}')">Delete</button>
                     </td>
                 </tr>
                 {% endif %}
@@ -204,7 +54,7 @@
             </tbody>
         </table>
         {% else %}
-        <p>No history available.</p>
+        <p class="text-center text-lg text-gray-600 mt-5">No history available.</p>
         {% endif %}
     </div>
 
