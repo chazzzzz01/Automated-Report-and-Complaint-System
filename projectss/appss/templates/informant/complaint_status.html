@@ -1,14 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Complaints Status</title>
+    <style>
+        /* Global Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            padding: 20px;
+        }
+
+        #complaints-table {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 0; /* Remove default margin */
+        }
+
+        thead {
+            background-color: #930a0a;
+            color: white;
+        }
+
+        th,
+        td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        th {
+            font-size: 1rem;
+        }
+
+        td {
+            font-size: 0.95rem;
+            border-bottom: 1px solid #ddd;
+        }
+
+        /* Links Styling */
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Button Styling */
+        .delete-btn {
+            background-color: #930a0a;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .delete-btn:hover {
+            background-color: #750808;
+        }
+
+        /* Status and Urgency Colors */
+        .status-solved {
+            color: green;
+        }
+
+        .status-pending {
+            color: rgb(255, 255, 255);
+        }
+
+        .status-in-progress {
+            color: blue;
+        }
+
+        .urgency-low {
+            color: green;
+        }
+
+        .urgency-medium {
+            color: orange;
+        }
+
+        .urgency-high {
+            color: red;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            #complaints-table {
+                max-width: 100%;
+                padding: 0 10px;
+            }
+
+            th,
+            td {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            th,
+            td {
+                font-size: 0.9rem;
+            }
+
+            .delete-btn {
+                padding: 6px 10px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
+            th,
+            td {
+                padding: 8px;
+                font-size: 0.85rem;
+            }
+
+            th,
+            td:nth-child(2),
+            td:nth-child(4),
+            td:nth-child(5) {
+                white-space: nowrap;
+            }
+
+            .delete-btn {
+                padding: 5px 8px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Empty State */
+        p {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #555;
+            margin-top: 20px;
+        }
+    </style>
 </head>
+
 <body>
-    
-<div id="complaints-table">
-    {% if complaints.exists %}
+
+    <div id="complaints-table">
+        {% if complaints.exists %}
         <table>
             <thead>
                 <tr>
@@ -23,15 +185,15 @@
             </thead>
             <tbody>
                 {% for complaint in complaints %}
-                {% if complaint.status != 'Solved' %} 
+                {% if complaint.status != 'Solved' %}
                 <tr id="complaint-{{ complaint.id }}">
                     <td>{{ complaint.office }}</td>
                     <td>{{ complaint.type }}</td>
                     <td>
                         {% if complaint.pdf_file %}
-                            <a href="{{ complaint.pdf_file.url }}" target="_blank">Download PDF</a>
+                        <a href="{{ complaint.pdf_file.url }}" target="_blank">Download PDF</a>
                         {% else %}
-                            No PDF available
+                        No PDF available
                         {% endif %}
                     </td>
                     <td class="status-{{ complaint.status|lower }}">
@@ -52,10 +214,11 @@
                 {% endfor %}
             </tbody>
         </table>
-    {% else %}
+        {% else %}
         <p>No complaints available.</p>
-    {% endif %}
-</div>
+        {% endif %}
+    </div>
 
 </body>
+
 </html>

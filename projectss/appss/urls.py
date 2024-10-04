@@ -18,12 +18,16 @@ urlpatterns = [
     # path('send-message/', views.send_message, name='send_message'),
     # path('get-messages/', views.get_messages, name='get_messages'),  
     path('dashboard/', views.dashboard_page, name='dashboard_page'),
+    
     # path('informant-registration/', views.informant_registration_view, name='informant_registration'),
     path('admin-page/', views.admin_page, name='admin_page'),
     path('status/', views.complaint_status, name='complaint_status'),
     path('history/', views.complaint_history, name='complaint_history'),
     path('messages/', views.complaint_messages, name='complaint_messages'),
     path('profile/', views.profile_view, name='profile'),  # Profile link
+    path('graphs/', views.generate_graphs, name='graphs'),
+    path('chat/<str:room_name>/', views.chat_room, name='chat_room'),
+    path('update-urgency/<int:complaint_id>/', views.update_urgency, name='update_urgency'),
 
     path('register/', views.registration_page, name='registration_page'),
     path('login/', views.login_view, name='login'),

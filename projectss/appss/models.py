@@ -8,7 +8,32 @@ from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from django.contrib.auth.models import User
 
 
-class Informant(models.Model):
+
+
+
+from django.db import models
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+
+class InformantManager(BaseUserManager):
+    def create_user(self, username, email, password=None, **extra_fields):
+        if not username:
+            raise ValueError('The Username field must be set')
+        if not email:
+            raise ValueError('The Email field must be set')
+
+        email = self.normalize_email(email)
+        user = self.model(username=username, email=email, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, username, email, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+
+        return self.create_user(username, email, password, **extra_fields)
+
+class Informant(AbstractBaseUser, PermissionsMixin):
     ROLE_CHOICES = [
         ('student', 'Student'),
         ('employee', 'Employee'),
@@ -25,25 +50,52 @@ class Informant(models.Model):
         ('LHS', 'Liberal Arts and Humanities'),
         ('STED', 'School of Teacher Education'),
     ]
-    
+
     role = models.CharField(max_length=10, choices=ROLE_CHOICES)
-    username = models.CharField(max_length=50)
+    username = models.CharField(max_length=50, unique=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     middle_name = models.CharField(max_length=50, blank=True, null=True)
-    email = models.EmailField()
+    email = models.EmailField(unique=True)
     contact_number = models.CharField(max_length=15)
     department = models.CharField(max_length=4, choices=DEPARTMENT_CHOICES, blank=True, null=True)
     student_id_file = models.ImageField(upload_to='student_ids/', null=True, blank=True)
     employee_id_file = models.ImageField(upload_to='employee_ids/', null=True, blank=True)
     study_load_file = models.ImageField(upload_to='study_loads/', null=True, blank=True)
     document_file = models.ImageField(upload_to='documents/', null=True, blank=True)
-    password = models.CharField(max_length=128)
-    confirm_password = models.CharField(max_length=128)
+
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+
+    # Add related_name to avoid conflicts with auth.User
+    groups = models.ManyToManyField(
+        'auth.Group',
+        related_name='informant_set',  # Change this to a unique related name
+        blank=True,
+        help_text='The groups this user belongs to.',
+        verbose_name='groups'
+    )
+    user_permissions = models.ManyToManyField(
+        'auth.Permission',
+        related_name='informant_permissions_set',  # Change this to a unique related name
+        blank=True,
+        help_text='Specific permissions for this user.',
+        verbose_name='user permissions'
+    )
+
+    objects = InformantManager()
+
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['email']
 
     def __str__(self):
-        
         return f"{self.username} ({self.role})"
+
+
+
+
+from django.conf import settings  # Import settings to use AUTH_USER_MODEL
+from django.db import models
 
 class Office(models.Model):
     OFFICE_CHOICES = [
@@ -54,13 +106,24 @@ class Office(models.Model):
     ]
     
     office_name = models.CharField(max_length=50, choices=OFFICE_CHOICES, unique=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)  # Linking office to a user account
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)  # Linking office to custom user model (Informant)
 
     def __str__(self):
         return self.office_name
 
+
+
 # Complaint Model
 class Complaint(models.Model):
+    TYPE_CHOICES = [
+        ('report', 'Report'),
+        ('complaint', 'Complaint')
+    ]
+    STATUS_CHOICES = [
+        ('Solved', 'Solved'),
+        ('Pending', 'Pending'),
+        ('In Progress', 'In Progress')
+    ]
     OFFICE_CHOICES = [
         ('VP Administration and Finance', 'Admin and Finance'),
         ('VP Academic Affairs', 'VP Academic Affairs'),
@@ -76,7 +139,7 @@ class Complaint(models.Model):
     pdf_file = models.FileField(upload_to='complaint_pdfs/', null=True, blank=True)
     issue_date = models.DateTimeField(default=timezone.now)
     is_sent = models.BooleanField(default=False)
-    
+    receiving_office = models.CharField(max_length=50, choices=OFFICE_CHOICES)
 
     def save(self, *args, **kwargs):
         if not self.pdf_file:
@@ -144,14 +207,17 @@ class Urgency(models.Model):
 
 
 
-# Still in process
+
+
+from django.db import models
+from django.contrib.auth.models import User
+
 class Message(models.Model):
+    sender = models.ForeignKey(User, related_name='sent_messages', on_delete=models.CASCADE)
+    receiver = models.ForeignKey(User, related_name='received_messages', on_delete=models.CASCADE)
     office = models.CharField(max_length=100)
     content = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'{self.office}: {self.content}'
-    
-
-
+        return f'{self.sender.username} to {self.receiver.username}: {self.content[:50]}'

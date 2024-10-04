@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'appss',
     'channels',
+    'matplotlib',
    
 ]
 
@@ -84,16 +85,11 @@ WSGI_APPLICATION = 'projectss.wsgi.application'
 
 ASGI_APPLICATION = 'projectss.asgi.application'
 
-# Redis as the backend for channels
 CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            "hosts": [('127.0.0.1', 6379)],  # Replace with your Redis host if different
-        },
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
     },
 }
-
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -103,7 +99,7 @@ DATABASES = {
 
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-        'NAME': 'report&complaintdjango',
+        'NAME': 'reports_and_complaints_django',
 
         'USER': 'postgres',
 
@@ -133,6 +129,17 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+
+
+
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+
+
 
 
 # Internationalization

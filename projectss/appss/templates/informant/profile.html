@@ -10,13 +10,13 @@
 </head>
 <body>
     <h2>Informant Profile</h2>
+    <p><strong>Role:</strong> {{ informant.get_role_display }}</p>
     <p><strong>Username:</strong> {{ informant.username }}</p>
     <p><strong>First Name:</strong> {{ informant.first_name }}</p>
     <p><strong>Last Name:</strong> {{ informant.last_name }}</p>
     <p><strong>Middle Name:</strong> {{ informant.middle_name }}</p>
     <p><strong>Email:</strong> {{ informant.email }}</p>
     <p><strong>Contact Number:</strong> {{ informant.contact_number }}</p>
-    <p><strong>Role:</strong> {{ informant.get_role_display }}</p>
     <p><strong>Department:</strong> {{ informant.get_department_display }}</p>
     {% if informant.student_id_file %}
         <p><strong>Student ID:</strong> <a href="{{ informant.student_id_file.url }}">Download</a></p>

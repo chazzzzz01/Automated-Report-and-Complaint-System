@@ -1,0 +1,24 @@
+<!-- templates/main/office_dashboard_page.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ office_name }} Dashboard</title>
+</head>
+<body>
+    <h1>{{ office_name }} Dashboard</h1>
+
+    <h2>Reports</h2>
+    <p>Total Reports: {{ total_reports }}</p>
+    <p>Solved Reports: {{ solved_reports }}</p>
+    <p>Pending Reports: {{ pending_reports }}</p>
+    <p>In Progress Reports: {{ inprogress_reports }}</p>
+
+    <h2>Complaints</h2>
+    <p>Total Complaints: {{ total_complaints }}</p>
+    <p>Solved Complaints: {{ solved_complaints }}</p>
+    <p>Pending Complaints: {{ pending_complaints }}</p>
+    <p>In Progress Complaints: {{ inprogress_complaints }}</p>
+</body>
+</html>

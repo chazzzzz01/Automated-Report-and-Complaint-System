@@ -5,11 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Responsive Dashboard with Notifications</title>
     <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            padding-top: 80px; /* Space for fixed header */
+        }
+
+        h1 {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background-color: rgb(132, 3, 3) ; /* Updated to red and white */
+            color: #fff;
+            font-size: 24px;
+            text-align: center;
+            z-index: 1000;
+        }
+
         /* Flexbox container for horizontal layout */
         #dashboard-container {
             display: flex;
             flex-wrap: wrap; /* Allows boxes to wrap on smaller screens */
             gap: 20px; /* Adds space between the boxes */
+            margin-top: 80px; /* Space below the header */
+            padding: 20px; /* Adds padding around the dashboard */
         }
 
         /* Style for the dashboard boxes */
@@ -70,6 +98,8 @@
     </style>
 </head>
 <body>
+    <h1>Bipsumbungan</h1> <!-- Fixed header -->
+
     <div id="dashboard-container">
         <div id="total-reports-container" class="dashboard-box">
             <h2>Total Reports and Complaints</h2>
@@ -120,9 +150,6 @@
         setTimeout(function() {
             notificationBox.style.display = 'none';
         }, 5000); // Hides after 5 seconds
-
-        // Uncomment the following lines if you want to check for new reports via API periodically
-        // setInterval(checkForNewReports, 10000);
     </script>
 </body>
 </html>

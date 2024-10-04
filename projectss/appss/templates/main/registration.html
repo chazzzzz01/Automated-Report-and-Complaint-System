@@ -1,128 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Informant Registration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Your CSS styling */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .container {
-            width: 90%;
-            max-width: 800px;
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
-            position: relative;
-            overflow: hidden;
-        }
-        .form-section {
-            display: none;
-            transition: opacity 0.5s ease;
-        }
-        .form-section.active {
-            display: block;
-            opacity: 1;
-        }
-        h2 {
-            text-align: center;
-            color: #333;
-        }
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-        label {
-            margin-top: 10px;
-            font-weight: bold;
-        }
-        input, select {
-            padding: 10px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        .button {
-            background-color: #007bff;
-            color: white;
-            padding: 10px;
-            margin-top: 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            text-align: center;
-            transition: background-color 0.3s ease;
-        }
-        .button:hover {
-            background-color: #0056b3;
-        }
-        .upload-section {
-            display: none;
-        }
-        @media (max-width: 768px) {
-            .container {
-                width: 100%;
-                margin: 20px 0;
-            }
-        }
+        /* Add custom styles if needed */
     </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const sections = document.querySelectorAll(".form-section");
+            let currentSectionIndex = 0;
+
+            const showSection = (index) => {
+                sections.forEach((section, i) => {
+                    section.classList.toggle('hidden', i !== index);
+                });
+            };
+
+            document.getElementById("nextBtn").addEventListener("click", function (e) {
+                e.preventDefault();
+                if (currentSectionIndex < sections.length - 1) {
+                    currentSectionIndex++;
+                    showSection(currentSectionIndex);
+                }
+            });
+
+            document.getElementById("prevBtn").addEventListener("click", function (e) {
+                e.preventDefault();
+                if (currentSectionIndex > 0) {
+                    currentSectionIndex--;
+                    showSection(currentSectionIndex);
+                }
+            });
+
+            const roleField = document.getElementById("id_role");
+            const studentFields = document.getElementById("studentFields");
+            const employeeFacultyFields = document.getElementById("employeeFacultyFields");
+
+            roleField.addEventListener("change", function () {
+                if (roleField.value === "student") {
+                    studentFields.classList.remove("hidden");
+                    employeeFacultyFields.classList.add("hidden");
+                } else if (roleField.value === "employee" || roleField.value === "faculty") {
+                    employeeFacultyFields.classList.remove("hidden");
+                    studentFields.classList.add("hidden");
+                } else {
+                    studentFields.classList.add("hidden");
+                    employeeFacultyFields.classList.add("hidden");
+                }
+            });
+
+            // Password matching validation
+            const password = document.getElementById("password");
+            const confirmPassword = document.getElementById("confirm_password");
+            const errorMessage = document.getElementById("error-message");
+
+            document.getElementById("registrationForm").addEventListener("submit", function (e) {
+                if (password.value !== confirmPassword.value) {
+                    e.preventDefault();
+                    errorMessage.textContent = "Passwords do not match!";
+                } else {
+                    errorMessage.textContent = "";
+                }
+            });
+
+            showSection(currentSectionIndex);
+        });
+    </script>
 </head>
-<body>
-    <div class="container">
-        <!-- First Section -->
-        <div class="form-section active" id="basicInfoSection">
-            <h2>Informant Registration - Basic Info</h2>
-            <form id="registrationForm" method="POST" novalidate>
-                {% csrf_token %}
-                <label for="role">Role:</label>
-                <select id="role" name="role" required onchange="handleRoleChange(this.value)">
+
+<body class="bg-black text-white flex items-center justify-center min-h-screen">
+    <div class="container mx-auto p-6 bg-white text-black rounded-lg shadow-lg max-w-lg">
+        <h2 class="text-2xl font-bold text-center text-red-600 mb-6">Informant Registration</h2>
+        <form id="registrationForm" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <!-- Basic Info Section -->
+            <div class="form-section" id="basicInfoSection">
+                <h3 class="text-xl font-semibold mb-4">Basic Info</h3>
+                <label for="role" class="block mb-1">Role:</label>
+                <select id="id_role" name="role" required class="w-full p-2 border border-gray-400 rounded mb-4">
                     <option value="" disabled selected>Select your role</option>
                     <option value="student">Student</option>
                     <option value="employee">Employee</option>
                     <option value="faculty">Faculty</option>
                 </select>
 
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
+                <label for="username" class="block mb-1">Username:</label>
+                <input type="text" id="username" name="username" required class="w-full p-2 border border-gray-400 rounded mb-4">
 
-                <label for="first_name">First Name:</label>
-                <input type="text" id="first_name" name="first_name" required>
+                <label for="first_name" class="block mb-1">First Name:</label>
+                <input type="text" id="first_name" name="first_name" required class="w-full p-2 border border-gray-400 rounded mb-4">
 
-                <label for="last_name">Last Name:</label>
-                <input type="text" id="last_name" name="last_name" required>
+                <label for="last_name" class="block mb-1">Last Name:</label>
+                <input type="text" id="last_name" name="last_name" required class="w-full p-2 border border-gray-400 rounded mb-4">
 
-                <label for="middle_name">Middle Name:</label>
-                <input type="text" id="middle_name" name="middle_name">
+                <label for="middle_name" class="block mb-1">Middle Name:</label>
+                <input type="text" id="middle_name" name="middle_name" class="w-full p-2 border border-gray-400 rounded mb-4">
 
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
+                <label for="email" class="block mb-1">Email:</label>
+                <input type="email" id="email" name="email" required class="w-full p-2 border border-gray-400 rounded mb-4">
 
-                <label for="contact_number">Contact Number:</label>
-                <input type="text" id="contact_number" name="contact_number" required>
+                <label for="contact_number" class="block mb-1">Contact Number:</label>
+                <input type="text" id="contact_number" name="contact_number" required class="w-full p-2 border border-gray-400 rounded mb-4">
 
-                <button type="button" class="button" onclick="showNextSection()">Next</button>
-            </form>
-        </div>
+                <button id="nextBtn" class="button bg-red-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">Next</button>
+            </div>
 
-        <!-- Second Section -->
-        <div class="form-section" id="additionalInfoSection">
-            <h2>Informant Registration - Additional Info</h2>
-            <form id="additionalForm" method="POST" enctype="multipart/form-data" novalidate>
-                {% csrf_token %}
-                <label for="department">Department:</label>
-                <select id="department" name="department" required>
+            <!-- Additional Info Section -->
+            <div class="form-section hidden" id="additionalInfoSection">
+                <h3 class="text-xl font-semibold mb-4">Additional Info</h3>
+                <label for="department" class="block mb-1">Department:</label>
+                <select id="department" name="department" required class="w-full p-2 border border-gray-400 rounded mb-4">
                     <option value="" disabled selected>Select your department</option>
                     <option value="STCS">School of Technology and Computer Science</option>
                     <option value="SCJE">School of Criminal Justice and Education</option>
@@ -133,65 +125,37 @@
                     <option value="STED">School of Teacher Education</option>
                 </select>
 
-                <div id="studentSection" class="upload-section">
-                    <label for="student_id">Upload Student ID:</label>
-                    <input type="file" id="student_id" name="student_id">
+                <div id="studentFields" class="hidden">
+                    <label for="student_id" class="block mb-1">Student ID (Image):</label>
+                    <input type="file" id="student_id" name="student_id" required class="w-full p-2 border border-gray-400 rounded mb-4">
 
-                    <label for="study_load">Upload Study Load:</label>
-                    <input type="file" id="study_load" name="study_load">
+                    <label for="study_load" class="block mb-1">Study Load (Image):</label>
+                    <input type="file" id="study_load" name="study_load" required class="w-full p-2 border border-gray-400 rounded mb-4">
                 </div>
 
-                <div id="employeeFacultySection" class="upload-section">
-                    <label for="employee_faculty_id">Upload Employee/Faculty ID:</label>
-                    <input type="file" id="employee_faculty_id" name="employee_faculty_id">
+                <div id="employeeFacultyFields" class="hidden">
+                    <label for="employee_id" class="block mb-1">Employee/Faculty ID (Image):</label>
+                    <input type="file" id="employee_id" name="employee_id" class="w-full p-2 border border-gray-400 rounded mb-4">
 
-                    <label for="verification_doc">Upload Verification Document:</label>
-                    <input type="file" id="verification_doc" name="verification_doc">
+                    <label for="document_file" class="block mb-1">Document (Image):</label>
+                    <input type="file" id="document_file" name="document_file" class="w-full p-2 border border-gray-400 rounded mb-4">
                 </div>
 
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
+                <label for="password" class="block mb-1">Password:</label>
+                <input type="password" id="password" name="password" required class="w-full p-2 border border-gray-400 rounded mb-4">
 
-                <label for="confirm_password">Confirm Password:</label>
-                <input type="password" id="confirm_password" name="confirm_password" required>
+                <label for="confirm_password" class="block mb-1">Confirm Password:</label>
+                <input type="password" id="confirm_password" name="confirm_password" required class="w-full p-2 border border-gray-400 rounded mb-4">
 
-                <button type="button" class="button" onclick="showPreviousSection()">Previous</button>
-                <button type="submit" class="button" onclick="redirectToInformantPage()">Register</button>
-            </form>
-        </div>
+                <div id="error-message" class="text-red-500 mb-4"></div>
+
+                <div class="flex justify-between">
+                    <button id="prevBtn" class="button bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded">Previous</button>
+                    <button type="submit" class="button bg-red-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">Register</button>
+                </div>
+            </div>
+        </form>
     </div>
-
-    <script>
-        function showNextSection() {
-            document.getElementById('basicInfoSection').classList.remove('active');
-            document.getElementById('additionalInfoSection').classList.add('active');
-        }
-
-        function showPreviousSection() {
-            document.getElementById('additionalInfoSection').classList.remove('active');
-            document.getElementById('basicInfoSection').classList.add('active');
-        }
-
-        function handleRoleChange(role) {
-            const studentSection = document.getElementById('studentSection');
-            const employeeFacultySection = document.getElementById('employeeFacultySection');
-
-            if (role === 'student') {
-                studentSection.style.display = 'block';
-                employeeFacultySection.style.display = 'none';
-            } else if (role === 'employee' || role === 'faculty') {
-                studentSection.style.display = 'none';
-                employeeFacultySection.style.display = 'block';
-            } else {
-                studentSection.style.display = 'none';
-                employeeFacultySection.style.display = 'none';
-            }
-        }
-
-        function redirectToInformantPage() {
-            // Replace this with the actual informant page URL
-            window.location.href = "informant_page.html";
-        }
-    </script>
 </body>
+
 </html>

@@ -4,206 +4,123 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Legal Office Page</title>
-    <style>
-        /* General Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f9;
-            padding-top: 80px; /* Space for fixed header */
-        }
-
-        h1 {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 20px;
-            background: linear-gradient(180deg, #160575, #0c68b3);
-            color: #fff;
-            font-size: 24px;
-            text-align: center;
-            z-index: 1000;
-        }
-
-        /* Sidebar Styling */
-        #sidebar1 {
-            width: 250px;
-            height: 100vh;
-            position: fixed;
-            top: 80px;
-            left: 0;
-            padding: 20px 10px;
-            background: linear-gradient(180deg, #160575, #0c68b3);
-            color: white;
-            transition: all 0.3s ease;
-            z-index: 100;
-        }
-
-        #sidebar1 p {
-            font-size: 18px;
-            text-transform: uppercase; /* This is for the welcome message */
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        #sidebar1 a {
-            color: white;
-            text-decoration: none;
-            padding: 10px;
-            display: block;
-            text-align: center;
-            font-weight: bold;
-        }
-
-        #sidebar1 a:hover {
-            background-color: #2378b6;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        /* Main Content */
-        #content1 {
-            margin-left: 270px;
-            padding: 20px;
-            transition: margin-left 0.3s ease;
-        }
-
-        /* Table Styling */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        th, td {
-            padding: 12px;
-            border: 1px solid #ddd;
-            text-align: left;
-        }
-
-        th {
-            background-color: #0c68b3;
-            color: white;
-        }
-
-        td {
-            background-color: #f2f2f2;
-        }
-
-        /* Responsive Breakpoints */
-        @media (max-width: 768px) {
-            #sidebar1 {
-                width: 200px;
-            }
-
-            #content1 {
-                margin-left: 220px;
-            }
-
-            #sidebar1 a {
-                font-size: 14px;
-                padding: 8px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            #sidebar1 {
-                width: 100%;
-                height: auto;
-                position: relative;
-                top: 0;
-                padding-bottom: 10px;
-            }
-
-            #content1 {
-                margin-left: 0;
-            }
-
-            table, thead, tbody, th, td, tr {
-                display: block;
-            }
-
-            td {
-                position: relative;
-                padding-left: 50%;
-            }
-
-            td:before {
-                content: attr(data-label);
-                position: absolute;
-                left: 10px;
-                font-weight: bold;
-            }
-        }
-
-        /* Status Indicators */
-        .status-pending { background-color: red; color: white; }
-        .status-in-progress { background-color: yellow; color: black; }
-        .status-solved { background-color: green; color: white; }
-
-        /* Hidden elements */
-        .hidden {
-            display: none;
-        }
-
-        .visible {
-            display: block;
-        }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-100 pt-20 font-sans">
 
-<h1>Bipsumbungan</h1>
+<!-- Header with Hamburger Menu -->
+<header class="fixed top-0 left-0 right-0 bg-red-800 text-white p-4 shadow-md flex items-center justify-between z-50">
+    <h1 class="text-2xl font-bold mx-auto">BiPSUmbongan</h1> <!-- Center the header text -->
 
-<!-- Sidebar -->
-<div id="sidebar1">
-    <p>Welcome Admin!</p>
-    <a href="#" id="dashboard-link" onclick="loadDashboard()">Dashboard</a>
-    
-    <!-- Links for Reports and Complaints -->
-    <div class="sidebar-buttons">
-        <a href="#" onclick="showTable('reports')">Reports</a>
-        <a href="#" onclick="showTable('complaints')">Complaints</a>
-        <a href="#" id="history-link" onclick="toggleHistoryButtons()">History</a>
-        <a href="#" id="messages-link" onclick="toggleMessagesVisibility()">Messages</a> <!-- New Messages Link -->
+    <!-- Container for the hamburger menu button -->
+    <div class="relative">
+        <!-- Hamburger Icon for Mobile -->
+        <button id="menu-toggle" class="lg:hidden text-white focus:outline-none w-10 h-10">
+            <svg id="hamburger-icon" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+            </svg>
+        </button>
     </div>
-    
+</header>
+
+<!-- Sidebar that can be toggled -->
+<div id="sidebar1" class="fixed top-20 left-0 h-full w-64 bg-red-800 text-white p-6 transition-all duration-300 transform lg:translate-x-0 -translate-x-full">
+    <p class="text-xl text-center uppercase mb-6">Welcome Admin!</p>
+    <nav class="space-y-4">
+        <a href="#" class="block text-lg text-center font-bold hover:bg-red-600 py-2" onclick="toggleSection('dashboard')">Dashboard</a>
+        <a href="#" class="block text-lg text-center font-bold hover:bg-red-600 py-2" onclick="toggleSection('reports')">Reports</a>
+        <a href="#" class="block text-lg text-center font-bold hover:bg-red-600 py-2" onclick="toggleSection('complaints')">Complaints</a>
+        <a href="#" class="block text-lg text-center font-bold hover:bg-red-600 py-2" onclick="toggleHistoryButtons()">History</a>
+        <a href="#" class="block text-lg text-center font-bold hover:bg-red-600 py-2" onclick="toggleMessagesVisibility()">Messages</a>
+    </nav>
+
     <!-- History Buttons -->
-    <div id="history-buttons" class="sidebar-buttons hidden">
-        <button onclick="showSolvedTable('reports')">Solved Reports</button>
-        <button onclick="showSolvedTable('complaints')">Solved Complaints</button>
+    <div id="history-buttons" class="hidden space-y-2 mt-4">
+        <button class="w-full bg-red-600 py-2 text-center" onclick="showSolvedTable('reports')">Solved Reports</button>
+        <button class="w-full bg-red-600 py-2 text-center" onclick="showSolvedTable('complaints')">Solved Complaints</button>
     </div>
 </div>
 
 <!-- Main Content -->
-<div id="content1">
-    <div id="content2">
-        <div id="dashboard-content"></div>
-        {% include 'legal/legal_status.html' %}
-        {% include 'legal/legal_history.html' %}
-        <div id="messages-section" class="hidden"> <!-- Messages Section -->
-            {% include 'legal/legal_message.html' %}
-        </div>
+<div id="content1" class="p-6 transition-all duration-300 lg:ml-64"> <!-- Left margin is applied only on large screens -->
+    <div id="dashboard-content" class="hidden"></div>
+    <!-- Dynamic content includes -->
+    {% include 'legal/legal_status.html' %}
+    {% include 'legal/legal_history.html' %}
+    <div id="messages-section" class="hidden">
+        {% include 'legal/legal_message.html' %}
     </div>
+    <div id="reports-table" class="hidden">
+        <!-- Example Table -->
+        <table class="min-w-full bg-white">
+            <thead>
+                <tr class="bg-red-600 text-white">
+                    <th class="text-left py-3 px-4">ID</th>
+                    <th class="text-left py-3 px-4">Report</th>
+                    <th class="text-left py-3 px-4">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="border px-4 py-2">1</td>
+                    <td class="border px-4 py-2">Report A</td>
+                    <td class="border px-4 py-2">Pending</td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">2</td>
+                    <td class="border px-4 py-2">Report B</td>
+                    <td class="border px-4 py-2">In Progress</td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">3</td>
+                    <td class="border px-4 py-2">Report C</td>
+                    <td class="border px-4 py-2">Solved</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="complaints-table" class="hidden"></div>
 </div>
 
 <script>
-    function loadDashboard() {
-        const dashboardContent = document.getElementById('dashboard-content');
-        dashboardContent.style.display = 'block'; // Ensure the dashboard is visible
-        fetch("{% url 'dashboard_page' %}")
-            .then(response => response.text())
-            .then(html => {
-                dashboardContent.innerHTML = html;
-                hideOtherSections();
-            })
-            .catch(error => console.error('Error loading dashboard:', error));
+    const menuToggle = document.getElementById('menu-toggle');
+    const sidebar = document.getElementById('sidebar1');
+    const content = document.getElementById('content1');
+
+    // Toggle sidebar visibility on small screens
+    menuToggle.addEventListener('click', () => {
+        // Toggle the 'translate-x-full' class to hide/show the sidebar
+        sidebar.classList.toggle('-translate-x-full');
+
+        // Adjust content padding when sidebar is hidden or visible
+        if (sidebar.classList.contains('-translate-x-full')) {
+            content.classList.remove('lg:ml-64');
+        } else {
+            content.classList.add('lg:ml-64');
+        }
+    });
+
+    function toggleSection(section) {
+        hideAllSections();
+
+        if (section === 'dashboard') {
+            const dashboardContent = document.getElementById('dashboard-content');
+            if (dashboardContent.classList.contains('hidden')) {
+                fetch("{% url 'dashboard_page' %}")
+                    .then(response => response.text())
+                    .then(html => {
+                        dashboardContent.innerHTML = html;
+                        dashboardContent.classList.remove('hidden');
+                    })
+                    .catch(error => console.error('Error loading dashboard:', error));
+            } else {
+                dashboardContent.classList.toggle('hidden');
+            }
+        } else if (section === 'reports') {
+            document.getElementById('reports-table').classList.remove('hidden');
+        } else if (section === 'complaints') {
+            document.getElementById('complaints-table').classList.remove('hidden');
+        }
     }
 
     function toggleHistoryButtons() {
@@ -212,31 +129,11 @@
 
     function toggleMessagesVisibility() {
         const messagesSection = document.getElementById('messages-section');
-        if (messagesSection.classList.contains('hidden')) {
-            messagesSection.classList.remove('hidden');
-        } else {
-            messagesSection.classList.add('hidden');
-        }
-    }
-
-    function showTable(type) {
-        const dashboardContent = document.getElementById('dashboard-content');
-        dashboardContent.style.display = 'none'; // Hide the dashboard content when switching to another section
-
-        document.getElementById('reports-table').classList.add('hidden');
-        document.getElementById('complaints-table').classList.add('hidden');
-
-        if (type === 'reports') {
-            document.getElementById('reports-table').classList.remove('hidden');
-        } else if (type === 'complaints') {
-            document.getElementById('complaints-table').classList.remove('hidden');
-        }
+        messagesSection.classList.toggle('hidden');
     }
 
     function showSolvedTable(type) {
-        document.getElementById('solved-reports-table').classList.add('hidden');
-        document.getElementById('solved-complaints-table').classList.add('hidden');
-
+        hideAllSections();
         if (type === 'reports') {
             document.getElementById('solved-reports-table').classList.remove('hidden');
         } else if (type === 'complaints') {
@@ -244,12 +141,11 @@
         }
     }
 
-    function hideOtherSections() {
+    function hideAllSections() {
+        document.getElementById('dashboard-content').classList.add('hidden');
         document.getElementById('reports-table').classList.add('hidden');
         document.getElementById('complaints-table').classList.add('hidden');
-        document.getElementById('solved-reports-table').classList.add('hidden');
-        document.getElementById('solved-complaints-table').classList.add('hidden');
-        document.getElementById('messages-section').classList.add('hidden'); // Hide messages by default
+        document.getElementById('messages-section').classList.add('hidden');
     }
 </script>
 

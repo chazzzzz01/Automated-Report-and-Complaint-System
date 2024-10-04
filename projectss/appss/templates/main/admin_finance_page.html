@@ -3,278 +3,273 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administration and Finance</title>
+    <title>Academin Affirs</title>
     <style>
-        #reports-table, #complaints-table, #buttons-container, 
-        #history-buttons-container, #history-reports-table, #history-complaints-table {
-            display: none; /* Initially hidden */
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
         }
-        #reports-table.visible, #complaints-table.visible, #buttons-container.visible,
-        #history-buttons-container.visible, #history-reports-table.visible, #history-complaints-table.visible {
-            display: block; /* Show when the 'visible' class is added */
-        }
-        #status-link, #history-link {
-            color: blue;
+        h1 {
+            margin: 0;
+            padding: 20px;
+            color: #fff;
+            background: linear-gradient(180deg, #160575, #0c68b3);
+            text-align: center;
+            font-size: 2em;
+            font-weight: bold;
             cursor: pointer;
-            text-decoration: underline;
-            margin-right: 10px;
         }
+        
+        /* Sidebar Styles */
+        #sidebar2 {
+            width: 200px;
+            background: linear-gradient(180deg, #e4e4e4, #abd1ef);
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            height: 100vh;
+            transition: width 0.3s;
+            overflow-y: auto; /* Allow scrolling if needed */
+        }
+        #sidebar2 a, #sidebar2 p, #sidebar2 button {
+            display: block;
+            padding: 10px;
+            font-size: 1.2em;
+            color: #333;
+            text-decoration: none;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            border: none;
+            background: none;
+        }
+        #sidebar2 a:hover, #sidebar2 p:hover, #sidebar2 button:hover {
+            background-color: #f0f2f5;
+        }
+
+        /* Main Content Area */
+        #content2 {
+            margin-left: 220px; /* Adjusted to accommodate sidebar */
+            padding: 20px;
+            transition: margin-left 0.3s;
+        }
+
+        /* Button Container */
+        #buttons-container button, 
+        #history-buttons-container button {
+            padding: 10px 20px;
+            font-size: 1em;
+            margin-right: 10px;
+            border: none;
+            background-color: #0c68b3;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        #buttons-container button:hover, 
+        #history-buttons-container button:hover {
+            background-color: #094a87;
+        }
+
+        /* Table Styles */
         table {
             width: 100%;
             border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 1em;
+            color: #333;
         }
         th, td {
             border: 1px solid #ddd;
-            padding: 8px;
+            padding: 10px;
             text-align: left;
         }
         th {
             background-color: #f2f2f2;
+            color: #333;
         }
+
+        /* Status Indicators */
         .status {
             font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-align: center;
         }
         .status-pending {
-            background-color: red; /* Red for pending */
+            background-color: red;
             color: white;
         }
         .status-in-progress {
-            background-color: yellow; /* Yellow for in progress */
+            background-color: yellow;
             color: black;
         }
         .status-solved {
-            background-color: green; /* Green for solved */
+            background-color: green;
             color: white;
+        }
+
+        /* Dashboard Box Styles */
+        .dashboard-box {
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            width: 100%;
+            max-width: 350px;
+        }
+        .dashboard-box h2 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 768px) {
+            #sidebar2 {
+                width: 100%;
+                height: auto;
+                position: relative;
+                box-shadow: none;
+                padding: 10px;
+            }
+            #content2 {
+                margin-left: 0;
+                padding: 10px;
+            }
+            #sidebar2 a, #sidebar2 p, #sidebar2 button {
+                font-size: 1em;
+                padding: 8px;
+            }
+            h1 {
+                font-size: 1.5em;
+            }
+            table {
+                font-size: 0.9em;
+            }
+        }
+        
+        /* Table visibility toggle */
+        #reports-table, #complaints-table, #buttons-container, 
+        #history-buttons-container, #history-reports-table, #history-complaints-table,
+        #messages-container, #dashboard-container, #gad-history {
+            display: none; 
+        }
+        #reports-table.visible, #complaints-table.visible, #buttons-container.visible,
+        #history-buttons-container.visible, #history-reports-table.visible, #history-complaints-table.visible,
+        #messages-container.visible, #dashboard-container.visible, #gad-history.visible {
+            display: block; 
+        }
+
+        /* Links styles */
+        #dashboard-link, #history-link, #messages-link {
+            color: #0c68b3;
+            cursor: pointer;
+            text-decoration: underline;
+            margin-right: 10px;
+            font-size: 1.2em;
         }
     </style>
 </head>
 <body>
-    <h1>Administration and Finance</h1>
 
-    <p id="status-link" onclick="toggleStatusVisibility()">Status</p>
-    <p id="history-link" onclick="toggleHistoryVisibility()">History</p>
+    <h1>Bipsumbungan</h1>
 
-    <!-- Buttons for Reports and Complaints -->
-    <div id="buttons-container">
-        <button onclick="showReports()">Reports</button>
-        <button onclick="showComplaints()">Complaints</button>
+    <div id="sidebar2">
+        <h2>Welcome to GAD Office</h2>
+        <a href="#" id="dashboard-link" onclick="loadDashboard()">Dashboard</a>
+        <button onclick="showSection('reports-table', 'complaints-table')">Report</button>
+        <button onclick="showSection('complaints-table', 'reports-table')">Complaint</button>
+        <p id="history-link" onclick="toggleHistory()">Statistics</p>
+        <p id="messages-link" onclick="toggleMessagesVisibility()">Messages</p>
     </div>
 
-    <!-- History Buttons for Reports and Complaints -->
-    <div id="history-buttons-container">
-        <button onclick="showHistoryReports()">Solved Reports</button>
-        <button onclick="showHistoryComplaints()">Solved Complaints</button>
-    </div>
+    <div id="content2">
+        <!-- History Buttons for Reports and Complaints -->
+        <div id="history-buttons-container">
+            <button onclick="showSection('history-reports-table', 'history-complaints-table')">Solved Reports</button>
+            <button onclick="showSection('history-complaints-table', 'history-reports-table')">Solved Complaints</button>
+        </div>
 
-    <!-- Table for Reports -->
-    <div id="reports-table">
-        <h2>Reports</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Office</th>
-                    <th>Type</th>
-                    <th>Description (PDF)</th>
-                    <th>Status</th>
-                    <th>Issue Date</th>
-                    <th>Update Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody id="reports-body">
-                {% for report in reports %}
-                {% if report.status != "Solved" %}
-                <tr data-id="{{ report.id }}">
-                    <td>{{ report.office }}</td>
-                    <td>{{ report.type }}</td>
-                    <td>
-                        {% if report.pdf_file %}
-                            <a href="{{ report.pdf_file.url }}" target="_blank">Download PDF</a>
-                        {% else %}
-                            No PDF available
-                        {% endif %}
-                    </td>
-                    <td class="status {% if report.status == 'Pending' %}status-pending{% elif report.status == 'In Progress' %}status-in-progress{% elif report.status == 'Solved' %}status-solved{% endif %}">
-                        {{ report.status }}
-                    </td>
-                    <td>{{ report.issue_date|date:"F j, Y" }}</td>
-                    <td>
-                        <form action="{% url 'update_status' report.id %}" method="post">
-                            {% csrf_token %}
-                            <select name="status">
-                                <option value="Pending" {% if report.status == "Pending" %}selected{% endif %}>Pending</option>
-                                <option value="In Progress" {% if report.status == "In Progress" %}selected{% endif %}>In Progress</option>
-                                <option value="Solved" {% if report.status == "Solved" %}selected{% endif %}>Solved</option>
-                            </select>
-                            <input type="hidden" name="redirect_url" value="{% url 'admin_finance_page' %}">
-                            <button type="submit">Update</button>
-                        </form>
-                    </td>
-                </tr>
-                {% endif %}
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+        <div id="dashboard-content"></div>
+        <div id="gad-history">
+            {% include 'offices/gad_history.html' %}
+        </div>
 
-    <!-- Table for Complaints -->
-    <div id="complaints-table">
-        <h2>Complaints</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Office</th>
-                    <th>Type</th>
-                    <th>Description (PDF)</th>
-                    <th>Status</th>
-                    <th>Issue Date</th>
-                    <th>Update Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody id="complaints-body">
-                {% for complaint in complaints %}
-                {% if complaint.status != "Solved" %}
-                <tr data-id="{{ complaint.id }}">
-                    <td>{{ complaint.office }}</td>
-                    <td>{{ complaint.type }}</td>
-                    <td>
-                        {% if complaint.pdf_file %}
-                            <a href="{{ complaint.pdf_file.url }}" target="_blank">Download PDF</a>
-                        {% else %}
-                            No PDF available
-                        {% endif %}
-                    </td>
-                    <td class="status {% if complaint.status == 'Pending' %}status-pending{% elif complaint.status == 'In Progress' %}status-in-progress{% elif complaint.status == 'Solved' %}status-solved{% endif %}">
-                        {{ complaint.status }}
-                    </td>
-                    <td>{{ complaint.issue_date|date:"F j, Y" }}</td>
-                    <td>
-                        <form action="{% url 'update_status' complaint.id %}" method="post">
-                            {% csrf_token %}
-                            <select name="status">
-                                <option value="Pending" {% if complaint.status == "Pending" %}selected{% endif %}>Pending</option>
-                                <option value="In Progress" {% if complaint.status == "In Progress" %}selected{% endif %}>In Progress</option>
-                                <option value="Solved" {% if complaint.status == "Solved" %}selected{% endif %}>Solved</option>
-                            </select>
-                            <input type="hidden" name="redirect_url" value="{% url 'admin_finance_page' %}">
-                            <button type="submit">Update</button>
-                        </form>
-                    </td>
-                </tr>
-                {% endif %}
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-
-    <!-- History Tables -->
-    <div id="history-reports-table">
-        <h2>Solved Reports</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Office</th>
-                    <th>Type</th>
-                    <th>Description (PDF)</th>
-                    <th>Status</th>
-                    <th>Issue Date</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody id="history-reports-body">
-                {% for report in reports %}
-                {% if report.status == "Solved" %}
-                <tr data-id="{{ report.id }}">
-                    <td>{{ report.office }}</td>
-                    <td>{{ report.type }}</td>
-                    <td>
-                        {% if report.pdf_file %}
-                            <a href="{{ report.pdf_file.url }}" target="_blank">Download PDF</a>
-                        {% else %}
-                            No PDF available
-                        {% endif %}
-                    </td>
-                    <td class="status status-solved">{{ report.status }}</td>
-                    <td>{{ report.issue_date|date:"F j, Y" }}</td>
-                </tr>
-                {% endif %}
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-
-    <div id="history-complaints-table">
-        <h2>Solved Complaints</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Office</th>
-                    <th>Type</th>
-                    <th>Description (PDF)</th>
-                    <th>Status</th>
-                    <th>Issue Date</th>
-                    
-                </tr>
-            </thead>
-            <tbody id="history-complaints-body">
-                {% for complaint in complaints %}
-                {% if complaint.status == "Solved" %}
-                <tr data-id="{{ complaint.id }}">
-                    <td>{{ complaint.office }}</td>
-                    <td>{{ complaint.type }}</td>
-                    <td>
-                        {% if complaint.pdf_file %}
-                            <a href="{{ complaint.pdf_file.url }}" target="_blank">Download PDF</a>
-                        {% else %}
-                            No PDF available
-                        {% endif %}
-                    </td>
-                    <td class="status status-solved">{{ complaint.status }}</td>
-                    <td>{{ complaint.issue_date|date:"F j, Y" }}</td>
-                </tr>
-                {% endif %}
-                {% endfor %}
-            </tbody>
-        </table>
+        {% include 'offices/gad_status.html' %}
+        {% include 'offices/gad_message.html' %}
     </div>
 
     <script>
-        let isStatusVisible = false;
-        let isHistoryVisible = false;
+        function loadDashboard() {
+            const dashboardContent = document.getElementById('dashboard-content');
+            fetch("{% url 'dashboard_page' %}") 
+                .then(response => response.text())
+                .then(html => {
+                    dashboardContent.innerHTML = html;
+                    dashboardContent.style.display = 'block';
+                    hideOtherSections();
+                })
+                .catch(error => console.error('Error loading dashboard:', error));
+        }
 
-        function toggleStatusVisibility() {
-            isStatusVisible = !isStatusVisible;
-            document.getElementById('buttons-container').style.display = isStatusVisible ? 'block' : 'none';
+        function hideOtherSections() {
             document.getElementById('reports-table').style.display = 'none';
             document.getElementById('complaints-table').style.display = 'none';
-        }
-
-        function toggleHistoryVisibility() {
-            isHistoryVisible = !isHistoryVisible;
-            document.getElementById('history-buttons-container').style.display = isHistoryVisible ? 'block' : 'none';
+            document.getElementById('history-buttons-container').style.display = 'none';
             document.getElementById('history-reports-table').style.display = 'none';
             document.getElementById('history-complaints-table').style.display = 'none';
+            document.getElementById('messages-container').style.display = 'none';
+            document.getElementById('gad-history').style.display = 'none';
         }
 
-        function showReports() {
-            document.getElementById('reports-table').style.display = 'block';
-            document.getElementById('complaints-table').style.display = 'none';
+        function toggleVisibility(containerId, ...otherIds) {
+            const container = document.getElementById(containerId);
+            container.style.display = container.style.display === 'none' ? 'block' : 'none';
+
+            otherIds.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.style.display = 'none';
+                }
+            });
         }
 
-        function showComplaints() {
-            document.getElementById('complaints-table').style.display = 'block';
+        function showSection(visibleId, hiddenId) {
+            document.getElementById(visibleId).style.display = 'block';
+            document.getElementById(hiddenId).style.display = 'none';
+        }
+
+        function toggleMessagesVisibility() {
+            const messagesContainer = document.getElementById('messages-container');
+            messagesContainer.style.display = messagesContainer.style.display === 'none' ? 'block' : 'none';
+
+            // Hide other sections
+            document.getElementById('dashboard-container').style.display = 'none';
             document.getElementById('reports-table').style.display = 'none';
-        }
-
-        function showHistoryReports() {
-            document.getElementById('history-reports-table').style.display = 'block';
-            document.getElementById('history-complaints-table').style.display = 'none';
-        }
-
-        function showHistoryComplaints() {
-            document.getElementById('history-complaints-table').style.display = 'block';
+            document.getElementById('complaints-table').style.display = 'none';
+            document.getElementById('history-buttons-container').style.display = 'none';
             document.getElementById('history-reports-table').style.display = 'none';
+            document.getElementById('history-complaints-table').style.display = 'none';
+            document.getElementById('gad-history').style.display = 'none';
+        }
+
+        function toggleHistory() {
+            const historyContainer = document.getElementById('gad-history');
+            historyContainer.style.display = historyContainer.style.display === 'none' ? 'block' : 'none';
+
+            // Hide other sections
+            document.getElementById('dashboard-container').style.display = 'none';
+            document.getElementById('reports-table').style.display = 'none';
+            document.getElementById('complaints-table').style.display = 'none';
+            document.getElementById('history-buttons-container').style.display = 'none';
+            document.getElementById('history-reports-table').style.display = 'none';
+            document.getElementById('history-complaints-table').style.display = 'none';
+            document.getElementById('messages-container').style.display = 'none';
         }
     </script>
 </body>

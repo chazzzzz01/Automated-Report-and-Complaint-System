@@ -3,210 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatbox</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-        .chat-container {
-            width: 100%;
-            max-width: 900px;
-            margin: 50px auto;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
+    <title>Chat Room</title>
+    <script>
+        let office = 'gad'; // Default office
+        const username = "{{ request.user.username }}";
+        let chatSocket;
+        let typingTimeout;
+
+        function connectToChat() {
+            // Close any existing connection
+            if (chatSocket) {
+                chatSocket.close();
+            }
+
+            // Open a new WebSocket connection for the selected office
+            chatSocket = new WebSocket(
+                'ws://' + window.location.host + '/ws/chat/' + office + '/'
+            );
+
+            // Receive messages and display in the chat log
+            chatSocket.onmessage = function(e) {
+                const data = JSON.parse(e.data);
+                // Check if it's a message or typing indication
+                if (data.message) {
+                    document.querySelector('#chat-log').value += (data.user + ': ' + data.message + '\n');
+                } else if (data.typing) {
+                    document.querySelector('#typing-indicator').textContent = data.user + ' is typing...';
+                }
+            };
+
+            chatSocket.onclose = function(e) {
+                console.error('Chat socket closed unexpectedly');
+            };
         }
 
-        .office-list {
-            width: 25%;
-            float: left;
-            background-color: #2d3e50;
-            color: #fff;
-            height: 100%;
-            min-height: 400px;
+        // Handle office selection
+        function selectOffice() {
+            const officeDropdown = document.querySelector('#office-selection');
+            office = officeDropdown.value;
+            document.querySelector('#selected-office').textContent = office;
+            connectToChat(); // Reconnect to the selected office
         }
 
-        .office-list h3 {
-            background-color: #23303e;
-            padding: 15px;
-            margin: 0;
-            font-size: 18px;
-        }
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // Connect to the initial office chat
+            connectToChat();
 
-        .office-item {
-            padding: 15px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
+            document.querySelector('#chat-message-input').focus();
 
-        .office-item:hover {
-            background-color: #1f2c3a;
-        }
+            // Send message when enter key is pressed
+            document.querySelector('#chat-message-input').onkeyup = function(e) {
+                // Indicate typing when user is typing
+                if (typingTimeout) {
+                    clearTimeout(typingTimeout);
+                }
+                chatSocket.send(JSON.stringify({ 'typing': true, 'user': username }));
 
-        .office-item a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: bold;
-        }
+                typingTimeout = setTimeout(() => {
+                    chatSocket.send(JSON.stringify({ 'typing': false, 'user': username }));
+                    document.querySelector('#typing-indicator').textContent = ''; // Clear typing indicator
+                }, 1000); // Send typing indication for 1 second after typing stops
 
-        .chat-area {
-            width: 75%;
-            float: left;
-            padding: 20px;
-            box-sizing: border-box;
-            background-color: #f9f9f9;
-            min-height: 400px;
-            display: none; /* Initially hidden */
-        }
+                if (e.keyCode === 13) {
+                    document.querySelector('#chat-message-submit').click();
+                }
+            };
 
-        .chat-area.active {
-            display: block; /* Show the selected chatbox */
-        }
-
-        .chat-area h2 {
-            margin-top: 0;
-            font-size: 22px;
-            color: #333;
-        }
-
-        .chat-box {
-            height: 250px;
-            border: 1px solid #ddd;
-            background-color: #fff;
-            border-radius: 5px;
-            padding: 15px;
-            overflow-y: scroll;
-        }
-
-        .chat-message {
-            margin: 10px 0;
-            padding: 5px 10px;
-            border-radius: 10px;
-            background-color: #f1f1f1;
-            display: inline-block;
-        }
-
-        .chat-input {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        .send-btn {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            cursor: pointer;
-            border-radius: 4px;
-            margin-top: 10px;
-        }
-
-        .send-btn:hover {
-            background-color: #45a049;
-        }
-
-        .clearfix::after {
-            content: "";
-            clear: both;
-            display: table;
-        }
-
-    </style>
+            // Send message on button click
+            document.querySelector('#chat-message-submit').onclick = function(e) {
+                const messageInputDom = document.querySelector('#chat-message-input');
+                const message = messageInputDom.value;
+                if (message.trim() !== '') {
+                    chatSocket.send(JSON.stringify({
+                        'message': message,
+                        'user': username // Attach the username to the message
+                    }));
+                    messageInputDom.value = ''; // Clear the input field after sending
+                    document.querySelector('#typing-indicator').textContent = ''; // Clear typing indicator
+                }
+            };
+        });
+    </script>
 </head>
 <body>
+    <h2>Chat Room: <span id="selected-office">GAD Office</span></h2>
 
-<div class="chat-container clearfix">
-    <!-- Office List -->
-    <div class="office-list">
-        <h3>Offices</h3>
-        <div class="office-item"><a href="#" data-office="gad">GAD Office</a></div>
-        <div class="office-item"><a href="#" data-office="admin">Admin and Finance</a></div>
-        <div class="office-item"><a href="#" data-office="student">Student Affairs</a></div>
-        <div class="office-item"><a href="#" data-office="academic">Academic Affairs</a></div>
-    </div>
+    <!-- Dropdown for selecting the office -->
+    <label for="office-selection">Select Office:</label>
+    <select id="office-selection" onchange="selectOffice()">
+        <option value="gad" selected>GAD Office</option>
+        <option value="admin_finance">VP Administration and Finance</option>
+        <option value="academic_affairs">VP Academic Affairs</option>
+        <option value="students_external">VP Students and External Affairs</option>
+    </select>
 
-    <!-- Chat Area -->
-    <div class="chat-area" id="gad">
-        <h2>GAD Office</h2>
-        <div class="chat-box" id="gad-chat-box"></div>
-        <input type="text" class="chat-input" id="gad-message" placeholder="Type your message here...">
-        <button class="send-btn" onclick="sendMessage('gad')">Send</button>
-    </div>
+    <br><br>
 
-    <div class="chat-area" id="admin">
-        <h2>Admin and Finance</h2>
-        <div class="chat-box" id="admin-chat-box"></div>
-        <input type="text" class="chat-input" id="admin-message" placeholder="Type your message here...">
-        <button class="send-btn" onclick="sendMessage('admin')">Send</button>
-    </div>
+    <!-- Typing indicator -->
+    <div id="typing-indicator" style="font-style: italic; color: gray;"></div>
 
-    <div class="chat-area" id="student">
-        <h2>Student Affairs</h2>
-        <div class="chat-box" id="student-chat-box"></div>
-        <input type="text" class="chat-input" id="student-message" placeholder="Type your message here...">
-        <button class="send-btn" onclick="sendMessage('student')">Send</button>
-    </div>
+    <!-- Chat log textarea -->
+    <textarea id="chat-log" cols="100" rows="20" readonly></textarea><br>
 
-    <div class="chat-area" id="academic">
-        <h2>Academic Affairs</h2>
-        <div class="chat-box" id="academic-chat-box"></div>
-        <input type="text" class="chat-input" id="academic-message" placeholder="Type your message here...">
-        <button class="send-btn" onclick="sendMessage('academic')">Send</button>
-    </div>
-</div>
+    <!-- Message input -->
+    <input id="chat-message-input" type="text" size="100"><br>
 
-<script>
-    let chatSockets = {};
-
-    document.querySelectorAll('.office-item a').forEach(link => {
-        link.addEventListener('click', function(event) {
-            event.preventDefault();
-
-            // Hide all chat areas
-            document.querySelectorAll('.chat-area').forEach(chat => {
-                chat.classList.remove('active');
-            });
-
-            // Show the selected chat area
-            const office = this.getAttribute('data-office');
-            document.getElementById(office).classList.add('active');
-
-            if (!chatSockets[office]) {
-                let socket = new WebSocket('ws://' + window.location.host + '/ws/chat/' + office + '/');
-
-                socket.onmessage = function(e) {
-                    let data = JSON.parse(e.data);
-                    let message = data['message'];
-
-                    let chatBox = document.getElementById(office + '-chat-box');
-                    let newMessage = document.createElement('div');
-                    newMessage.classList.add('chat-message');
-                    newMessage.innerText = message;
-                    chatBox.appendChild(newMessage);
-                };
-
-                chatSockets[office] = socket;
-            }
-        });
-    });
-
-    function sendMessage(office) {
-        let messageInput = document.getElementById(office + '-message');
-        let message = messageInput.value;
-        chatSockets[office].send(JSON.stringify({
-            'message': message
-        }));
-        messageInput.value = '';
-    }
-</script>
-
+    <!-- Submit button -->
+    <button id="chat-message-submit">Send</button>
 </body>
 </html>

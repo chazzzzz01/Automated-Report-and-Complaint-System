@@ -16,8 +16,8 @@
             margin: 0;
             padding: 20px;
             color: #fff;
-            background: linear-gradient(180deg, #160575, #0c68b3);
-            text-align: center;
+            background: linear-gradient(180deg, #a40b0b, #660404);/* Red gradient */
+           text-align: center;
             font-size: 2em;
             font-weight: bold;
             cursor: pointer;
@@ -26,19 +26,17 @@
         /* Sidebar Styles */
         #sidebar2 {
             width: 200px;
-            background: linear-gradient(180deg, #e4e4e4, #abd1ef);
+            background-color: rgb(160, 0, 0); 
             padding: 20px;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
             position: fixed;
             height: 100vh;
-            transition: width 0.3s;
             overflow-y: auto; /* Allow scrolling if needed */
         }
         #sidebar2 a, #sidebar2 p, #sidebar2 button {
             display: block;
             padding: 10px;
             font-size: 1.2em;
-            color: #333;
+            color: #ffffff; /* Red text */
             text-decoration: none;
             margin-bottom: 15px;
             cursor: pointer;
@@ -47,14 +45,13 @@
             background: none;
         }
         #sidebar2 a:hover, #sidebar2 p:hover, #sidebar2 button:hover {
-            background-color: #f0f2f5;
+            background-color: #301e1e; /* Light red hover */
         }
 
         /* Main Content Area */
         #content2 {
             margin-left: 220px; /* Adjusted to accommodate sidebar */
             padding: 20px;
-            transition: margin-left 0.3s;
         }
 
         /* Button Container */
@@ -64,14 +61,14 @@
             font-size: 1em;
             margin-right: 10px;
             border: none;
-            background-color: #0c68b3;
+            background-color: #b30000; /* Red buttons */
             color: white;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
         #buttons-container button:hover, 
         #history-buttons-container button:hover {
-            background-color: #094a87;
+            background-color: #800000; /* Darker red on hover */
         }
 
         /* Table Styles */
@@ -88,8 +85,8 @@
             text-align: left;
         }
         th {
-            background-color: #f2f2f2;
-            color: #333;
+            background-color: #ffdddd; /* Light red table header */
+            color: #b30000; /* Red text */
         }
 
         /* Status Indicators */
@@ -167,7 +164,7 @@
 
         /* Links styles */
         #dashboard-link, #history-link, #messages-link {
-            color: #0c68b3;
+            color: #b30000; /* Red link color */
             cursor: pointer;
             text-decoration: underline;
             margin-right: 10px;
@@ -181,9 +178,9 @@
 
     <div id="sidebar2">
         <h2>Welcome to GAD Office</h2>
-        <a href="#" id="dashboard-link" onclick="loadDashboard()">Dashboard</a>
-        <button onclick="showSection('reports-table', 'complaints-table')">Report</button>
-        <button onclick="showSection('complaints-table', 'reports-table')">Complaint</button>
+        <a href="#" id="dashboard-link" onclick="toggleDashboard()">Dashboard</a>
+        <button onclick="toggleSection('reports-table')">Report</button>
+        <button onclick="toggleSection('complaints-table')">Complaint</button>
         <p id="history-link" onclick="toggleHistory()">Statistics</p>
         <p id="messages-link" onclick="toggleMessagesVisibility()">Messages</p>
     </div>
@@ -191,8 +188,8 @@
     <div id="content2">
         <!-- History Buttons for Reports and Complaints -->
         <div id="history-buttons-container">
-            <button onclick="showSection('history-reports-table', 'history-complaints-table')">Solved Reports</button>
-            <button onclick="showSection('history-complaints-table', 'history-reports-table')">Solved Complaints</button>
+            <button onclick="toggleSection('history-reports-table')">Solved Reports</button>
+            <button onclick="toggleSection('history-complaints-table')">Solved Complaints</button>
         </div>
 
         <div id="dashboard-content"></div>
@@ -201,75 +198,62 @@
         </div>
 
         {% include 'offices/gad_status.html' %}
-        {% include 'offices/gad_message.html' %}
+        <div id="messages-container">
+            {% include 'offices/gad_message.html' %}
+        </div>
     </div>
 
     <script>
-        function loadDashboard() {
+        function toggleDashboard() {
             const dashboardContent = document.getElementById('dashboard-content');
-            fetch("{% url 'dashboard_page' %}") 
-                .then(response => response.text())
-                .then(html => {
-                    dashboardContent.innerHTML = html;
-                    dashboardContent.style.display = 'block';
-                    hideOtherSections();
-                })
-                .catch(error => console.error('Error loading dashboard:', error));
+            if (dashboardContent.style.display === 'block') {
+                dashboardContent.style.display = 'none';
+            } else {
+                fetch("{% url 'dashboard_page' %}") 
+                    .then(response => response.text())
+                    .then(html => {
+                        dashboardContent.innerHTML = html;
+                        dashboardContent.style.display = 'block';
+                    })
+                    .catch(error => console.error('Error loading dashboard:', error));
+            }
+            // Only hide other content sections, not the sidebar
+            hideOtherContentSectionsExcept('dashboard-content');
         }
 
-        function hideOtherSections() {
-            document.getElementById('reports-table').style.display = 'none';
-            document.getElementById('complaints-table').style.display = 'none';
-            document.getElementById('history-buttons-container').style.display = 'none';
-            document.getElementById('history-reports-table').style.display = 'none';
-            document.getElementById('history-complaints-table').style.display = 'none';
-            document.getElementById('messages-container').style.display = 'none';
-            document.getElementById('gad-history').style.display = 'none';
-        }
-
-        function toggleVisibility(containerId, ...otherIds) {
-            const container = document.getElementById(containerId);
-            container.style.display = container.style.display === 'none' ? 'block' : 'none';
-
-            otherIds.forEach(id => {
-                const element = document.getElementById(id);
-                if (element) {
-                    element.style.display = 'none';
+        function hideOtherContentSectionsExcept(visibleId) {
+            const sections = [
+                'reports-table', 'complaints-table', 
+                'history-buttons-container', 'history-reports-table', 
+                'history-complaints-table', 'messages-container', 
+                'gad-history'
+            ];
+            sections.forEach(id => {
+                if (id !== visibleId) {
+                    document.getElementById(id).style.display = 'none';
                 }
             });
         }
 
-        function showSection(visibleId, hiddenId) {
-            document.getElementById(visibleId).style.display = 'block';
-            document.getElementById(hiddenId).style.display = 'none';
+        function toggleSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section.style.display === 'block') {
+                section.style.display = 'none';
+            } else {
+                section.style.display = 'block';
+            }
+            hideOtherContentSectionsExcept(sectionId);
         }
 
         function toggleMessagesVisibility() {
             const messagesContainer = document.getElementById('messages-container');
             messagesContainer.style.display = messagesContainer.style.display === 'none' ? 'block' : 'none';
-
-            // Hide other sections
-            document.getElementById('dashboard-container').style.display = 'none';
-            document.getElementById('reports-table').style.display = 'none';
-            document.getElementById('complaints-table').style.display = 'none';
-            document.getElementById('history-buttons-container').style.display = 'none';
-            document.getElementById('history-reports-table').style.display = 'none';
-            document.getElementById('history-complaints-table').style.display = 'none';
-            document.getElementById('gad-history').style.display = 'none';
+            hideOtherContentSectionsExcept('messages-container');
         }
 
         function toggleHistory() {
             const historyContainer = document.getElementById('gad-history');
             historyContainer.style.display = historyContainer.style.display === 'none' ? 'block' : 'none';
-
-            // Hide other sections
-            document.getElementById('dashboard-container').style.display = 'none';
-            document.getElementById('reports-table').style.display = 'none';
-            document.getElementById('complaints-table').style.display = 'none';
-            document.getElementById('history-buttons-container').style.display = 'none';
-            document.getElementById('history-reports-table').style.display = 'none';
-            document.getElementById('history-complaints-table').style.display = 'none';
-            document.getElementById('messages-container').style.display = 'none';
         }
     </script>
 </body>

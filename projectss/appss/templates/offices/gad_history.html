@@ -5,122 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reports and Complaints Graphs (Counts)</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
-    <h2>Solved Reports </h2>
-    <canvas id="solvedReportsChart" width="400" height="200"></canvas>
+    <h2>Solved Reports</h2>
+    <img src="data:image/png;base64,{{ report_image }}" alt="Solved Reports Graph" width="800">
 
-    <h2>Solved Complaints </h2>
-    <canvas id="solvedComplaintsChart" width="400" height="200"></canvas>
+    <h2>Solved Complaints</h2>
+    <img src="data:image/png;base64,{{ complaint_image }}" alt="Solved Complaints Graph" width="800">
 
-    <script>
- // Data for solved reports
-const reports = [];
-{% for report in reports %}
-    {% if report.status == "Solved" %}
-        reports.push({
-            office: "{{ report.office|escapejs }}",
-            issueDate: "{{ report.issue_date|date:'Y-m-d' }}",
-            type: "{{ report.type|escapejs }}"
-        });
-    {% endif %}
-{% endfor %}
-
-// Data for solved complaints
-const complaints = [];
-{% for complaint in complaints %}
-    {% if complaint.status == "Solved" %}
-        complaints.push({
-            office: "{{ complaint.office|escapejs }}",
-            issueDate: "{{ complaint.issue_date|date:'Y-m-d' }}",
-            type: "{{ complaint.type|escapejs }}"
-        });
-    {% endif %}
-{% endfor %}
-
-
-        // Function to count occurrences for chart data
-        function getCountData(data, labelKey) {
-            const labels = [...new Set(data.map(item => item[labelKey]))]; // Get unique labels (like office names)
-            const dataset = labels.map(label => data.filter(item => item[labelKey] === label).length); // Count occurrences for each office
-
-            return { labels, dataset };
-        }
-
-        // Chart for solved reports (Counts by Office)
-        const reportData = getCountData(reports, 'office');
-        const solvedReportsCtx = document.getElementById('solvedReportsChart').getContext('2d');
-        new Chart(solvedReportsCtx, {
-            type: 'bar',
-            data: {
-                labels: reportData.labels,
-                datasets: [{
-                    label: '# of Solved Reports',
-                    data: reportData.dataset,
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            precision: 0 // Ensure whole number counts on the y-axis
-                        }
-                    }
-                },
-                plugins: {
-                    tooltip: {
-                        callbacks: {
-                            label: function(tooltipItem) {
-                                return 'Solved Reports: ' + tooltipItem.raw; // Show count in tooltip
-                            }
-                        }
-                    }
-                }
-            }
-        });
-
-        // Chart for solved complaints (Counts by Office)
-        const complaintData = getCountData(complaints, 'office');
-        const solvedComplaintsCtx = document.getElementById('solvedComplaintsChart').getContext('2d');
-        new Chart(solvedComplaintsCtx, {
-            type: 'bar',
-            data: {
-                labels: complaintData.labels,
-                datasets: [{
-                    label: '# of Solved Complaints',
-                    data: complaintData.dataset,
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            precision: 0 // Ensure whole number counts on the y-axis
-                        }
-                    }
-                },
-                plugins: {
-                    tooltip: {
-                        callbacks: {
-                            label: function(tooltipItem) {
-                                return 'Solved Complaints: ' + tooltipItem.raw; // Show count in tooltip
-                            }
-                        }
-                    }
-                }
-            }
-        });
-    </script>
+    <h3>Schools Key</h3>
+    <ul>
+        {% for key, value in school_mapping.items %}
+            <li><strong>{{ key }}</strong>: {{ value }}</li>
+        {% endfor %}
+    </ul>
 </body>
 
 </html>
+

@@ -18,7 +18,9 @@ class InformantRegistrationForm(forms.ModelForm):
         ('faculty', 'Faculty'),
     ]
     
+    username = forms.CharField(max_length=150)
     role = forms.ChoiceField(choices=ROLE_CHOICES, widget=forms.RadioSelect)
+    password = forms.CharField(widget=forms.PasswordInput)
 
     class Meta:
         model = Informant
@@ -29,15 +31,3 @@ class InformantRegistrationForm(forms.ModelForm):
         self.fields['username'].widget.attrs.update({'placeholder': 'Username'})
         self.fields['email'].widget.attrs.update({'placeholder': 'Email Address'})
         self.fields['contact_number'].widget.attrs.update({'placeholder': 'Contact Number'})
-
-
-
-
-
-
-
-
-
-
-
-

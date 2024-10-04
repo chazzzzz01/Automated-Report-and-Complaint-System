@@ -4,203 +4,76 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Informant</title>
-    <style>
-        /* Reset body and html margins and paddings */
-        body, html {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            height: 100%;
-            background: linear-gradient(135deg, #fafeff, #f0f4f9); /* Gradient background */
-        }
-
-        /* Sidebar */
-        .sidebar {
-            position: fixed;
-            top: 14%;
-            left: 0;
-            width: 250px;
-            height: 100%;
-            background: linear-gradient(135deg, #004d79, #001f3f); /* Dark gradient for sidebar */
-            padding-top: 60px;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-            transition: width 0.3s ease;
-        }
-
-        .sidebar a {
-            display: block;
-            padding: 15px;
-            color: white;
-            text-decoration: none;
-            font-size: 18px;
-            transition: background-color 0.3s ease;
-        }
-
-        .sidebar a:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-
-        /* Header */
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(135deg, #001f3f, #004d79); /* Gradient for header */
-            color: white;
-            padding: 30px;
-            font-size: 35px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            z-index: 1000;
-        }
-
-        .status-pending { background-color: red; color: white; }
-        .status-in-progress { background-color: yellow; color: black; }
-        .status-solved { background-color: green; color: white; }
-
-        .header h1 {
-            margin: 0;
-            font-size: 24px;
-        }
-
-        /* Main content area */
-        .main-content {
-            margin-left: 250px;
-            padding: 80px 20px;
-            color: white;
-        }
-
-        .section {
-            display: none;
-        }
-
-        .section.visible {
-            display: block;
-        }
-
-        /* Table styles */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            color: #333; /* Text color for table */
-        }
-
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #f2f2f2;
-            color: black;
-        }
-
-        /* Responsive design for smaller screens */
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 200px;
-            }
-
-            .main-content {
-                margin-left: 200px;
-            }
-
-            .header h1 {
-                font-size: 20px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .sidebar {
-                width: 100px;
-            }
-
-            .header {
-                padding: 8px;
-            }
-
-            .header h1 {
-                font-size: 18px;
-            }
-
-            .main-content {
-                margin-left: 100px;
-            }
-
-            .sidebar a {
-                font-size: 14px;
-                padding: 10px;
-            }
-        }
-    </style>
-    <!-- Include jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script> <!-- Import Tailwind CSS -->
 </head>
-<body>
+<body class="bg-white font-sans">
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <h2>Welcome,</h2>
-        <a href="{% url 'profile' %}">Profile</a>
-        <a href="#" onclick="toggleSection('complaints-section')">Lodge Report or Complaint</a>
-        <a href="#" onclick="toggleSection('status-section')">Status</a>
-        <a href="#" onclick="toggleSection('history-section')">History</a>
-        <a href="#" onclick="toggleSection('messages-section')">Messages</a>
-    </div>
+    <!-- Header with Hamburger Menu -->
+    <header class="fixed top-0 left-0 right-0 bg-red-800 text-white p-4 shadow-md flex items-center justify-between z-50">
+        <h1 class="text-2xl font-bold mx-auto">BiPSUmbongan</h1> <!-- Center the header text -->
+        <!-- Container for the menu -->
+        <div class="relative">
+            <!-- Hamburger Icon for Mobile -->
+            <button id="menu-toggle" class="lg:hidden text-white focus:outline-none w-10 h-10">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+        </div>
+    </header>
 
-    <!-- Header -->
-    <div class="header">
-        <h1>BiPSUmbungan</h1>
-    </div>
-
-    <!-- Main content -->
-    <div class="main-content">
-        <!-- Complaint form -->
-        <div id="complaints-section" class="section visible">
+    <!-- Sidebar (fixed on large screens) -->
+    <aside id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-red-800 text-white transform -translate-x-full lg:translate-x-0 lg:fixed lg:left-0 lg:top-0 lg:h-full transition-transform duration-300 z-40">
+        <!-- Adjusted content with padding-top to move below header -->
+        <div class="pt-20"> <!-- Add padding-top of 20 to move below the header -->
+            <h2 class="text-3xl p-6 text-white font-bold text-center">Welcome, {{ request.user.username }}!</h2>
             
+            <!-- Add margin-top to move the links down a little below the Welcome message -->
+            <nav class="mt-6 space-y-9 px-6 text-center"> <!-- Center the links -->
+                <a href="{% url 'profile' %}" class="font-bold text-white block py-2 px-4 rounded hover:bg-red-700">Profile</a>
+                <a href="#" onclick="toggleSection('complaints-section')" class="font-bold text-white block py-2 px-4 rounded hover:bg-red-700">Lodge Report or Complaint</a>
+                <a href="#" onclick="toggleSection('status-section')" class="font-bold text-white block py-2 px-4 rounded hover:bg-red-700">Status</a>
+                <a href="#" onclick="toggleSection('history-section')" class="font-bold text-white block py-2 px-4 rounded hover:bg-red-700">History</a>
+                <a href="#" onclick="toggleSection('messages-section')" class="font-bold text-white block py-2 px-4 rounded hover:bg-red-700">Messages</a>
+            </nav>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="pt-20 lg:ml-64 p-4">
+        <div id="complaints-section" class="section visible">
             {% include 'main/submit_complaint.html' %}
         </div>
-
-        <!-- Status section -->
-        <div id="status-section" class="section">
-            <h2>Status</h2>
-            <!-- Include your status content -->
+        <div id="status-section" class="section hidden">
+            <h2 class="text-2xl font-bold mb-4">Status</h2>
             {% include 'informant/complaint_status.html' %}
         </div>
-
-        <!-- History section -->
-        <div id="history-section" class="section">
-            <h2>History</h2>
-            <!-- Include your history content -->
+        <div id="history-section" class="section hidden">
+            <h2 class="text-2xl font-bold mb-4">History</h2>
             {% include 'informant/complaint_history.html' %}
         </div>
-
-        <!-- Messages section -->
-        <div id="messages-section" class="section">
-            <h2>Messages</h2>
-            <!-- Include your messages content -->
+        <div id="messages-section" class="section hidden">
+            <h2 class="text-2xl font-bold mb-4">Messages</h2>
             {% include 'informant/complaint_message.html' %}
         </div>
-    </div>
+    </main>
 
     <script>
+        // Toggle Sidebar visibility on mobile
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('-translate-x-full');
+        });
+
+        // Toggle Section visibility
         function toggleSection(sectionId) {
             // Hide all sections
-            var sections = document.querySelectorAll('.section');
-            sections.forEach(function(section) {
-                section.classList.remove('visible');
-            });
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => section.classList.add('hidden'));
 
-            // Show the selected section
-            document.getElementById(sectionId).classList.add('visible');
+            // Show selected section
+            document.getElementById(sectionId).classList.remove('hidden');
         }
-
-        
-
     </script>
-
 </body>
 </html>

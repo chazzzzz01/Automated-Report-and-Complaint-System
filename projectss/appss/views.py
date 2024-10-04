@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .forms import InformantRegistrationForm
-from .models import Informant
+from .models import Informant, Complaint
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -15,94 +15,91 @@ from django.contrib.auth.decorators import login_required
 def home(request):
     return render(request,'main/home.html')
 
+
+
+
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from .forms import InformantRegistrationForm
 
-# registration view
 def registration_page(request):
     if request.method == 'POST':
         form = InformantRegistrationForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            return redirect('informant_page')  # redirect to login after successful registration
+            # Save the user and set the password
+            user = form.save(commit=False)
+            password = form.cleaned_data.get('password')  # Use .get to safely access the password
+            if password:
+                user.set_password(password)  # Hash the password
+                user.save()
+
+                # Redirect to the login page after successful registration
+                messages.success(request, 'Registration successful. You can now log in.')
+                return redirect('login')  # Adjust the URL name as needed
+            else:
+                messages.error(request, 'Password not provided.')
+        else:
+            messages.error(request, 'Form is not valid. Please check the information entered.')
     else:
         form = InformantRegistrationForm()
-    
+
     return render(request, 'main/registration.html', {'form': form})
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
-from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import Office
+from django.shortcuts import redirect
 
 def login_view(request):
     if request.method == 'POST':
-        username = request.POST['login_username']
-        password = request.POST['login_password']
-        
+        username = request.POST.get('login_username')
+        password = request.POST.get('login_password')
+
+        # Authenticate the user
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
             login(request, user)
+            messages.success(request, 'Login successful!')
 
-            # Check if the user is associated with an office
-            if hasattr(user, 'office'):
-                office = user.office
-
-                # Redirect based on the office name
-                if office.office_name == 'GAD Office':
+            # Redirect users based on role
+            if user.is_superuser:  # Legal Office (Superuser)
+                return redirect('legal_office_page')
+            elif user.is_staff:  # Office Admins (Staff users)
+                if user.username == 'GADAdmin':
                     return redirect('gad_office_page')
-                elif office.office_name == 'VP Administration and Finance':
+                elif user.username == 'vp_admin_finance':
                     return redirect('admin_finance_page')
-                elif office.office_name == 'VP Academic Affairs':
+                elif user.username == 'vp_academic_affairs':
                     return redirect('academic_affairs_page')
-                elif office.office_name == 'VP Students and External Affairs':
+                elif user.username == 'vp_students_affairs':
                     return redirect('students_affairs_page')
-                else:
-                    messages.error(request, "Office role not recognized")
             else:
-                # Handle other roles such as informant, main admin, etc.
-                if hasattr(user, 'role'):
-                    if user.role == 'informant':
-                        return redirect('informant_page')
-                    elif user.role == 'main_admin':
-                        return redirect('main_admin_page')
-                    elif user.role == 'office_admin':
-                        return redirect('office_admin_page')
-                    else:
-                        messages.error(request, "User role not recognized")
-                else:
-                    messages.error(request, "User role not found")
+                # If the user is an Informant, redirect to their page
+                return redirect('informant_page')
+
         else:
-            messages.error(request, "Invalid credentials")
+            messages.error(request, 'Invalid username or password.')
     
     return render(request, 'main/login.html')
 
 
 
-
+# Profile view
+def profile_view(request):
+    informant = request.user  # Assumes the user is logged in
+    return render(request, 'informant/profile.html', {'informant': informant})
 
 
 
 
 # informant
+@login_required
 def informant_page(request):
     complaints = Complaint.objects.all()
+
 
     return render(request, 'main/informant_page.html', {'complaints': complaints})
 
@@ -131,10 +128,13 @@ def informant_page(request):
 #     return render(request, 'informant/profile.html', {'informant': informant})
 
 
-def profile_view(request):
-    complaints = Complaint.objects.all()
-    return render(request, 'main/profile.html')
-    
+
+
+
+
+
+
+
 def admin_page(request):
     complaints = Complaint.objects.all()
 
@@ -295,6 +295,35 @@ def gad_office_page(request):
 
 
 
+
+
+
+from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
+from .models import Complaint
+
+# View to update the urgency of a complaint
+def update_urgency(request, complaint_id):
+    complaint = get_object_or_404(Complaint, id=complaint_id)
+    if request.method == 'POST':
+        urgency = request.POST.get('urgency')
+        if urgency:
+            complaint.urgency = urgency
+            complaint.save()
+    return redirect(reverse('legal_office_page'))
+
+# Other existing views (update_status, send_complaint, delete_complaint)...
+
+
+
+
+
+
+
+
+
+
+
 # Dashboard
 def dashboard_page(request):
     reports = Complaint.objects.filter(type="report")
@@ -329,10 +358,112 @@ def dashboard_page(request):
 
 
 
+# views.py
+import matplotlib.pyplot as plt
+from django.shortcuts import render
+from io import BytesIO
+import base64
+
+def generate_graphs(request):
+    # Example data, replace with your actual data fetching logic
+    reports = [
+        {'office': 'STCS', 'status': 'Solved'},
+        {'office': 'SCJE', 'status': 'Solved'},
+        {'office': 'SAS', 'status': 'Solved'},
+        {'office': 'SME', 'status': 'Pending'},
+        {'office': 'SOE', 'status': 'Solved'},
+        {'office': 'SNHS', 'status': 'Solved'},
+        {'office': 'LHS', 'status': 'Solved'},
+        {'office': 'STED', 'status': 'Pending'},
+        {'office': 'STCS', 'status': 'Solved'},
+    ]
+
+    complaints = [
+        {'office': 'STCS', 'status': 'Solved'},
+        {'office': 'SCJE', 'status': 'Pending'},
+        {'office': 'SAS', 'status': 'Solved'},
+        {'office': 'SME', 'status': 'Solved'},
+        {'office': 'SOE', 'status': 'Pending'},
+        {'office': 'SNHS', 'status': 'Solved'},
+    ]
+
+    # Define the school mapping
+    school_mapping = {
+        'STCS': 'School of Technology and Computer Science',
+        'SCJE': 'School of Criminal Justice and Education',
+        'SAS': 'School of Arts and Sciences',
+        'SME': 'School of Management and Entrepreneurship',
+        'SOE': 'School of Engineering',
+        'SNHS': 'School of Nursing and Health Sciences',
+        'LHS': 'Liberal Arts and Humanities',
+        'STED': 'School of Teacher Education'
+    }
+
+    # Filter solved reports
+    solved_reports = [report for report in reports if report['status'] == "Solved"]
+    solved_complaints = [complaint for complaint in complaints if complaint['status'] == "Solved"]
+
+    # Count occurrences for solved reports by office
+    report_offices = [report['office'] for report in solved_reports]
+    report_counts = [report_offices.count(office) for office in set(report_offices)]
+
+    # Count occurrences for solved complaints by office
+    complaint_offices = [complaint['office'] for complaint in solved_complaints]
+    complaint_counts = [complaint_offices.count(office) for office in set(complaint_offices)]
+
+    # Generate the reports graph
+    report_labels = list(set(report_offices))
+    plt.figure(figsize=(10, 5))
+    plt.bar(report_labels, report_counts, color='c', alpha=0.6)
+    plt.title('Solved Reports by Office')
+    plt.xlabel('Offices')
+    plt.ylabel('Number of Solved Reports')
+    plt.xticks(rotation=45)
+
+    # Save to a BytesIO object
+    buffer = BytesIO()
+    plt.savefig(buffer, format='png')
+    plt.close()
+    buffer.seek(0)
+    report_image = base64.b64encode(buffer.read()).decode('utf-8')
+
+    # Generate the complaints graph
+    complaint_labels = list(set(complaint_offices))
+    plt.figure(figsize=(10, 5))
+    plt.bar(complaint_labels, complaint_counts, color='m', alpha=0.6)
+    plt.title('Solved Complaints by Office')
+    plt.xlabel('Offices')
+    plt.ylabel('Number of Solved Complaints')
+    plt.xticks(rotation=45)
+
+    # Save to a BytesIO object
+    buffer = BytesIO()
+    plt.savefig(buffer, format='png')
+    plt.close()
+    complaint_image = base64.b64encode(buffer.read()).decode('utf-8')
+
+    return render(request, 'report_complaint_graphs.html', {
+        'report_image': report_image,
+        'complaint_image': complaint_image,
+        'report_labels': report_labels,
+        'complaint_labels': complaint_labels,
+        'school_mapping': school_mapping,
+    })
 
 
 
 
+
+# appss/views.py
+
+from django.shortcuts import render
+from .models import Office  # Assuming you have an Office model
+
+def chat_room(request):
+    offices = Office.objects.all()  # Fetch all office instances
+    return render(request, 'appss/complaint_message.html', {
+        'offices': offices,
+    })
 
 
 
