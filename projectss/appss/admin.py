@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
-from .models import Complaint, Informant, Message, Office
+from .models import Complaint, Informant, Office
 
 # Customizing the UserAdmin to restrict certain users from admin access
 class CustomUserAdmin(UserAdmin):
@@ -38,12 +38,12 @@ class InformantAdmin(admin.ModelAdmin):
 
 admin.site.register(Informant, InformantAdmin)
 
-# Register Message model with admin configuration
-class MessageAdmin(admin.ModelAdmin):
-    list_display = ('sender', 'receiver', 'content', 'timestamp')
-    list_filter = ('timestamp',)
+# # Register Message model with admin configuration
+# class MessageAdmin(admin.ModelAdmin):
+#     list_display = ('sender', 'receiver', 'content', 'timestamp')
+#     list_filter = ('timestamp',)
 
-admin.site.register(Message, MessageAdmin)
+# admin.site.register(Message, MessageAdmin)
 
 # Register Office model with admin configuration
 class OfficeAdmin(admin.ModelAdmin):

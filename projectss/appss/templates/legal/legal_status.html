@@ -11,9 +11,10 @@
     <!-- Reports Table -->
     <div id="reports-table" class="hidden">
         <h2 class="text-2xl font-bold text-gray-800 mb-4">Reports</h2>
-        <table class="w-full table-auto bg-white shadow-md rounded-lg">
+        <table class="w-full table-auto bg-black text-white shadow-md rounded-lg">
             <thead>
-                <tr class="bg-red-700 text-white">
+                <tr class="bg-gray-800 text-white">
+                    <th class="p-3 text-left">User</th>
                     <th class="p-3 text-left">Office</th>
                     <th class="p-3 text-left">Type</th>
                     <th class="p-3 text-left">Description (PDF)</th>
@@ -27,25 +28,26 @@
             <tbody>
                 {% for complaint in complaints %}
                 {% if complaint.type == "report" and complaint.status != "Solved" %}
-                <tr class="bg-gray-50 border-b">
+                <tr class="bg-gray-900 border-b border-gray-700">
+                    <td class="p-3">{{ request.user.username }}</td>
                     <td class="p-3">{{ complaint.office }}</td>
                     <td class="p-3">{{ complaint.type }}</td>
                     <td class="p-3">
                         {% if complaint.pdf_file %}
-                            <a href="{{ complaint.pdf_file.url }}" target="_blank" class="text-blue-500">Download PDF</a>
+                            <a href="{{ complaint.pdf_file.url }}" target="_blank" class="text-blue-400">Download PDF</a>
                         {% else %}
                             No PDF available
                         {% endif %}
                     </td>
                     <td class="p-3">
-                        <span class="py-1 px-3 rounded-full text-white {% if complaint.status == 'Pending' %}bg-red-500{% elif complaint.status == 'In Progress' %}bg-yellow-500 text-black{% elif complaint.status == 'Solved' %}bg-green-500{% endif %}">
+                        <span class="py-1 px-3 rounded-full text-black {% if complaint.status == 'Pending' %}bg-red-500{% elif complaint.status == 'In Progress' %}bg-yellow-500{% elif complaint.status == 'Solved' %}bg-green-500{% endif %}">
                             {{ complaint.status }}
                         </span>
                     </td>
                     <td class="p-3">
                         <form action="{% url 'update_urgency' complaint.id %}" method="post">
                             {% csrf_token %}
-                            <select name="urgency" class="border p-2 rounded" onchange="this.form.submit()">
+                            <select name="urgency" class="border p-2 rounded bg-gray-800 text-white" onchange="this.form.submit()">
                                 <option value="" disabled selected>Select urgency level</option>
                                 <option value="High" {% if complaint.urgency == "High" %}selected{% endif %}>High</option>
                                 <option value="Low" {% if complaint.urgency == "Low" %}selected{% endif %}>Low</option>
@@ -56,7 +58,7 @@
                     <td class="p-3">
                         <form action="{% url 'update_status' complaint.id %}" method="post">
                             {% csrf_token %}
-                            <select name="status" class="border p-2 rounded" onchange="this.form.submit()">
+                            <select name="status" class="border p-2 rounded bg-gray-800 text-white" onchange="this.form.submit()">
                                 <option value="Pending" {% if complaint.status == "Pending" %}selected{% endif %}>Pending</option>
                                 <option value="In Progress" {% if complaint.status == "In Progress" %}selected{% endif %}>In Progress</option>
                                 <option value="Solved" {% if complaint.status == "Solved" %}selected{% endif %}>Solved</option>
@@ -66,7 +68,6 @@
                     <td class="p-3">
                         <form action="{% url 'send_complaint' complaint.id %}" method="post" class="inline-block send-form">
                             {% csrf_token %}
-                            <!-- Add the 'send-btn' class here for easy selection in JavaScript -->
                             <button type="submit" class="send-btn bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed" {% if complaint.is_sent %}disabled{% endif %}>Send</button>
                         </form>
                         <form action="{% url 'delete_complaint' complaint.id %}" method="post" class="inline-block">
@@ -84,9 +85,10 @@
     <!-- Complaints Table -->
     <div id="complaints-table" class="hidden">
         <h2 class="text-2xl font-bold text-gray-800 mb-4">Complaints</h2>
-        <table class="w-full table-auto bg-white shadow-md rounded-lg">
+        <table class="w-full table-auto bg-black text-white shadow-md rounded-lg">
             <thead>
-                <tr class="bg-red-700 text-white">
+                <tr class="bg-gray-800 text-white">
+                    <th class="p-3 text-left">User</th>
                     <th class="p-3 text-left">Office</th>
                     <th class="p-3 text-left">Type</th>
                     <th class="p-3 text-left">Description (PDF)</th>
@@ -100,36 +102,37 @@
             <tbody>
                 {% for complaint in complaints %}
                 {% if complaint.type == "complaint" and complaint.status != "Solved" %}
-                <tr class="bg-gray-50 border-b">
+                <tr class="bg-gray-900 border-b border-gray-700">
+                    <td class="p-3">{{ request.user.username }}</td>
                     <td class="p-3">{{ complaint.office }}</td>
                     <td class="p-3">{{ complaint.type }}</td>
                     <td class="p-3">
                         {% if complaint.pdf_file %}
-                            <a href="{{ complaint.pdf_file.url }}" target="_blank" class="text-blue-500">Download PDF</a>
+                            <a href="{{ complaint.pdf_file.url }}" target="_blank" class="text-blue-400">Download PDF</a>
                         {% else %}
                             No PDF available
                         {% endif %}
                     </td>
                     <td class="p-3">
-                        <span class="py-1 px-3 rounded-full text-white {% if complaint.status == 'Pending' %}bg-red-500{% elif complaint.status == 'In Progress' %}bg-yellow-500 text-black{% elif complaint.status == 'Solved' %}bg-green-500{% endif %}">
+                        <span class="py-1 px-3 rounded-full text-black {% if complaint.status == 'Pending' %}bg-red-500{% elif complaint.status == 'In Progress' %}bg-yellow-500{% elif complaint.status == 'Solved' %}bg-green-500{% endif %}">
                             {{ complaint.status }}
                         </span>
                     </td>
                     <td class="p-3">
-    <form action="{% url 'update_urgency' complaint.id %}" method="post">
-        {% csrf_token %}
-        <select name="urgency" class="border p-2 rounded" onchange="this.form.submit()">
-            <option value="" disabled selected>Select urgency level</option>
-            <option value="High" {% if complaint.urgency == "High" %}selected{% endif %}>High</option>
-            <option value="Low" {% if complaint.urgency == "Low" %}selected{% endif %}>Low</option>
-        </select>
-    </form>
-</td>
+                        <form action="{% url 'update_urgency' complaint.id %}" method="post">
+                            {% csrf_token %}
+                            <select name="urgency" class="border p-2 rounded bg-gray-800 text-white" onchange="this.form.submit()">
+                                <option value="" disabled selected>Select urgency level</option>
+                                <option value="High" {% if complaint.urgency == "High" %}selected{% endif %}>High</option>
+                                <option value="Low" {% if complaint.urgency == "Low" %}selected{% endif %}>Low</option>
+                            </select>
+                        </form>
+                    </td>
                     <td class="p-3">{{ complaint.issue_date|date:"F j, Y" }}</td>
                     <td class="p-3">
                         <form action="{% url 'update_status' complaint.id %}" method="post">
                             {% csrf_token %}
-                            <select name="status" class="border p-2 rounded" onchange="this.form.submit()">
+                            <select name="status" class="border p-2 rounded bg-gray-800 text-white" onchange="this.form.submit()">
                                 <option value="Pending" {% if complaint.status == "Pending" %}selected{% endif %}>Pending</option>
                                 <option value="In Progress" {% if complaint.status == "In Progress" %}selected{% endif %}>In Progress</option>
                                 <option value="Solved" {% if complaint.status == "Solved" %}selected{% endif %}>Solved</option>
@@ -195,4 +198,3 @@
 
 </body>
 </html>
-

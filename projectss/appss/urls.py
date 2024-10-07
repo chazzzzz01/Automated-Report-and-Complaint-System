@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -26,10 +27,24 @@ urlpatterns = [
     path('messages/', views.complaint_messages, name='complaint_messages'),
     path('profile/', views.profile_view, name='profile'),  # Profile link
     path('graphs/', views.generate_graphs, name='graphs'),
-    path('chat/<str:room_name>/', views.chat_room, name='chat_room'),
+    # path('chat/<str:room_name>/', views.chat_room, name='chat_room'),
     path('update-urgency/<int:complaint_id>/', views.update_urgency, name='update_urgency'),
+    path('gad-dashboard/', views.gad_dashboard, name='gad_dashboard'),
+    path('admin-finance-dashboard/', views.admin_finance_dashboard, name='admin_finance_dashboard'),
+    path('academic-affairs-dashboard/', views.academic_affairs_dashboard, name='academic_affairs_dashboard'),
+    path('students-affairs-dashboard/', views.students_affairs_dashboard, name='students_affairs_dashboard'),
 
     path('register/', views.registration_page, name='registration_page'),
     path('login/', views.login_view, name='login'),
    
+
+
+   # urls.py
+
+
+ 
+    # Other URL patterns
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+
+
 ]

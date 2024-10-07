@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Affairs Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+
+    <!-- Navbar -->
+    <nav class="bg-blue-600 p-4">
+        <div class="container mx-auto flex justify-between">
+            <a href="#" class="text-white font-bold text-xl">Dashboard</a>
+            <div class="text-white">
+                
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Overview -->
+    <div class="container mx-auto my-8">
+        <h1 class="text-3xl font-bold mb-6">Academic Affairs Dashboard</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+            <!-- Total Reports -->
+            <div class="bg-black p-6 rounded-lg shadow-lg">
+                <h2 class="text-xl font-semibold text-blue-700">Total Reports</h2>
+                <p class="text-3xl font-bold text-blue-600">{{ reports }}</p>
+            </div>
+
+            <!-- Total Complaints -->
+            <div class="bg-black p-6 rounded-lg shadow-lg">
+                <h2 class="text-xl font-semibold text-blue-700">Total Complaints</h2>
+                <p class="text-3xl font-bold text-blue-600">{{ complaints }}</p>
+            </div>
+
+            <!-- Pending Reports -->
+            <div class="bg-black p-6 rounded-lg shadow-lg">
+                <h2 class="text-xl font-semibold text-red-700">Pending Reports</h2>
+                <p class="text-3xl font-bold text-red-600">{{ pending_reports }}</p>
+            </div>
+
+            <!-- Pending Complaints -->
+            <div class="bg-black p-6 rounded-lg shadow-lg">
+                <h2 class="text-xl font-semibold text-red-700">Pending Complaints</h2>
+                <p class="text-3xl font-bold text-red-600">{{ pending_complaints }}</p>
+            </div>
+
+            <!-- In Progress Reports -->
+            <div class="bg-black p-6 rounded-lg shadow-lg">
+                <h2 class="text-xl font-semibold text-yellow-700">In Progress Reports</h2>
+                <p class="text-3xl font-bold text-yellow-500">{{ inprogress_reports }}</p>
+            </div>
+
+            <!-- In Progress Complaints -->
+            <div class="bg-black p-6 rounded-lg shadow-lg">
+                <h2 class="text-xl font-semibold text-yellow-700">In Progress Complaints</h2>
+                <p class="text-3xl font-bold text-yellow-500">{{ inprogress_complaints }}</p>
+            </div>
+
+            <!-- Solved Reports -->
+            <div class="bg-black p-6 rounded-lg shadow-lg">
+                <h2 class="text-xl font-semibold text-green-700">Solved Reports</h2>
+                <p class="text-3xl font-bold text-green-600">{{ solved_reports }}</p>
+            </div>
+
+            <!-- Solved Complaints -->
+            <div class="bg-black p-6 rounded-lg shadow-lg">
+                <h2 class="text-xl font-semibold text-green-700">Solved Complaints</h2>
+                <p class="text-3xl font-bold text-green-600">{{ solved_complaints }}</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    
+
+</body>
+</html>

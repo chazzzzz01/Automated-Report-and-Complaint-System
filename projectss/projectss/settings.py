@@ -41,12 +41,26 @@ INSTALLED_APPS = [
     'appss',
     'channels',
     'matplotlib',
+    'tailwind',
+    'theme',
+
    
 ]
 
+TAILWIND_APP_NAME = 'theme'
 
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
+
+# settings.py
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -63,6 +77,7 @@ ROOT_URLCONF = 'projectss.urls'
 
 
 
+# AUTH_USER_MODEL = 'appss.Informant'  # Make sure this points to the correct model
 
 
 TEMPLATES = [
@@ -85,11 +100,7 @@ WSGI_APPLICATION = 'projectss.wsgi.application'
 
 ASGI_APPLICATION = 'projectss.asgi.application'
 
-CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels.layers.InMemoryChannelLayer",
-    },
-}
+
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -99,7 +110,7 @@ DATABASES = {
 
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-        'NAME': 'reports_and_complaints_django',
+        'NAME': 'cutiereportdjango',
 
         'USER': 'postgres',
 
@@ -136,6 +147,9 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
+    # 'appss.auth_backends.InformantBackend',
+    'appss.backends.CustomAuthBackend',
+    
 ]
 
 

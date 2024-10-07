@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import Complaint
 from .model_utils import load_models
-from .forms import MessageForm
+
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -51,6 +51,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.shortcuts import redirect
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
+from django.shortcuts import render, redirect
+from .models import Informant  # Ensure you import the Informant model
 
 def login_view(request):
     if request.method == 'POST':
@@ -78,7 +82,7 @@ def login_view(request):
                     return redirect('students_affairs_page')
             else:
                 # If the user is an Informant, redirect to their page
-                return redirect('informant_page')
+                return redirect('informant_page')  # Ensure this view exists
 
         else:
             messages.error(request, 'Invalid username or password.')
@@ -96,14 +100,9 @@ def profile_view(request):
 
 
 # informant
-@login_required
 def informant_page(request):
     complaints = Complaint.objects.all()
-
-
     return render(request, 'main/informant_page.html', {'complaints': complaints})
-
-
 
 
 
@@ -294,31 +293,191 @@ def gad_office_page(request):
 
 
 
+
+
 # Dashboard
 def dashboard_page(request):
-    reports = Complaint.objects.filter(type="report")
-    complaints = Complaint.objects.filter(type="complaint")
-    solved_reports = reports.filter(status="Solved")
-    solved_complaints = complaints.filter(status="Solved")
-    pending_reports = reports.filter(status="Pending")
-    pending_complaints = complaints.filter(status="Pending")
-    inprogress_reports = reports.filter(status="In Progress")
-    inprogress_complaints = complaints.filter(status="In Progress")
-    
+    # Admin and Finance Office
+    admin_finance_reports = Complaint.objects.filter(office="VP Administration and Finance", type="report")
+    admin_finance_complaints = Complaint.objects.filter(office="VP Administration and Finance", type="complaint")
+    admin_finance_solved_reports = admin_finance_reports.filter(status="Solved")
+    admin_finance_solved_complaints = admin_finance_complaints.filter(status="Solved")
+    admin_finance_pending_reports = admin_finance_reports.filter(status="Pending")
+    admin_finance_pending_complaints = admin_finance_complaints.filter(status="Pending")
+    admin_finance_inprogress_reports = admin_finance_reports.filter(status="In Progress")
+    admin_finance_inprogress_complaints = admin_finance_complaints.filter(status="In Progress")
+
+    # Academic Affairs Office
+    academic_affairs_reports = Complaint.objects.filter(office="VP Academic Affairs", type="report")
+    academic_affairs_complaints = Complaint.objects.filter(office="VP Academic Affairs", type="complaint")
+    academic_affairs_solved_reports = academic_affairs_reports.filter(status="Solved")
+    academic_affairs_solved_complaints = academic_affairs_complaints.filter(status="Solved")
+    academic_affairs_pending_reports = academic_affairs_reports.filter(status="Pending")
+    academic_affairs_pending_complaints = academic_affairs_complaints.filter(status="Pending")
+    academic_affairs_inprogress_reports = academic_affairs_reports.filter(status="In Progress")
+    academic_affairs_inprogress_complaints = academic_affairs_complaints.filter(status="In Progress")
+
+    # Students Affairs Office
+    students_affairs_reports = Complaint.objects.filter(office="VP Students and External Affairs", type="report")
+    students_affairs_complaints = Complaint.objects.filter(office="VP Students and External Affairs", type="complaint")
+    students_affairs_solved_reports = students_affairs_reports.filter(status="Solved")
+    students_affairs_solved_complaints = students_affairs_complaints.filter(status="Solved")
+    students_affairs_pending_reports = students_affairs_reports.filter(status="Pending")
+    students_affairs_pending_complaints = students_affairs_complaints.filter(status="Pending")
+    students_affairs_inprogress_reports = students_affairs_reports.filter(status="In Progress")
+    students_affairs_inprogress_complaints = students_affairs_complaints.filter(status="In Progress")
+
+    # GAD Office
+    gad_office_reports = Complaint.objects.filter(office="GAD Office", type="report")
+    gad_office_complaints = Complaint.objects.filter(office="GAD Office", type="complaint")
+    gad_office_solved_reports = gad_office_reports.filter(status="Solved")
+    gad_office_solved_complaints = gad_office_complaints.filter(status="Solved")
+    gad_office_pending_reports = gad_office_reports.filter(status="Pending")
+    gad_office_pending_complaints = gad_office_complaints.filter(status="Pending")
+    gad_office_inprogress_reports = gad_office_reports.filter(status="In Progress")
+    gad_office_inprogress_complaints = gad_office_complaints.filter(status="In Progress")
+
+    # Legal Office - Aggregate data from the four offices
+    legal_office_reports = Complaint.objects.filter(
+        office__in=["VP Administration and Finance", "VP Academic Affairs", "VP Students and External Affairs", "GAD Office"], 
+        type="report"
+    )
+    legal_office_complaints = Complaint.objects.filter(
+        office__in=["VP Administration and Finance", "VP Academic Affairs", "VP Students and External Affairs", "GAD Office"], 
+        type="complaint"
+    )
+    legal_office_solved_reports = legal_office_reports.filter(status="Solved")
+    legal_office_solved_complaints = legal_office_complaints.filter(status="Solved")
+    legal_office_pending_reports = legal_office_reports.filter(status="Pending")
+    legal_office_pending_complaints = legal_office_complaints.filter(status="Pending")
+    legal_office_inprogress_reports = legal_office_reports.filter(status="In Progress")
+    legal_office_inprogress_complaints = legal_office_complaints.filter(status="In Progress")
 
     return render(request, 'main/dashboard_page.html', {
-        'total_reports': reports.count(),
-        'total_complaints': complaints.count(),
-        'solved_reports': solved_reports.count(),
-        'solved_complaints': solved_complaints.count(),
-        'pending_reports': pending_reports.count(),
-        'pending_complaints': pending_complaints.count(),
-        'inprogress_reports': inprogress_reports.count(),
-        'inprogress_complaints': inprogress_complaints.count(),
-    
-        
+        # Admin and Finance Office Data
+        'admin_finance_reports': admin_finance_reports.count(),
+        'admin_finance_complaints': admin_finance_complaints.count(),
+        'admin_finance_solved_reports': admin_finance_solved_reports.count(),
+        'admin_finance_solved_complaints': admin_finance_solved_complaints.count(),
+        'admin_finance_pending_reports': admin_finance_pending_reports.count(),
+        'admin_finance_pending_complaints': admin_finance_pending_complaints.count(),
+        'admin_finance_inprogress_reports': admin_finance_inprogress_reports.count(),
+        'admin_finance_inprogress_complaints': admin_finance_inprogress_complaints.count(),
+
+        # Academic Affairs Office Data
+        'academic_affairs_reports': academic_affairs_reports.count(),
+        'academic_affairs_complaints': academic_affairs_complaints.count(),
+        'academic_affairs_solved_reports': academic_affairs_solved_reports.count(),
+        'academic_affairs_solved_complaints': academic_affairs_solved_complaints.count(),
+        'academic_affairs_pending_reports': academic_affairs_pending_reports.count(),
+        'academic_affairs_pending_complaints': academic_affairs_pending_complaints.count(),
+        'academic_affairs_inprogress_reports': academic_affairs_inprogress_reports.count(),
+        'academic_affairs_inprogress_complaints': academic_affairs_inprogress_complaints.count(),
+
+        # Students Affairs Office Data
+        'students_affairs_reports': students_affairs_reports.count(),
+        'students_affairs_complaints': students_affairs_complaints.count(),
+        'students_affairs_solved_reports': students_affairs_solved_reports.count(),
+        'students_affairs_solved_complaints': students_affairs_solved_complaints.count(),
+        'students_affairs_pending_reports': students_affairs_pending_reports.count(),
+        'students_affairs_pending_complaints': students_affairs_pending_complaints.count(),
+        'students_affairs_inprogress_reports': students_affairs_inprogress_reports.count(),
+        'students_affairs_inprogress_complaints': students_affairs_inprogress_complaints.count(),
+
+        # GAD Office Data
+        'gad_office_reports': gad_office_reports.count(),
+        'gad_office_complaints': gad_office_complaints.count(),
+        'gad_office_solved_reports': gad_office_solved_reports.count(),
+        'gad_office_solved_complaints': gad_office_solved_complaints.count(),
+        'gad_office_pending_reports': gad_office_pending_reports.count(),
+        'gad_office_pending_complaints': gad_office_pending_complaints.count(),
+        'gad_office_inprogress_reports': gad_office_inprogress_reports.count(),
+        'gad_office_inprogress_complaints': gad_office_inprogress_complaints.count(),
+
+        # Legal Office (Aggregate of all four offices)
+        'legal_office_reports': legal_office_reports.count(),
+        'legal_office_complaints': legal_office_complaints.count(),
+        'legal_office_solved_reports': legal_office_solved_reports.count(),
+        'legal_office_solved_complaints': legal_office_solved_complaints.count(),
+        'legal_office_pending_reports': legal_office_pending_reports.count(),
+        'legal_office_pending_complaints': legal_office_pending_complaints.count(),
+        'legal_office_inprogress_reports': legal_office_inprogress_reports.count(),
+        'legal_office_inprogress_complaints': legal_office_inprogress_complaints.count(),
+    })
+
+from django.shortcuts import render
+from .models import Complaint
+
+# Admin and Finance Office Dashboard
+def admin_finance_dashboard(request):
+    reports = Complaint.objects.filter(office="VP Administration and Finance", type="report", is_sent=True)
+    complaints = Complaint.objects.filter(office="VP Administration and Finance", type="complaint", is_sent=True)
+
+    context = {
+        'reports': reports.count(),
+        'complaints': complaints.count(),
+        'solved_reports': reports.filter(status="Solved").count(),
+        'solved_complaints': complaints.filter(status="Solved").count(),
+        'pending_reports': reports.filter(status="Pending").count(),
+        'pending_complaints': complaints.filter(status="Pending").count(),
+        'inprogress_reports': reports.filter(status="In Progress").count(),
+        'inprogress_complaints': complaints.filter(status="In Progress").count(),
     }
-    )
+    return render(request, 'offices/admin_finance_dashboard.html', context)
+
+# Academic Affairs Office Dashboard
+def academic_affairs_dashboard(request):
+    reports = Complaint.objects.filter(office="VP Academic Affairs", type="report", is_sent=True)
+    complaints = Complaint.objects.filter(office="VP Academic Affairs", type="complaint", is_sent=True)
+
+    context = {
+        'reports': reports.count(),
+        'complaints': complaints.count(),
+        'solved_reports': reports.filter(status="Solved").count(),
+        'solved_complaints': complaints.filter(status="Solved").count(),
+        'pending_reports': reports.filter(status="Pending").count(),
+        'pending_complaints': complaints.filter(status="Pending").count(),
+        'inprogress_reports': reports.filter(status="In Progress").count(),
+        'inprogress_complaints': complaints.filter(status="In Progress").count(),
+    }
+    return render(request, 'offices/academic_affairs_dashboard.html', context)
+
+# Students Affairs Office Dashboard
+def students_affairs_dashboard(request):
+    reports = Complaint.objects.filter(office="VP Students and External Affairs", type="report", is_sent=True)
+    complaints = Complaint.objects.filter(office="VP Students and External Affairs", type="complaint", is_sent=True)
+
+    context = {
+        'reports': reports.count(),
+        'complaints': complaints.count(),
+        'solved_reports': reports.filter(status="Solved").count(),
+        'solved_complaints': complaints.filter(status="Solved").count(),
+        'pending_reports': reports.filter(status="Pending").count(),
+        'pending_complaints': complaints.filter(status="Pending").count(),
+        'inprogress_reports': reports.filter(status="In Progress").count(),
+        'inprogress_complaints': complaints.filter(status="In Progress").count(),
+    }
+    return render(request, 'offices/students_affairs_dashboard.html', context)
+
+# GAD Office Dashboard
+def gad_dashboard(request):
+    reports = Complaint.objects.filter(office="GAD Office", type="report", is_sent=True)
+    complaints = Complaint.objects.filter(office="GAD Office", type="complaint", is_sent=True)
+
+    context = {
+        'reports': reports.count(),
+        'complaints': complaints.count(),
+        'solved_reports': reports.filter(status="Solved").count(),
+        'solved_complaints': complaints.filter(status="Solved").count(),
+        'pending_reports': reports.filter(status="Pending").count(),
+        'pending_complaints': complaints.filter(status="Pending").count(),
+        'inprogress_reports': reports.filter(status="In Progress").count(),
+        'inprogress_complaints': complaints.filter(status="In Progress").count(),
+    }
+    return render(request, 'offices/gad_dashboard.html', context)
+
+
+
 
     
 
@@ -458,16 +617,16 @@ def generate_graphs(request):
 
 
 
-# appss/views.py
+# # appss/views.py
 
-from django.shortcuts import render
-from .models import Office  # Assuming you have an Office model
+# from django.shortcuts import render
+# from .models import Office  # Assuming you have an Office model
 
-def chat_room(request):
-    offices = Office.objects.all()  # Fetch all office instances
-    return render(request, 'appss/complaint_message.html', {
-        'offices': offices,
-    })
+# def chat_room(request):
+#     offices = Office.objects.all()  # Fetch all office instances
+#     return render(request, 'appss/complaint_message.html', {
+#         'offices': offices,
+#     })
 
 
 
@@ -504,5 +663,7 @@ def chat_room(request):
 #     return JsonResponse({'messages': list(messages)})
 
 
+
+    
 
     

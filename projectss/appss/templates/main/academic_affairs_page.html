@@ -25,23 +25,31 @@
     <!-- Sidebar and Content Layout -->
     <div class="flex pt-16">
         <!-- Sidebar (always visible on large screens) -->
-        <nav id="sidebar2" class="bg-red-600 text-white w-64 p-4 fixed lg:block hidden h-screen">
-            <h2 class="text-xl font-bold mb-4">Welcome to Academic Affairs</h2>
-            <a href="#" id="dashboard-link" onclick="toggleDashboard()" class="block text-lg mb-4 hover:bg-red-700 p-2 rounded">Dashboard</a>
-            <button onclick="toggleSection('reports-table')" class="w-full text-left text-lg mb-4 hover:bg-red-700 p-2 rounded">Report</button>
-            <button onclick="toggleSection('complaints-table')" class="w-full text-left text-lg mb-4 hover:bg-red-700 p-2 rounded">Complaint</button>
-            <p id="history-link" onclick="toggleHistory()" class="block text-lg mb-4 hover:bg-red-700 p-2 rounded">Statistics</p>
-            <p id="messages-link" onclick="toggleMessagesVisibility()" class="block text-lg hover:bg-red-700 p-2 rounded">Messages</p>
+        <nav id="sidebar2" class="bg-red-800 text-white w-64 p-4 fixed lg:block hidden h-screen text-center">
+            <h2 class="text-2xl font-bold mb-6">Welcome to Academic Affairs</h2> <!-- Increased to text-2xl for larger size -->
+            <a href="#" id="dashboard-link" onclick="toggleDashboard()" class="block text-lg mb-4 font-bold hover:bg-red-700 p-2 rounded">Dashboard</a>
+            <button onclick="toggleSection('reports-table')" class="w-full text-center text-lg font-bold mb-4 hover:bg-red-700 p-2 rounded">Report</button>
+            <button onclick="toggleSection('complaints-table')" class="w-full text-center text-lg font-bold mb-4 hover:bg-red-700 p-2 rounded">Complaint</button>
+            <p id="history-link" onclick="toggleHistory()" class="block text-lg mb-4 hover:bg-red-700 font-bold p-2 rounded">Statistics</p>
+            <p id="messages-link" onclick="toggleMessagesVisibility()" class="block text-lg font-bold hover:bg-red-700 p-2 rounded">Messages</p>
+            <form method="POST" action="{% url 'logout' %}" class="block text-lg text-center font-bold hover:bg-red-600 py-2">
+                {% csrf_token %}
+                <button type="submit" class="w-full text-white">Logout</button>
+            </form>
         </nav>
 
         <!-- Sidebar for Mobile (visible on small screens) -->
-        <nav id="mobile-sidebar" class="bg-red-600 text-white w-64 p-4 fixed top-16 left-0 h-screen z-50 transform -translate-x-full transition-transform lg:hidden">
-            <h2 class="text-xl font-bold mb-4">Welcome to GAD Office</h2>
-            <a href="#" id="dashboard-link-mobile" onclick="toggleDashboard()" class="block text-lg mb-4 hover:bg-red-700 p-2 rounded">Dashboard</a>
-            <button onclick="toggleSection('reports-table')" class="w-full text-left text-lg mb-4 hover:bg-red-700 p-2 rounded">Report</button>
-            <button onclick="toggleSection('complaints-table')" class="w-full text-left text-lg mb-4 hover:bg-red-700 p-2 rounded">Complaint</button>
-            <p id="history-link-mobile" onclick="toggleHistory()" class="block text-lg mb-4 hover:bg-red-700 p-2 rounded">Statistics</p>
-            <p id="messages-link-mobile" onclick="toggleMessagesVisibility()" class="block text-lg hover:bg-red-700 p-2 rounded">Messages</p>
+        <nav id="mobile-sidebar" class="bg-red-800 text-white w-64 p-4 fixed top-16 left-0 h-screen z-50 transform -translate-x-full transition-transform lg:hidden text-center">
+            <h2 class="text-2xl font-bold mb-6">Welcome to GAD Office</h2> <!-- Increased to text-2xl for larger size -->
+            <a href="#" id="dashboard-link-mobile" onclick="toggleDashboard()" class="block text-lg mb-4 font-bold hover:bg-red-700 p-2 rounded">Dashboard</a>
+            <button onclick="toggleSection('reports-table')" class="w-full text-center text-lg mb-4 font-bold hover:bg-red-700 p-2 rounded">Report</button>
+            <button onclick="toggleSection('complaints-table')" class="w-full text-center text-lg mb-4 font-bold hover:bg-red-700 p-2 rounded">Complaint</button>
+            <p id="history-link-mobile" onclick="toggleHistory()" class="block text-lg mb-4 hover:bg-red-700 font-bold p-2 rounded">Statistics</p>
+            <p id="messages-link-mobile" onclick="toggleMessagesVisibility()" class="block text-lg font-bold hover:bg-red-700 p-2 rounded">Messages</p>
+            <form method="POST" action="{% url 'logout' %}" class="block text-lg text-center font-bold hover:bg-red-600 py-2">
+                {% csrf_token %}
+                <button type="submit" class="w-full text-white">Logout</button>
+            </form>
         </nav>
 
         <!-- Main Content Area -->
@@ -82,7 +90,7 @@
             const dashboardContent = document.getElementById('dashboard-content');
             dashboardContent.style.display = 'block';
             // Fetch the dashboard content without affecting the header
-            fetch("{% url 'dashboard_page' %}") 
+            fetch("{% url 'academic_affairs_dashboard' %}") 
                 .then(response => response.text())
                 .then(html => {
                     dashboardContent.innerHTML = html;
