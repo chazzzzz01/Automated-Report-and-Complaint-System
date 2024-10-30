@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Office Solved Graph</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h2>Solved Reports and Complaints by Department</h2>
+    
+    <!-- Canvas for the chart -->
+    <canvas id="solvedGraph" width="400" height="200"></canvas>
+
+    <script>
+        // Data coming from the Django context
+        const solvedData = {
+            departments: {{ department_labels|safe }}, // Departments list from the context
+            solvedReports: {{ solved_reports_count|safe }}, // Solved reports count
+            solvedComplaints: {{ solved_complaints_count|safe }} // Solved complaints count
+        };
+
+        const ctx = document.getElementById('solvedGraph').getContext('2d');
+        const solvedGraph = new Chart(ctx, {
+            type: 'bar', // Bar chart type
+            data: {
+                labels: solvedData.departments, // Department labels
+                datasets: [
+                    {
+                        label: 'Solved Reports',
+                        data: solvedData.solvedReports, // Data for solved reports
+                        backgroundColor: 'rgba(75, 192, 192, 0.6)', // Color for reports bar
+                        borderColor: 'rgba(75, 192, 192, 1)', // Border color
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Solved Complaints',
+                        data: solvedData.solvedComplaints, // Data for solved complaints
+                        backgroundColor: 'rgba(255, 159, 64, 0.6)', // Color for complaints bar
+                        borderColor: 'rgba(255, 159, 64, 1)', // Border color
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true, // Make the chart responsive
+                scales: {
+                    y: {
+                        beginAtZero: true // Start y-axis from zero
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

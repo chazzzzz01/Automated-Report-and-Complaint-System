@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Response Letter</title>
+    <style>
+        body { font-family: 'Arial', sans-serif; }
+        .letter-content { margin: 40px; }
+    </style>
+</head>
+<body>
+    <div class="letter-content">
+        <h2>Response Letter for Complaint #{{ complaint.id }}</h2>
+        <p><strong>Office:</strong> {{ complaint.office }}</p>
+        <p><strong>Type:</strong> {{ complaint.type }}</p>
+        <p><strong>Urgency:</strong> {{ complaint.urgency }}</p>
+        <p><strong>Date:</strong> {{ complaint.issue_date|date:"F j, Y" }}</p>
+
+        <h3>Response:</h3>
+        <p>{{ response_letter }}</p>
+
+        <p>Sincerely,</p>
+        <p>{{ complaint.office }} Team</p>
+    </div>
+</body>
+</html>

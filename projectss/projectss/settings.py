@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'matplotlib',
     'tailwind',
     'theme',
+    
 
    
 ]
@@ -55,10 +56,10 @@ INTERNAL_IPS = [
 ]
 
 
-# settings.py
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # This will create a media directory in your project root
 
 
 
@@ -70,6 +71,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
     
 ]
 
@@ -148,11 +150,15 @@ AUTH_PASSWORD_VALIDATORS = [
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     # 'appss.auth_backends.InformantBackend',
-    'appss.backends.CustomAuthBackend',
+    # 'appss.backends.CustomAuthBackend',
     
 ]
 
+AUTH_USER_MODEL = 'appss.Informant' 
 
+
+# In settings.py
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760  # Example: 10MB
 
 
 
@@ -172,6 +178,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+STATICFILES_DIRS = [
+    BASE_DIR / "appss/static",
+      
+]
 
 
 # Default primary key field type

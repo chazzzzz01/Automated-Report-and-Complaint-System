@@ -2,40 +2,43 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import Complaint
 from .model_utils import load_models
-
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .forms import InformantRegistrationForm
 from .models import Informant, Complaint
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from appss.models import Informant
+from django.contrib.auth import authenticate, login
+
+
+
 
 def home(request):
     return render(request,'main/home.html')
 
 
 
-
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from .forms import InformantRegistrationForm
-
 def registration_page(request):
     if request.method == 'POST':
         form = InformantRegistrationForm(request.POST, request.FILES)
         if form.is_valid():
-            # Save the user and set the password
-            user = form.save(commit=False)
-            password = form.cleaned_data.get('password')  # Use .get to safely access the password
+            
+            informant = form.save(commit=False)
+            password = form.cleaned_data['password']
             if password:
-                user.set_password(password)  # Hash the password
-                user.save()
+                informant.set_password(password)
+                informant.save()
 
+                informant = authenticate(request, username=informant.username, password=password)
+            if informant is not None:
+                # Log the informant in automatically after registration
+                login(request, informant)
                 # Redirect to the login page after successful registration
                 messages.success(request, 'Registration successful. You can now log in.')
-                return redirect('login')  # Adjust the URL name as needed
+                return redirect('login')
             else:
                 messages.error(request, 'Password not provided.')
         else:
@@ -47,64 +50,122 @@ def registration_page(request):
 
 
 
-from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
-from django.contrib import messages
-from django.shortcuts import redirect
-from django.contrib.auth import authenticate, login
-from django.contrib import messages
-from django.shortcuts import render, redirect
-from .models import Informant  # Ensure you import the Informant model
+
+def create_informant(request):
+    if request.method == 'POST':
+        form = InformantRegistrationForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+
+            # Check if the email already exists
+            if Informant.objects.filter(email=email).exists():
+                messages.error(request, "This email address is already in use.")
+                return render(request, 'main/create_informant.html', {'form': form})
+            
+            # Save the form and create the informant
+            user = form.save(commit=False)
+            user.is_staff = form.cleaned_data.get('is_staff', False)
+            user.is_superuser = form.cleaned_data.get('is_superuser', False)
+            user.save()
+
+            # Check if the created user matches one of the specific office roles
+            if user.username in ['GADAdmin', 'vp_admin_finance', 'vp_academic_affairs', 'vp_students_affairs', 'legal_admin']:
+                messages.success(request, f"Account created successfully for {user.username}!")
+            else:
+                messages.success(request, 'Account created successfully!')
+
+            # Redirect back to the creation form to allow creating more accounts
+            return redirect('create_informant')
+
+    else:
+        form = InformantRegistrationForm()
+
+    return render(request, 'main/create_informant.html', {'form': form})
+
+
 
 def login_view(request):
     if request.method == 'POST':
+        # Get the username and password from the login form
         username = request.POST.get('login_username')
         password = request.POST.get('login_password')
 
-        # Authenticate the user
-        user = authenticate(request, username=username, password=password)
+        # Authenticate the informant using the custom Informant model
+        informant = authenticate(request, username=username, password=password)
 
-        if user is not None:
-            login(request, user)
+        if informant is not None:
+            # Log the informant in
+            login(request, informant)
             messages.success(request, 'Login successful!')
 
-            # Redirect users based on role
-            if user.is_superuser:  # Legal Office (Superuser)
-                return redirect('legal_office_page')
-            elif user.is_staff:  # Office Admins (Staff users)
-                if user.username == 'GADAdmin':
+            # Redirect users based on \role
+            if informant.is_superuser:  # Legal Office (Superuser)
+                if informant.username == 'legal_admin':
+                    return redirect('legal_office_page')
+            elif informant.is_staff:  # Office Admins (Staff users)
+                if informant.username == 'GADAdmin':
                     return redirect('gad_office_page')
-                elif user.username == 'vp_admin_finance':
+                elif informant.username == 'vp_admin_finance':
                     return redirect('admin_finance_page')
-                elif user.username == 'vp_academic_affairs':
+                elif informant.username == 'vp_academic_affairs':
                     return redirect('academic_affairs_page')
-                elif user.username == 'vp_students_affairs':
+                elif informant.username == 'vp_students_affairs':
                     return redirect('students_affairs_page')
             else:
-                # If the user is an Informant, redirect to their page
+                # If the user is a regular Informant, redirect to their page
                 return redirect('informant_page')  # Ensure this view exists
-
         else:
+            # If authentication fails, show an error message
             messages.error(request, 'Invalid username or password.')
     
+    # Render the login page
     return render(request, 'main/login.html')
 
 
 
-# Profile view
+
+
+
+
+
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required  # Ensure only logged-in users can access the profile
+from .models import Informant
+
+@login_required
 def profile_view(request):
-    informant = request.user  # Assumes the user is logged in
-    return render(request, 'informant/profile.html', {'informant': informant})
+       
+       return render(request, 'informant/profile.html', {'user': request.user})
 
 
 
 
-# informant
+# # informant
+# def informant_page(request):
+#        # Assuming `request.user` is your custom `Informant` instance after login
+#     complaints = Complaint.objects.all()
+#     return render(request, 'main/informant_page.html', {'complaints': complaints})
+
+
+
+
+from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required
+from .models import Informant
+
+@login_required
 def informant_page(request):
+    # If the user is a superuser and is the legal office, redirect them
+    if request.user.is_superuser and request.user.username == 'legal_admin':
+        # Redirect to legal office dashboard or an access denied page
+        return redirect('legal_office_page')  # Replace with your legal office dashboard URL name
+
+    # Otherwise, continue to show the Informant page
     complaints = Complaint.objects.all()
-    return render(request, 'main/informant_page.html', {'complaints': complaints})
-
-
+    context = {
+        'complaints': complaints
+    }
+    return render(request, 'main/informant_page.html', context)
 
 
 
@@ -139,27 +200,39 @@ def admin_page(request):
 
     return render(request, 'main/admin_page.html', {'complaints': complaints})
 
-#lodging
+
+
+
+
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from .models import Complaint
+from .utils import load_models
+
 @csrf_exempt
 def submit_complaint(request):
     if request.method == 'POST':
-        description = request.POST.get('description')
+        description = request.POST.get('description', '').strip()
+
+        # Check if description is provided
+        if not description:
+            return JsonResponse({'error': 'Description cannot be empty.'}, status=400)
 
         try:
-            # Load the models
+            # Load the models (category_model, type_model, vectorizer)
             category_model, type_model, vectorizer = load_models()
-            
+
             # Vectorize the description
             description_vec = vectorizer.transform([description])
-            
+
             # Predict category and type
             predicted_category = category_model.predict(description_vec)[0]
             predicted_type = type_model.predict(description_vec)[0]
 
-            # Save the complaint as pending in the legal office
+            # Save the complaint with the predicted category and type
             complaint = Complaint(
                 description=description,
-                office= predicted_category, 
+                office=predicted_category,
                 type=predicted_type,
                 status='Pending',
                 is_sent=False
@@ -170,14 +243,71 @@ def submit_complaint(request):
             return JsonResponse({'message': 'Complaint submitted to the legal office successfully!'}, status=200)
 
         except FileNotFoundError as e:
-            return JsonResponse({'error': f"Error: {e}"}, status=500)
+            # If the models could not be loaded due to file issues
+            return JsonResponse({'error': f"Error loading models: {e}"}, status=500)
 
         except Exception as e:
+            # Handle any other unforeseen exceptions
             return JsonResponse({'error': f"An unexpected error occurred: {e}"}, status=500)
 
+    # Return an error for invalid request methods
     return JsonResponse({'error': 'Invalid request method.'}, status=400)
 
+# from django.http import JsonResponse
+# from django.views.decorators.csrf import csrf_exempt
 
+# @csrf_exempt
+# def submit_complaint(request):
+#     if request.method == 'POST':
+#         description = request.POST.get('description', '').strip()
+
+#         # Check if the description is empty
+#         if not description:
+#             return JsonResponse({'error': 'Description cannot be empty.'}, status=400)
+
+#         try:
+#             # Load the models
+#             category_model, type_model, vectorizer = load_models()
+
+#             # Vectorize the description
+#             description_vec = vectorizer.transform([description])
+
+#             # Predict category and type, along with similarity score
+#             predicted_category = category_model.predict(description_vec)[0]
+#             predicted_type = type_model.predict(description_vec)[0]
+#             similarity_score = category_model.predict_proba(description_vec).max()  # Get the highest similarity score
+
+#             # Set a similarity score threshold (for example, 0.5)
+#             similarity_threshold = 0.5
+
+#             # Check if the similarity score is below the threshold or no valid prediction made
+#             if similarity_score < similarity_threshold:
+#                 predicted_category = "Office not predicted"
+
+#             # If the office is not predicted, do not send it to the legal office
+#             if predicted_category == "Office not predicted":
+#                 return JsonResponse({'message': 'Office not predicted. Complaint not submitted to legal office.'}, status=200)
+
+#             # Save the complaint with the predicted office and type
+#             complaint = Complaint(
+#                 description=description,
+#                 office=predicted_category,
+#                 type=predicted_type,
+#                 status='Pending',
+#                 is_sent=False
+#             )
+#             complaint.save()
+
+#             # Return a success message to the AJAX call
+#             return JsonResponse({'message': f'Complaint submitted to legal office successfully!'}, status=200)
+
+#         except FileNotFoundError as e:
+#             return JsonResponse({'error': f"Error: {e}"}, status=500)
+
+#         except Exception as e:
+#             return JsonResponse({'error': f"An unexpected error occurred: {e}"}, status=500)
+
+#     return JsonResponse({'error': 'Invalid request method.'}, status=400)
 
 
 #legal Office
@@ -187,6 +317,22 @@ def legal_office_page(request):
 
     return render(request, 'main/legal_office_page.html', {'complaints': complaints})
 
+
+from django.shortcuts import get_object_or_404, redirect
+from django.contrib import messages
+from .models import Complaint  # Assuming your model is named Complaint
+
+def update_office(request, complaint_id):
+    if request.method == 'POST':
+        complaint = get_object_or_404(Complaint, id=complaint_id)
+        new_office = request.POST.get('office')
+        if new_office:
+            complaint.office = new_office
+            complaint.save()
+            messages.success(request, 'Office updated successfully.')
+        else:
+            messages.error(request, 'Please select a valid office.')
+    return redirect('legal_office_page')  # Replace with the name of the view to redirect to
 
 
 
@@ -295,8 +441,73 @@ def gad_office_page(request):
 
 
 
+
+
+
+
+
+from django.shortcuts import render
+from .models import Complaint
+
+def history_view(request):
+    # Filter for solved reports
+    solved_reports = Complaint.objects.filter(type="report", status="Solved")
+    # Filter for solved complaints
+    solved_complaints = Complaint.objects.filter(type="complaint", status="Solved")
+
+    # Count solved reports by department
+    report_counts = {
+        'STCS': solved_reports.filter(office="STCS").count(),
+        'SCJE': solved_reports.filter(office="SCJE").count(),
+        'SAS': solved_reports.filter(office="SAS").count(),
+        'SME': solved_reports.filter(office="SME").count(),
+        'SOE': solved_reports.filter(office="SOE").count(),
+        'SNHS': solved_reports.filter(office="SNHS").count(),
+        'LHS': solved_reports.filter(office="LHS").count(),
+        'STED': solved_reports.filter(office="STED").count(),
+    }
+
+    # Count solved complaints by department
+    complaint_counts = {
+        'STCS': solved_complaints.filter(office="STCS").count(),
+        'SCJE': solved_complaints.filter(office="SCJE").count(),
+        'SAS': solved_complaints.filter(office="SAS").count(),
+        'SME': solved_complaints.filter(office="SME").count(),
+        'SOE': solved_complaints.filter(office="SOE").count(),
+        'SNHS': solved_complaints.filter(office="SNHS").count(),
+        'LHS': solved_complaints.filter(office="LHS").count(),
+        'STED': solved_complaints.filter(office="STED").count(),
+    }
+
+    context = {
+        'report_counts': report_counts,
+        'complaint_counts': complaint_counts,
+    }
+
+    return render(request, 'main/solved_statistic.html', context)
+
+
+from django.core.exceptions import ObjectDoesNotExist
 # Dashboard
 def dashboard_page(request):
+    try:
+        # Check if the logged-in user has an associated office
+        user_office = request.user.office
+    except ObjectDoesNotExist:
+        # Handle the case where there is no associated office for the informant
+        user_office = None
+
+    if user_office:
+        # Fetch complaints only if the user has an associated office
+        new_complaints = Complaint.objects.filter(office=user_office, is_new=True).exists()
+    else:
+        new_complaints = False  # Default value if there's no office
+
+    context = {
+        'new_complaints': new_complaints,
+        # Other context data for reports/complaints
+    }
+
     # Admin and Finance Office
     admin_finance_reports = Complaint.objects.filter(office="VP Administration and Finance", type="report")
     admin_finance_complaints = Complaint.objects.filter(office="VP Administration and Finance", type="complaint")
@@ -664,6 +875,60 @@ def generate_graphs(request):
 
 
 
-    
 
-    
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Complaint, Response
+from reportlab.pdfgen import canvas
+from io import BytesIO
+
+def submit_response(request):
+    if request.method == 'POST':
+        complaint_id = request.POST.get('complaint_id')
+        letter_content = request.POST.get('letter_content')
+
+        # Fetch the complaint object
+        complaint = get_object_or_404(Complaint, id=complaint_id)
+
+        # Generate PDF for the response
+        response_pdf = generate_pdf(letter_content)
+
+        # Create a new Response object
+        response = Response(complaint=complaint, letter_content=letter_content)
+        response.response_pdf.save(f"response_{complaint_id}_{response.id}.pdf", response_pdf)
+        response.save()
+
+        # Redirect to the complaint message page
+        return redirect('complaint_message', complaint_id=complaint.id)
+
+def generate_pdf(content):
+    buffer = BytesIO()
+    p = canvas.Canvas(buffer)
+
+    # Add content to PDF
+    p.drawString(100, 750, "Office Response Letter")
+    p.drawString(100, 730, content)
+
+    p.showPage()
+    p.save()
+
+    buffer.seek(0)
+    return buffer
+
+def complaint_message(request, complaint_id):
+    complaint = get_object_or_404(Complaint, id=complaint_id)
+    responses = complaint.responses.all()  # Fetch all responses for this complaint
+    return render(request, 'informant/complaint_message.html', {'complaint': complaint, 'responses': responses})
+
+
+
+from django.shortcuts import redirect, get_object_or_404
+from .models import Response  # Adjust based on your actual model
+
+def delete_response(request, response_id):
+    if request.method == 'POST':
+        response = get_object_or_404(Response, id=response_id)  # Assuming you have a Response model
+        complaint_id = response.complaint.id  # Get the associated complaint ID
+        response.delete()  # Delete the response
+        return redirect('complaint_message', complaint_id=complaint_id)  # Redirect back to the complaint message
+
+

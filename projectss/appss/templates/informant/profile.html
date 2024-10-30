@@ -1,31 +1,75 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
-    <style>
-        /* Your CSS styling here */
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <h2>Informant Profile</h2>
-    <p><strong>Role:</strong> {{ informant.get_role_display }}</p>
-    <p><strong>Username:</strong> {{ informant.username }}</p>
-    <p><strong>First Name:</strong> {{ informant.first_name }}</p>
-    <p><strong>Last Name:</strong> {{ informant.last_name }}</p>
-    <p><strong>Middle Name:</strong> {{ informant.middle_name }}</p>
-    <p><strong>Email:</strong> {{ informant.email }}</p>
-    <p><strong>Contact Number:</strong> {{ informant.contact_number }}</p>
-    <p><strong>Department:</strong> {{ informant.get_department_display }}</p>
-    {% if informant.student_id_file %}
-        <p><strong>Student ID:</strong> <a href="{{ informant.student_id_file.url }}">Download</a></p>
-    {% endif %}
-    {% if informant.employee_id_file %}
-        <p><strong>Employee ID:</strong> <a href="{{ informant.employee_id_file.url }}">Download</a></p>
-    {% endif %}
-    {% if informant.study_load_file %}
-        <p><strong>Study Load:</strong> <a href="{{ informant.study_load_file.url }}">Download</a></p>
-    {% endif %}
+
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="w-full max-w-5xl bg-white p-10 rounded-lg shadow-xl mx-auto">
+        <h2 class="text-4xl sm:text-5xl font-bold mb-8 text-center text-gray-800">Informant Profile</h2>
+        <div class="space-y-6">
+            <div class="profile-item"><strong class="text-gray-700">Role:</strong> {{ user.role }}</div>
+            <div class="profile-item"><strong class="text-gray-700">Username:</strong> {{ user.username }}</div>
+            <div class="profile-item"><strong class="text-gray-700">First Name:</strong> {{ user.first_name }}</div>
+            <div class="profile-item"><strong class="text-gray-700">Last Name:</strong> {{ user.last_name }}</div>
+            <div class="profile-item"><strong class="text-gray-700">Middle Name:</strong> {{ user.middle_name }}</div>
+            <div class="profile-item"><strong class="text-gray-700">Email:</strong> {{ user.email }}</div>
+            <div class="profile-item"><strong class="text-gray-700">Contact Number:</strong> {{ user.contact_number }}</div>
+            <div class="profile-item"><strong class="text-gray-700">Department:</strong> {{ user.get_department_display }}</div>
+
+            {% if user.role == 'student' %}
+            <div class="profile-item"><strong class="text-gray-700">Student ID:</strong>
+                {% if user.student_id_file %}
+                <a href="{% static user.student_ids %}" class="text-blue-600 hover:underline">Download</a>
+                <div class="mt-4">
+                    <img src="{% static user.student_id_file %}" alt="Student ID" class="w-48 h-auto rounded">
+                </div>
+                {% else %}
+                <span class="text-gray-500">Not provided</span>
+                {% endif %}
+            </div>
+            <div class="profile-item"><strong class="text-gray-700">Study Load:</strong>
+                {% if user.study_load_file %}
+                <a href="{% static user.study_load_file %}" class="text-blue-600 hover:underline">Download</a>
+                <div class="mt-4">
+                    <img src="{% static user.study_load_file %}" alt="Study Load" class="w-48 h-auto rounded">
+                </div>
+                {% else %}
+                <span class="text-gray-500">Not provided</span>
+                {% endif %}
+            </div>
+            {% elif user.role == 'employee' or user.role == 'staff' %}
+            <div class="profile-item"><strong class="text-gray-700">Employee/Staff ID:</strong>
+                {% if user.employee_id_file %}
+                <a href="{% static user.employee_id_file %}" class="text-blue-600 hover:underline">Download</a>
+                <div class="mt-4">
+                    <img src="{% static user.employee_id_file %}" alt="Employee ID" class="w-48 h-auto rounded">
+                </div>
+                {% else %}
+                <span class="text-gray-500">Not provided</span>
+                {% endif %}
+            </div>
+            <div class="profile-item"><strong class="text-gray-700">Document:</strong>
+                {% if user.document_file %}
+                <a href="{% static user.document_file %}" class="text-blue-600 hover:underline">Download</a>
+                <div class="mt-4">
+                    <img src="{% static user.document_file %}" alt="Document" class="w-48 h-auto rounded">
+                </div>
+                {% else %}
+                <span class="text-gray-500">Not provided</span>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script src="https://cdn.tailwindcss.com"></script>
 </body>
+
 </html>
+

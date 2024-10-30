@@ -1,55 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Informant</title>
-    <script src="https://cdn.tailwindcss.com"></script> <!-- Import Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Custom Styles */
         .center-container {
-            max-width: 800px; /* Large container */
-            margin: 0 auto;   /* Center horizontally */
+            max-width: 100%;
+            margin: 0 auto;
         }
     </style>
 </head>
-<body class="bg-white font-sans">
 
-    <!-- Header with Hamburger Menu -->
-    <header class="fixed top-0 left-0 right-0 bg-red-800 text-white p-4 shadow-md flex items-center justify-between z-50">
-        <h1 class="text-2xl font-bold mx-auto">BiPSUmbongan</h1> <!-- Center the header text -->
-        <div class="relative">
+<body class="bg-white font-sans">
+    <header class="fixed top-0 left-0 right-0 bg-blue-900 text-white p-4 shadow-md flex items-center z-50">
+
+     
+
+        <div class="relative flex items-center">
             <button id="menu-toggle" class="lg:hidden text-white focus:outline-none w-10 h-10">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
                 </svg>
             </button>
         </div>
+        
+    
+        <h1 class="text-2xl font-bold mx-auto">BiPSUmbongan</h1>
     </header>
 
-    <!-- Sidebar (fixed on large screens) -->
-    <aside id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-red-800 text-white transform -translate-x-full lg:translate-x-0 lg:fixed lg:left-0 lg:top-0 lg:h-full transition-transform duration-300 z-40">
+
+    <!-- Success Message -->
+    {% if messages %}
+    <div id="success-message" class="fixed top-16 left-1/2 transform -translate-x-1/2 bg-green-500 text-white text-center py-2 px-4 rounded shadow-lg z-50">
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+     
+
+    <aside id="sidebar"
+        class="fixed top-0 left-0 h-full w-64 bg-blue-800 text-white transform -translate-x-full lg:translate-x-0 lg:fixed lg:left-0 lg:top-0 lg:h-full transition-transform duration-300 z-40">
         <div class="pt-20">
             <h2 class="text-2xl lg:text-3xl px-4 lg:px-6 text-white font-bold text-center">Welcome, {{ request.user.username }}!</h2>
             <nav class="mt-6 space-y-4 sm:space-y-6 px-4 lg:px-6 text-center">
-                <a href="#" onclick="toggleProfile()" class="text-sm lg:text-base font-bold text-white block py-2 px-2 lg:px-4 rounded hover:bg-red-700">Profile</a>
-                <a href="#" onclick="toggleSection('complaints-section')" class="text-sm lg:text-base font-bold text-white block py-2 px-2 lg:px-4 rounded hover:bg-red-700">Lodge Report or Complaint</a>
-                <a href="#" onclick="toggleSection('status-section')" class="text-sm lg:text-base font-bold text-white block py-2 px-2 lg:px-4 rounded hover:bg-red-700">Status</a>
-                <a href="#" onclick="toggleSection('history-section')" class="text-sm lg:text-base font-bold text-white block py-2 px-2 lg:px-4 rounded hover:bg-red-700">History</a>
-                <a href="#" onclick="toggleSection('messages-section')" class="text-sm lg:text-base font-bold text-white block py-2 px-2 lg:px-4 rounded hover:bg-red-700">Messages</a>
-                <form method="POST" action="{% url 'logout' %}" class="block text-lg text-center font-bold hover:bg-red-600 py-2">
-                    {% csrf_token %}
-                    <button type="submit" class="w-full text-white">Logout</button>
+                <a href="#" onclick="toggleProfile()"
+                    class="text-sm lg:text-base font-bold text-white block py-2 px-2 lg:px-4 rounded hover:bg-blue-700">Profile</a>
+                <a href="#" onclick="toggleSection('complaints-section')"
+                    class="text-sm lg:text-base font-bold text-white block py-2 px-2 lg:px-4 rounded hover:bg-blue-700">Lodge Report or
+                    Complaint</a>
+                <a href="#" onclick="toggleSection('status-section')"
+                    class="text-sm lg:text-base font-bold text-white block py-2 px-2 lg:px-4 rounded hover:bg-blue-700">Status</a>
+                <a href="#" onclick="toggleSection('history-section')"
+                    class="text-sm lg:text-base font-bold text-white block py-2 px-2 lg:px-4 rounded hover:bg-blue-700">History</a>
+                <a href="#" onclick="toggleSection('messages-section')"
+                    class="text-sm lg:text-base font-bold text-white block py-2 px-2 lg:px-4 rounded hover:bg-blue-700">Messages</a>
+                
+                    <a href="{% url 'home' %}"
+                    class="text-sm lg:text-base font-bold text-white block py-2 px-2 lg:px-4 rounded hover:bg-blue-700">Logout</a>
                 </form>
             </nav>
         </div>
     </aside>
 
-    <!-- Main Content Area -->
+    
+
     <main class="pt-20 lg:ml-64 p-4 flex justify-center">
         <div id="content-area" class="center-container w-full">
             <div id="profile-section" class="section">
-                <h2 class="text-3xl font-bold mb-4 text-center">Profile</h2>
                 <div class="bg-gray-100 p-6 rounded-lg shadow-lg">
                     {% include 'informant/profile.html' %}
                 </div>
@@ -58,29 +80,46 @@
             <div id="complaints-section" class="section hidden">
                 {% include 'main/submit_complaint.html' %}
             </div>
+
             <div id="status-section" class="section hidden">
                 <h2 class="text-2xl font-bold mb-4">Status</h2>
                 {% include 'informant/complaint_status.html' %}
             </div>
+
             <div id="history-section" class="section hidden">
                 <h2 class="text-2xl font-bold mb-4">History</h2>
                 {% include 'informant/complaint_history.html' %}
             </div>
+
             <div id="messages-section" class="section hidden">
                 <h2 class="text-2xl font-bold mb-4">Messages</h2>
-                {% include 'informant/complaint_message.html' %}
+             
+                <ul class="space-y-4">
+                    {% for complaint in complaints %}
+                    <li class="bg-white p-4 rounded-lg shadow-lg border border-gray-200">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <p class="text-lg font-semibold text-gray-900">You received a new message from {{ complaint.office }}</p>
+                                
+                            </div>
+                            <a href="{% url 'complaint_message' complaint.id %}"
+                               class="bg-red-600 text-white px-4 py-2 rounded-lg font-semibold text-sm hover:bg-red-700 transition-colors">
+                               View Message
+                            </a>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
     </main>
 
     <script>
-        // Toggle Sidebar visibility on mobile
-        document.getElementById('menu-toggle').addEventListener('click', function() {
+        document.getElementById('menu-toggle').addEventListener('click', function () {
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('-translate-x-full');
         });
 
-        // Toggle Section visibility and hide Profile
         function toggleSection(sectionId) {
             const sections = document.querySelectorAll('.section');
             sections.forEach(section => section.classList.add('hidden'));
@@ -88,7 +127,6 @@
             document.getElementById('profile-section').classList.add('hidden');
         }
 
-        // Toggle Profile visibility
         let profileVisible = true;
 
         function toggleProfile() {
@@ -104,7 +142,18 @@
                 profileVisible = true;
             }
         }
+
+
+         // Automatically hide the success message after 5 seconds
+         window.addEventListener('load', function () {
+            const messageElement = document.getElementById('success-message');
+            if (messageElement) {
+                setTimeout(() => {
+                    messageElement.style.display = 'none';
+                }, 5000); // Hide after 5 seconds
+            }
+        });
     </script>
 </body>
-</html>
 
+</html>

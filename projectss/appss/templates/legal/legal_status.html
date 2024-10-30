@@ -7,6 +7,17 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 p-6">
+    
+
+    <!-- Success Message -->
+{% if messages %}
+<div id="success-message" class="fixed top-16 left-1/2 transform -translate-x-1/2 bg-green-500 text-white text-center py-2 px-4 rounded shadow-lg z-50">
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
+</div>
+{% endif %}
+
 
     <!-- Reports Table -->
     <div id="reports-table" class="hidden">
@@ -30,7 +41,21 @@
                 {% if complaint.type == "report" and complaint.status != "Solved" %}
                 <tr class="bg-gray-900 border-b border-gray-700">
                     <td class="p-3">{{ request.user.username }}</td>
-                    <td class="p-3">{{ complaint.office }}</td>
+                    <!-- <td class="p-3">{{ complaint.office }}</td> -->
+
+                    <td class="p-3">
+                        <form action="{% url 'update_office' complaint.id %}" method="post">
+                            {% csrf_token %}
+                            <select name="office" class="border p-2 rounded bg-gray-800 text-white" onchange="this.form.submit()">
+                                <option value="GAD Office" {% if complaint.office == "GAD Office" %}selected{% endif %}>GAD Office</option>
+                                <option value="VP Administration and Finance" {% if complaint.office == "VP Administration and Finance" %}selected{% endif %}>VP Administration and Finance</option>
+                                <option value="VP Academic Affairs" {% if complaint.office == "VP Academic Affairs" %}selected{% endif %}>VP Academic Affairs</option>
+                                <option value="VP Students and External Affairs" {% if complaint.office == "VP Students and External Affairs" %}selected{% endif %}>VP Students and External Affairs</option>
+                            </select>
+                        </form>
+                    </td>
+                    
+
                     <td class="p-3">{{ complaint.type }}</td>
                     <td class="p-3">
                         {% if complaint.pdf_file %}
@@ -84,7 +109,7 @@
 
     <!-- Complaints Table -->
     <div id="complaints-table" class="hidden">
-        <h2 class="text-2xl font-bold text-gray-800 mb-4">Complaints</h2>
+        <h2 class="text-2xl font-bold text-gray-800 mb-1">Complaints</h2>
         <table class="w-full table-auto bg-black text-white shadow-md rounded-lg">
             <thead>
                 <tr class="bg-gray-800 text-white">
@@ -104,7 +129,23 @@
                 {% if complaint.type == "complaint" and complaint.status != "Solved" %}
                 <tr class="bg-gray-900 border-b border-gray-700">
                     <td class="p-3">{{ request.user.username }}</td>
-                    <td class="p-3">{{ complaint.office }}</td>
+                    
+                    <!-- <td class="p-3">{{ complaint.office }}</td> -->
+
+
+                    <td class="p-3">
+                        <form action="{% url 'update_office' complaint.id %}" method="post">
+                            {% csrf_token %}
+                            <select name="office" class="border p-2 rounded bg-gray-800 text-white" onchange="this.form.submit()">
+                                <option value="GAD Office" {% if complaint.office == "GAD Office" %}selected{% endif %}>GAD Office</option>
+                                <option value="VP Administration and Finance" {% if complaint.office == "VP Administration and Finance" %}selected{% endif %}>VP Administration and Finance</option>
+                                <option value="VP Academic Affairs" {% if complaint.office == "VP Academic Affairs" %}selected{% endif %}>VP Academic Affairs</option>
+                                <option value="VP Students and External Affairs" {% if complaint.office == "VP Students and External Affairs" %}selected{% endif %}>VP Students and External Affairs</option>
+                            </select>
+                        </form>
+                    </td>
+                    
+
                     <td class="p-3">{{ complaint.type }}</td>
                     <td class="p-3">
                         {% if complaint.pdf_file %}

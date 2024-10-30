@@ -12,27 +12,40 @@ from django.contrib.auth.models import User
 
 
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, User,  Group, Permission
+from django.core.files.base import ContentFile
+from django.utils import timezone
+from reportlab.lib.pagesizes import letter
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
+from io import BytesIO
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 
+# Custom User Manager for Informant
 class InformantManager(BaseUserManager):
-    def create_user(self, username, email, password=None, **extra_fields):
+    def create_user(self, username, email, password=None, is_staff=False, is_superuser=False):
         if not username:
-            raise ValueError('The Username field must be set')
+            raise ValueError('Users must have a username')
         if not email:
-            raise ValueError('The Email field must be set')
-
+            raise ValueError('Users must have an email address')
+        
         email = self.normalize_email(email)
-        user = self.model(username=username, email=email, **extra_fields)
+        user = self.model(username=username, email=email)
         user.set_password(password)
+        user.is_staff = is_staff
+        user.is_superuser = is_superuser
         user.save(using=self._db)
         return user
+    
+    # def create_user(self, username, email, password=None, **extra_fields):
+    #     extra_fields.setdefault('is_staff', False)
+    #     extra_fields.setdefault('is_superuser', False)
 
-    def create_superuser(self, username, email, password=None, **extra_fields):
-        extra_fields.setdefault('is_staff', True)
-        extra_fields.setdefault('is_superuser', True)
+    #     return self.create_user(username, email, password, **extra_fields)
 
-        return self.create_user(username, email, password, **extra_fields)
+    def create_superuser(self, username, password):
+        return self.create_user(username, password, is_staff=True, is_superuser=True)
 
+# Informant model with extended fields
 class Informant(AbstractBaseUser, PermissionsMixin):
     ROLE_CHOICES = [
         ('student', 'Student'),
@@ -51,6 +64,7 @@ class Informant(AbstractBaseUser, PermissionsMixin):
         ('STED', 'School of Teacher Education'),
     ]
 
+    
     role = models.CharField(max_length=10, choices=ROLE_CHOICES)
     username = models.CharField(max_length=50, unique=True)
     first_name = models.CharField(max_length=50)
@@ -59,44 +73,95 @@ class Informant(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     contact_number = models.CharField(max_length=15)
     department = models.CharField(max_length=4, choices=DEPARTMENT_CHOICES, blank=True, null=True)
-    student_id_file = models.ImageField(upload_to='student_ids/', null=True, blank=True)
-    employee_id_file = models.ImageField(upload_to='employee_ids/', null=True, blank=True)
-    study_load_file = models.ImageField(upload_to='study_loads/', null=True, blank=True)
-    document_file = models.ImageField(upload_to='documents/', null=True, blank=True)
+    student_id_file = models.ImageField(null=True, blank=True)
+    employee_id_file = models.ImageField(null=True, blank=True)
+    study_load_file = models.ImageField(null=True, blank=True)
+    document_file = models.ImageField(null=True, blank=True)
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
 
-    # Add related_name to avoid conflicts with auth.User
     groups = models.ManyToManyField(
-        'auth.Group',
-        related_name='informant_set',  # Change this to a unique related name
-        blank=True,
-        help_text='The groups this user belongs to.',
-        verbose_name='groups'
+        Group,
+        related_name='informant_set',  # Add a custom related name to avoid conflicts with auth.User
+        blank=True
     )
     user_permissions = models.ManyToManyField(
-        'auth.Permission',
-        related_name='informant_permissions_set',  # Change this to a unique related name
-        blank=True,
-        help_text='Specific permissions for this user.',
-        verbose_name='user permissions'
+        Permission,
+        related_name='informant_set',  # Add a custom related name to avoid conflicts with auth.User
+        blank=True
     )
+
 
     objects = InformantManager()
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
 
+      # Add related_name to groups and user_permissions to avoid conflicts with auth.User
+    # groups = models.ManyToManyField(
+    #     Group,
+    #     related_name='informant_set',  # Avoid conflict with auth.User
+    #     blank=True,
+    #     help_text='The groups this user belongs to.',
+    #     verbose_name='groups'
+    # )
+    # user_permissions = models.ManyToManyField(
+    #     Permission,
+    #     related_name='informant_user_permissions',  # Avoid conflict with auth.User
+    #     blank=True,
+    #     help_text='Specific permissions for this user.',
+    #     verbose_name='user permissions'
+    # )
+
+    # USERNAME_FIELD = 'username'  # or username if you prefer
+    # REQUIRED_FIELDS = ['first_name', 'last_name', 'contact_number', 'department']
+
+    # USERNAME_FIELD = 'username'
+    # REQUIRED_FIELDS = ['email']
+
+    # def save(self, *args, **kwargs):
+    #     # Save the Informant first
+    #     super(Informant, self).save(*args, **kwargs)
+
+    #     # Create or update the corresponding User model instance
+    #     if not self.user:  # Only create a new User if one doesn't exist
+    #         user = User.objects.create_user(username=self.username, email=self.email)
+    #         user.email = self.email
+    #         user.first_name = self.first_name
+    #         user.last_name = self.last_name
+    #         user.is_active = self.is_active
+    #         user.is_staff = self.is_staff
+    #         # user.set_password(self.password)  # Hash the password only for new users
+    #         user.set_password(self.password)  # Hash the password correctly
+    #         user.save()
+    #         self.user = user
+           
+            
+    #     else:
+    #         # Update existing User information
+    #         self.user.username = self.username
+    #         self.user.email = self.email
+    #         self.user.first_name = self.first_name
+    #         self.user.last_name = self.last_name
+    #         self.user.is_active = self.is_active
+    #         self.user.is_staff = self.is_staff
+    #         if self.password:  # If the password field is set
+    #           self.user.set_password(self.password)  # Use set_password to hash the password
+    #         self.user.save()
+  
+    #         self.user.save()
+
+
+    #         super(Informant, self).save(*args, **kwargs)
+
     def __str__(self):
         return f"{self.username} ({self.role})"
 
 
 
-
-from django.conf import settings  # Import settings to use AUTH_USER_MODEL
-from django.db import models
-
+# Office Model
 class Office(models.Model):
     OFFICE_CHOICES = [
         ('GAD Office', 'GAD Office'),
@@ -104,16 +169,15 @@ class Office(models.Model):
         ('VP Academic Affairs', 'VP Academic Affairs'),
         ('VP Students and External Affairs', 'VP Students and External Affairs'),
     ]
-    
+
     office_name = models.CharField(max_length=50, choices=OFFICE_CHOICES, unique=True)
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)  # Linking office to custom user model (Informant)
+    informant = models.OneToOneField(Informant, on_delete=models.CASCADE)   # Linking office to the default user model
 
     def __str__(self):
         return self.office_name
 
 
-
-# Complaint Model
+# Complaint Model with PDF generation
 class Complaint(models.Model):
     TYPE_CHOICES = [
         ('report', 'Report'),
@@ -133,14 +197,18 @@ class Complaint(models.Model):
 
     description = models.TextField()
     office = models.CharField(max_length=50, choices=OFFICE_CHOICES)
-    type = models.CharField(max_length=50) 
-    status = models.CharField(max_length=50, default='Pending')
-    urgency = models.CharField(max_length=50) 
+    type = models.CharField(max_length=50, choices=TYPE_CHOICES) 
+    status = models.CharField(max_length=50, default='Pending', choices=STATUS_CHOICES)
+    urgency = models.CharField(max_length=50)
     pdf_file = models.FileField(upload_to='complaint_pdfs/', null=True, blank=True)
+   
     issue_date = models.DateTimeField(default=timezone.now)
     is_sent = models.BooleanField(default=False)
     receiving_office = models.CharField(max_length=50, choices=OFFICE_CHOICES)
+    informant = models.ForeignKey(Informant, null=True, on_delete=models.CASCADE)  # Link to the Informant
     
+
+
     def save(self, *args, **kwargs):
         if not self.pdf_file:
             self.pdf_file = self.generate_pdf()
@@ -157,23 +225,19 @@ class Complaint(models.Model):
 
         story = []
 
-        # header
+        # PDF content
         story.append(Paragraph(f"Date: {timezone.now().strftime('%B %d, %Y')}", header_style))
-        story.append(Spacer(1, 1))
+        story.append(Spacer(1, 12))
         story.append(Paragraph(f"To: {self.office}", header_style))
         story.append(Spacer(1, 12))
         story.append(Paragraph(f"Subject: {self.type}", header_style))
         story.append(Spacer(1, 24))
 
-        # letter body
-        story.append(Paragraph(f"Dear Sir/Madam,", body_style))
-        story.append(Spacer(1, 12))
-
         # complaint details
         story.append(Paragraph(f"Issue Date: {self.issue_date.strftime('%B %d, %Y')}", body_style))
-        story.append(Paragraph(f"Urgency: {self.urgency}", body_style))  # Still in process
+        story.append(Paragraph(f"Urgency: {self.urgency}", body_style))
         story.append(Paragraph(f"Type: {self.type}", body_style))
-        
+
         story.append(Spacer(1, 12))
         story.append(Paragraph("Description:", body_style))
         story.append(Spacer(1, 6))
@@ -183,7 +247,7 @@ class Complaint(models.Model):
         story.append(Spacer(1, 24))
         story.append(Paragraph("Sincerely,", body_style))
         story.append(Spacer(1, 12))
-        story.append(Paragraph("Your Name", body_style))  # still didnt have the registration and login form, still no username
+        story.append(Paragraph("Your Name", body_style))
 
         pdf.build(story)
 
@@ -192,6 +256,7 @@ class Complaint(models.Model):
         return ContentFile(buffer.getvalue(), filename)
 
 
+# Additional Models
 class Type(models.Model):
     name = models.CharField(max_length=50, unique=True)
 
@@ -200,10 +265,19 @@ class Type(models.Model):
 
 
 class Urgency(models.Model):
-    name = models.CharField(max_length=50, unique=True)  # Still in Process
+    name = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
         return self.name
+    
+
+
+class Response(models.Model):
+    complaint = models.ForeignKey(Complaint, on_delete=models.CASCADE, related_name='responses')
+    letter_content = models.TextField()
+    response_pdf = models.FileField(upload_to='responses/', blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
 
 
 

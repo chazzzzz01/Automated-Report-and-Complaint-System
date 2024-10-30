@@ -20,3 +20,25 @@
 #                 'total_reports': total_reports
 #             }
 #         )
+
+
+
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from .models import Informant
+from django.contrib.auth.models import User
+
+@receiver(post_save, sender=Informant)
+def create_or_update_user(sender, instance, created, **kwargs):
+    # Create or update the corresponding User instance
+    user, created = User.objects.get_or_create(username=instance.username)
+    user.email = instance.email
+    user.first_name = instance.first_name
+    user.last_name = instance.last_name
+    user.is_active = instance.is_active
+    user.is_staff = instance.is_staff
+
+    if created:  # Only set the password for new users
+        user.set_password(instance.password)  # Hash the password properly
+    
+    user.save()

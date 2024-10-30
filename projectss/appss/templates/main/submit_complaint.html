@@ -1,5 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Complaint or Report</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body class="bg-gray-100 flex items-center justify-center min-h-screen px-4">
+    <div class="max-w-4xl w-full bg-gray-200 rounded-lg shadow-xl p-12 sm:p-16 lg:p-20 mx-auto">
+        <h1 class="text-center text-5xl font-bold text-gray-800 mb-10">Submit a Complaint or Report</h1>
+        <form id="complaintForm" method="POST">
+            <textarea name="description" id="description" rows="10" placeholder="Enter complaint or report description here..."
+                class="w-full p-6 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 resize-none"></textarea>
+            <button id="submitButton" type="submit"
+                class="mt-8 w-full bg-blue-800 text-white py-4 rounded-lg text-xl hover:bg-blue-700 transition duration-200">
+                Submit
+            </button>
+        </form>
+
+        <div id="responseMessage" class="mt-8 text-center"></div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#complaintForm').on('submit', function (e) {
+                e.preventDefault();  // Prevent default form submission
+
+                const description = $('#description').val().trim();
+
+                function isValidDescription(text) {
+                    return text.length >= 10;  // Ensure minimum 10 characters for validity
+                }
+
+                // Check if description is valid
+                if (!isValidDescription(description)) {
+                    $('#responseMessage').html('<p class="text-red-600">Please enter a valid description of at least 10 characters.</p>');
+                    return;
+                }
+
+                $('#submitButton').attr('disabled', true).removeClass('bg-blue-800 hover:bg-blue-700').addClass('bg-gray-500');
+
+                $.ajax({
+                    url: "{% url 'submit_complaint' %}",
+                    type: "POST",
+                    data: {
+                        'description': description,
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    },
+                    success: function (response) {
+                        $('#responseMessage').html('<p class="text-green-600">' + response.message + '</p>');
+                        $('#complaintForm')[0].reset();
+                        $('#submitButton').removeClass('bg-gray-500').addClass('bg-blue-800');
+                    },
+                    error: function (xhr) {
+                        let errorMessage = xhr.responseJSON ? xhr.responseJSON.error : "An error occurred.";
+                        $('#responseMessage').html('<p class="text-red-600">' + errorMessage + '</p>');
+                        $('#submitButton').attr('disabled', false).removeClass('bg-gray-500').addClass('bg-blue-800 hover:bg-blue-700');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,30 +98,37 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('#complaintForm').on('submit', function (e) {
-                e.preventDefault();  // Prevent the form from submitting normally
+                e.preventDefault();  // Prevent default form submission
 
-                // Disable the button after the first click to prevent multiple submissions
+                const description = $('#description').val().trim();
+
+                function isValidDescription(text) {
+                    return text.length >= 10;  // Ensure minimum 10 characters for validity
+                }
+
+                // Check if description is valid
+                if (!isValidDescription(description)) {
+                    $('#responseMessage').html('<p class="text-red-600">Please enter a valid description of at least 10 characters.</p>');
+                    return;
+                }
+
                 $('#submitButton').attr('disabled', true).removeClass('bg-red-800 hover:bg-red-700').addClass('bg-gray-500');
 
                 $.ajax({
                     url: "{% url 'submit_complaint' %}",
                     type: "POST",
                     data: {
-                        'description': $('#description').val(),
+                        'description': description,
                         'csrfmiddlewaretoken': '{{ csrf_token }}'
                     },
                     success: function (response) {
                         $('#responseMessage').html('<p class="text-green-600">' + response.message + '</p>');
                         $('#complaintForm')[0].reset();
-                        
-                        // Change button color to indicate success
-                        $('#submitButton').removeClass('bg-gray-500').addClass('bg-green-600');
+                        $('#submitButton').removeClass('bg-gray-500').addClass('bg-red-600');
                     },
-                    error: function (xhr, status, error) {
+                    error: function (xhr) {
                         let errorMessage = xhr.responseJSON ? xhr.responseJSON.error : "An error occurred.";
                         $('#responseMessage').html('<p class="text-red-600">' + errorMessage + '</p>');
-
-                        // Re-enable the button in case of error
                         $('#submitButton').attr('disabled', false).removeClass('bg-gray-500').addClass('bg-red-800 hover:bg-red-700');
                     }
                 });
@@ -58,4 +136,90 @@
         });
     </script>
 </body>
+</html> -->
+
+
+<!-- 
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Complaint or Report</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body class="bg-gray-100 flex items-center justify-center min-h-screen px-4">
+    <div class="max-w-4xl w-full bg-gray-200 rounded-lg shadow-xl p-12 sm:p-16 lg:p-20 mx-auto">
+        <h1 class="text-center text-5xl font-bold text-gray-800 mb-10">Submit a Complaint or Report</h1>
+        <form id="complaintForm" method="POST">
+            <textarea name="description" id="description" rows="10" placeholder="Enter complaint or report description here..."
+                class="w-full p-6 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 resize-none"></textarea>
+            <button id="submitButton" type="submit"
+                class="mt-8 w-full bg-red-800 text-white py-4 rounded-lg text-xl hover:bg-red-700 transition duration-200">
+                Submit
+            </button>
+        </form>
+
+        <div id="responseMessage" class="mt-8 text-center"></div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#complaintForm').on('submit', function (e) {
+                e.preventDefault();  // Prevent default form submission
+
+                const description = $('#description').val().trim();
+
+                function isValidDescription(text) {
+                    return text.length >= 10;  // Ensure minimum 10 characters for validity
+                }
+
+                function isReadable(text) {
+                    const words = text.split(/\s+/).filter(Boolean); // Splitting and filtering empty words
+                    const averageWordLength = words.reduce((acc, word) => acc + word.length, 0) / words.length;
+                    return averageWordLength <= 6;  // Check if average word length is reasonable for readability
+                }
+
+                // Check if description is valid and readable
+                if (!isValidDescription(description)) {
+                    $('#responseMessage').html('<p class="text-red-600">Please enter a valid description of at least 10 characters.</p>');
+                    return;
+                }
+
+                if (!isReadable(description)) {
+                    $('#responseMessage').html('<p class="text-red-600">The description text is too complex and not readable. Please simplify it.</p>');
+                    return;
+                }
+
+                $('#submitButton').attr('disabled', true).removeClass('bg-red-800 hover:bg-red-700').addClass('bg-gray-500');
+
+                $.ajax({
+                    url: "{% url 'submit_complaint' %}",
+                    type: "POST",
+                    data: {
+                        'description': description,
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    },
+                    success: function (response) {
+                        $('#responseMessage').html('<p class="text-green-600">' + response.message + '</p>');
+                        $('#complaintForm')[0].reset();
+                        $('#submitButton').removeClass('bg-gray-500').addClass('bg-red-800');
+                    },
+                    error: function (xhr) {
+                        let errorMessage = xhr.responseJSON ? xhr.responseJSON.error : "An error occurred.";
+                        $('#responseMessage').html('<p class="text-red-600">' + errorMessage + '</p>');
+                        $('#submitButton').attr('disabled', false).removeClass('bg-gray-500').addClass('bg-red-800 hover:bg-red-700');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
 </html>
+ -->

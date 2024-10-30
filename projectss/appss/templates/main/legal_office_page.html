@@ -22,37 +22,20 @@
     </div>
     
     <!-- Center: Title -->
-    <h1 class="text-2xl font-bold">BiPSUmbongan</h1>
+    <h1 class="text-2xl font-bold mx-auto">BiPSUmbongan</h1>
 
-    <!-- Right side: Notification Bell -->
-    <div class="flex items-center relative">
-        <button id="notification-button" class="relative focus:outline-none">
-            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                <!-- Bell Icon SVG Path -->
-                <path d="M15 17h5l-1.405-1.405C18.063 14.672 18 13.837 18 13V9c0-3.038-1.635-5.741-4.5-6.32V2a1.5 1.5 0 00-3 0v.68C8.635 3.259 7 5.962 7 9v4c0 .837-.063 1.672-.595 2.595L5 17h5m5 0a3 3 0 11-6 0h6z" />
-            </svg>
-            <!-- Notification Badge -->
-            <span id="notification-badge" class="absolute top-0 right-0 inline-flex items-center justify-center px-1 py-0.5 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full hidden">0</span>
-        </button>
-        <!-- Notification Dropdown -->
-        <div id="notification-dropdown" class="hidden absolute right-0 mt-2 w-80 bg-white text-black rounded-md shadow-lg overflow-hidden z-20">
-            <div class="py-2">
-                <!-- Notification items will be dynamically added here -->
-                <p class="px-4 py-2 text-gray-600">No new notifications.</p>
-            </div>
-        </div>
-    </div>
+   
 </header>
 
 <!-- Sidebar that can be toggled -->
-<div id="sidebar1" class="fixed top-20 left-0 h-full w-64 bg-red-800 text-white p-6 transition-all duration-300 transform lg:translate-x-0 -translate-x-full">
-    <p class="text-xl text-center uppercase mb-6">Welcome, {{ user.username }}</p>
+<div id="sidebar1" class="fixed top-11 left-0 h-full w-64 bg-red-800 text-white p-6 transition-all duration-300 transform lg:translate-x-0 -translate-x-full">
+    <p class="text-xl text-center uppercase mb-6">Welcome, legal_admin</p>
     <nav class="space-y-4">
         <a href="#" class="block text-lg text-center font-bold hover:bg-red-600 py-2" onclick="toggleSection('dashboard')">Dashboard</a>
         <a href="#" class="block text-lg text-center font-bold hover:bg-red-600 py-2" onclick="toggleSection('reports')">Reports</a>
         <a href="#" class="block text-lg text-center font-bold hover:bg-red-600 py-2" onclick="toggleSection('complaints')">Complaints</a>
-        <a href="#" class="block text-lg text-center font-bold hover:bg-red-600 py-2" onclick="toggleHistoryButtons()">History</a>
-        <a href="#" class="block text-lg text-center font-bold hover:bg-red-600 py-2" onclick="toggleMessagesVisibility()">Messages</a>
+        <a href="#" class="block text-lg text-center font-bold hover:bg-red-600 py-2" onclick="toggleHistoryButtons()">Statistic</a>
+        
         <form method="POST" action="{% url 'logout' %}" class="block text-lg text-center font-bold hover:bg-red-600 py-2">
             {% csrf_token %}
             <button type="submit" class="w-full text-white">Logout</button>

@@ -1,108 +1,56 @@
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
     <style>
-        /* Basic styling */
         body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #0e0e0e;
-        }
-
-        .login-container {
-            background-color: rgb(255, 255, 255);
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-        }
-
-        h2 {
-            text-align: center;
-        }
-
-        label {
-            display: block;
-            margin-top: 1rem;
-        }
-
-        input {
-            width: 100%;
-            padding: 0.5rem;
-            margin-top: 0.5rem;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        .button {
-            width: 100%;
-            padding: 0.7rem;
-            margin-top: 1.5rem;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .button:hover {
-            background-color: #218838;
-        }
-
-        .error-message {
-            color: red;
-            text-align: center;
-            margin-bottom: 1rem;
-        }
-
-        .register-link {
-            text-align: center;
-            margin-top: 1rem;
-        }
-
-        .register-link a {
-            color: #007bff;
-        }
-
-        .register-link a:hover {
-            text-decoration: underline;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("{% static 'background/backgroundbipsu.jpg' %}");
+            background-size: cover;
+            background-position: center;
         }
     </style>
 </head>
-<body>
-    <div class="login-container">
-        <h2>Login</h2>
+<body class="flex items-center justify-center h-screen bg-gray-900">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl text-center font-bold mb-6 text-gray-800">Login</h2>
 
-        {% if messages %}
-            <div class="error-message">
+        <!-- {% if messages %}
+            <div class="error-message text-red-600 text-center mb-4">
                 {% for message in messages %}
                     {{ message }}
                 {% endfor %}
             </div>
-        {% endif %}
+        {% endif %} -->
 
         <form method="POST" action="{% url 'login' %}">
             {% csrf_token %}
-            <label for="login_username">Username:</label>
-            <input type="text" id="login_username" name="login_username" required>
+            <div class="mb-4">
+                <label for="login_username" class="block text-gray-700">Username:</label>
+                <input type="text" id="login_username" name="login_username" required 
+                       class="w-full p-2 mt-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500">
+            </div>
 
-            <label for="login_password">Password:</label>
-            <input type="password" id="login_password" name="login_password" required>
+            <div class="mb-6">
+                <label for="login_password" class="block text-gray-700">Password:</label>
+                <input type="password" id="login_password" name="login_password" required
+                       class="w-full p-2 mt-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500">
+            </div>
 
-            <button type="submit" class="button">Login</button>
+            <button type="submit" 
+                    class="w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300">
+                Login
+            </button>
         </form>
 
-        <div class="register-link">
-            <p>Don't have an account? <a href="{% url 'registration_page' %}">Register here</a></p>
+        <div class="mt-6 text-center">
+            <p class="text-gray-700">Don't have an account? 
+                <a href="{% url 'registration_page' %}" class="text-blue-600 hover:underline">Register here</a>
+            </p>
         </div>
     </div>
 </body>

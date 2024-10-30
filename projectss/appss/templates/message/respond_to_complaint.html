@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Respond to Complaint</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+
+    <div class="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-md">
+        <h2 class="text-2xl font-bold mb-4">Respond to {{ complaint.type }} from {{ complaint.office }}</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="mb-4">
+                <label for="response_letter" class="block text-gray-700 text-sm font-bold mb-2">Response Letter:</label>
+                {{ form.response_letter }}
+            </div>
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Submit Response</button>
+        </form>
+    </div>
+
+</body>
+</html>

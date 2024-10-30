@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,16 +10,17 @@
 
     <!-- Header with Hamburger Menu -->
     <header class="fixed top-0 left-0 right-0 bg-red-800 text-white p-4 shadow-md flex items-center justify-between z-50">
+        <!-- Hamburger Icon for Mobile -->
+        <button id="menu-toggle" class="lg:hidden text-white focus:outline-none w-10 h-10">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+            </svg>
+        </button>
+        
         <h1 class="text-2xl font-bold mx-auto">BiPSUmbongan</h1> <!-- Center the header text -->
-        <!-- Container for the menu -->
-        <div class="relative">
-            <!-- Hamburger Icon for Mobile -->
-            <button id="menu-toggle" class="lg:hidden text-white focus:outline-none w-10 h-10">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                </svg>
-            </button>
-        </div>
+        
+        <!-- Empty div to balance the layout -->
+        <div class="lg:hidden w-10 h-10"></div>
     </header>
 
     <!-- Sidebar and Content Layout -->
@@ -31,11 +32,8 @@
             <button onclick="toggleSection('reports-table')" class="w-full text-center text-lg font-bold mb-4 hover:bg-red-700 p-2 rounded">Report</button>
             <button onclick="toggleSection('complaints-table')" class="w-full text-center text-lg font-bold mb-4 hover:bg-red-700 p-2 rounded">Complaint</button>
             <p id="history-link" onclick="toggleHistory()" class="block text-lg mb-4 hover:bg-red-700 font-bold p-2 rounded">Statistics</p>
-            <p id="messages-link" onclick="toggleMessagesVisibility()" class="block text-lg font-bold hover:bg-red-700 p-2 rounded">Messages</p>
-            <form method="POST" action="{% url 'logout' %}" class="block text-lg text-center font-bold hover:bg-red-600 py-2">
-                {% csrf_token %}
-                <button type="submit" class="w-full text-white">Logout</button>
-            </form>
+            
+            <a href="{% url 'home' %}" class="block text-lg font-bold hover:bg-red-700 p-2 rounded">Logout</a>
         </nav>
 
         <!-- Sidebar for Mobile (visible on small screens) -->
@@ -45,11 +43,8 @@
             <button onclick="toggleSection('reports-table')" class="w-full text-center text-lg mb-4 font-bold hover:bg-red-700 p-2 rounded">Report</button>
             <button onclick="toggleSection('complaints-table')" class="w-full text-center text-lg mb-4 font-bold hover:bg-red-700 p-2 rounded">Complaint</button>
             <p id="history-link-mobile" onclick="toggleHistory()" class="block text-lg mb-4 hover:bg-red-700 font-bold p-2 rounded">Statistics</p>
-            <p id="messages-link-mobile" onclick="toggleMessagesVisibility()" class="block text-lg font-bold hover:bg-red-700 p-2 rounded">Messages</p>
-            <form method="POST" action="{% url 'logout' %}" class="block text-lg text-center font-bold hover:bg-red-600 py-2">
-                {% csrf_token %}
-                <button type="submit" class="w-full text-white">Logout</button>
-            </form>
+            
+            <a href="{% url 'home' %}" class="block text-lg font-bold hover:bg-red-700 p-2 rounded">Logout</a>
         </nav>
 
         <!-- Main Content Area -->
