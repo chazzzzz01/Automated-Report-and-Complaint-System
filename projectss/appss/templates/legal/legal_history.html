@@ -29,7 +29,7 @@
                     {% for complaint in complaints %}
                     {% if complaint.type == "report" and complaint.status == "Solved" %}
                     <tr class="border-b border-gray-200 hover:bg-gray-100">
-                        <td class="p-3">{{ request.user.username }}</td>
+                        <td class="p-3">{{ complaint.informant.username }}</td>
                         <td class="py-3 px-6 text-left whitespace-nowrap">{{ complaint.office }}</td>
                         <td class="py-3 px-6 text-left">{{ complaint.type }}</td>
                         <td class="py-3 px-6 text-left">
@@ -82,7 +82,7 @@
                     {% for complaint in complaints %}
                     {% if complaint.type == "complaint" and complaint.status == "Solved" %}
                     <tr class="border-b border-gray-200 hover:bg-gray-100">
-                        <td class="p-3">{{ request.user.username }}</td>
+                        <td class="p-3">{{ complaint.informant.username }}</td>
                         <td class="py-3 px-6 text-left whitespace-nowrap">{{ complaint.office }}</td>
                         <td class="py-3 px-6 text-left">{{ complaint.type }}</td>
                         <td class="py-3 px-6 text-left">

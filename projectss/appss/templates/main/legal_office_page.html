@@ -9,13 +9,12 @@
 <body class="bg-gray-100 pt-20 font-sans">
 
 <!-- Header with Hamburger Menu and Notification Bell -->
-<header class="fixed top-0 left-0 right-0 bg-red-800 text-white p-4 shadow-md flex items-center justify-between z-50">
+<header class="fixed top-0 left-0 right-0 bg-blue-900 text-white p-4 shadow-md flex items-center justify-between z-50">
     <!-- Left side: Hamburger menu button -->
     <div class="flex items-center">
         <!-- Hamburger Icon for Mobile -->
         <button id="menu-toggle" class="lg:hidden text-white focus:outline-none w-10 h-10">
             <svg id="hamburger-icon" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <!-- Hamburger Icon SVG Path -->
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
             </svg>
         </button>
@@ -23,26 +22,23 @@
     
     <!-- Center: Title -->
     <h1 class="text-2xl font-bold mx-auto">BiPSUmbongan</h1>
-
-   
 </header>
 
 <!-- Sidebar that can be toggled -->
-<div id="sidebar1" class="fixed top-11 left-0 h-full w-64 bg-red-800 text-white p-6 transition-all duration-300 transform lg:translate-x-0 -translate-x-full">
+<div id="sidebar1" class="fixed top-11 left-0 h-full w-64 bg-blue-800 text-white p-6 transition-all duration-300 transform lg:translate-x-0 -translate-x-full">
     <p class="text-xl text-center uppercase mb-6">Welcome, legal_admin</p>
     <nav class="space-y-4">
-        <a href="#" class="block text-lg text-center font-bold hover:bg-red-600 py-2" onclick="toggleSection('dashboard')">Dashboard</a>
-        <a href="#" class="block text-lg text-center font-bold hover:bg-red-600 py-2" onclick="toggleSection('reports')">Reports</a>
-        <a href="#" class="block text-lg text-center font-bold hover:bg-red-600 py-2" onclick="toggleSection('complaints')">Complaints</a>
-        <a href="#" class="block text-lg text-center font-bold hover:bg-red-600 py-2" onclick="toggleHistoryButtons()">Statistic</a>
+        <a href="#" class="block text-lg text-center font-bold hover:bg-blue-600 py-2" onclick="toggleSection('dashboard')">Dashboard</a>
+        <a href="#" class="block text-lg text-center font-bold hover:bg-blue-600 py-2" onclick="toggleSection('reports')">Reports</a>
+        <a href="#" class="block text-lg text-center font-bold hover:bg-blue-600 py-2" onclick="toggleSection('complaints')">Complaints</a>
+        <a href="#" class="block text-lg text-center font-bold hover:bg-blue-600 py-2" onclick="toggleHistoryButtons()">History</a>
         
-        <form method="POST" action="{% url 'logout' %}" class="block text-lg text-center font-bold hover:bg-red-600 py-2">
+        <form method="POST" action="{% url 'logout' %}" class="block text-lg text-center font-bold hover:bg-blue-600 py-2">
             {% csrf_token %}
             <button type="submit" class="w-full text-white">Logout</button>
         </form>
     </nav>
 
-    <!-- History Buttons -->
     <div id="history-buttons" class="hidden space-y-2 mt-4">
         <button class="w-full bg-red-600 py-2 text-center" onclick="showSolvedTable('reports')">Solved Reports</button>
         <button class="w-full bg-red-600 py-2 text-center" onclick="showSolvedTable('complaints')">Solved Complaints</button>
@@ -50,16 +46,14 @@
 </div>
 
 <!-- Main Content -->
-<div id="content1" class="p-6 transition-all duration-300 lg:ml-64"> <!-- Left margin is applied only on large screens -->
+<div id="content1" class="p-6 transition-all duration-300 lg:ml-64">
     <div id="dashboard-content" class="hidden"></div>
-    <!-- Dynamic content includes -->
     {% include 'legal/legal_status.html' %}
     {% include 'legal/legal_history.html' %}
     <div id="messages-section" class="hidden">
         {% include 'legal/legal_message.html' %}
     </div>
     <div id="reports-table" class="hidden">
-        <!-- Example Table -->
         <table class="min-w-full bg-white">
             <thead>
                 <tr class="bg-red-600 text-white">
@@ -95,7 +89,6 @@
     const sidebar = document.getElementById('sidebar1');
     const content = document.getElementById('content1');
 
-    // Toggle sidebar visibility on small screens
     menuToggle.addEventListener('click', () => {
         sidebar.classList.toggle('-translate-x-full');
         if (sidebar.classList.contains('-translate-x-full')) {
@@ -153,67 +146,9 @@
         document.getElementById('messages-section').classList.add('hidden');
     }
 
-    // Notification bell functionality
-    const notificationButton = document.getElementById('notification-button');
-    const notificationDropdown = document.getElementById('notification-dropdown');
-    const notificationBadge = document.getElementById('notification-badge');
-
-    notificationButton.addEventListener('click', () => {
-        notificationDropdown.classList.toggle('hidden');
-    });
-
-    // Close the notification dropdown when clicking outside
-    document.addEventListener('click', function(event) {
-        const isClickInside = notificationButton.contains(event.target) || notificationDropdown.contains(event.target);
-
-        if (!isClickInside) {
-            notificationDropdown.classList.add('hidden');
-        }
-    });
-
-    // Function to update notifications
-    function updateNotifications(notifications) {
-        const dropdownContent = notificationDropdown.querySelector('.py-2');
-        dropdownContent.innerHTML = ''; // Clear existing notifications
-
-        if (notifications.length > 0) {
-            notifications.forEach(notification => {
-                const notificationItem = document.createElement('div');
-                notificationItem.classList.add('px-4', 'py-2', 'hover:bg-gray-200', 'cursor-pointer');
-                notificationItem.innerText = notification.message;
-                // You can add click event to navigate to the specific report/complaint
-                dropdownContent.appendChild(notificationItem);
-            });
-            notificationBadge.innerText = notifications.length;
-            notificationBadge.classList.remove('hidden');
-        } else {
-            const noNotification = document.createElement('p');
-            noNotification.classList.add('px-4', 'py-2', 'text-gray-600');
-            noNotification.innerText = 'No new notifications.';
-            dropdownContent.appendChild(noNotification);
-            notificationBadge.classList.add('hidden');
-        }
-    }
-
-    // Example: Fetch notifications from the server
-    // You can replace this with actual server calls
-    let notifications = [];
-
-    // Simulate receiving a new notification
-    function addNotification(message) {
-        notifications.push({ message: message });
-        updateNotifications(notifications);
-    }
-
-    // Example usage: simulate new notifications after some time
-    setTimeout(() => {
-        addNotification('New report received!');
-    }, 2000);
-
-    setTimeout(() => {
-        addNotification('New complaint received!');
-    }, 5000);
-
+    window.onload = () => {
+        toggleSection('dashboard'); // Show dashboard on load
+    };
 </script>
 
 </body>

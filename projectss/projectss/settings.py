@@ -75,6 +75,19 @@ MIDDLEWARE = [
     
 ]
 
+
+
+# SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+# SESSION_COOKIE_SECURE = False  # Set to True in production with HTTPS
+
+
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_COOKIE_AGE = 3600  # Optional: session expires after 1 hour
+SESSION_SAVE_EVERY_REQUEST = True  # Save session data on every request
+
+
+
 ROOT_URLCONF = 'projectss.urls'
 
 

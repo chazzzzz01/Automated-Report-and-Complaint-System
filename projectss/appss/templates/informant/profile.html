@@ -22,43 +22,49 @@
             <div class="profile-item"><strong class="text-gray-700">Contact Number:</strong> {{ user.contact_number }}</div>
             <div class="profile-item"><strong class="text-gray-700">Department:</strong> {{ user.get_department_display }}</div>
 
+            <!-- Student-specific fields -->
             {% if user.role == 'student' %}
             <div class="profile-item"><strong class="text-gray-700">Student ID:</strong>
                 {% if user.student_id_file %}
-                <a href="{% static user.student_ids %}" class="text-blue-600 hover:underline">Download</a>
+                <a href="{{ user.student_id_file.url }}" class="text-blue-600 hover:underline">Download</a>
                 <div class="mt-4">
-                    <img src="{% static user.student_id_file %}" alt="Student ID" class="w-48 h-auto rounded">
+                    <img src="{{ user.student_id_file.url }}" alt="Student ID" class="w-48 h-auto rounded">
                 </div>
                 {% else %}
                 <span class="text-gray-500">Not provided</span>
                 {% endif %}
             </div>
+
             <div class="profile-item"><strong class="text-gray-700">Study Load:</strong>
                 {% if user.study_load_file %}
-                <a href="{% static user.study_load_file %}" class="text-blue-600 hover:underline">Download</a>
+                <a href="{{ user.study_load_file.url }}" class="text-blue-600 hover:underline">Download</a>
                 <div class="mt-4">
-                    <img src="{% static user.study_load_file %}" alt="Study Load" class="w-48 h-auto rounded">
+                    <img src="{{ user.study_load_file.url }}" alt="Study Load" class="w-48 h-auto rounded">
                 </div>
                 {% else %}
                 <span class="text-gray-500">Not provided</span>
                 {% endif %}
             </div>
-            {% elif user.role == 'employee' or user.role == 'staff' %}
+            {% endif %}
+
+            <!-- Employee/Staff-specific fields -->
+            {% if user.role == 'employee' or user.role == 'faculty' %}
             <div class="profile-item"><strong class="text-gray-700">Employee/Staff ID:</strong>
                 {% if user.employee_id_file %}
-                <a href="{% static user.employee_id_file %}" class="text-blue-600 hover:underline">Download</a>
+                <a href="{{ user.employee_id_file.url }}" class="text-blue-600 hover:underline">Download</a>
                 <div class="mt-4">
-                    <img src="{% static user.employee_id_file %}" alt="Employee ID" class="w-48 h-auto rounded">
+                    <img src="{{ user.employee_id_file.url }}" alt="Employee ID" class="w-48 h-auto rounded">
                 </div>
                 {% else %}
                 <span class="text-gray-500">Not provided</span>
                 {% endif %}
             </div>
+
             <div class="profile-item"><strong class="text-gray-700">Document:</strong>
                 {% if user.document_file %}
-                <a href="{% static user.document_file %}" class="text-blue-600 hover:underline">Download</a>
+                <a href="{{ user.document_file.url }}" class="text-blue-600 hover:underline">Download</a>
                 <div class="mt-4">
-                    <img src="{% static user.document_file %}" alt="Document" class="w-48 h-auto rounded">
+                    <img src="{{ user.document_file.url }}" alt="Document" class="w-48 h-auto rounded">
                 </div>
                 {% else %}
                 <span class="text-gray-500">Not provided</span>
@@ -72,4 +78,3 @@
 </body>
 
 </html>
-

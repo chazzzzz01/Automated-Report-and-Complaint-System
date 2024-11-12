@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Office Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("{% static 'background/backgroundbipsu.jpg' %}");
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center h-screen bg-gray-900">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl text-center font-bold mb-6 text-gray-800">Legal Office Login</h2>
+        
+        {% if messages %}
+            <div class="error-message text-red-600 text-center mb-4">
+                {% for message in messages %}
+                    <p class="message {{ message.tags }}">{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form action="{% url 'legal_office_login' %}" method="post">
+            {% csrf_token %}
+            <div class="mb-4">
+                <label for="login_username" class="block text-gray-700">Username:</label>
+                <input type="text" id="login_username" name="login_username" required 
+                       class="w-full p-2 mt-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500">
+            </div>
+
+            <div class="mb-6">
+                <label for="login_password" class="block text-gray-700">Password:</label>
+                <input type="password" id="login_password" name="login_password" required
+                       class="w-full p-2 mt-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500">
+            </div>
+
+            <button type="submit" 
+                    class="w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300">
+                Login
+            </button>
+        </form>
+
+       
+    </div>
+</body>
+</html>

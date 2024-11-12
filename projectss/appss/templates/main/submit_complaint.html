@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 
 <head>
@@ -8,14 +8,52 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <style>
+        /* Custom styles for the dropdown search */
+        .dropdown-wrapper {
+            position: relative;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 100%;
+            max-height: 150px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            z-index: 1;
+        }
+        .dropdown-content div {
+            padding: 8px;
+            cursor: pointer;
+        }
+        .dropdown-content div:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
 </head>
 
 <body class="bg-gray-100 flex items-center justify-center min-h-screen px-4">
     <div class="max-w-4xl w-full bg-gray-200 rounded-lg shadow-xl p-12 sm:p-16 lg:p-20 mx-auto">
         <h1 class="text-center text-5xl font-bold text-gray-800 mb-10">Submit a Complaint or Report</h1>
         <form id="complaintForm" method="POST">
+            <label for="categoryInput" class="block text-lg font-medium text-gray-700 mb-2">Category</label>
+            
+            <div class="dropdown-wrapper">
+                <input type="text" id="categoryInput" placeholder="Search or select a category" 
+                       class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500" 
+                       onkeyup="filterDropdown()">
+                <div id="dropdownList" class="dropdown-content">
+                    <div onclick="selectOption('Sexual Harassment')">Sexual Harassment</div>
+                    <div onclick="selectOption('Sexual Assault')">Sexual Assault</div>
+                    <div onclick="selectOption('Bullying')">Bullying</div>
+                </div>
+            </div>
+
             <textarea name="description" id="description" rows="10" placeholder="Enter complaint or report description here..."
-                class="w-full p-6 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 resize-none"></textarea>
+                class="w-full p-6 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 resize-none mt-4"></textarea>
+
             <button id="submitButton" type="submit"
                 class="mt-8 w-full bg-blue-800 text-white py-4 rounded-lg text-xl hover:bg-blue-700 transition duration-200">
                 Submit
@@ -30,6 +68,7 @@
             $('#complaintForm').on('submit', function (e) {
                 e.preventDefault();  // Prevent default form submission
 
+                const category = $('#categoryInput').val().trim();
                 const description = $('#description').val().trim();
 
                 function isValidDescription(text) {
@@ -42,32 +81,97 @@
                     return;
                 }
 
+                $('#responseMessage').html('<p class="text-blue-600">Sending your complaint...</p>');
                 $('#submitButton').attr('disabled', true).removeClass('bg-blue-800 hover:bg-blue-700').addClass('bg-gray-500');
 
                 $.ajax({
                     url: "{% url 'submit_complaint' %}",
                     type: "POST",
                     data: {
+                        'category': category,
                         'description': description,
                         'csrfmiddlewaretoken': '{{ csrf_token }}'
                     },
+                    timeout: 10000, // Set timeout for 10 seconds
                     success: function (response) {
                         $('#responseMessage').html('<p class="text-green-600">' + response.message + '</p>');
                         $('#complaintForm')[0].reset();
-                        $('#submitButton').removeClass('bg-gray-500').addClass('bg-blue-800');
+                        $('#submitButton').removeClass('bg-gray-500').addClass('bg-blue-800').attr('disabled', false);
                     },
-                    error: function (xhr) {
+                    error: function (xhr, status) {
                         let errorMessage = xhr.responseJSON ? xhr.responseJSON.error : "An error occurred.";
+                        if (status === "timeout") {
+                            errorMessage = "Request timed out. Please try again.";
+                        }
                         $('#responseMessage').html('<p class="text-red-600">' + errorMessage + '</p>');
                         $('#submitButton').attr('disabled', false).removeClass('bg-gray-500').addClass('bg-blue-800 hover:bg-blue-700');
                     }
                 });
             });
         });
+
+        function filterDropdown() {
+            const input = document.getElementById("categoryInput").value.toLowerCase();
+            const dropdown = document.getElementById("dropdownList");
+            const items = dropdown.getElementsByTagName("div");
+
+            dropdown.style.display = input ? "block" : "none";
+
+            for (let i = 0; i < items.length; i++) {
+                const text = items[i].innerText.toLowerCase();
+                items[i].style.display = text.includes(input) ? "" : "none";
+            }
+        }
+
+        function selectOption(value) {
+            document.getElementById("categoryInput").value = value;
+            document.getElementById("dropdownList").style.display = "none";
+        }
+
+        document.getElementById("categoryInput").addEventListener("focus", function() {
+            document.getElementById("dropdownList").style.display = "block";
+        });
+
+        document.addEventListener("click", function(event) {
+            const dropdown = document.getElementById("dropdownList");
+            if (!dropdown.contains(event.target) && event.target.id !== "categoryInput") {
+                dropdown.style.display = "none";
+            }
+        });
     </script>
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!-- <!DOCTYPE html>
 <html lang="en">

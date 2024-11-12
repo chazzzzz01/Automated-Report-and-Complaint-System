@@ -16,6 +16,7 @@ from django.contrib.auth import authenticate, login
 
 
 
+
 def home(request):
     return render(request,'main/home.html')
 
@@ -84,6 +85,63 @@ def create_informant(request):
 
 
 
+# def login_view(request):
+#     if request.method == 'POST':
+#         # Get the username and password from the login form
+#         username = request.POST.get('login_username')
+#         password = request.POST.get('login_password')
+
+#         # Authenticate the informant using the custom Informant model
+#         informant = authenticate(request, username=username, password=password)
+
+#         if informant:
+#             # Log the informant in
+#             # login(request, informant)
+#             # messages.success(request, 'Login successful!')
+#             # Store informant ID in session to maintain login state
+#             # request.session['informant_id'] = informant.id
+#             # messages.success(request, 'Login successful!')
+
+#             request.session.flush()
+
+#             # Log the informant in by starting a fresh session and setting informant ID
+#             login(request, informant)  # This also sets user info for auth middleware
+
+#             # Store the informant ID to retrieve specific user data in views
+#             request.session['informant_id'] = informant.id
+
+#             messages.success(request, 'Login successful!')
+
+#             # Redirect users based on \role
+#             if informant.is_superuser:  # Legal Office (Superuser)
+#                 if informant.username == 'legal_admin':
+#                     return redirect('legal_office_page')
+#             elif informant.is_staff:  # Office Admins (Staff users)
+#                 if informant.username == 'GADAdmin':
+#                     return redirect('gad_office_page')
+#                 elif informant.username == 'vp_admin_finance':
+#                     return redirect('admin_finance_page')
+#                 elif informant.username == 'vp_academic_affairs':
+#                     return redirect('academic_affairs_page')
+#                 elif informant.username == 'vp_students_affairs':
+#                     return redirect('students_affairs_page')
+#             else:
+#                 # If the user is a regular Informant, redirect to their page
+#                 return redirect('informant_page')  # Ensure this view exists
+#         else:
+#             # If authentication fails, show an error message
+#             messages.error(request, 'Invalid username or password.')
+    
+#     # Render the login page
+#     return render(request, 'main/login.html')
+
+
+
+
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
+from django.shortcuts import redirect, render
+
 def login_view(request):
     if request.method == 'POST':
         # Get the username and password from the login form
@@ -93,16 +151,67 @@ def login_view(request):
         # Authenticate the informant using the custom Informant model
         informant = authenticate(request, username=username, password=password)
 
-        if informant is not None:
-            # Log the informant in
+        if informant:
+            request.session.flush()
             login(request, informant)
+            request.session['informant_id'] = informant.id
             messages.success(request, 'Login successful!')
 
-            # Redirect users based on \role
-            if informant.is_superuser:  # Legal Office (Superuser)
-                if informant.username == 'legal_admin':
-                    return redirect('legal_office_page')
-            elif informant.is_staff:  # Office Admins (Staff users)
+            # Redirect only to the informant page
+            return redirect('informant_page')
+        else:
+            # If authentication fails, show an error message
+            messages.error(request, 'Invalid username or password.')
+    
+    # Render the login page
+    return render(request, 'main/login.html')
+
+
+
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
+from django.shortcuts import redirect, render
+
+# Legal Office Login View
+def legal_office_login_view(request):
+    if request.method == 'POST':
+        username = request.POST.get('login_username')
+        password = request.POST.get('login_password')
+
+        informant = authenticate(request, username=username, password=password)
+
+        if informant:
+            request.session.flush()
+            login(request, informant)
+            request.session['informant_id'] = informant.id
+            messages.success(request, 'Login successful!')
+
+            # Redirect only if the user is the legal office admin
+            if informant.is_superuser and informant.username == 'legal_admin':
+                return redirect('legal_office_page')
+            else:
+                messages.error(request, 'You do not have permission to access this area.')
+        else:
+            messages.error(request, 'Invalid username or password.')
+    
+    return render(request, 'main/login_legal.html')
+
+# Office Admin Login View
+def office_admin_login_view(request):
+    if request.method == 'POST':
+        username = request.POST.get('login_username')
+        password = request.POST.get('login_password')
+
+        informant = authenticate(request, username=username, password=password)
+
+        if informant:
+            request.session.flush()
+            login(request, informant)
+            request.session['informant_id'] = informant.id
+            messages.success(request, 'Login successful!')
+
+            # Redirect based on office admin roles
+            if informant.is_staff:
                 if informant.username == 'GADAdmin':
                     return redirect('gad_office_page')
                 elif informant.username == 'vp_admin_finance':
@@ -112,14 +221,14 @@ def login_view(request):
                 elif informant.username == 'vp_students_affairs':
                     return redirect('students_affairs_page')
             else:
-                # If the user is a regular Informant, redirect to their page
-                return redirect('informant_page')  # Ensure this view exists
+                messages.error(request, 'You do not have permission to access this area.')
         else:
-            # If authentication fails, show an error message
             messages.error(request, 'Invalid username or password.')
     
-    # Render the login page
-    return render(request, 'main/login.html')
+    return render(request, 'main/login_offices.html')
+
+
+
 
 
 
@@ -134,8 +243,12 @@ from .models import Informant
 
 @login_required
 def profile_view(request):
-       
-       return render(request, 'informant/profile.html', {'user': request.user})
+    user = request.user
+    print(user.student_id_file.url if user.student_id_file else "No student_id_file")
+    print(user.employee_id_file.url if user.employee_id_file else "No employee_id_file")
+    print(user.study_load_file.url if user.study_load_file else "No study_load_file")
+    print(user.document_file.url if user.document_file else "No document_file")
+    return render(request, 'informant/profile.html', {'user': request.user})
 
 
 
@@ -147,6 +260,17 @@ def profile_view(request):
 #     return render(request, 'main/informant_page.html', {'complaints': complaints})
 
 
+from django.contrib import messages
+from .models import Informant
+from django.shortcuts import render, redirect
+
+def authenticate_informant(username, password):
+    try:
+        informant = Informant.objects.get(username=username, password=password)
+        return informant
+    except Informant.DoesNotExist:
+        return None
+
 
 
 from django.shortcuts import redirect
@@ -155,22 +279,60 @@ from .models import Informant
 
 @login_required
 def informant_page(request):
-    # If the user is a superuser and is the legal office, redirect them
-    if request.user.is_superuser and request.user.username == 'legal_admin':
-        # Redirect to legal office dashboard or an access denied page
-        return redirect('legal_office_page')  # Replace with your legal office dashboard URL name
+    informant_id = request.session.get('informant_id')
+    if not informant_id:
+        return redirect('login')
+    
+    try:
+        informant = Informant.objects.get(id=informant_id)
+        complaints = Complaint.objects.filter(informant=informant)
+        if informant.is_superuser and informant.username == 'legal_admin':
+            return redirect('legal_office_page')
+        if informant.is_staff:
+            if informant.username == 'GADAdmin':
+                return redirect('gad_office_page')
+            elif informant.username == 'vp_admin_finance':
+                return redirect('admin_finance_page')
+            elif informant.username == 'vp_academic_affairs':
+                return redirect('academic_affairs_page')
+            elif informant.username == 'vp_students_affairs':
+                return redirect('students_affairs_page')
+            elif informant.username == 'legal_admin':
+                return redirect('')
+    except Informant.DoesNotExist:
+        return redirect('login')
+    
+      # Only fetch complaints for this informant if applicable
+    
 
-    # Otherwise, continue to show the Informant page
-    complaints = Complaint.objects.all()
     context = {
         'complaints': complaints
     }
     return render(request, 'main/informant_page.html', context)
 
+    # # If the user is a superuser and is the legal office, redirect them
+    # if request.user.is_superuser and request.user.username == 'legal_admin':
+    #     # Redirect to legal office dashboard or an access denied page
+    #     return redirect('legal_office_page')  # Replace with your legal office dashboard URL name
+
+    # # Otherwise, continue to show the Informant page
+    # complaints = Complaint.objects.all()
+    # context = {
+    #     'complaints': complaints
+    # }
+    # return render(request, 'main/informant_page.html', context)
 
 
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+from django.contrib import messages
 
-
+def logout_view(request):
+    # Clear the user authentication and flush all session data
+    logout(request)
+    request.session.flush()  # Ensures full session reset
+    messages.success(request, 'Logged out successfully.')
+    return redirect('login')
 
 
 
@@ -203,16 +365,24 @@ def admin_page(request):
 
 
 
-
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from .models import Complaint
+from .models import Complaint, Informant
 from .utils import load_models
 
 @csrf_exempt
 def submit_complaint(request):
+    informant_id = request.session.get('informant_id')
+    if not informant_id:
+        return JsonResponse({'error': 'User not logged in.'}, status=403)
+
     if request.method == 'POST':
+        category = request.POST.get('category', '').strip()
         description = request.POST.get('description', '').strip()
+         
+        if not category or not description:
+            return JsonResponse({'error': 'Category and Description are required.'}, status=400)
+
 
         # Check if description is provided
         if not description:
@@ -229,9 +399,14 @@ def submit_complaint(request):
             predicted_category = category_model.predict(description_vec)[0]
             predicted_type = type_model.predict(description_vec)[0]
 
-            # Save the complaint with the predicted category and type
+            # Retrieve the informant instance
+            informant = Informant.objects.get(id=informant_id)
+
+            # Save the complaint with the predicted category, type, and informant reference
             complaint = Complaint(
+                informant=informant,              # Attach the logged-in informant to the complaint
                 description=description,
+                category=category,
                 office=predicted_category,
                 type=predicted_type,
                 status='Pending',
@@ -241,6 +416,9 @@ def submit_complaint(request):
 
             # Return a success message to the AJAX call
             return JsonResponse({'message': 'Complaint submitted to the legal office successfully!'}, status=200)
+
+        except Informant.DoesNotExist:
+            return JsonResponse({'error': 'Informant not found.'}, status=403)
 
         except FileNotFoundError as e:
             # If the models could not be loaded due to file issues
@@ -335,6 +513,14 @@ def update_office(request, complaint_id):
     return redirect('legal_office_page')  # Replace with the name of the view to redirect to
 
 
+from django.views.decorators.http import require_POST
+
+@require_POST
+def update_type(request, complaint_id):
+    complaint = get_object_or_404(Complaint, id=complaint_id)
+    complaint.type = request.POST.get('type')
+    complaint.save()
+    return redirect(request.META.get('HTTP_REFERER', '/'))
 
 def complaint_status(request):
     # Pending complaints
@@ -345,6 +531,10 @@ def complaint_history(request):
     # Solved complaints
     complaints = Complaint.objects.filter(status='Solved')
     return render(request, 'informant/complaint_history.html', {'complaints': complaints})
+
+
+
+
 
 
 #still in process
@@ -675,6 +865,15 @@ def gad_dashboard(request):
     reports = Complaint.objects.filter(office="GAD Office", type="report", is_sent=True)
     complaints = Complaint.objects.filter(office="GAD Office", type="complaint", is_sent=True)
 
+    # Filter for complaints that contain "sexual harassment" in the description
+    sensitive_complaints = complaints.filter(description__icontains="sexual harassment")
+    sensitive_complaints_count = sensitive_complaints.count()
+
+    # For debugging: Log details about the sensitive complaints
+    print("Sensitive Complaints Count:", sensitive_complaints_count)
+    for complaint in sensitive_complaints:
+        print("Complaint ID:", complaint.id, "Description:", complaint.description)
+
     context = {
         'reports': reports.count(),
         'complaints': complaints.count(),
@@ -684,6 +883,9 @@ def gad_dashboard(request):
         'pending_complaints': complaints.filter(status="Pending").count(),
         'inprogress_reports': reports.filter(status="In Progress").count(),
         'inprogress_complaints': complaints.filter(status="In Progress").count(),
+        'sensitive_complaints_count': sensitive_complaints_count,   # Add sensitive complaints count
+
+        
     }
     return render(request, 'offices/gad_dashboard.html', context)
 
@@ -695,7 +897,6 @@ def gad_dashboard(request):
 # def gad_office_status(request):
 #     # Logic for status page
 #     return render(request, 'main/gad_office_status.html')
-
 
 
 
@@ -714,7 +915,13 @@ def update_urgency(request, complaint_id):
         if urgency:
             complaint.urgency = urgency
             complaint.save()
+
+            # Generate and save the updated PDF after updating urgency
+            pdf_content = complaint.generate_pdf()
+            complaint.pdf_file.save(f"complaint_{complaint.id}_description.pdf", pdf_content)
+    
     return redirect(reverse('legal_office_page'))
+
 
 # Other existing views (update_status, send_complaint, delete_complaint)...
 
@@ -759,6 +966,9 @@ def generate_graphs(request):
         {'office': 'SME', 'status': 'Solved'},
         {'office': 'SOE', 'status': 'Pending'},
         {'office': 'SNHS', 'status': 'Solved'},
+        {'office': 'LHS', 'status': 'Solved'},
+        {'office': 'STED', 'status': 'Pending'},
+        {'office': 'STCS', 'status': 'Solved'},
     ]
 
     # Define the school mapping
@@ -828,6 +1038,39 @@ def generate_graphs(request):
 
 
 
+
+
+from django.shortcuts import render
+from django.db.models import Count
+from .models import Complaint, Informant  # Import necessary models
+import json
+
+def solved_reports_complaints_view(request):
+    # Get the logged-in user's department
+    user_department = request.user.get_department_display if request.user.is_authenticated else None
+
+    # Check if the department exists; otherwise, show an empty response or redirect as needed
+    if not user_department:
+        return render(request, 'offices/gad_history.html', {'error': 'No department found for the user.'})
+
+    # Get solved reports and complaints only for the user's department
+    solved_reports_count = Complaint.objects.filter(
+        office=user_department, type='report', status='Solved'
+    ).count()
+    solved_complaints_count = Complaint.objects.filter(
+        office=user_department, type='complaint', status='Solved'
+    ).count()
+
+    # Prepare context data
+    context = {
+        'departments_json': json.dumps([user_department]),  # Single department
+        'solved_reports_json': json.dumps([solved_reports_count]),
+        'solved_complaints_json': json.dumps([solved_complaints_count]),
+    }
+    return render(request, 'offices/gad_history.html', context)
+
+
+
 # # appss/views.py
 
 # from django.shortcuts import render
@@ -884,6 +1127,7 @@ from io import BytesIO
 def submit_response(request):
     if request.method == 'POST':
         complaint_id = request.POST.get('complaint_id')
+        complaint_id = request.POST.get('complaint_id')
         letter_content = request.POST.get('letter_content')
 
         # Fetch the complaint object
@@ -931,4 +1175,50 @@ def delete_response(request, response_id):
         response.delete()  # Delete the response
         return redirect('complaint_message', complaint_id=complaint_id)  # Redirect back to the complaint message
 
+
+
+
+
+from django.shortcuts import render
+from .models import Complaint
+
+def solved_cases_by_department(request):
+    # List of departments to display data for
+    departments = ['STCS', 'SCJE', 'SAS', 'SME', 'SOE', 'SNHS', 'LHS', 'STED']
+    solved_data = {
+        'departments': departments,
+        'solvedComplaints': []
+    }
+
+    # Query the count of solved complaints for each department
+    for dept in departments:
+        solved_complaints_count = Complaint.objects.filter(department=dept, status='solved').count()
+        solved_data['solvedComplaints'].append(solved_complaints_count)
+
+    # Render the template with the solved complaints data
+    return render(request, 'offices/gad_history.html', {'solved_data': solved_data})
+
+
+
+
+
+from django.shortcuts import render
+from .models import Complaint
+
+# View to report complaints matching the keywords
+def complaint_report(request):
+    # Get the count of complaints with keywords
+    complaints_count = Complaint.count_complaints_with_keywords()
+
+    # Optionally, you could also display the complaints themselves
+    complaints = Complaint.objects.filter(
+        message__icontains__any=Complaint.keywords
+    )
+
+    # Pass the count and the complaints to the template
+    context = {
+        'complaints_count': complaints_count,
+        'complaints': complaints  # List of complaints containing the keywords
+    }
+    return render(request, 'main/complaint_report.html', context)
 

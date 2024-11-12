@@ -490,13 +490,32 @@
 </head>
 <body class="bg-gray-100 p-6">
 
+
+
+      <!-- User Information Modal -->
+      <div id="userInfoModal" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5);">
+        <div style="position: relative; top: 25%; margin: auto; padding: 20px; width: 300px; background-color: white; border-radius: 8px;">
+            <button onclick="closeUserInfo()" style="position: absolute; top: 10px; right: 10px; background: none; border: none; font-size: 20px; font-weight: bold; cursor: pointer;">&times;</button>
+            <h3>User Information</h3>
+            <p><strong>Role:</strong> <span id="userRole"></span></p>
+            <p><strong>Username:</strong> <span id="userUsername"></span></p>
+            <p><strong>First Name:</strong> <span id="userFirstName"></span></p>
+            <p><strong>Middle Name:</strong> <span id="userMiddleName"></span></p>
+            <p><strong>Last Name:</strong> <span id="userLastName"></span></p>
+            <p><strong>Department:</strong> <span id="userDepartment"></span></p>
+            <p><strong>Contact No.:</strong> <span id="userContact"></span></p>
+            <p><strong>Email:</strong> <span id="userEmail"></span></p>
+        </div>
+    </div>
+
     <!-- Reports Table -->
     <div id="reports-table" class="my-8">
         <h2 class="text-2xl font-bold mb-4 text-gray-700">Reports</h2>
         <div class="overflow-x-auto">
             <table class="min-w-full bg-white rounded-lg shadow-md">
                 <thead>
-                    <tr class="bg-gray-200 text-gray-600 text-left text-sm uppercase font-semibold">
+                    <tr class="bg-gray-800 text-white">
+                        <th class="py-3 px-4">User</th>
                         <th class="py-3 px-4">Office</th>
                         <th class="py-3 px-4">Type</th>
                         <th class="py-3 px-4">Description (PDF)</th>
@@ -510,7 +529,21 @@
                 <tbody id="reports-body">
                     {% for report in reports %}
                     {% if report.status != "Solved" %}
-                    <tr class="border-t border-gray-200">
+                    <tr class="bg-white text-black border-b border-gray-700">
+                        <td class="p-3">
+                            <a href="javascript:void(0);" onclick="showUserInfo(
+                                '{{ report.informant.role }}',
+                                '{{ report.informant.username }}',
+                                '{{ report.informant.first_name }}',
+                                '{{ report.informant.middle_name }}',
+                                '{{ report.informant.last_name }}',
+                                '{{ report.informant.get_department_display }}',
+                                '{{ report.informant.contact_number }}',
+                                '{{ report.informant.email }}'
+                            )">
+                                {{ report.informant.username }}
+                            </a>
+                        </td>
                         <td class="py-3 px-4">{{ report.office }}</td>
                         <td class="py-3 px-4">{{ report.type }}</td>
                         <td class="py-3 px-4">
@@ -548,7 +581,11 @@
                         </td>
                         <td class="py-3 px-4">
                             <!-- Respond Button -->
-                            <button type="button" class="bg-green-500 text-white px-4 py-2 rounded respond-button" data-report-id="{{ report.id }}">Respond</button>
+                            <!-- Button in the Reports Table, using complaint_id instead of report_id -->
+<button type="button" class="bg-green-500 text-white px-4 py-2 rounded respond-button" 
+data-complaint-id="{{ report.id }}">
+Respond
+</button>
 
                             <!-- Delete Button -->
                             <button class="bg-red-500 text-white px-4 py-2 rounded" onclick="deleteComplaint('{{ report.id }}')">Delete</button>
@@ -565,9 +602,10 @@
     <div id="complaints-table" class="my-8">
         <h2 class="text-2xl font-bold mb-4 text-gray-700">Complaints</h2>
         <div class="overflow-x-auto">
-            <table class="min-w-full bg-white rounded-lg shadow-md">
+            <table class="bg-white text-white border-b border-gray-700">
                 <thead>
-                    <tr class="bg-gray-200 text-gray-600 text-left text-sm uppercase font-semibold">
+                    <tr class="bg-gray-800 text-white">
+                        <th class="py-3 px-4">User</th>
                         <th class="py-3 px-4">Office</th>
                         <th class="py-3 px-4">Type</th>
                         <th class="py-3 px-4">Description (PDF)</th>
@@ -581,7 +619,23 @@
                 <tbody id="complaints-body">
                     {% for complaint in complaints %}
                     {% if complaint.status != "Solved" %}
-                    <tr class="border-t border-gray-200">
+                    <tr class="bg-white text-black border-b border-gray-700">
+                        <td class="p-3">
+                            <a href="javascript:void(0);" onclick="showUserInfo(
+                                '{{ complaint.informant.role }}',
+                                '{{ complaint.informant.username }}',
+                                '{{ complaint.informant.first_name }}',
+                                '{{ complaint.informant.middle_name }}',
+                                '{{ complaint.informant.last_name }}',
+                                '{{ complaint.informant.get_department_display }}',
+                                '{{ complaint.informant.contact_number }}',
+                                '{{ complaint.informant.email }}'
+                            )">
+                                {{ complaint.informant.username }}
+                            </a>
+                        </td>
+    
+                        
                         <td class="py-3 px-4">{{ complaint.office }}</td>
                         <td class="py-3 px-4">{{ complaint.type }}</td>
                         <td class="py-3 px-4">
@@ -594,9 +648,9 @@
                         <td class="py-3 px-4">
                             <span class="py-1 px-3 rounded-full text-white 
                                 {% if complaint.status == 'Pending' %}
-                                    bg-yellow-500
+                                    bg-red-500
                                 {% elif complaint.status == 'In Progress' %}
-                                    bg-blue-500
+                                    bg-yellow-500
                                 {% elif complaint.status == 'Solved' %}
                                     bg-green-500
                                 {% endif %}">
@@ -634,9 +688,26 @@
     </div>
 
     <!-- Modal Overlay -->
-    <div id="response-modal" class="fixed inset-0 bg-gray-800 bg-opacity-75 hidden flex items-center justify-center">
-        <!-- Modal Content -->
-        <div class="bg-white p-6 rounded shadow-lg max-w-lg w-full">
+<div id="response-modal" class="fixed inset-0 bg-gray-800 bg-opacity-75 hidden flex items-center justify-center">
+    <!-- Modal Content -->
+    <div class="bg-white p-6 rounded shadow-lg max-w-lg w-full">
+        <!-- Clickable Tabs to Toggle Content -->
+        <div class="mt-4 flex justify-between">
+            <span id="respond-letter" class="text-blue-500 cursor-pointer font-semibold" onclick="showResponseForm()">Respond with a Letter</span>
+            <!-- <a id="view-response-link" href="#">View Response</a> -->
+        </div>
+
+<!--        
+        <div id="complaint-message-container" class="hidden mt-4">
+            <h2 class="text-xl font-bold mb-4">Complaint Message</h2>
+            <p class="text-gray-700">This is where the complaint message content will go.</p>
+            <div class="mt-4 flex justify-end">
+                <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded" onclick="closeModal()">Close</button>
+            </div>
+        </div> -->
+
+        <!-- Response Form Container -->
+        <div id="response-form-container" class="hidden mt-4">
             <h2 class="text-xl font-bold mb-4">Respond with a Letter</h2>
             <form id="response-form" method="POST" action="{% url 'submit_response' %}">
                 {% csrf_token %}
@@ -650,31 +721,80 @@
             </form>
         </div>
     </div>
+</div>
 
     <!-- Script -->
     <script>
-        function openModal(id, type) {
-            if (type === 'report') {
-                document.getElementById('report_id').value = id;
-                document.getElementById('complaint_id').value = ''; // clear complaint_id
-            } else {
-                document.getElementById('complaint_id').value = id;
-                document.getElementById('report_id').value = ''; // clear report_id
-            }
-            document.getElementById('response-modal').classList.remove('hidden');
+        function openModal(complaintId) {
+    console.log("Opening modal for complaint with ID:", complaintId); // Debugging statement
+    document.getElementById('complaint_id').value = complaintId;
+    document.getElementById('report_id').value = ''; // Clear report_id field if it's present
+    document.getElementById('response-modal').classList.remove('hidden');
+    
+
+      // Dynamically update the "View Response" link with the correct complaint_id
+        const viewResponseLink = document.getElementById('view-response-link');
+        viewResponseLink.href = `/complaints/complaint_message/${complaintId}/`;
+}
+
+function closeModal() {
+    document.getElementById('response-modal').classList.add('hidden');
+}
+
+document.querySelectorAll('.respond-button').forEach(button => {
+    button.addEventListener('click', function() {
+        const complaintId = this.getAttribute('data-complaint-id'); // Get complaint_id for both tables
+        console.log("Button clicked with complaintId:", complaintId); // Debugging statement
+        if (complaintId) {
+            openModal(complaintId);
+        } else {
+            console.error("No complaint ID found for this button."); // Debugging statement
+        }
+    });
+});
+       // Function to display the user info modal and populate it with data
+       function showUserInfo(role, username, firstName, middleName, lastName, department, contactNumber, email) {
+            document.getElementById('userRole').textContent = role;
+            document.getElementById('userUsername').textContent = username;
+            document.getElementById('userFirstName').textContent = firstName;
+            document.getElementById('userMiddleName').textContent = middleName;
+            document.getElementById('userLastName').textContent = lastName;
+            document.getElementById('userDepartment').textContent = department;
+            document.getElementById('userContact').textContent = contactNumber;
+            document.getElementById('userEmail').textContent = email;
+
+            // Show the modal
+            document.getElementById('userInfoModal').style.display = 'block';
         }
 
-        function closeModal() {
-            document.getElementById('response-modal').classList.add('hidden');
+        // Function to close the user info modal
+        function closeUserInfo() {
+            document.getElementById('userInfoModal').style.display = 'none';
         }
 
-        document.querySelectorAll('.respond-button').forEach(button => {
-            button.addEventListener('click', function() {
-                const id = this.dataset.complaintId || this.dataset.reportId;
-                const type = this.dataset.complaintId ? 'complaint' : 'report';
-                openModal(id, type);
-            });
-        });
+//         function showComplaintMessage() {
+//     // Show the complaint message container and hide the response form
+//     document.getElementById('complaint-message-container').classList.remove('hidden');
+//     document.getElementById('response-form-container').classList.add('hidden');
+    
+//     // Highlight the active tab
+//     document.getElementById('view-complaint').classList.add('text-blue-700', 'underline');
+//     document.getElementById('respond-letter').classList.remove('text-blue-700', 'underline');
+// }
+
+function showResponseForm() {
+    // Show the response form container and hide the complaint message
+    document.getElementById('response-form-container').classList.remove('hidden');
+    document.getElementById('complaint-message-container').classList.add('hidden');
+    
+    // Highlight the active tab
+    document.getElementById('respond-letter').classList.add('text-blue-700', 'underline');
+    document.getElementById('view-complaint').classList.remove('text-blue-700', 'underline');
+}
+
+function closeModal() {
+    document.getElementById('response-modal').classList.add('hidden');
+}
     </script>
 
 </body>

@@ -19,7 +19,7 @@ urlpatterns = [
     # path('send-message/', views.send_message, name='send_message'),
     # path('get-messages/', views.get_messages, name='get_messages'),  
     path('dashboard/', views.dashboard_page, name='dashboard_page'),
-    
+    path('complaint-report/', views.complaint_report, name='complaint_report'),
     # path('informant-registration/', views.informant_registration_view, name='informant_registration'),
     path('admin-page/', views.admin_page, name='admin_page'),
     path('status/', views.complaint_status, name='complaint_status'),
@@ -37,12 +37,20 @@ urlpatterns = [
 
     path('register/', views.registration_page, name='registration_page'),
     path('login/', views.login_view, name='login'),
+    path('login/legal/', views.legal_office_login_view, name='legal_office_login'),
+    path('login/admin/', views.office_admin_login_view, name='office_admin_login'),
+
+
     path('create_informant/', views.create_informant, name='create_informant'),
     path('solved-graph/', views.history_view, name='grapg'),  # Route for the history page
     # path('generate_pdf/', views.generate_pdf, name='generate_pdf'),
     path('submit_response/', views.submit_response, name='submit_response'),
     path('delete_response/<int:response_id>/', views.delete_response, name='delete_response'),  # Add this line for delete
     path('update-office/<int:complaint_id>/', views.update_office, name='update_office'),
+    path('update_type/<int:complaint_id>/', views.update_type, name='update_type'),
+    
+    
+    
     # Other URL patterns
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 

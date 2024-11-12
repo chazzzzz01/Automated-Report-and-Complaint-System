@@ -52,7 +52,11 @@
                         <span class="text-gray-500">No PDF available</span>
                         {% endif %}
                     </td>
-                    <td class="px-4 py-3 text-green-600 font-bold">{{ complaint.status }}</td>
+                    <td class="p-3">
+                        <span class="py-1 px-3 rounded-full text-black {% if complaint.status == 'Pending' %}bg-red-500{% elif complaint.status == 'In Progress' %}bg-yellow-500{% elif complaint.status == 'Solved' %}bg-green-500{% endif %}">
+                            {{ complaint.status }}
+                        </span>
+                    </td>
                     <td class="px-4 py-3">
                         <span class="{% if complaint.urgency == 'High' %}text-red-600{% elif complaint.urgency == 'Medium' %}text-orange-500{% else %}text-green-600{% endif %}">{{ complaint.urgency }}</span>
                     </td>

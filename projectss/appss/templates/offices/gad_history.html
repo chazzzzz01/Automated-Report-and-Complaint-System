@@ -4,23 +4,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reports and Complaints Graphs (Counts)</title>
+    <title>Solved Complaints</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
-    <h2>Solved Reports</h2>
-    <img src="data:image/png;base64,{{ report_image }}" alt="Solved Reports Graph" width="800">
+<body class="bg-gray-100 p-5">
 
-    <h2>Solved Complaints</h2>
-    <img src="data:image/png;base64,{{ complaint_image }}" alt="Solved Complaints Graph" width="800">
+    <!-- History Table for Solved Complaints -->
+    <div id="history-table" class="max-w-6xl mx-auto px-4">
+        {% if complaints.exists %}
+        <table class="w-full border-collapse bg-white shadow-lg rounded-lg overflow-hidden">
+            <thead class="bg-gray-800 text-white">
+                <tr>
+                    <th class="px-4 py-3 text-left">User</th>
+                    <th class="px-4 py-3 text-left">Office</th>
+                    <th class="px-4 py-3 text-left">Type</th>
+                    <th class="px-4 py-3 text-left">Description (PDF)</th>
+                    <th class="px-4 py-3 text-left">Status</th>
+                    <th class="px-4 py-3 text-left">Urgency</th>
+                    <th class="px-4 py-3 text-left">Issue Date</th>
+                    <th class="px-4 py-3 text-left">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for complaint in complaints %}
+                {% if complaint.status == 'Solved' %}
+                <tr id="complaint-{{ complaint.id }}" class="border-b border-gray-200">
+                    <td class="px-4 py-3"> {{ request.user.username }}</td> 
+                    <td class="px-4 py-3">{{ complaint.office }}</td>
+                    <td class="px-4 py-3">{{ complaint.type }}</td>
+                    <td class="px-4 py-3">
+                        {% if complaint.pdf_file %}
+                        <a href="{{ complaint.pdf_file.url }}" target="_blank" class="text-blue-500 hover:underline">Download PDF</a>
+                        {% else %}
+                        <span class="text-gray-500">No PDF available</span>
+                        {% endif %}
+                    </td>
+                    <td class="px-4 py-3 text-green-600 font-bold">{{ complaint.status }}</td>
+                    <td class="px-4 py-3">
+                        <span class="{% if complaint.urgency == 'High' %}text-red-600{% elif complaint.urgency == 'Medium' %}text-orange-500{% elif complaint.urgency == 'Low' %}text-green-600{% endif %}">{{ complaint.urgency }}</span>
+                    </td>
+                    <td class="px-4 py-3">{{ complaint.issue_date|date:"F j, Y" }}</td>
+                    <td class="px-4 py-3">
+                        <form action="{% url 'delete_complaint' complaint.id %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                        <button class="bg-red-600 text-white px-3 py-2 rounded-lg hover:bg-red-700 transition" onclick="deleteComplaint('{{ complaint.id }}')">Delete</button>
+                    </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="text-center text-lg text-gray-600 mt-5">No history available.</p>
+        {% endif %}
+    </div>
 
-    <h3>Schools Key</h3>
-    <ul>
-        {% for key, value in school_mapping.items %}
-            <li><strong>{{ key }}</strong>: {{ value }}</li>
-        {% endfor %}
-    </ul>
 </body>
 
 </html>
 
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Department Solved Complaints and Reports</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100 p-4">
+    <div class="container mx-auto">
+        <h2 class="text-2xl font-semibold mb-4">Solved Reports and Complaints by Department</h2>
+        <canvas id="solvedChart" class="bg-white shadow-md rounded-lg p-4"></canvas>
+    </div>
+
+    <script>
+        // Sample data - replace these values with actual counts of solved reports/complaints for each department
+        const departments = ['STCS', 'SCJE', 'SAS', 'SME', 'SOE', 'SNHS', 'LHS', 'STED'];
+        const solvedReports = [5, 3, 4, 6, 7, 2, 4, 3]; // Replace with dynamic data
+        const solvedComplaints = [2, 5, 3, 4, 5, 1, 2, 4]; // Replace with dynamic data
+
+        // Calculate total solved (reports + complaints) for each department
+        const totalSolved = solvedReports.map((report, index) => report + solvedComplaints[index]);
+
+        // Chart.js setup
+        const ctx = document.getElementById('solvedChart').getContext('2d');
+        const solvedChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: departments,
+                datasets: [
+                    {
+                        label: 'Solved Reports',
+                        data: solvedReports,
+                        backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Solved Complaints',
+                        data: solvedComplaints,
+                        backgroundColor: 'rgba(255, 99, 132, 0.7)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Total Solved (Reports + Complaints)',
+                        data: totalSolved,
+                        backgroundColor: 'rgba(75, 192, 192, 0.7)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Number of Solved Cases'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Departments'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html> -->

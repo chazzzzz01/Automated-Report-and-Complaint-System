@@ -19,6 +19,22 @@
 {% endif %}
 
 
+ <!-- User Information Modal -->
+ <div id="userInfoModal" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5);">
+    <div style="position: relative; top: 25%; margin: auto; padding: 20px; width: 300px; background-color: white; border-radius: 8px;">
+        <button onclick="closeUserInfo()" style="position: absolute; top: 10px; right: 10px; background: none; border: none; font-size: 20px; font-weight: bold; cursor: pointer;">&times;</button>
+        <h3>User Information</h3>
+        <p><strong>Role:</strong> <span id="userRole"></span></p>
+        <p><strong>Username:</strong> <span id="userUsername"></span></p>
+        <p><strong>First Name:</strong> <span id="userFirstName"></span></p>
+        <p><strong>Middle Name:</strong> <span id="userMiddleName"></span></p>
+        <p><strong>Last Name:</strong> <span id="userLastName"></span></p>
+        <p><strong>Department:</strong> <span id="userDepartment"></span></p>
+        <p><strong>Contact No.:</strong> <span id="userContact"></span></p>
+        <p><strong>Email:</strong> <span id="userEmail"></span></p>
+    </div>
+</div>
+
     <!-- Reports Table -->
     <div id="reports-table" class="hidden">
         <h2 class="text-2xl font-bold text-gray-800 mb-4">Reports</h2>
@@ -39,14 +55,30 @@
             <tbody>
                 {% for complaint in complaints %}
                 {% if complaint.type == "report" and complaint.status != "Solved" %}
-                <tr class="bg-gray-900 border-b border-gray-700">
-                    <td class="p-3">{{ request.user.username }}</td>
+                <tr class="bg-white text-black border-b border-gray-700">
+                    <!-- <td class="p-3">{{ request.user.username }}</td> -->
+<!-- User Link with Dynamic Info -->
+<td class="p-3">
+    <a href="javascript:void(0);" onclick="showUserInfo(
+        '{{ complaint.informant.role }}',
+        '{{ complaint.informant.username }}',
+        '{{ complaint.informant.first_name }}',
+        '{{ complaint.informant.middle_name }}',
+        '{{ complaint.informant.last_name }}',
+        '{{ complaint.informant.get_department_display }}',
+        '{{ complaint.informant.contact_number }}',
+        '{{ complaint.informant.email }}'
+    )">
+        {{ complaint.informant.username }}
+    </a>
+</td>
+
                     <!-- <td class="p-3">{{ complaint.office }}</td> -->
 
                     <td class="p-3">
                         <form action="{% url 'update_office' complaint.id %}" method="post">
                             {% csrf_token %}
-                            <select name="office" class="border p-2 rounded bg-gray-800 text-white" onchange="this.form.submit()">
+                            <select name="office" class="border p-2 rounded bg-white text-black" onchange="this.form.submit()">
                                 <option value="GAD Office" {% if complaint.office == "GAD Office" %}selected{% endif %}>GAD Office</option>
                                 <option value="VP Administration and Finance" {% if complaint.office == "VP Administration and Finance" %}selected{% endif %}>VP Administration and Finance</option>
                                 <option value="VP Academic Affairs" {% if complaint.office == "VP Academic Affairs" %}selected{% endif %}>VP Academic Affairs</option>
@@ -55,11 +87,23 @@
                         </form>
                     </td>
                     
+                    
 
-                    <td class="p-3">{{ complaint.type }}</td>
+                    <td class="p-3">
+                        <form action="{% url 'update_type' complaint.id %}" method="post">
+                            {% csrf_token %}
+                            <select name="type" class="border p-2 rounded bg-white text-black" onchange="this.form.submit()">
+                                <option value="" disabled selected>Select type</option>
+                                <option value="report">Report</option>
+                                <option value="complaint">Complaint</option>
+                            </select>
+                        </form>
+                    </td>
+                    
+                    
                     <td class="p-3">
                         {% if complaint.pdf_file %}
-                            <a href="{{ complaint.pdf_file.url }}" target="_blank" class="text-blue-400">Download PDF</a>
+                            <a href="{{ complaint.pdf_file.url }}" target="_blank" class="text-blue-400">View PDF</a>
                         {% else %}
                             No PDF available
                         {% endif %}
@@ -72,7 +116,7 @@
                     <td class="p-3">
                         <form action="{% url 'update_urgency' complaint.id %}" method="post">
                             {% csrf_token %}
-                            <select name="urgency" class="border p-2 rounded bg-gray-800 text-white" onchange="this.form.submit()">
+                            <select name="urgency" class="border p-2 rounded bg-white text-black" onchange="this.form.submit()">
                                 <option value="" disabled selected>Select urgency level</option>
                                 <option value="High" {% if complaint.urgency == "High" %}selected{% endif %}>High</option>
                                 <option value="Low" {% if complaint.urgency == "Low" %}selected{% endif %}>Low</option>
@@ -83,7 +127,7 @@
                     <td class="p-3">
                         <form action="{% url 'update_status' complaint.id %}" method="post">
                             {% csrf_token %}
-                            <select name="status" class="border p-2 rounded bg-gray-800 text-white" onchange="this.form.submit()">
+                            <select name="status" class="border p-2 rounded bg-white text-black" onchange="this.form.submit()">
                                 <option value="Pending" {% if complaint.status == "Pending" %}selected{% endif %}>Pending</option>
                                 <option value="In Progress" {% if complaint.status == "In Progress" %}selected{% endif %}>In Progress</option>
                                 <option value="Solved" {% if complaint.status == "Solved" %}selected{% endif %}>Solved</option>
@@ -93,7 +137,7 @@
                     <td class="p-3">
                         <form action="{% url 'send_complaint' complaint.id %}" method="post" class="inline-block send-form">
                             {% csrf_token %}
-                            <button type="submit" class="send-btn bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed" {% if complaint.is_sent %}disabled{% endif %}>Send</button>
+                            <button type="submit" class="send-btn bg-blue text-white py-1 px-3 rounded hover:bg-blue disabled:bg-gray-400 disabled:cursor-not-allowed" {% if complaint.is_sent %}disabled{% endif %}>Send</button>
                         </form>
                         <form action="{% url 'delete_complaint' complaint.id %}" method="post" class="inline-block">
                             {% csrf_token %}
@@ -128,15 +172,31 @@
                 {% for complaint in complaints %}
                 {% if complaint.type == "complaint" and complaint.status != "Solved" %}
                 <tr class="bg-gray-900 border-b border-gray-700">
-                    <td class="p-3">{{ request.user.username }}</td>
+                    <!-- <td class="p-3">{{ request.user.username }}</td> -->
+                    
+                    <tr class="bg-white text-black border-b border-gray-700">
+                        <td class="p-3">
+                            <a href="javascript:void(0);" onclick="showUserInfo(
+                                '{{ complaint.informant.role }}',
+                                '{{ complaint.informant.username }}',
+                                '{{ complaint.informant.first_name }}',
+                                '{{ complaint.informant.middle_name }}',
+                                '{{ complaint.informant.last_name }}',
+                                '{{ complaint.informant.get_department_display }}',
+                                '{{ complaint.informant.contact_number }}',
+                                '{{ complaint.informant.email }}'
+                            )">
+                                {{ complaint.informant.username }}
+                            </a>
+                        </td>
+    
                     
                     <!-- <td class="p-3">{{ complaint.office }}</td> -->
-
 
                     <td class="p-3">
                         <form action="{% url 'update_office' complaint.id %}" method="post">
                             {% csrf_token %}
-                            <select name="office" class="border p-2 rounded bg-gray-800 text-white" onchange="this.form.submit()">
+                            <select name="office" class="border p-2 rounded bg-white text-black" onchange="this.form.submit()">
                                 <option value="GAD Office" {% if complaint.office == "GAD Office" %}selected{% endif %}>GAD Office</option>
                                 <option value="VP Administration and Finance" {% if complaint.office == "VP Administration and Finance" %}selected{% endif %}>VP Administration and Finance</option>
                                 <option value="VP Academic Affairs" {% if complaint.office == "VP Academic Affairs" %}selected{% endif %}>VP Academic Affairs</option>
@@ -145,11 +205,23 @@
                         </form>
                     </td>
                     
+                    
 
-                    <td class="p-3">{{ complaint.type }}</td>
+                    <td class="p-3">
+                        <form action="{% url 'update_type' complaint.id %}" method="post">
+                            {% csrf_token %}
+                            <select name="type" class="border p-2 rounded bg-white text-black" onchange="this.form.submit()">
+                                <option value="" disabled selected>Select type</option>
+                                <option value="report">Report</option>
+                                <option value="complaint">Complaint</option>
+                            </select>
+                        </form>
+                    </td>
+                    
+                    
                     <td class="p-3">
                         {% if complaint.pdf_file %}
-                            <a href="{{ complaint.pdf_file.url }}" target="_blank" class="text-blue-400">Download PDF</a>
+                            <a href="{{ complaint.pdf_file.url }}" target="_blank" class="text-blue-400">View PDF</a>
                         {% else %}
                             No PDF available
                         {% endif %}
@@ -162,7 +234,7 @@
                     <td class="p-3">
                         <form action="{% url 'update_urgency' complaint.id %}" method="post">
                             {% csrf_token %}
-                            <select name="urgency" class="border p-2 rounded bg-gray-800 text-white" onchange="this.form.submit()">
+                            <select name="urgency" class="border p-2 rounded bg-white text-black" onchange="this.form.submit()">
                                 <option value="" disabled selected>Select urgency level</option>
                                 <option value="High" {% if complaint.urgency == "High" %}selected{% endif %}>High</option>
                                 <option value="Low" {% if complaint.urgency == "Low" %}selected{% endif %}>Low</option>
@@ -173,7 +245,7 @@
                     <td class="p-3">
                         <form action="{% url 'update_status' complaint.id %}" method="post">
                             {% csrf_token %}
-                            <select name="status" class="border p-2 rounded bg-gray-800 text-white" onchange="this.form.submit()">
+                            <select name="status" class="border p-2 rounded bg-white text-black" onchange="this.form.submit()">
                                 <option value="Pending" {% if complaint.status == "Pending" %}selected{% endif %}>Pending</option>
                                 <option value="In Progress" {% if complaint.status == "In Progress" %}selected{% endif %}>In Progress</option>
                                 <option value="Solved" {% if complaint.status == "Solved" %}selected{% endif %}>Solved</option>
@@ -183,7 +255,7 @@
                     <td class="p-3">
                         <form action="{% url 'send_complaint' complaint.id %}" method="post" class="inline-block send-form">
                             {% csrf_token %}
-                            <button type="submit" class="send-btn bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed" {% if complaint.is_sent %}disabled{% endif %}>Send</button>
+                            <button type="submit" class="send-btn text-white py-1 px-3 rounded hover: disabled:bg-gray-400 disabled:cursor-not-allowed" {% if complaint.is_sent %}disabled{% endif %}>Send</button>
                         </form>
                         <form action="{% url 'delete_complaint' complaint.id %}" method="post" class="inline-block">
                             {% csrf_token %}
@@ -235,6 +307,27 @@
                 });
             });
         });
+
+    // Function to display the user info modal and populate it with data
+     // Function to display the user info modal and populate it with data
+     function showUserInfo(role, username, firstName, middleName, lastName, department, contactNumber, email) {
+            document.getElementById('userRole').textContent = role;
+            document.getElementById('userUsername').textContent = username;
+            document.getElementById('userFirstName').textContent = firstName;
+            document.getElementById('userMiddleName').textContent = middleName;
+            document.getElementById('userLastName').textContent = lastName;
+            document.getElementById('userDepartment').textContent = department;
+            document.getElementById('userContact').textContent = contactNumber;
+            document.getElementById('userEmail').textContent = email;
+
+            // Show the modal
+            document.getElementById('userInfoModal').style.display = 'block';
+        }
+
+        // Function to close the user info modal
+        function closeUserInfo() {
+            document.getElementById('userInfoModal').style.display = 'none';
+        }
     </script>
 
 </body>

@@ -9,7 +9,7 @@
 <body class="bg-gray-100">
 
     <!-- Header with Hamburger Menu -->
-    <header class="fixed top-0 left-0 right-0 bg-red-800 text-white p-4 shadow-md flex items-center justify-between z-50">
+    <header class="fixed top-0 left-0 right-0 bg-blue-900 text-white p-4 shadow-md flex items-center justify-between z-50">
         <!-- Hamburger Icon for Mobile -->
         <button id="menu-toggle" class="lg:hidden text-white focus:outline-none w-10 h-10">
             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -26,25 +26,25 @@
     <!-- Sidebar and Content Layout -->
     <div class="flex pt-16">
         <!-- Sidebar (always visible on large screens) -->
-        <nav id="sidebar2" class="bg-red-800 text-white w-64 p-4 fixed lg:block hidden h-screen text-center">
+        <nav id="sidebar2" class="bg-blue-800 text-white w-64 p-4 fixed lg:block hidden h-screen text-center">
             <h2 class="text-xl font-bold mb-6">Welcome to GAD Office</h2> <!-- Added mb-6 for more space -->
-            <a href="#" id="dashboard-link" onclick="toggleDashboard()" class="block text-lg mb-4 font-bold hover:bg-red-700 p-2 rounded">Dashboard</a>
-            <button onclick="toggleSection('reports-table')" class="w-full text-center text-lg font-bold mb-4 hover:bg-red-700 p-2 rounded">Report</button>
-            <button onclick="toggleSection('complaints-table')" class="w-full text-center text-lg font-bold mb-4 hover:bg-red-700 p-2 rounded">Complaint</button>
-            <p id="history-link" onclick="toggleHistory()" class="block text-lg mb-4 hover:bg-red-700 font-bold p-2 rounded">Statistics</p>
+            <a href="#" id="dashboard-link" onclick="toggleDashboard()" class="block text-lg mb-4 font-bold hover:bg-blue-700 p-2 rounded">Dashboard</a>
+            <button onclick="toggleSection('reports-table')" class="w-full text-center text-lg font-bold mb-4 hover:bg-blue-700 p-2 rounded">Report</button>
+            <button onclick="toggleSection('complaints-table')" class="w-full text-center text-lg font-bold mb-4 hover:bg-blue-700 p-2 rounded">Complaint</button>
+            <p id="history-link" onclick="toggleHistory()" class="block text-lg mb-4 hover:bg-blue-700 font-bold p-2 rounded">History</p>
             
-            <a href="{% url 'home' %}" class="block text-lg font-bold hover:bg-red-700 p-2 rounded">Logout</a>
+            <a href="{% url 'home' %}" class="block text-lg font-bold hover:bg-blue-700 p-2 rounded">Logout</a>
         </nav>
 
         <!-- Sidebar for Mobile (visible on small screens) -->
-        <nav id="mobile-sidebar" class="bg-red-800 text-white w-64 p-4 fixed top-16 left-0 h-screen z-50 transform -translate-x-full transition-transform lg:hidden text-center">
+        <nav id="mobile-sidebar" class="bg-blue-800 text-white w-64 p-4 fixed top-16 left-0 h-screen z-50 transform -translate-x-full transition-transform lg:hidden text-center">
             <h2 class="text-xl font-bold mb-6">Welcome to GAD Office</h2> <!-- Added mb-6 for more space -->
-            <a href="#" id="dashboard-link-mobile" onclick="toggleDashboard()" class="block text-lg mb-4 font-bold hover:bg-red-700 p-2 rounded">Dashboard</a>
-            <button onclick="toggleSection('reports-table')" class="w-full text-center text-lg mb-4 font-bold hover:bg-red-700 p-2 rounded">Report</button>
-            <button onclick="toggleSection('complaints-table')" class="w-full text-center text-lg mb-4 font-bold hover:bg-red-700 p-2 rounded">Complaint</button>
-            <p id="history-link-mobile" onclick="toggleHistory()" class="block text-lg mb-4 hover:bg-red-700 font-bold p-2 rounded">Statistics</p>
+            <a href="#" id="dashboard-link-mobile" onclick="toggleDashboard()" class="block text-lg mb-4 font-bold hover:bg-blue-700 p-2 rounded">Dashboard</a>
+            <button onclick="toggleSection('reports-table')" class="w-full text-center text-lg mb-4 font-bold hover:bg-blue-700 p-2 rounded">Report</button>
+            <button onclick="toggleSection('complaints-table')" class="w-full text-center text-lg mb-4 font-bold hover:bg-blue-700 p-2 rounded">Complaint</button>
+            <p id="history-link-mobile" onclick="toggleHistory()" class="block text-lg mb-4 hover:bg-blue-700 font-bold p-2 rounded">History</p>
             
-            <a href="{% url 'home' %}" class="block text-lg font-bold hover:bg-red-700 p-2 rounded">Logout</a>
+            <a href="{% url 'home' %}" class="block text-lg font-bold hover:bg-blue-700 p-2 rounded">Logout</a>
         </nav>
 
         <!-- Main Content Area -->
@@ -125,8 +125,8 @@
             messagesContainer.style.display = messagesContainer.style.display === 'none' ? 'block' : 'none';
             hideOtherContentSectionsExcept('messages-container');
         }
-
         function toggleHistory() {
+            document.getElementById('history-buttons-container').style.display = 'block';
             const historyContainer = document.getElementById('gad-history');
             historyContainer.style.display = historyContainer.style.display === 'none' ? 'block' : 'none';
             hideOtherContentSectionsExcept('gad-history');

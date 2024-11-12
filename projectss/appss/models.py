@@ -6,6 +6,7 @@ from django.core.files.base import ContentFile
 from django.utils import timezone
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from django.contrib.auth.models import User
+import re
 
 
 
@@ -42,8 +43,8 @@ class InformantManager(BaseUserManager):
 
     #     return self.create_user(username, email, password, **extra_fields)
 
-    def create_superuser(self, username, password):
-        return self.create_user(username, password, is_staff=True, is_superuser=True)
+    def create_superuser(self, username, email, password):
+        return self.create_user(username, email=email, password=password, is_staff=True, is_superuser=True)
 
 # Informant model with extended fields
 class Informant(AbstractBaseUser, PermissionsMixin):
@@ -60,7 +61,6 @@ class Informant(AbstractBaseUser, PermissionsMixin):
         ('SME', 'School of Management and Entrepreneurship'),
         ('SOE', 'School of Engineering'),
         ('SNHS', 'School of Nursing and Health Sciences'),
-        ('LHS', 'Liberal Arts and Humanities'),
         ('STED', 'School of Teacher Education'),
     ]
 
@@ -194,18 +194,24 @@ class Complaint(models.Model):
         ('VP Students and External Affairs', 'VP Students and External Affairs'),
         ('GAD Office', 'GAD Office'),
     ]
-
+    CATEGORY_CHOICES = [
+        ('Sexual Harassment', 'Sexual Harassment'),
+        ('Sexual Assault', 'Sexual Assault'),
+        ('Bullying', 'Bullying'),
+    ]
+    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
     description = models.TextField()
     office = models.CharField(max_length=50, choices=OFFICE_CHOICES)
     type = models.CharField(max_length=50, choices=TYPE_CHOICES) 
     status = models.CharField(max_length=50, default='Pending', choices=STATUS_CHOICES)
     urgency = models.CharField(max_length=50)
     pdf_file = models.FileField(upload_to='complaint_pdfs/', null=True, blank=True)
-   
+    informant = models.ForeignKey(Informant, on_delete=models.CASCADE)
     issue_date = models.DateTimeField(default=timezone.now)
     is_sent = models.BooleanField(default=False)
     receiving_office = models.CharField(max_length=50, choices=OFFICE_CHOICES)
     informant = models.ForeignKey(Informant, null=True, on_delete=models.CASCADE)  # Link to the Informant
+    
     
 
 
@@ -215,6 +221,7 @@ class Complaint(models.Model):
         super().save(*args, **kwargs)
 
     def generate_pdf(self):
+        
         buffer = BytesIO()
         pdf = SimpleDocTemplate(buffer, pagesize=letter)
         styles = getSampleStyleSheet()
@@ -230,15 +237,14 @@ class Complaint(models.Model):
         story.append(Spacer(1, 12))
         story.append(Paragraph(f"To: {self.office}", header_style))
         story.append(Spacer(1, 12))
-        story.append(Paragraph(f"Subject: {self.type}", header_style))
-        story.append(Spacer(1, 24))
+        
 
         # complaint details
-        story.append(Paragraph(f"Issue Date: {self.issue_date.strftime('%B %d, %Y')}", body_style))
+        story.append(Paragraph(f"Category: {self.category}", body_style))
         story.append(Paragraph(f"Urgency: {self.urgency}", body_style))
         story.append(Paragraph(f"Type: {self.type}", body_style))
 
-        story.append(Spacer(1, 12))
+        story.append(Spacer(1, 12))   
         story.append(Paragraph("Description:", body_style))
         story.append(Spacer(1, 6))
         story.append(Paragraph(self.description, body_style))
@@ -246,8 +252,10 @@ class Complaint(models.Model):
         # closing
         story.append(Spacer(1, 24))
         story.append(Paragraph("Sincerely,", body_style))
+        
+          # Adding informant's username
         story.append(Spacer(1, 12))
-        story.append(Paragraph("Your Name", body_style))
+        story.append(Paragraph(self.informant.username, body_style))
 
         pdf.build(story)
 
@@ -255,6 +263,23 @@ class Complaint(models.Model):
         filename = f"complaint_{self.id}_description.pdf"
         return ContentFile(buffer.getvalue(), filename)
 
+    def count_keyword_occurrences(self, keyword):
+        """
+        Counts occurrences of a specific keyword in the description.
+        """
+        # Use case-insensitive search
+        pattern = re.compile(rf'\b{keyword}\b', re.IGNORECASE)
+        return len(pattern.findall(self.description))
+    
+    def contains_sensitive_keywords(self):
+        """
+        Checks if description contains sensitive keywords like 'sexual harassment'.
+        """
+        keywords = ['sexual harassment', 'harassment']  # Add more keywords as needed
+        for keyword in keywords:
+            if self.count_keyword_occurrences(keyword) > 0:
+                return True
+        return False
 
 # Additional Models
 class Type(models.Model):
