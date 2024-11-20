@@ -516,9 +516,11 @@
                 <thead>
                     <tr class="bg-gray-800 text-white">
                         <th class="py-3 px-4">User</th>
+                        <th class="p-3 text-left">Department</th>
                         <th class="py-3 px-4">Office</th>
                         <th class="py-3 px-4">Type</th>
                         <th class="py-3 px-4">Description (PDF)</th>
+                        <th class="p-3 text-left">Label</th>
                         <th class="py-3 px-4">Status</th>
                         <th class="py-3 px-4">Urgency</th>
                         <th class="py-3 px-4">Issue Date</th>
@@ -543,6 +545,12 @@
                             )">
                                 {{ report.informant.username }}
                             </a>
+
+                            
+                        <td class="p-3">
+                            {{ report.informant.department }}
+                        </td>
+
                         </td>
                         <td class="py-3 px-4">{{ report.office }}</td>
                         <td class="py-3 px-4">{{ report.type }}</td>
@@ -553,12 +561,17 @@
                                 <span class="text-gray-500">No PDF available</span>
                             {% endif %}
                         </td>
+
+                        <td class="p-3">
+                            {{ report.category }}
+                        </td>
+
                         <td class="py-3 px-4">
                             <span class="py-1 px-3 rounded-full text-white 
                                 {% if report.status == 'Pending' %}
-                                    bg-yellow-500
+                                    bg-red-500
                                 {% elif report.status == 'In Progress' %}
-                                    bg-blue-500
+                                    bg-yellow-500
                                 {% elif report.status == 'Solved' %}
                                     bg-green-500
                                 {% endif %}">
@@ -579,6 +592,8 @@
                                 <button type="submit" class="ml-2 bg-blue-500 text-white px-4 py-2 rounded">Update</button>
                             </form>
                         </td>
+
+                        
                         <td class="py-3 px-4">
                             <!-- Respond Button -->
                             <!-- Button in the Reports Table, using complaint_id instead of report_id -->
@@ -588,7 +603,7 @@ Respond
 </button>
 
                             <!-- Delete Button -->
-                            <button class="bg-red-500 text-white px-4 py-2 rounded" onclick="deleteComplaint('{{ report.id }}')">Delete</button>
+                            <button class="bg-red-500 text-white px-4 py-2 rounded" onclick="deleteComplaint('{{ report.id }}')">Archive</button>
                         </td>
                     </tr>
                     {% endif %}
@@ -606,9 +621,11 @@ Respond
                 <thead>
                     <tr class="bg-gray-800 text-white">
                         <th class="py-3 px-4">User</th>
+                        <th class="p-3 text-left">Department</th>
                         <th class="py-3 px-4">Office</th>
                         <th class="py-3 px-4">Type</th>
                         <th class="py-3 px-4">Description (PDF)</th>
+                        <th class="p-3 text-left">Label</th>
                         <th class="py-3 px-4">Status</th>
                         <th class="py-3 px-4">Urgency</th>
                         <th class="py-3 px-4">Issue Date</th>
@@ -634,6 +651,11 @@ Respond
                                 {{ complaint.informant.username }}
                             </a>
                         </td>
+
+                        
+                        <td class="p-3">
+                            {{ complaint.informant.department }}
+                        </td>
     
                         
                         <td class="py-3 px-4">{{ complaint.office }}</td>
@@ -645,6 +667,12 @@ Respond
                                 <span class="text-gray-500">No PDF available</span>
                             {% endif %}
                         </td>
+
+                        <td class="p-3">
+                            {{ complaint.category }}
+                        </td>
+
+
                         <td class="py-3 px-4">
                             <span class="py-1 px-3 rounded-full text-white 
                                 {% if complaint.status == 'Pending' %}
@@ -676,7 +704,7 @@ Respond
 
                             <form action="{% url 'delete_complaint' complaint.id %}" method="post" style="display:inline;">
                                 {% csrf_token %}
-                                <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">Delete</button>
+                                <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">Archive</button>
                             </form>
                         </td>
                     </tr>
@@ -752,25 +780,25 @@ document.querySelectorAll('.respond-button').forEach(button => {
         }
     });
 });
-       // Function to display the user info modal and populate it with data
-       function showUserInfo(role, username, firstName, middleName, lastName, department, contactNumber, email) {
-            document.getElementById('userRole').textContent = role;
-            document.getElementById('userUsername').textContent = username;
-            document.getElementById('userFirstName').textContent = firstName;
-            document.getElementById('userMiddleName').textContent = middleName;
-            document.getElementById('userLastName').textContent = lastName;
-            document.getElementById('userDepartment').textContent = department;
-            document.getElementById('userContact').textContent = contactNumber;
-            document.getElementById('userEmail').textContent = email;
+    //    // Function to display the user info modal and populate it with data
+    //    function showUserInfo(role, username, firstName, middleName, lastName, department, contactNumber, email) {
+    //         document.getElementById('userRole').textContent = role;
+    //         document.getElementById('userUsername').textContent = username;
+    //         document.getElementById('userFirstName').textContent = firstName;
+    //         document.getElementById('userMiddleName').textContent = middleName;
+    //         document.getElementById('userLastName').textContent = lastName;
+    //         document.getElementById('userDepartment').textContent = department;
+    //         document.getElementById('userContact').textContent = contactNumber;
+    //         document.getElementById('userEmail').textContent = email;
 
-            // Show the modal
-            document.getElementById('userInfoModal').style.display = 'block';
-        }
+    //         // Show the modal
+    //         document.getElementById('userInfoModal').style.display = 'block';
+    //     }
 
-        // Function to close the user info modal
-        function closeUserInfo() {
-            document.getElementById('userInfoModal').style.display = 'none';
-        }
+    //     // Function to close the user info modal
+    //     function closeUserInfo() {
+    //         document.getElementById('userInfoModal').style.display = 'none';
+    //     }
 
 //         function showComplaintMessage() {
 //     // Show the complaint message container and hide the response form

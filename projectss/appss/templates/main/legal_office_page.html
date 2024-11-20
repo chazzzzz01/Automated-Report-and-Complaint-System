@@ -8,48 +8,35 @@
 </head>
 <body class="bg-gray-100 pt-20 font-sans">
 
-<!-- Header with Hamburger Menu and Notification Bell -->
 <header class="fixed top-0 left-0 right-0 bg-blue-900 text-white p-4 shadow-md flex items-center justify-between z-50">
-    <!-- Left side: Hamburger menu button -->
     <div class="flex items-center">
-        <!-- Hamburger Icon for Mobile -->
         <button id="menu-toggle" class="lg:hidden text-white focus:outline-none w-10 h-10">
             <svg id="hamburger-icon" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
             </svg>
         </button>
     </div>
-    
-    <!-- Center: Title -->
     <h1 class="text-2xl font-bold mx-auto">BiPSUmbongan</h1>
 </header>
 
-<!-- Sidebar that can be toggled -->
 <div id="sidebar1" class="fixed top-11 left-0 h-full w-64 bg-blue-800 text-white p-6 transition-all duration-300 transform lg:translate-x-0 -translate-x-full">
     <p class="text-xl text-center uppercase mb-6">Welcome, legal_admin</p>
     <nav class="space-y-4">
         <a href="#" class="block text-lg text-center font-bold hover:bg-blue-600 py-2" onclick="toggleSection('dashboard')">Dashboard</a>
         <a href="#" class="block text-lg text-center font-bold hover:bg-blue-600 py-2" onclick="toggleSection('reports')">Reports</a>
         <a href="#" class="block text-lg text-center font-bold hover:bg-blue-600 py-2" onclick="toggleSection('complaints')">Complaints</a>
-        <a href="#" class="block text-lg text-center font-bold hover:bg-blue-600 py-2" onclick="toggleHistoryButtons()">History</a>
+        <a href="#" class="block text-lg text-center font-bold hover:bg-blue-600 py-2" onclick="toggleSection('history')">History</a>
         
         <form method="POST" action="{% url 'logout' %}" class="block text-lg text-center font-bold hover:bg-blue-600 py-2">
             {% csrf_token %}
             <button type="submit" class="w-full text-white">Logout</button>
         </form>
     </nav>
-
-    <div id="history-buttons" class="hidden space-y-2 mt-4">
-        <button class="w-full bg-red-600 py-2 text-center" onclick="showSolvedTable('reports')">Solved Reports</button>
-        <button class="w-full bg-red-600 py-2 text-center" onclick="showSolvedTable('complaints')">Solved Complaints</button>
-    </div>
 </div>
 
-<!-- Main Content -->
 <div id="content1" class="p-6 transition-all duration-300 lg:ml-64">
     <div id="dashboard-content" class="hidden"></div>
     {% include 'legal/legal_status.html' %}
-    {% include 'legal/legal_history.html' %}
     <div id="messages-section" class="hidden">
         {% include 'legal/legal_message.html' %}
     </div>
@@ -82,6 +69,10 @@
         </table>
     </div>
     <div id="complaints-table" class="hidden"></div>
+    <div id="history-content" class="hidden">
+        <h2 class="text-2xl font-bold mb-4">History Section</h2>
+        {% include 'legal/legal_history.html' %}
+    </div>
 </div>
 
 <script>
@@ -118,24 +109,8 @@
             document.getElementById('reports-table').classList.remove('hidden');
         } else if (section === 'complaints') {
             document.getElementById('complaints-table').classList.remove('hidden');
-        }
-    }
-
-    function toggleHistoryButtons() {
-        document.getElementById('history-buttons').classList.toggle('hidden');
-    }
-
-    function toggleMessagesVisibility() {
-        const messagesSection = document.getElementById('messages-section');
-        messagesSection.classList.toggle('hidden');
-    }
-
-    function showSolvedTable(type) {
-        hideAllSections();
-        if (type === 'reports') {
-            document.getElementById('solved-reports-table').classList.remove('hidden');
-        } else if (type === 'complaints') {
-            document.getElementById('solved-complaints-table').classList.remove('hidden');
+        } else if (section === 'history') {
+            document.getElementById('history-content').classList.remove('hidden');
         }
     }
 
@@ -144,10 +119,12 @@
         document.getElementById('reports-table').classList.add('hidden');
         document.getElementById('complaints-table').classList.add('hidden');
         document.getElementById('messages-section').classList.add('hidden');
+        document.getElementById('history-content').classList.add('hidden');
     }
 
     window.onload = () => {
-        toggleSection('dashboard'); // Show dashboard on load
+        // Show the dashboard by default when the page loads
+        toggleSection('dashboard');
     };
 </script>
 

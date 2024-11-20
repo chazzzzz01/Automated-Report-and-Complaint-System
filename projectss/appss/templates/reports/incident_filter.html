@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Incident Filter</title>
+</head>
+<body>
+    <h1>Filter Incidents by Office and Department</h1>
+    
+    <form method="get">
+        {{ form.as_p }}
+        <button type="submit">Filter Incidents</button>
+    </form>
+    
+    <h2>Incident Counts by Keywords</h2>
+    <ul>
+        {% for keyword, count in keyword_counts.items %}
+            <li>{{ keyword }}: {{ count }} incident(s)</li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>

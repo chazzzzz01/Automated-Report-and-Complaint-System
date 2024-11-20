@@ -728,7 +728,7 @@ office_keywords = {
         "strategic planning", "compliance", "financial performance"
     ],
     "VP Academic Affairs": [
-        "library", "SIAS", "faculty", "academic", "instructor", "registration", "calendar", "graduation", "lowest grade", 
+        "library", "SIAS", "faculty", "academic", "instructor", "registration", "graduation", "lowest grade", 
         "advisors", "curriculum", "grades", "scheduling", "transcripts", "accreditation", "course development", "research",
         "academic policies", "student records", "faculty development", "course catalogs", "enrollment", "academic advising",
         "course schedules", "degree programs", "student assessment", "academic standards", "course materials", "lectures",

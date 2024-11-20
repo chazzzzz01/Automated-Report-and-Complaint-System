@@ -1,4 +1,75 @@
-<!DOCTYPE html>
+<div class="bg-white p-6 rounded-lg shadow-lg">
+
+
+    <!-- Department Dropdown -->
+    <div class="mb-4">
+        
+        <select id="department-select" class="w-full p-2 border rounded">
+            <option value="">-- Select a Department --</option>
+            <option value="STCS">School of Technology and Computer Science</option>
+            <option value="SCJE">School of Criminal Justice and Education</option>
+            <option value="SAS">School of Arts and Sciences</option>
+            <option value="SME">School of Management and Entrepreneurship</option>
+            <option value="SOE">School of Engineering</option>
+            <option value="SNHS">School of Nursing and Health Sciences</option>
+            <option value="STED">School of Teacher Education</option>
+        </select>
+    </div>
+
+    <!-- Category Counts Section -->
+    <div id="category-counts" class="space-y-2">
+        <!-- Placeholder for category counts fetched via AJAX -->
+    </div>
+</div>
+
+<script>
+    function fetchComplaintCounts(department) {
+        // Fetch the counts with the selected department as a query parameter
+        fetch(`{% url 'complaint_counts' %}?department=${department}`)
+            .then(response => response.json())
+            .then(data => {
+                const categoryCountsDiv = document.getElementById('category-counts');
+                categoryCountsDiv.innerHTML = '';
+
+                // Display the counts for each category
+                for (const [category, count] of Object.entries(data.category_counts)) {
+                    const categoryItem = document.createElement('p');
+                    categoryItem.textContent = `${category}: ${count}`;
+                    categoryCountsDiv.appendChild(categoryItem);
+                }
+            })
+            .catch(error => console.error('Error fetching counts:', error));
+    }
+
+    // Automatically fetch counts if a department is pre-selected
+    window.addEventListener('load', function() {
+        const departmentSelect = document.getElementById('department-select');
+        const selectedDepartment = departmentSelect.value;
+
+        if (selectedDepartment) {
+            fetchComplaintCounts(selectedDepartment);
+        }
+
+        // Also fetch counts if the selection changes
+        departmentSelect.addEventListener('change', function() {
+            const newSelectedDepartment = this.value;
+            if (newSelectedDepartment) {
+                fetchComplaintCounts(newSelectedDepartment);
+            } else {
+                document.getElementById('category-counts').innerHTML = '';
+            }
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -10,7 +81,7 @@
 
 <body class="bg-gray-100 p-5">
 
-    <!-- History Table for Solved Complaints -->
+ 
     <div id="history-table" class="max-w-6xl mx-auto px-4">
         {% if complaints.exists %}
         <table class="w-full border-collapse bg-white shadow-lg rounded-lg overflow-hidden">
@@ -63,7 +134,7 @@
 </body>
 
 </html>
-
+ -->
 
 
 

@@ -195,10 +195,17 @@ class Complaint(models.Model):
         ('GAD Office', 'GAD Office'),
     ]
     CATEGORY_CHOICES = [
-        ('Sexual Harassment', 'Sexual Harassment'),
-        ('Sexual Assault', 'Sexual Assault'),
-        ('Bullying', 'Bullying'),
-    ]
+    ('sexual_harassment', 'Sexual Harassment'),
+    ('sexual_assault', 'Sexual Assault'),
+    ('bullying', 'Bullying'),
+    ('discrimination', 'Discrimination'),
+    ('abuse', 'Abuse'),
+    ('violence', 'Violence'),
+    ('gender_equality', 'Gender Equality'),
+    ('rape', 'Rape'),
+   
+
+]
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
     description = models.TextField()
     office = models.CharField(max_length=50, choices=OFFICE_CHOICES)
@@ -240,7 +247,7 @@ class Complaint(models.Model):
         
 
         # complaint details
-        story.append(Paragraph(f"Category: {self.category}", body_style))
+        story.append(Paragraph(f"Label: {self.category}", body_style))
         story.append(Paragraph(f"Urgency: {self.urgency}", body_style))
         story.append(Paragraph(f"Type: {self.type}", body_style))
 
@@ -306,4 +313,46 @@ class Response(models.Model):
 
 
 
+from django.db import models
+
+# Define the possible offices and departments
+OFFICE_CHOICES = [
+    ('GAD', 'Gender and Development'),
+    ('AA', 'Academic Affairs'),
+    ('AF', 'Admin and Finance'),
+    ('SA', 'Student Affairs'),
+]
+
+DEPARTMENT_CHOICES = [
+    ('STCS', 'School of Technology and Computer Science'),
+    ('SCJE', 'School of Criminal Justice and Education'),
+    ('SAS', 'School of Arts and Sciences'),
+    ('SME', 'School of Management and Entrepreneurship'),
+    ('SOE', 'School of Engineering'),
+    ('SNHS', 'School of Nursing and Health Sciences'),
+    ('STED', 'School of Teacher Education'),
+]
+
+CATEGORY_CHOICES = [
+    ('sexual_harassment', 'Sexual Harassment'),
+    ('sexual_assault', 'Sexual Assault'),
+    ('bullying', 'Bullying'),
+    ('discrimination', 'Discrimination'),
+    ('abuse', 'Abuse'),
+    ('violence', 'Violence'),
+    ('gender_equality', 'Gender Equality'),
+    ('rape', 'Rape'),
+   
+
+]
+
+# Define the Incident model
+class Incident(models.Model):
+    office = models.CharField(max_length=3, choices=OFFICE_CHOICES)
+    department = models.CharField(max_length=4, choices=DEPARTMENT_CHOICES)
+    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
+    incident_content = models.TextField()
+
+    def __str__(self):
+        return f'{self.department} - {self.office}'
 

@@ -92,7 +92,7 @@
 from django import forms
 from .models import Complaint, Informant
 from django import forms
-from appss.models import Informant
+from appss.models import Informant, Incident
 from django.contrib.auth.forms import UserCreationForm
 
 class ComplaintReportForm(forms.ModelForm):
@@ -153,3 +153,13 @@ class ResponseForm(forms.Form):
         'rows': 5
     }), label='Letter Content')
     complaint_id = forms.IntegerField(widget=forms.HiddenInput())
+
+
+
+
+from django import forms
+from .models import Incident, OFFICE_CHOICES, DEPARTMENT_CHOICES
+
+class IncidentFilterForm(forms.Form):
+    office = forms.ChoiceField(choices=OFFICE_CHOICES, required=False)
+    department = forms.ChoiceField(choices=DEPARTMENT_CHOICES, required=False)

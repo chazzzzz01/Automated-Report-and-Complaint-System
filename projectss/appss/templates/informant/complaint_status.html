@@ -29,9 +29,11 @@
             <thead class="bg-gray-800 text-white">
                 <tr>
                     <th class="px-4 py-3 text-left">User</th>
+                    <th class="px-4 py-3 text-left">Department</th>
                     <th class="px-4 py-3 text-left">Office</th>
                     <th class="px-4 py-3 text-left">Type</th>
                     <th class="px-4 py-3 text-left">Description (PDF)</th>
+                    <th class="px-4 py-3 text-left">Label</th>
                     <th class="px-4 py-3 text-left">Status</th>
                     <th class="px-4 py-3 text-left">Urgency</th>
                     <th class="px-4 py-3 text-left">Issue Date</th>
@@ -43,15 +45,23 @@
                 {% if complaint.status != 'Solved' %}
                 <tr id="complaint-{{ complaint.id }}" class="border-b border-gray-200">
                     <td class="px-4 py-3">{{ request.user.username }}</td>
+                    <td class="p-3">
+                        {{ complaint.informant.department }}
+                    </td>
                     <td class="px-4 py-3">{{ complaint.office }}</td>
                     <td class="px-4 py-3">{{ complaint.type }}</td>
                     <td class="px-4 py-3">
                         {% if complaint.pdf_file %}
-                        <a href="{{ complaint.pdf_file.url }}" target="_blank" class="text-blue-500 hover:underline">Download PDF</a>
+                        <a href="{{ complaint.pdf_file.url }}" target="_blank" class="text-blue-500 hover:underline">View PDF</a>
                         {% else %}
                         <span class="text-gray-500">No PDF available</span>
                         {% endif %}
                     </td>
+
+                    <td class="p-3">
+                        {{ complaint.category }}
+                    </td>
+
                     <td class="p-3">
                         <span class="py-1 px-3 rounded-full text-black {% if complaint.status == 'Pending' %}bg-red-500{% elif complaint.status == 'In Progress' %}bg-yellow-500{% elif complaint.status == 'Solved' %}bg-green-500{% endif %}">
                             {{ complaint.status }}
@@ -64,7 +74,7 @@
                     <td class="px-4 py-3">
                         <form action="{% url 'delete_complaint' complaint.id %}" method="post" style="display:inline;">
                             {% csrf_token %}
-                            <button class="bg-red-600 text-white px-3 py-2 rounded-lg hover:bg-red-700 transition" onclick="deleteComplaint('{{ complaint.id }}')">Delete</button>
+                            <button class="bg-red-600 text-white px-3 py-2 rounded-lg hover:bg-red-700 transition" onclick="deleteComplaint('{{ complaint.id }}')">Archive</button>
                         </form>
                     </td>
                 </tr>

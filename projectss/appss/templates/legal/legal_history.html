@@ -1,4 +1,285 @@
+<div class="bg-white p-6 rounded-lg shadow-lg">
+    
+    <!-- Office Dropdown -->
+    <div class="mb-4">
+        <select id="office-select" class="w-full p-2 border rounded">
+            <option value="">-- Select an Office --</option>
+            <option value="GAD">GAD Office</option>
+            <option value="VP_Admin_Finance">VP Administration and Finance</option>
+            <option value="VP_Academic_Affairs">VP Academic Affairs</option>
+            <option value="VP_Students_External">VP Students and External Affairs</option>
+        </select>
+    </div>
 
+    <!-- Department Dropdown (Hidden by Default) -->
+    <div class="mb-4" id="department-container" style="display: none;">
+        <select id="department-select" class="w-full p-2 border rounded">
+            <option value="">-- Select a Department --</option>
+            <option value="STCS">School of Technology and Computer Science</option>
+            <option value="SCJE">School of Criminal Justice and Education</option>
+            <option value="SAS">School of Arts and Sciences</option>
+            <option value="SME">School of Management and Entrepreneurship</option>
+            <option value="SOE">School of Engineering</option>
+            <option value="SNHS">School of Nursing and Health Sciences</option>
+            <option value="STED">School of Teacher Education</option>
+        </select>
+    </div>
+
+    <!-- Category Counts Section (Hidden by Default) -->
+    <div id="category-counts" class="space-y-2" style="display: none;">
+        <!-- Placeholder for category counts fetched via AJAX -->
+    </div>
+</div>
+
+<script>
+    // Define allowed categories per office
+    const officeCategories = {
+        "GAD": ["Sexual Harassment", "Sexual Assault", "Bullying", "Discrimination", "Abuse", "Violence", "Gender Equality", "Defamation" , "Rape"],
+        "VP_Admin_Finance": ["Financial Misconduct", "Workplace Harassment"],
+        "VP_Academic_Affairs": ["Academic Misconduct", "Plagiarism"],
+        "VP_Students_External": ["Student Misconduct", "Community Complaints"]
+    };
+
+    function fetchComplaintCounts(department, selectedOffice) {
+        fetch(`{% url 'complaint_counts' %}?department=${department}`)
+            .then(response => response.json())
+            .then(data => {
+                const categoryCountsDiv = document.getElementById('category-counts');
+                categoryCountsDiv.innerHTML = '';
+
+                // Filter categories based on the selected office
+                const allowedCategories = officeCategories[selectedOffice] || [];
+                for (const [category, count] of Object.entries(data.category_counts)) {
+                    if (allowedCategories.includes(category)) {
+                        const categoryItem = document.createElement('p');
+                        categoryItem.textContent = `${category}: ${count}`;
+                        categoryCountsDiv.appendChild(categoryItem);
+                    }
+                }
+
+                // Show the category counts section if there are valid categories to display
+                categoryCountsDiv.style.display = categoryCountsDiv.innerHTML ? 'block' : 'none';
+            })
+            .catch(error => console.error('Error fetching counts:', error));
+    }
+
+    // Office and Department Selection Handling
+    window.addEventListener('load', function() {
+        const officeSelect = document.getElementById('office-select');
+        const departmentContainer = document.getElementById('department-container');
+        const departmentSelect = document.getElementById('department-select');
+        const categoryCountsDiv = document.getElementById('category-counts');
+
+        // Show department dropdown only after an office is selected
+        officeSelect.addEventListener('change', function() {
+            if (this.value) {
+                departmentContainer.style.display = 'block';
+            } else {
+                departmentContainer.style.display = 'none';
+                categoryCountsDiv.style.display = 'none';
+                departmentSelect.value = ''; // Reset department selection
+            }
+        });
+
+        // Show category counts only after a department is selected
+        departmentSelect.addEventListener('change', function() {
+            const selectedDepartment = this.value;
+            const selectedOffice = officeSelect.value;
+            if (selectedDepartment) {
+                fetchComplaintCounts(selectedDepartment, selectedOffice);
+            } else {
+                categoryCountsDiv.style.display = 'none';
+            }
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports and Complaints</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+    <h1 class="text-2xl font-bold text-gray-800 mb-6">Reports and Complaints Management</h1>
+
+
+    <div class="mb-6">
+        <label for="office" class="block font-semibold text-gray-700">Select Office:</label>
+        <select id="office" class="border p-2 rounded w-full bg-white text-black">
+            <option value="" selected disabled>Select Office</option>
+            <option value="VP Administration and Finance">VP Administration and Finance</option>
+            <option value="VP Academic Affairs">VP Academic Affairs</option>
+            <option value="VP Students and External Affairs">VP Students and External Affairs</option>
+            <option value="GAD Office">GAD Office</option>
+        </select>
+    </div>
+
+    <div class="mb-6">
+        <label for="department" class="block font-semibold text-gray-700">Select Department:</label>
+        <select id="department" class="border p-2 rounded w-full bg-white text-black" disabled>
+            <option value="" selected>Select Department</option>
+        </select>
+    </div>
+
+  
+    <div id="count-display" class="hidden">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">Counts by Category</h2>
+        <div id="keyword-counts" class="text-lg text-gray-600">
+            <div id="keywords-list"></div>
+        </div>
+    </div>
+
+    <script>
+      const departmentsByOffice = {
+    "GAD Office": [
+        { code: "STCS", name: "School of Technology and Computer Science" },
+        { code: "SCJE", name: "School of Criminal Justice and Education" },
+        { code: "SAS", name: "School of Arts and Sciences" },
+        { code: "SME", name: "School of Management and Entrepreneurship" },
+        { code: "SOE", name: "School of Engineering" },
+        { code: "SNHS", name: "School of Nursing and Health Sciences" },
+        { code: "STED", name: "School of Teacher Education" }
+    ],
+    "VP Administration and Finance": [
+        { code: "STCS", name: "School of Technology and Computer Science" },
+        { code: "SCJE", name: "School of Criminal Justice and Education" },
+        { code: "SAS", name: "School of Arts and Sciences" },
+        { code: "SME", name: "School of Management and Entrepreneurship" },
+        { code: "SOE", name: "School of Engineering" },
+        { code: "SNHS", name: "School of Nursing and Health Sciences" },
+        { code: "STED", name: "School of Teacher Education" }
+    ],
+    "VP Academic Affairs": [
+        { code: "STCS", name: "School of Technology and Computer Science" },
+        { code: "SCJE", name: "School of Criminal Justice and Education" },
+        { code: "SAS", name: "School of Arts and Sciences" },
+        { code: "SME", name: "School of Management and Entrepreneurship" },
+        { code: "SOE", name: "School of Engineering" },
+        { code: "SNHS", name: "School of Nursing and Health Sciences" },
+        { code: "STED", name: "School of Teacher Education" }
+    ],
+    "VP Students and External Affairs": [
+        { code: "STCS", name: "School of Technology and Computer Science" },
+        { code: "SCJE", name: "School of Criminal Justice and Education" },
+        { code: "SAS", name: "School of Arts and Sciences" },
+        { code: "SME", name: "School of Management and Entrepreneurship" },
+        { code: "SOE", name: "School of Engineering" },
+        { code: "SNHS", name: "School of Nursing and Health Sciences" },
+        { code: "STED", name: "School of Teacher Education" }
+    ]
+};
+
+      
+
+        const keywordsByOffice = {
+            "GAD Office": [
+                { label: "Sexual Harassment", category: "Sexual Harassment" },
+                { label: "Sexual Assault", category: "Sexual Assault" },
+                { label: "Bullying", category: "Bullying" }
+            ],
+            "VP Administration and Finance": [
+                { label: "Workplace Harassment", category: "Workplace Harassment" },
+                { label: "Financial Misconduct", category: "Financial Misconduct" },
+                { label: "Employee Grievances", category: "Employee Grievances" }
+            ],
+            "VP Academic Affairs": [
+                { label: "Academic Misconduct", category: "Academic Misconduct" },
+                { label: "Research Integrity Issues", category: "Research Integrity Issues" }
+            ],
+            "VP Students and External Affairs": [
+                { label: "Student Discipline Cases", category: "Student Discipline Cases" },
+                { label: "External Partnership Issues", category: "External Partnership Issues" }
+            ]
+        };
+
+        document.getElementById("office").addEventListener("change", function () {
+            const selectedOffice = this.value;
+            const departmentSelect = document.getElementById("department");
+            const keywordsList = document.getElementById("keywords-list");
+
+            departmentSelect.innerHTML = '<option value="" selected>Select Department</option>';
+            document.getElementById("count-display").classList.add("hidden");
+
+            if (departmentsByOffice[selectedOffice]) {
+                departmentSelect.disabled = false;
+                departmentsByOffice[selectedOffice].forEach(department => {
+                    const option = document.createElement("option");
+                    option.value = department.code;
+                    option.textContent = department.name;
+                    departmentSelect.appendChild(option);
+                });
+            } else {
+                departmentSelect.disabled = true;
+            }
+
+            keywordsList.innerHTML = "";
+            if (keywordsByOffice[selectedOffice]) {
+                keywordsByOffice[selectedOffice].forEach(keyword => {
+                    const keywordElement = document.createElement("p");
+                    keywordElement.innerHTML = `${keyword.label}: <span id="${keyword.category}-report-count">0</span> reports, <span id="${keyword.category}-complaint-count">0</span> complaints`;
+                    keywordsList.appendChild(keywordElement);
+                });
+            }
+        });
+
+        document.getElementById("department").addEventListener("change", fetchCounts);
+
+        function fetchCounts() {
+            const selectedOffice = document.getElementById("office").value;
+            const selectedDepartment = document.getElementById("department").value;
+
+            if (selectedOffice && selectedDepartment) {
+                document.getElementById("count-display").classList.remove("hidden");
+
+                if (keywordsByOffice[selectedOffice]) {
+                    keywordsByOffice[selectedOffice].forEach(keyword => {
+                        fetch(`/complaint_counts/?office=${selectedOffice}&department=${selectedDepartment}&category=${keyword.category}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                document.getElementById(`${keyword.category}-report-count`).textContent = data.reports;
+                                document.getElementById(`${keyword.category}-complaint-count`).textContent = data.complaints;
+                            })
+                            .catch(error => console.error("Error fetching counts:", error));
+                    });
+                }
+            } else {
+                document.getElementById("count-display").classList.add("hidden");
+            }
+        }
+    </script>
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +296,7 @@
             <table class="min-w-full table-auto bg-white shadow-md rounded-lg">
                 <thead class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
                     <tr>
-                        <th class="p-3 text-left">User</th>
+                     <th class="p-3 text-left">User</th>
                         <th class="py-3 px-6 text-left">Office</th>
                         <th class="py-3 px-6 text-left">Type</th>
                         <th class="py-3 px-6 text-left">Description (PDF)</th>
@@ -116,7 +397,7 @@
     </div>
 
 </body>
-</html>
+</html> -->
 
 
 

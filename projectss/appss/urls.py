@@ -48,7 +48,9 @@ urlpatterns = [
     path('delete_response/<int:response_id>/', views.delete_response, name='delete_response'),  # Add this line for delete
     path('update-office/<int:complaint_id>/', views.update_office, name='update_office'),
     path('update_type/<int:complaint_id>/', views.update_type, name='update_type'),
-    
+    path('incident-filter/', views.incident_filter, name='incident_filter'),
+    path('complaint_counts/', views.complaint_counts, name='complaint_counts'),
+
     
     
     # Other URL patterns

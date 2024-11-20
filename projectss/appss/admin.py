@@ -2,7 +2,7 @@
 
 
 from django.contrib import admin
-from .models import Complaint, Informant, Office
+from .models import Complaint, Informant, Office, Incident
 
 # Register Complaint model with admin configuration
 class ComplaintAdmin(admin.ModelAdmin):
@@ -60,3 +60,5 @@ class OfficeAdmin(admin.ModelAdmin):
 
 admin.site.register(Office, OfficeAdmin)
 
+
+admin.site.register(Incident)

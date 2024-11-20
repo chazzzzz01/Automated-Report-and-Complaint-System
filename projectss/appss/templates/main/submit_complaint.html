@@ -38,7 +38,7 @@
     <div class="max-w-4xl w-full bg-gray-200 rounded-lg shadow-xl p-12 sm:p-16 lg:p-20 mx-auto">
         <h1 class="text-center text-5xl font-bold text-gray-800 mb-10">Submit a Complaint or Report</h1>
         <form id="complaintForm" method="POST">
-            <label for="categoryInput" class="block text-lg font-medium text-gray-700 mb-2">Category</label>
+            <label for="categoryInput" class="block text-lg font-medium text-gray-700 mb-2">Label:</label>
             
             <div class="dropdown-wrapper">
                 <input type="text" id="categoryInput" placeholder="Search or select a category" 
@@ -48,6 +48,16 @@
                     <div onclick="selectOption('Sexual Harassment')">Sexual Harassment</div>
                     <div onclick="selectOption('Sexual Assault')">Sexual Assault</div>
                     <div onclick="selectOption('Bullying')">Bullying</div>
+                    <div onclick="selectOption('Discrimination')">Discrimination</div>
+                    <div onclick="selectOption('Abuse')">Abuse</div>
+                    <div onclick="selectOption('Violence')">Violence</div>
+                    <div onclick="selectOption('Gender Equality')">Gender Equality</div>
+                    <div onclick="selectOption('Defamation')">Defamation</div>
+                    <div onclick="selectOption('Rape')">Rape</div>
+                    
+                    
+
+
                 </div>
             </div>
 
@@ -71,6 +81,12 @@
                 const category = $('#categoryInput').val().trim();
                 const description = $('#description').val().trim();
 
+
+                if (!category || !description || description.length < 10) {
+                    $('#responseMessage').html('<p class="text-red-600">Please provide valid category and description (at least 10 characters).</p>');
+                    return;
+                }
+                
                 function isValidDescription(text) {
                     return text.length >= 10;  // Ensure minimum 10 characters for validity
                 }
