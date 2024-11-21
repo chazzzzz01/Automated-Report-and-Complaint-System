@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Legal Office Page</title>
     <script src="https://cdn.tailwindcss.com"></script>
+
+   
 </head>
+
+<link rel="icon" type="image/png" sizes="32x32" href="{% static 'logo/logo.png' %}?v=1.0">
+
 <body class="bg-gray-100 pt-20 font-sans">
 
 <header class="fixed top-0 left-0 right-0 bg-blue-900 text-white p-4 shadow-md flex items-center justify-between z-50">
@@ -19,15 +25,15 @@
     <h1 class="text-2xl font-bold mx-auto">BiPSUmbongan</h1>
 </header>
 
-<div id="sidebar1" class="fixed top-11 left-0 h-full w-64 bg-blue-800 text-white p-6 transition-all duration-300 transform lg:translate-x-0 -translate-x-full">
+<div id="sidebar1" class="fixed top-11 left-0 h-full w-64 bg-blue-900 text-white p-6 transition-all duration-300 transform lg:translate-x-0 -translate-x-full">
     <p class="text-xl text-center uppercase mb-6">Welcome, legal_admin</p>
     <nav class="space-y-4">
-        <a href="#" class="block text-lg text-center font-bold hover:bg-blue-600 py-2" onclick="toggleSection('dashboard')">Dashboard</a>
-        <a href="#" class="block text-lg text-center font-bold hover:bg-blue-600 py-2" onclick="toggleSection('reports')">Reports</a>
-        <a href="#" class="block text-lg text-center font-bold hover:bg-blue-600 py-2" onclick="toggleSection('complaints')">Complaints</a>
-        <a href="#" class="block text-lg text-center font-bold hover:bg-blue-600 py-2" onclick="toggleSection('history')">History</a>
+        <a href="#" class="block text-lg text-center font-bold hover:bg-blue-800 py-2" onclick="toggleSection('dashboard')">Dashboard</a>
+        <a href="#" class="block text-lg text-center font-bold hover:bg-blue-800 py-2" onclick="toggleSection('reports')">Reports</a>
+        <a href="#" class="block text-lg text-center font-bold hover:bg-blue-800 py-2" onclick="toggleSection('complaints')">Complaints</a>
+        <a href="#" class="block text-lg text-center font-bold hover:bg-blue-800 py-2" onclick="toggleSection('history')">History</a>
         
-        <form method="POST" action="{% url 'logout' %}" class="block text-lg text-center font-bold hover:bg-blue-600 py-2">
+        <form method="POST" action="{% url 'logout' %}" class="block text-lg text-center font-bold hover:bg-blue-800 py-2">
             {% csrf_token %}
             <button type="submit" class="w-full text-white">Logout</button>
         </form>

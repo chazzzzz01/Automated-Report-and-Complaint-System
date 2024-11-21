@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html> 
 <html lang="en">
 <head>
@@ -5,7 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GAD Office</title>
     <script src="https://cdn.tailwindcss.com"></script>
+
+    
+
 </head>
+<link rel="icon" type="image/png" sizes="32x32" href="{% static 'logo/logo.png' %}?v=1.0">
+
 <body class="bg-gray-100">
 
     <!-- Header with Hamburger Menu -->
@@ -26,25 +32,25 @@
     <!-- Sidebar and Content Layout -->
     <div class="flex pt-16">
         <!-- Sidebar (always visible on large screens) -->
-        <nav id="sidebar2" class="bg-blue-800 text-white w-64 p-4 fixed lg:block hidden h-screen text-center">
+        <nav id="sidebar2" class="bg-blue-900 text-white w-64 p-4 fixed lg:block hidden h-screen text-center">
             <h2 class="text-xl font-bold mb-6">Welcome to GAD Office</h2> <!-- Added mb-6 for more space -->
-            <a href="#" id="dashboard-link" onclick="toggleDashboard()" class="block text-lg mb-4 font-bold hover:bg-blue-700 p-2 rounded">Dashboard</a>
-            <button onclick="toggleSection('reports-table')" class="w-full text-center text-lg font-bold mb-4 hover:bg-blue-700 p-2 rounded">Report</button>
-            <button onclick="toggleSection('complaints-table')" class="w-full text-center text-lg font-bold mb-4 hover:bg-blue-700 p-2 rounded">Complaint</button>
-            <p id="history-link" onclick="toggleHistory()" class="block text-lg mb-4 hover:bg-blue-700 font-bold p-2 rounded">History</p>
+            <a href="#" id="dashboard-link" onclick="toggleDashboard()" class="block text-lg mb-4 font-bold hover:bg-blue-800 p-2 rounded">Dashboard</a>
+            <button onclick="toggleSection('reports-table')" class="w-full text-center text-lg font-bold mb-4 hover:bg-blue-800 p-2 rounded">Report</button>
+            <button onclick="toggleSection('complaints-table')" class="w-full text-center text-lg font-bold mb-4 hover:bg-blue-800 p-2 rounded">Complaint</button>
+            <p id="history-link" onclick="toggleHistory()" class="block text-lg mb-4 hover:bg-blue-800 font-bold p-2 rounded">History</p>
             
-            <a href="{% url 'home' %}" class="block text-lg font-bold hover:bg-blue-700 p-2 rounded">Logout</a>
+            <a href="{% url 'home' %}" class="block text-lg font-bold hover:bg-blue-800 p-2 rounded">Logout</a>
         </nav>
 
         <!-- Sidebar for Mobile (visible on small screens) -->
-        <nav id="mobile-sidebar" class="bg-blue-800 text-white w-64 p-4 fixed top-16 left-0 h-screen z-50 transform -translate-x-full transition-transform lg:hidden text-center">
+        <nav id="mobile-sidebar" class="bg-blue-900 text-white w-64 p-4 fixed top-16 left-0 h-screen z-50 transform -translate-x-full transition-transform lg:hidden text-center">
             <h2 class="text-xl font-bold mb-6">Welcome to GAD Office</h2> <!-- Added mb-6 for more space -->
-            <a href="#" id="dashboard-link-mobile" onclick="toggleDashboard()" class="block text-lg mb-4 font-bold hover:bg-blue-700 p-2 rounded">Dashboard</a>
-            <button onclick="toggleSection('reports-table')" class="w-full text-center text-lg mb-4 font-bold hover:bg-blue-700 p-2 rounded">Report</button>
-            <button onclick="toggleSection('complaints-table')" class="w-full text-center text-lg mb-4 font-bold hover:bg-blue-700 p-2 rounded">Complaint</button>
-            <p id="history-link-mobile" onclick="toggleHistory()" class="block text-lg mb-4 hover:bg-blue-700 font-bold p-2 rounded">History</p>
+            <a href="#" id="dashboard-link-mobile" onclick="toggleDashboard()" class="block text-lg mb-4 font-bold hover:bg-blue-800 p-2 rounded">Dashboard</a>
+            <button onclick="toggleSection('reports-table')" class="w-full text-center text-lg mb-4 font-bold hover:bg-blue-800 p-2 rounded">Report</button>
+            <button onclick="toggleSection('complaints-table')" class="w-full text-center text-lg mb-4 font-bold hover:bg-blue-800 p-2 rounded">Complaint</button>
+            <p id="history-link-mobile" onclick="toggleHistory()" class="block text-lg mb-4 hover:bg-blue-800 font-bold p-2 rounded">History</p>
             
-            <a href="{% url 'home' %}" class="block text-lg font-bold hover:bg-blue-700 p-2 rounded">Logout</a>
+            <a href="{% url 'home' %}" class="block text-lg font-bold hover:bg-blue-800 p-2 rounded">Logout</a>
         </nav>
 
         <!-- Main Content Area -->

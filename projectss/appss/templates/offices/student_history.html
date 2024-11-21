@@ -1,0 +1,73 @@
+<div class="bg-white p-6 rounded-lg shadow-lg">
+    <!-- Department Dropdown (Hidden by Default) -->
+    <div class="mb-4" id="department-container">
+        <select id="department-select" class="w-full p-2 border rounded">
+            <option value="">-- Select a Department --</option>
+            <option value="STCS">School of Technology and Computer Science</option>
+            <option value="SCJE">School of Criminal Justice and Education</option>
+            <option value="SAS">School of Arts and Sciences</option>
+            <option value="SME">School of Management and Entrepreneurship</option>
+            <option value="SOE">School of Engineering</option>
+            <option value="SNHS">School of Nursing and Health Sciences</option>
+            <option value="STED">School of Teacher Education</option>
+        </select>
+    </div>
+
+    <!-- Category Counts Section (Hidden by Default) -->
+    <div id="category-counts" class="space-y-2" style="display: none;">
+        <!-- Placeholder for category counts fetched via AJAX -->
+    </div>
+</div>
+
+<script>
+    // Define allowed categories per office
+    const officeCategories = {
+        "GAD": ["Sexual Harassment", "Sexual Assault", "Bullying", "Discrimination", "Abuse", "Violence", "Gender Equality", "Defamation", "Rape"],
+        "AF": ["Scholarship Issues", "Late Fees", "Financial Aid", "Staff Payment Issues", "Billing Errors"],
+        "AA": ["Tardiness", "Always Late", "Favoritism", "Always Absent", "Unfair Grading", "Unprofessional Behavior"],
+        "SA": ["Student Misconduct", "Student Welfare", "Student Engagement", "Student Rights"]
+    };
+
+    // Assume the office is set dynamically, e.g., from the backend
+    const currentOffice = "SA"; // Replace with dynamic data as needed
+
+    function fetchComplaintCounts(department) {
+        fetch(`{% url 'complaint_counts' %}?department=${department}`)
+            .then(response => response.json())
+            .then(data => {
+                const categoryCountsDiv = document.getElementById('category-counts');
+                categoryCountsDiv.innerHTML = '';
+
+                // Filter categories based on the current office
+                const allowedCategories = officeCategories[currentOffice] || [];
+                for (const [category, count] of Object.entries(data.category_counts)) {
+                    if (allowedCategories.includes(category)) {
+                        const categoryItem = document.createElement('p');
+                        categoryItem.textContent = `${category}: ${count}`;
+                        categoryCountsDiv.appendChild(categoryItem);
+                    }
+                }
+
+                // Show the category counts section if there are valid categories to display
+                categoryCountsDiv.style.display = categoryCountsDiv.innerHTML ? 'block' : 'none';
+            })
+            .catch(error => console.error('Error fetching counts:', error));
+    }
+
+    // Department Selection Handling
+    window.addEventListener('load', function() {
+        const departmentSelect = document.getElementById('department-select');
+        const categoryCountsDiv = document.getElementById('category-counts');
+
+        // Show category counts only after a department is selected
+        departmentSelect.addEventListener('change', function() {
+            const selectedDepartment = this.value;
+            if (selectedDepartment) {
+                fetchComplaintCounts(selectedDepartment);
+            } else {
+                categoryCountsDiv.style.display = 'none';
+            }
+        });
+    });
+</script>
+

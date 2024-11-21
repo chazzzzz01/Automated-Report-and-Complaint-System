@@ -556,7 +556,7 @@
                         <td class="py-3 px-4">{{ report.type }}</td>
                         <td class="py-3 px-4">
                             {% if report.pdf_file %}
-                                <a href="{{ report.pdf_file.url }}" class="text-blue-600 hover:underline" target="_blank">Download PDF</a>
+                                <a href="{{ report.pdf_file.url }}" class="text-blue-600 hover:underline" target="_blank">View PDF</a>
                             {% else %}
                                 <span class="text-gray-500">No PDF available</span>
                             {% endif %}
@@ -566,32 +566,42 @@
                             {{ report.category }}
                         </td>
 
-                        <td class="py-3 px-4">
-                            <span class="py-1 px-3 rounded-full text-white 
-                                {% if report.status == 'Pending' %}
-                                    bg-red-500
-                                {% elif report.status == 'In Progress' %}
-                                    bg-yellow-500
-                                {% elif report.status == 'Solved' %}
-                                    bg-green-500
-                                {% endif %}">
-                                {{ report.status }}
-                            </span>
-                        </td>
+                       
+<td class="py-3 px-4">
+    <span class="py-1 px-3 rounded-full text-white 
+        {% if report.status == 'Pending' %}
+            bg-red-500
+        {% elif report.status == 'In Progress' %}
+            bg-yellow-500
+        {% elif report.status == 'In Progress - Referred' %}
+            bg-orange-500
+        {% elif report.status == 'Solved' %}
+            bg-green-500
+        {% endif %}">
+        {{ report.status }}
+    </span>
+</td>
                         <td class="py-3 px-4 urgency-{{ report.urgency|lower }}">{{ report.urgency }}</td>
                         <td class="py-3 px-4">{{ report.issue_date|date:"F j, Y" }}</td>
                         <td class="py-3 px-4">
                             <form action="{% url 'update_status' report.id %}" method="post">
                                 {% csrf_token %}
-                                <select name="status" class="p-2 border border-gray-300 rounded">
+                                <select name="status" class="p-2 border border-gray-300 rounded" onchange="this.form.submit()">
                                     <option value="Pending" {% if report.status == "Pending" %}selected{% endif %}>Pending</option>
-                                    <option value="In Progress" {% if report.status == "In Progress" %}selected{% endif %}>In Progress</option>
+                                    <option value="In Progress" {% if "In Progress" in report.status and "Referred" not in report.status %}selected{% endif %}>
+                                        In Progress
+                                    </option>
+                                    <option value="In Progress - Referred" {% if report.status == "In Progress - Referred" %}selected{% endif %}>
+                                        In Progress - Referred
+                                    </option>
                                     <option value="Solved" {% if report.status == "Solved" %}selected{% endif %}>Solved</option>
                                 </select>
                                 <input type="hidden" name="redirect_url" value="{% url 'gad_office_page' %}">
-                                <button type="submit" class="ml-2 bg-blue-500 text-white px-4 py-2 rounded">Update</button>
+                                
                             </form>
                         </td>
+                        
+                        
 
                         
                         <td class="py-3 px-4">
@@ -612,108 +622,113 @@ Respond
             </table>
         </div>
     </div>
+<!-- Complaints Table -->
+<div id="complaints-table" class="my-8">
+    <h2 class="text-2xl font-bold mb-4 text-gray-700">Complaints</h2>
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-white rounded-lg shadow-md">
+            <thead>
+                <tr class="bg-gray-800 text-white">
+                    <th class="py-3 px-4">User</th>
+                    <th class="p-3 text-left">Department</th>
+                    <th class="py-3 px-4">Office</th>
+                    <th class="py-3 px-4">Type</th>
+                    <th class="py-3 px-4">Description (PDF)</th>
+                    <th class="p-3 text-left">Label</th>
+                    <th class="py-3 px-4">Status</th>
+                    <th class="py-3 px-4">Urgency</th>
+                    <th class="py-3 px-4">Issue Date</th>
+                    <th class="py-3 px-4">Update Status</th>
+                    <th class="py-3 px-4">Action</th>
+                </tr>
+            </thead>
+            <tbody id="complaints-body">
+                {% for complaint in complaints %}
+                {% if complaint.status != "Solved" %}
+                <tr class="bg-white text-black border-b border-gray-700">
+                    <td class="p-3">
+                        <a href="javascript:void(0);" onclick="showUserInfo(
+                            '{{ complaint.informant.role }}',
+                            '{{ complaint.informant.username }}',
+                            '{{ complaint.informant.first_name }}',
+                            '{{ complaint.informant.middle_name }}',
+                            '{{ complaint.informant.last_name }}',
+                            '{{ complaint.informant.get_department_display }}',
+                            '{{ complaint.informant.contact_number }}',
+                            '{{ complaint.informant.email }}'
+                        )">
+                            {{ complaint.informant.username }}
+                        </a>
+                    </td>
 
-    <!-- Complaints Table -->
-    <div id="complaints-table" class="my-8">
-        <h2 class="text-2xl font-bold mb-4 text-gray-700">Complaints</h2>
-        <div class="overflow-x-auto">
-            <table class="bg-white text-white border-b border-gray-700">
-                <thead>
-                    <tr class="bg-gray-800 text-white">
-                        <th class="py-3 px-4">User</th>
-                        <th class="p-3 text-left">Department</th>
-                        <th class="py-3 px-4">Office</th>
-                        <th class="py-3 px-4">Type</th>
-                        <th class="py-3 px-4">Description (PDF)</th>
-                        <th class="p-3 text-left">Label</th>
-                        <th class="py-3 px-4">Status</th>
-                        <th class="py-3 px-4">Urgency</th>
-                        <th class="py-3 px-4">Issue Date</th>
-                        <th class="py-3 px-4">Update Status</th>
-                        <th class="py-3 px-4">Action</th>
-                    </tr>
-                </thead>
-                <tbody id="complaints-body">
-                    {% for complaint in complaints %}
-                    {% if complaint.status != "Solved" %}
-                    <tr class="bg-white text-black border-b border-gray-700">
-                        <td class="p-3">
-                            <a href="javascript:void(0);" onclick="showUserInfo(
-                                '{{ complaint.informant.role }}',
-                                '{{ complaint.informant.username }}',
-                                '{{ complaint.informant.first_name }}',
-                                '{{ complaint.informant.middle_name }}',
-                                '{{ complaint.informant.last_name }}',
-                                '{{ complaint.informant.get_department_display }}',
-                                '{{ complaint.informant.contact_number }}',
-                                '{{ complaint.informant.email }}'
-                            )">
-                                {{ complaint.informant.username }}
-                            </a>
-                        </td>
+                    <td class="p-3">
+                        {{ complaint.informant.department }}
+                    </td>
 
-                        
-                        <td class="p-3">
-                            {{ complaint.informant.department }}
-                        </td>
-    
-                        
-                        <td class="py-3 px-4">{{ complaint.office }}</td>
-                        <td class="py-3 px-4">{{ complaint.type }}</td>
-                        <td class="py-3 px-4">
-                            {% if complaint.pdf_file %}
-                                <a href="{{ complaint.pdf_file.url }}" class="text-blue-600 hover:underline" target="_blank">Download PDF</a>
-                            {% else %}
-                                <span class="text-gray-500">No PDF available</span>
-                            {% endif %}
-                        </td>
+                    <td class="py-3 px-4">{{ complaint.office }}</td>
+                    <td class="py-3 px-4">{{ complaint.type }}</td>
+                    <td class="py-3 px-4">
+                        {% if complaint.pdf_file %}
+                            <a href="{{ complaint.pdf_file.url }}" class="text-blue-600 hover:underline" target="_blank">View PDF</a>
+                        {% else %}
+                            <span class="text-gray-500">No PDF available</span>
+                        {% endif %}
+                    </td>
 
-                        <td class="p-3">
-                            {{ complaint.category }}
-                        </td>
+                    <td class="p-3">
+                        {{ complaint.category }}
+                    </td>
 
+                    <td class="py-3 px-4">
+                        <span class="py-1 px-3 rounded-full text-white 
+                            {% if complaint.status == 'Pending' %}
+                                bg-red-500
+                            {% elif complaint.status == 'In Progress' %}
+                                bg-yellow-500
+                            {% elif complaint.status == 'In Progress - Referred' %}
+                                bg-orange-500
+                            {% elif complaint.status == 'Solved' %}
+                                bg-green-500
+                            {% endif %}">
+                            {{ complaint.status }}
+                        </span>
+                    </td>
 
-                        <td class="py-3 px-4">
-                            <span class="py-1 px-3 rounded-full text-white 
-                                {% if complaint.status == 'Pending' %}
-                                    bg-red-500
-                                {% elif complaint.status == 'In Progress' %}
-                                    bg-yellow-500
-                                {% elif complaint.status == 'Solved' %}
-                                    bg-green-500
-                                {% endif %}">
-                                {{ complaint.status }}
-                            </span>
-                        </td>
-                        <td class="py-3 px-4 urgency-{{ complaint.urgency|lower }}">{{ complaint.urgency }}</td>
-                        <td class="py-3 px-4">{{ complaint.issue_date|date:"F j, Y" }}</td>
-                        <td class="py-3 px-4">
-                            <form action="{% url 'update_status' complaint.id %}" method="post">
-                                {% csrf_token %}
-                                <select name="status" class="p-2 border border-gray-300 rounded">
-                                    <option value="Pending" {% if complaint.status == "Pending" %}selected{% endif %}>Pending</option>
-                                    <option value="In Progress" {% if complaint.status == "In Progress" %}selected{% endif %}>In Progress</option>
-                                    <option value="Solved" {% if complaint.status == "Solved" %}selected{% endif %}>Solved</option>
-                                </select>
-                                <input type="hidden" name="redirect_url" value="{% url 'gad_office_page' %}">
-                                <button type="submit" class="ml-2 bg-blue-500 text-white px-4 py-2 rounded">Update</button>
-                            </form>
-                        </td>
-                        <td class="py-3 px-4">
-                            <button type="button" class="bg-green-500 text-white px-4 py-2 rounded respond-button" data-complaint-id="{{ complaint.id }}">Respond</button>
+                    <td class="py-3 px-4 urgency-{{ complaint.urgency|lower }}">{{ complaint.urgency }}</td>
+                    <td class="py-3 px-4">{{ complaint.issue_date|date:"F j, Y" }}</td>
 
-                            <form action="{% url 'delete_complaint' complaint.id %}" method="post" style="display:inline;">
-                                {% csrf_token %}
-                                <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">Archive</button>
-                            </form>
-                        </td>
-                    </tr>
-                    {% endif %}
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+                    <td class="py-3 px-4">
+                        <form action="{% url 'update_status' complaint.id %}" method="post">
+                            {% csrf_token %}
+                            <select name="status" class="p-2 border border-gray-300 rounded" onchange="this.form.submit()">
+                                <option value="Pending" {% if complaint.status == "Pending" %}selected{% endif %}>Pending</option>
+                                <option value="In Progress" {% if "In Progress" in complaint.status and "Referred" not in complaint.status %}selected{% endif %}>
+                                    In Progress
+                                </option>
+                                <option value="In Progress - Referred" {% if complaint.status == "In Progress - Referred" %}selected{% endif %}>
+                                    In Progress - Referred
+                                </option>
+                                <option value="Solved" {% if complaint.status == "Solved" %}selected{% endif %}>Solved</option>
+                            </select>
+                            <input type="hidden" name="redirect_url" value="{% url 'gad_office_page' %}">
+                        </form>
+                    </td>
+
+                    <td class="py-3 px-4">
+                        <button type="button" class="bg-green-500 text-white px-4 py-2 rounded respond-button" data-complaint-id="{{ complaint.id }}">Respond</button>
+
+                        <form action="{% url 'delete_complaint' complaint.id %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">Archive</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
+</div>
 
     <!-- Modal Overlay -->
 <div id="response-modal" class="fixed inset-0 bg-gray-800 bg-opacity-75 hidden flex items-center justify-center">
@@ -753,76 +768,151 @@ Respond
 
     <!-- Script -->
     <script>
-        function openModal(complaintId) {
-    console.log("Opening modal for complaint with ID:", complaintId); // Debugging statement
-    document.getElementById('complaint_id').value = complaintId;
-    document.getElementById('report_id').value = ''; // Clear report_id field if it's present
-    document.getElementById('response-modal').classList.remove('hidden');
+//         function openModal(complaintId) {
+//     console.log("Opening modal for complaint with ID:", complaintId); // Debugging statement
+//     document.getElementById('complaint_id').value = complaintId;
+//     document.getElementById('report_id').value = ''; // Clear report_id field if it's present
+//     document.getElementById('response-modal').classList.remove('hidden');
     
 
-      // Dynamically update the "View Response" link with the correct complaint_id
-        const viewResponseLink = document.getElementById('view-response-link');
-        viewResponseLink.href = `/complaints/complaint_message/${complaintId}/`;
-}
-
-function closeModal() {
-    document.getElementById('response-modal').classList.add('hidden');
-}
-
-document.querySelectorAll('.respond-button').forEach(button => {
-    button.addEventListener('click', function() {
-        const complaintId = this.getAttribute('data-complaint-id'); // Get complaint_id for both tables
-        console.log("Button clicked with complaintId:", complaintId); // Debugging statement
-        if (complaintId) {
-            openModal(complaintId);
-        } else {
-            console.error("No complaint ID found for this button."); // Debugging statement
-        }
-    });
-});
-    //    // Function to display the user info modal and populate it with data
-    //    function showUserInfo(role, username, firstName, middleName, lastName, department, contactNumber, email) {
-    //         document.getElementById('userRole').textContent = role;
-    //         document.getElementById('userUsername').textContent = username;
-    //         document.getElementById('userFirstName').textContent = firstName;
-    //         document.getElementById('userMiddleName').textContent = middleName;
-    //         document.getElementById('userLastName').textContent = lastName;
-    //         document.getElementById('userDepartment').textContent = department;
-    //         document.getElementById('userContact').textContent = contactNumber;
-    //         document.getElementById('userEmail').textContent = email;
-
-    //         // Show the modal
-    //         document.getElementById('userInfoModal').style.display = 'block';
-    //     }
-
-    //     // Function to close the user info modal
-    //     function closeUserInfo() {
-    //         document.getElementById('userInfoModal').style.display = 'none';
-    //     }
-
-//         function showComplaintMessage() {
-//     // Show the complaint message container and hide the response form
-//     document.getElementById('complaint-message-container').classList.remove('hidden');
-//     document.getElementById('response-form-container').classList.add('hidden');
-    
-//     // Highlight the active tab
-//     document.getElementById('view-complaint').classList.add('text-blue-700', 'underline');
-//     document.getElementById('respond-letter').classList.remove('text-blue-700', 'underline');
+//       // Dynamically update the "View Response" link with the correct complaint_id
+//         const viewResponseLink = document.getElementById('view-response-link');
+//         viewResponseLink.href = `/complaints/complaint_message/${complaintId}/`;
 // }
 
-function showResponseForm() {
-    // Show the response form container and hide the complaint message
-    document.getElementById('response-form-container').classList.remove('hidden');
-    document.getElementById('complaint-message-container').classList.add('hidden');
-    
-    // Highlight the active tab
-    document.getElementById('respond-letter').classList.add('text-blue-700', 'underline');
-    document.getElementById('view-complaint').classList.remove('text-blue-700', 'underline');
-}
+// function closeModal() {
+//     document.getElementById('response-modal').classList.add('hidden');
+// }
 
-function closeModal() {
-    document.getElementById('response-modal').classList.add('hidden');
-}
+// document.querySelectorAll('.respond-button').forEach(button => {
+//     button.addEventListener('click', function() {
+//         const complaintId = this.getAttribute('data-complaint-id'); // Get complaint_id for both tables
+//         console.log("Button clicked with complaintId:", complaintId); // Debugging statement
+//         if (complaintId) {
+//             openModal(complaintId);
+//         } else {
+//             console.error("No complaint ID found for this button."); // Debugging statement
+//         }
+//     });
+// });
+//     //    // Function to display the user info modal and populate it with data
+//     //    function showUserInfo(role, username, firstName, middleName, lastName, department, contactNumber, email) {
+//     //         document.getElementById('userRole').textContent = role;
+//     //         document.getElementById('userUsername').textContent = username;
+//     //         document.getElementById('userFirstName').textContent = firstName;
+//     //         document.getElementById('userMiddleName').textContent = middleName;
+//     //         document.getElementById('userLastName').textContent = lastName;
+//     //         document.getElementById('userDepartment').textContent = department;
+//     //         document.getElementById('userContact').textContent = contactNumber;
+//     //         document.getElementById('userEmail').textContent = email;
+
+//     //         // Show the modal
+//     //         document.getElementById('userInfoModal').style.display = 'block';
+//     //     }
+
+//     //     // Function to close the user info modal
+//     //     function closeUserInfo() {
+//     //         document.getElementById('userInfoModal').style.display = 'none';
+//     //     }
+
+// //         function showComplaintMessage() {
+// //     // Show the complaint message container and hide the response form
+// //     document.getElementById('complaint-message-container').classList.remove('hidden');
+// //     document.getElementById('response-form-container').classList.add('hidden');
+    
+// //     // Highlight the active tab
+// //     document.getElementById('view-complaint').classList.add('text-blue-700', 'underline');
+// //     document.getElementById('respond-letter').classList.remove('text-blue-700', 'underline');
+// // }
+
+// function showResponseForm() {
+//     // Show the response form container and hide the complaint message
+//     document.getElementById('response-form-container').classList.remove('hidden');
+//     document.getElementById('complaint-message-container').classList.add('hidden');
+    
+//     // Highlight the active tab
+//     document.getElementById('respond-letter').classList.add('text-blue-700', 'underline');
+//     document.getElementById('view-complaint').classList.remove('text-blue-700', 'underline');
+// }
+
+// function closeModal() {
+//     document.getElementById('response-modal').classList.add('hidden');
+// }
+
+
+ // Open Modal and Set Complaint ID
+ function openModal(complaintId) {
+        console.log("Opening modal for complaint with ID:", complaintId); // Debugging statement
+        document.getElementById('complaint_id').value = complaintId;
+        document.getElementById('report_id').value = ''; // Clear report_id field if it's present
+        document.getElementById('response-modal').classList.remove('hidden');
+        
+        // Dynamically update the "View Response" link with the correct complaint_id
+        const viewResponseLink = document.getElementById('view-response-link');
+        viewResponseLink.href = `/complaints/complaint_message/${complaintId}/`;
+    }
+
+    // Close Modal
+    function closeModal() {
+        document.getElementById('response-modal').classList.add('hidden');
+    }
+
+    // Respond Button Click Event
+    document.querySelectorAll('.respond-button').forEach(button => {
+        button.addEventListener('click', function() {
+            const complaintId = this.getAttribute('data-complaint-id');
+            if (complaintId) {
+                openModal(complaintId);
+            } else {
+                console.error("No complaint ID found for this button.");
+            }
+        });
+    });
+
+    // Function to show the response form
+    function showResponseForm() {
+        // Show the response form container and hide the complaint message
+        document.getElementById('response-form-container').classList.remove('hidden');
+        document.getElementById('complaint-message-container')?.classList.add('hidden');
+        
+        // Highlight the active tab
+        document.getElementById('respond-letter').classList.add('text-blue-700', 'underline');
+    }
+
+    // Prevent form submission and send data via JavaScript (AJAX/fetch)
+    document.querySelector('#response-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission (no page reload)
+
+        const form = event.target;
+        const complaintId = document.getElementById('complaint_id').value;
+        const letterContent = document.querySelector('textarea[name="letter_content"]').value;
+
+        // Debug log for form data
+        console.log('Complaint ID:', complaintId);
+        console.log('Letter Content:', letterContent);
+
+        // Perform AJAX form submission using fetch
+        fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form), // Sends form data, including CSRF token
+            headers: {
+                'X-CSRFToken': document.querySelector('[name="csrfmiddlewaretoken"]').value, // Add CSRF token to the request
+            },
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log('Form submitted successfully');
+                // Close modal and handle further success logic, if needed
+                closeModal();
+                // Optionally, show a success message or refresh part of the page if needed
+            } else {
+                console.error('Form submission failed');
+            }
+        })
+        .catch(error => {
+            console.error('Error submitting form:', error);
+        });
+    });
     </script>
 
 </body>

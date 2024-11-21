@@ -5,9 +5,9 @@
         <select id="office-select" class="w-full p-2 border rounded">
             <option value="">-- Select an Office --</option>
             <option value="GAD">GAD Office</option>
-            <option value="VP_Admin_Finance">VP Administration and Finance</option>
-            <option value="VP_Academic_Affairs">VP Academic Affairs</option>
-            <option value="VP_Students_External">VP Students and External Affairs</option>
+            <option value="AF">VP Administration and Finance</option>
+            <option value="AA">VP Academic Affairs</option>
+            <option value="SA">VP Students and External Affairs</option>
         </select>
     </div>
 
@@ -35,9 +35,9 @@
     // Define allowed categories per office
     const officeCategories = {
         "GAD": ["Sexual Harassment", "Sexual Assault", "Bullying", "Discrimination", "Abuse", "Violence", "Gender Equality", "Defamation" , "Rape"],
-        "VP_Admin_Finance": ["Financial Misconduct", "Workplace Harassment"],
-        "VP_Academic_Affairs": ["Academic Misconduct", "Plagiarism"],
-        "VP_Students_External": ["Student Misconduct", "Community Complaints"]
+        "AF": ["Scholarship Issues", "Late Fees", "Financial Aid", "Staff Payment Issues", "Billing Errors"],
+        "AA": ["Tardiness", "Always Late", "Favoritism", "Always Absent", "Unfair Grading", "Unprofessional Behavior"],
+        "SA": ["Student Misconduct", "student welfare", "Student Engagement", "Student Rights"]
     };
 
     function fetchComplaintCounts(department, selectedOffice) {

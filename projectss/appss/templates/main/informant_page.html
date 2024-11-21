@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,6 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Informant</title>
     <script src="https://cdn.tailwindcss.com"></script>
+
+   
+
+
     <style>
         .center-container {
             max-width: 100%;
@@ -13,6 +18,7 @@
         }
     </style>
 </head>
+<link rel="icon" type="image/png" sizes="32x32" href="{% static 'logo/logo.png' %}?v=1.0">
 
 <body class="bg-white font-sans">
     <header class="fixed top-0 left-0 right-0 bg-blue-900 text-white p-4 shadow-md flex items-center z-50">
@@ -44,24 +50,24 @@
      
 
     <aside id="sidebar"
-        class="fixed top-0 left-0 h-full w-64 bg-blue-800 text-white transform -translate-x-full lg:translate-x-0 lg:fixed lg:left-0 lg:top-0 lg:h-full transition-transform duration-300 z-40">
+        class="fixed top-0 left-0 h-full w-64 bg-blue-900 text-white transform -translate-x-full lg:translate-x-0 lg:fixed lg:left-0 lg:top-0 lg:h-full transition-transform duration-300 z-40">
         <div class="pt-20">
             <h2 class="text-2xl lg:text-3xl px-4 lg:px-6 text-white font-bold text-center">Welcome, {{ request.user.username }}!</h2>
             <nav class="mt-6 space-y-4 sm:space-y-6 px-4 lg:px-6 text-center">
                 <a href="#" onclick="toggleProfile()"
-                    class="text-sm lg:text-base font-bold text-white block py-2 px-2 lg:px-4 rounded hover:bg-blue-700">Profile</a>
+                    class="text-sm lg:text-base font-bold text-white block py-2 px-2 lg:px-4 rounded hover:bg-blue-800">Profile</a>
                 <a href="#" onclick="toggleSection('complaints-section')"
-                    class="text-sm lg:text-base font-bold text-white block py-2 px-2 lg:px-4 rounded hover:bg-blue-700">Lodge Report or
+                    class="text-sm lg:text-base font-bold text-white block py-2 px-2 lg:px-4 rounded hover:bg-blue-800">Lodge Report or
                     Complaint</a>
                 <a href="#" onclick="toggleSection('status-section')"
-                    class="text-sm lg:text-base font-bold text-white block py-2 px-2 lg:px-4 rounded hover:bg-blue-700">Status</a>
+                    class="text-sm lg:text-base font-bold text-white block py-2 px-2 lg:px-4 rounded hover:bg-blue-800">Status</a>
                 <a href="#" onclick="toggleSection('history-section')"
-                    class="text-sm lg:text-base font-bold text-white block py-2 px-2 lg:px-4 rounded hover:bg-blue-700">History</a>
+                    class="text-sm lg:text-base font-bold text-white block py-2 px-2 lg:px-4 rounded hover:bg-blue-800">History</a>
                 <a href="#" onclick="toggleSection('messages-section')"
-                    class="text-sm lg:text-base font-bold text-white block py-2 px-2 lg:px-4 rounded hover:bg-blue-700">Messages</a>
+                    class="text-sm lg:text-base font-bold text-white block py-2 px-2 lg:px-4 rounded hover:bg-blue-800">Messages</a>
                 
                     <a href="{% url 'home' %}"
-                    class="text-sm lg:text-base font-bold text-white block py-2 px-2 lg:px-4 rounded hover:bg-blue-700">Logout</a>
+                    class="text-sm lg:text-base font-bold text-white block py-2 px-2 lg:px-4 rounded hover:bg-blue-800">Logout</a>
                 </form>
             </nav>
         </div>

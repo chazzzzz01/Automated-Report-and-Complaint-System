@@ -194,6 +194,7 @@ class Complaint(models.Model):
         ('VP Students and External Affairs', 'VP Students and External Affairs'),
         ('GAD Office', 'GAD Office'),
     ]
+    
     CATEGORY_CHOICES = [
     ('sexual_harassment', 'Sexual Harassment'),
     ('sexual_assault', 'Sexual Assault'),
@@ -202,7 +203,37 @@ class Complaint(models.Model):
     ('abuse', 'Abuse'),
     ('violence', 'Violence'),
     ('gender_equality', 'Gender Equality'),
+     ('defamation', 'Defamation'),
     ('rape', 'Rape'),
+
+    # Financial Issues
+    ('financial_issues', 'Financial Issues'),
+    ('scholarship_issues', 'Scholarship Issues'),
+    ('late_fees', 'Late Fees'),
+    ('financial_aid', 'Financial Aid'),
+    ('staff_payment_issues', 'Staff Payment Issues'),
+    ('billing_errors', 'Billing Errors'),
+
+    # Staff and Academic Concerns
+    ('staff_academic_concerns', 'Staff and Academic Concerns'),
+    ('tardiness', 'Tardiness'),
+    ('always_late', 'Always Late'),
+    ('favoritism', 'Favoritism'),
+    ('always_absent', 'Always Absent'),
+    ('unfair_grading', 'Unfair Grading'),
+    ('unprofessional_behavior', 'Unprofessional Behavior'),
+
+    # Student-Related Issues
+    ('student_related_issues', 'Student-Related Issues'),
+    ('student_misconduct', 'Student Misconduct'),
+    ('student_welfare', 'Student Welfare'),
+    ('student_engagement', 'Student Engagement'),
+    ('student_rights', 'Student Rights'),
+   
+   
+
+
+   
    
 
 ]
@@ -341,7 +372,33 @@ CATEGORY_CHOICES = [
     ('abuse', 'Abuse'),
     ('violence', 'Violence'),
     ('gender_equality', 'Gender Equality'),
+     ('defamation', 'Defamation'),
     ('rape', 'Rape'),
+
+    # Financial Issues
+    ('financial_issues', 'Financial Issues'),
+    ('scholarship_issues', 'Scholarship Issues'),
+    ('late_fees', 'Late Fees'),
+    ('financial_aid', 'Financial Aid'),
+    ('staff_payment_issues', 'Staff Payment Issues'),
+    ('billing_errors', 'Billing Errors'),
+
+    # Staff and Academic Concerns
+    ('staff_academic_concerns', 'Staff and Academic Concerns'),
+    ('tardiness', 'Tardiness'),
+    ('always_late', 'Always Late'),
+    ('favoritism', 'Favoritism'),
+    ('always_absent', 'Always Absent'),
+    ('unfair_grading', 'Unfair Grading'),
+    ('unprofessional_behavior', 'Unprofessional Behavior'),
+
+    # Student-Related Issues
+    ('student_related_issues', 'Student-Related Issues'),
+    ('student_misconduct', 'Student Misconduct'),
+    ('student_welfare', 'Student Welfare'),
+    ('student_engagement', 'Student Engagement'),
+    ('student_rights', 'Student Rights'),
+   
    
 
 ]
@@ -350,7 +407,7 @@ CATEGORY_CHOICES = [
 class Incident(models.Model):
     office = models.CharField(max_length=3, choices=OFFICE_CHOICES)
     department = models.CharField(max_length=4, choices=DEPARTMENT_CHOICES)
-    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
+    category = models.CharField(max_length=25, choices=CATEGORY_CHOICES)
     incident_content = models.TextField()
 
     def __str__(self):

@@ -136,7 +136,7 @@
                         </form>
                     </td>
                     <td class="p-3">{{ complaint.issue_date|date:"F j, Y" }}</td>
-                    <td class="p-3">
+                    <!-- <td class="p-3">
                         <form action="{% url 'update_status' complaint.id %}" method="post">
                             {% csrf_token %}
                             <select name="status" class="border p-2 rounded bg-white text-black" onchange="this.form.submit()">
@@ -145,7 +145,25 @@
                                 <option value="Solved" {% if complaint.status == "Solved" %}selected{% endif %}>Solved</option>
                             </select>
                         </form>
+                    </td> -->
+
+                    <td class="p-3">
+                        <form action="{% url 'update_status' complaint.id %}" method="post">
+                            {% csrf_token %}
+                            <select name="status" class="border p-2 rounded bg-white text-black" onchange="this.form.submit()">
+                                <option value="Pending" {% if complaint.status == "Pending" %}selected{% endif %}>Pending</option>
+                                <option value="In Progress" {% if "In Progress" in complaint.status and "Referred" not in complaint.status %}selected{% endif %}>
+                                    In Progress
+                                </option>
+                                <option value="In Progress - Referred" {% if complaint.status == "In Progress - Referred" %}selected{% endif %}>
+                                    In Progress - Referred
+                                </option>
+                                <option value="Solved" {% if complaint.status == "Solved" %}selected{% endif %}>Solved</option>
+                            </select>
+                        </form>
                     </td>
+                    
+                    
                     <td class="p-3">
                         <form action="{% url 'send_complaint' complaint.id %}" method="post" class="inline-block send-form">
                             {% csrf_token %}
@@ -267,7 +285,7 @@
                         </form>
                     </td>
                     <td class="p-3">{{ complaint.issue_date|date:"F j, Y" }}</td>
-                    <td class="p-3">
+                    <!-- <td class="p-3">
                         <form action="{% url 'update_status' complaint.id %}" method="post">
                             {% csrf_token %}
                             <select name="status" class="border p-2 rounded bg-white text-black" onchange="this.form.submit()">
@@ -276,7 +294,25 @@
                                 <option value="Solved" {% if complaint.status == "Solved" %}selected{% endif %}>Solved</option>
                             </select>
                         </form>
+                    </td> -->
+
+                    <td class="p-3">
+                        <form action="{% url 'update_status' complaint.id %}" method="post">
+                            {% csrf_token %}
+                            <select name="status" class="border p-2 rounded bg-white text-black" onchange="this.form.submit()">
+                                <option value="Pending" {% if complaint.status == "Pending" %}selected{% endif %}>Pending</option>
+                                <option value="In Progress" {% if "In Progress" in complaint.status and "Referred" not in complaint.status %}selected{% endif %}>
+                                    In Progress
+                                </option>
+                                <option value="In Progress - Referred" {% if complaint.status == "In Progress - Referred" %}selected{% endif %}>
+                                    In Progress - Referred
+                                </option>
+                                <option value="Solved" {% if complaint.status == "Solved" %}selected{% endif %}>Solved</option>
+                            </select>
+                        </form>
                     </td>
+                    
+                    
                     <td class="p-3">
                         <form action="{% url 'send_complaint' complaint.id %}" method="post" class="inline-block send-form">
                             {% csrf_token %}

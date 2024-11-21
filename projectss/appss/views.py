@@ -1228,10 +1228,12 @@ def complaint_report(request):
 from django.http import JsonResponse
 from django.shortcuts import render
 from .models import Complaint  # Ensure Complaint is imported
-from .forms import IncidentFilterForm
+from .forms import Incident
 
 def incident_filter(request):
     return render(request, 'legal/legal_history.html')
+
+
 
 def complaint_counts(request):
     office = request.GET.get('office')
@@ -1250,7 +1252,14 @@ def complaint_counts(request):
 
     # Count complaints based on specific categories
     category_counts = {}
-    categories = ['Sexual Harassment', 'Sexual Assault', 'Bullying', 'Discrimination', 'Abuse', 'Violence', 'Gender Equality', 'Defamation', 'Rape']  # Add your categories here
+    categories = [
+    'Sexual Harassment', 'Sexual Assault', 'Bullying', 'Discrimination', 
+    'Abuse', 'Violence', 'Gender Equality', 'Defamation', 'Rape', 
+    'Scholarship Issues', 'Late Fees', 'Financial Aid', 'Staff Payment Issues', 'Billing Errors', 
+    'Tardiness', 'Always Late', 'Favoritism', 'Always Absent', 'Unfair Grading', 'Unprofessional Behavior', 
+    'Student Misconduct', 'Student Welfare', 'Student Engagement', 'Student Rights'
+]
+
     for category in categories:
         category_count = complaints.filter(category=category).count()
         category_counts[category] = category_count
