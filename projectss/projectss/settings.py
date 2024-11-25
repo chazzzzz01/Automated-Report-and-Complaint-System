@@ -167,6 +167,9 @@ AUTHENTICATION_BACKENDS = [
     
 ]
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_COOKIE_AGE = 3600  # 1 hour
+
 AUTH_USER_MODEL = 'appss.Informant' 
 
 

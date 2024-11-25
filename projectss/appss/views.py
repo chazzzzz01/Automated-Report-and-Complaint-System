@@ -138,34 +138,80 @@ def create_informant(request):
 
 
 
+# from django.contrib.auth import authenticate, login
+# from django.contrib import messages
+# from django.shortcuts import redirect, render
+
+# def login_view(request):
+#     if request.method == 'POST':
+#         # Get the username and password from the login form
+#         username = request.POST.get('login_username')
+#         password = request.POST.get('login_password')
+
+#         # Authenticate the informant using the custom Informant model
+#         informant = authenticate(request, username=username, password=password)
+
+#         if informant:
+#             request.session.flush()
+#             login(request, informant)
+#             request.session['informant_id'] = informant.id
+#             messages.success(request, 'Login successful!')
+
+#             # Redirect only to the informant page
+#             return redirect('informant_page')
+#         else:
+#             # If authentication fails, show an error message
+#             messages.error(request, 'Invalid username or password.')
+    
+#     # Render the login page
+#     return render(request, 'main/login.html')
+
+
+
+
+
+
+
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.shortcuts import redirect, render
 
 def login_view(request):
+    """
+    Handles login for informants and preserves their session data.
+    """
     if request.method == 'POST':
         # Get the username and password from the login form
         username = request.POST.get('login_username')
         password = request.POST.get('login_password')
 
-        # Authenticate the informant using the custom Informant model
+        # Authenticate the informant
         informant = authenticate(request, username=username, password=password)
 
         if informant:
-            request.session.flush()
+            # Remove office admin session data if present
+            if 'office_admin_username' in request.session:
+                del request.session['office_admin_username']
+            if 'office_admin_id' in request.session:
+                del request.session['office_admin_id']
+
+            # Log in the informant
             login(request, informant)
+
+            # Preserve the informant's session data
             request.session['informant_id'] = informant.id
+
+            # Success message
             messages.success(request, 'Login successful!')
 
-            # Redirect only to the informant page
+            # Redirect to the informant page
             return redirect('informant_page')
         else:
-            # If authentication fails, show an error message
+            # Authentication failed
             messages.error(request, 'Invalid username or password.')
-    
+
     # Render the login page
     return render(request, 'main/login.html')
-
 
 
 from django.contrib.auth import authenticate, login
@@ -196,39 +242,111 @@ def legal_office_login_view(request):
     
     return render(request, 'main/login_legal.html')
 
-# Office Admin Login View
+
+
+
+
+
+
+
+
+# # Office Admin Login View
+# def office_admin_login_view(request):
+#     if request.method == 'POST':
+#         username = request.POST.get('login_username')
+#         password = request.POST.get('login_password')
+
+#         informant = authenticate(request, username=username, password=password)
+
+#         if informant:
+#             request.session.flush()
+#             login(request, informant)
+#             request.session['informant_id'] = informant.id
+#             messages.success(request, 'Login successful!')
+
+#             # Redirect based on office admin roles
+#             if informant.is_staff:
+#                 if informant.username == 'GADAdmin':
+#                     return redirect('gad_office_page')
+#                 elif informant.username == 'vp_admin_finance':
+#                     return redirect('admin_finance_page')
+#                 elif informant.username == 'vp_academic_affairs':
+#                     return redirect('academic_affairs_page')
+#                 elif informant.username == 'vp_students_affairs':
+#                     return redirect('students_affairs_page')
+#             else:
+#                 messages.error(request, 'You do not have permission to access this area.')
+#         else:
+#             messages.error(request, 'Invalid username or password.')
+    
+#     return render(request, 'main/login_offices.html')
+
+
+
+
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
+from django.contrib.auth.models import User
+
 def office_admin_login_view(request):
+    """
+    Handles office admin login while ensuring the informant's username is not overwritten by office account login.
+    """
     if request.method == 'POST':
+        # Get username and password from the POST request
         username = request.POST.get('login_username')
         password = request.POST.get('login_password')
 
-        informant = authenticate(request, username=username, password=password)
+        # Authenticate the office admin (user)
+        user = authenticate(request, username=username, password=password)
 
-        if informant:
-            request.session.flush()
-            login(request, informant)
-            request.session['informant_id'] = informant.id
-            messages.success(request, 'Login successful!')
+        if user:
+            # Ensure the user is an office admin
+            if user.is_staff:
+                # Clear the previous session (avoid conflicts)
+                request.session.flush()
 
-            # Redirect based on office admin roles
-            if informant.is_staff:
-                if informant.username == 'GADAdmin':
+                # Log the office admin in
+                login(request, user)
+
+                # Store session data for office admin login
+                request.session['office_admin_username'] = user.username
+                request.session['office_admin_id'] = user.id
+
+                # You can choose to preserve the informant session separately
+                # Avoid overwriting the informant's data
+                if 'informant_id' not in request.session:
+                    # If this is the first time logging in, store the informant's details (if not already stored)
+                    # You can adjust this based on your business logic if the informant needs to stay fixed.
+                    request.session['informant_id'] = user.id  # Assuming the informant and user are the same at login time
+
+                messages.success(request, 'Login successful!')
+
+                # Redirect based on the office admin's role
+                if user.username == 'GADAdmin':
                     return redirect('gad_office_page')
-                elif informant.username == 'vp_admin_finance':
+                elif user.username == 'vp_admin_finance':
                     return redirect('admin_finance_page')
-                elif informant.username == 'vp_academic_affairs':
+                elif user.username == 'vp_academic_affairs':
                     return redirect('academic_affairs_page')
-                elif informant.username == 'vp_students_affairs':
+                elif user.username == 'vp_students_affairs':
                     return redirect('students_affairs_page')
+                else:
+                    # For unrecognized office admin roles
+                    messages.error(request, 'Unauthorized role.')
+                    return redirect('login_offices')
             else:
+                # Handle non-office admin users
                 messages.error(request, 'You do not have permission to access this area.')
+                return redirect('login_offices')
         else:
+            # Invalid login credentials
             messages.error(request, 'Invalid username or password.')
-    
+            return redirect('login_offices')
+
+    # Render login page for GET request
     return render(request, 'main/login_offices.html')
-
-
-
 
 
 
